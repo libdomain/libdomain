@@ -78,6 +78,3 @@ compile_commands.json
 # Build directory
 build/
 
-# Documentation directory
-docs/
-
