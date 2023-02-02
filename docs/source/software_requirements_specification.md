@@ -24,6 +24,12 @@ Table of Contents
   * 2.6 [User Documentation](#26-user-documentation)
   * 2.7 [Assumptions and Dependencies](#27-assumptions-and-dependencies)
 * 3 [Requirements](#3-requirements)
+  * 3.1 [External interface requirements](#31-external-interface-requirements)
+    * 3.1.1 [Hardware interface requirements](#311-hardware-interface-requirements)
+    * 3.1.2 [Software interface requirements](#312-software-interface-requirements)
+    * 3.1.3 [Communication interface requirements](#313-communication-interface-requirements)
+  * 3.2 [Functional Requirements](#32-functional-requirements)
+  * 3.3 [Quality of Service](#33-quality-of-service)
 * 4 [Verification](#4-verification)
 * 5 [Appendixes](#5-appendixes)
 
@@ -107,6 +113,28 @@ Set of documentation will be developed alongside with source code in restructure
 ### 2.7 Assumptions and Dependencies
 
 ## 3. Requirements
+
+### 3.1 External Interface Requirements
+This section and subsequent subsections provide detailed description of all inputs into and outputs from the software. 
+This section and subsections should include both content and format as follows:
+* Name of item
+* Description of purpose
+* Source of input or destination of output
+* Valid range, accuracy, and/or tolerance
+* Units of measure
+* Timing
+* Relationships to other inputs/outputs
+* Data formats
+* Command formats
+* End messages
+These requirements may be organized in the following subsections.
+
+#### 3.1.1 Hardware Interface Requirements
+#### 3.1.2 Software Interface Requirements
+#### 3.1.3 Communication Interface Requirements
+
+## 3.2 Functional Requirements
+## 3.3 Quality of Service
 
 ## 4. Verification
 
