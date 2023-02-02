@@ -48,9 +48,11 @@ This specification is organized into following sections:
 ### 1.2 Product Scope
 
 ### 1.3 Definitions, Acronyms and Abbreviations
-| Acronym or Abbreviation | Full description                    |
-| ----------------------- | ----------------------------------- |
-| SRS                     | Software specification requirements |
+| Acronym or Abbreviation | Full description                      |
+| ----------------------- | ------------------------------------- |
+| SRS                     | Software specification requirements   |
+| LDAP                    | Lightweight directory access protocol |
+| LDIF                    | The LDAP Data Interchange Format      |
 
 ### 1.4 References
 
