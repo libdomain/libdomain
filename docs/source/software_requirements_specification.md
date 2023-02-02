@@ -16,6 +16,13 @@ Table of Contents
   * 1.4 [References](#14-references)
   * 1.5 [Document Overview](#15-document-overview)
 * 2 [Product Overview](#2-product-overview)
+  * 2.1 [Product Perspective](#21-product-perspective)
+  * 2.2 [Product Functions](#22-product-functions)
+  * 2.3 [User Classes and Characteristics](#23-user-classes-and-characteristics)
+  * 2.4 [Operating Environment](#24-operating-environment)
+  * 2.5 [Design and Implementation Constraints](#25-design-and-implementation-constraints)
+  * 2.6 [User Documentation](#26-user-documentation)
+  * 2.7 [Assumptions and Dependencies](#27-assumptions-and-dependencies)
 * 3 [Requirements](#3-requirements)
 * 4 [Verification](#4-verification)
 * 5 [Appendixes](#5-appendixes)
@@ -70,6 +77,31 @@ List of additional RFCs for LDAP:
 [RFC5020](https://www.rfc-editor.org/rfc/rfc5020.txt): entryDN Operational Attribute
 
 ## 2. Product Overview
+
+### 2.1 Product Perspective
+### 2.2 Product Functions
+Main features, which are offered by the library:
+    * Manage LDAP entries: add, update, replace, delete.
+    * Loading object and class schemas from LDAP service or from local source.
+    * Searching objects by submitting search queries.
+    * Creating or modifying objects by providing changes in LDIF format.
+    * Multiple connection strategies: sync, async, mock sync, mock async.
+    * Additional abstraction layer to create LDAP objects and attributes and perform their verification.
+
+### 2.3 User Classes and Characteristics
+Target users are software developers.
+
+### 2.4 Operating Environment
+
+### 2.5 Design and Implementation Constraints
+List of design and implementation constraints:
+    * Library must be implmented using C programming language.
+
+### 2.6 User Documentation
+Documentation for end users will be made available from project site. README.md file will contain link to the documentation page.
+Set of documentation will be developed alongside with source code in restructuredtext and markdown formats.
+
+### 2.7 Assumptions and Dependencies
 
 ## 3. Requirements
 
