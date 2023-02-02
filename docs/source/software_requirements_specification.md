@@ -57,38 +57,38 @@ This specification is organized into following sections:
 ### 1.4 References
 
 List of core RFCs for LDAP:
-[RFC4510](https://www.rfc-editor.org/rfc/rfc4510.txt): Technical Specification Road Map
-[RFC4511](https://www.rfc-editor.org/rfc/rfc4511.txt): The Protocol
-[RFC4512](https://www.rfc-editor.org/rfc/rfc4512.txt): Directory Information Models
-[RFC4513](https://www.rfc-editor.org/rfc/rfc4513.txt): Authentication Methods and Security Mechanisms
-[RFC4514](https://www.rfc-editor.org/rfc/rfc4514.txt): String Representation of Distinguished Names
-[RFC4515](https://www.rfc-editor.org/rfc/rfc4515.txt): String Representation of Search Filters
-[RFC4516](https://www.rfc-editor.org/rfc/rfc4516.txt): Uniform Resource Locator
-[RFC4517](https://www.rfc-editor.org/rfc/rfc4517.txt): Syntaxes and Matching Rules
-[RFC4518](https://www.rfc-editor.org/rfc/rfc4518.txt): Internationalized String Preparation
-[RFC4519](https://www.rfc-editor.org/rfc/rfc4519.txt): Schema for User Applications
+* [RFC4510](https://www.rfc-editor.org/rfc/rfc4510.txt): Technical Specification Road Map
+* [RFC4511](https://www.rfc-editor.org/rfc/rfc4511.txt): The Protocol
+* [RFC4512](https://www.rfc-editor.org/rfc/rfc4512.txt): Directory Information Models
+* [RFC4513](https://www.rfc-editor.org/rfc/rfc4513.txt): Authentication Methods and Security Mechanisms
+* [RFC4514](https://www.rfc-editor.org/rfc/rfc4514.txt): String Representation of Distinguished Names
+* [RFC4515](https://www.rfc-editor.org/rfc/rfc4515.txt): String Representation of Search Filters
+* [RFC4516](https://www.rfc-editor.org/rfc/rfc4516.txt): Uniform Resource Locator
+* [RFC4517](https://www.rfc-editor.org/rfc/rfc4517.txt): Syntaxes and Matching Rules
+* [RFC4518](https://www.rfc-editor.org/rfc/rfc4518.txt): Internationalized String Preparation
+* [RFC4519](https://www.rfc-editor.org/rfc/rfc4519.txt): Schema for User Applications
 
 List of additional RFCs for LDAP:
-[RFC2696](https://www.rfc-editor.org/rfc/rfc2696.txt): LDAP Control Extension for Simple Paged Results Manipulation
-[RFC2849](https://www.rfc-editor.org/rfc/rfc2849.txt): The LDAP Data Interchange Format (LDIF) - Technical Specification
-[RFC3045](https://www.rfc-editor.org/rfc/rfc3045.txt): Storing Vendor Information in the LDAP root DSE
-[RFC3062](https://www.rfc-editor.org/rfc/rfc3062.txt): LDAP Password Modify Extended Operation
-[RFC4525](https://www.rfc-editor.org/rfc/rfc4525.txt): Modify-Increment Extension
-[RFC4530](https://www.rfc-editor.org/rfc/rfc4530.txt): entryUUID Operational Attribute
-[RFC4532](https://www.rfc-editor.org/rfc/rfc4532.txt): "Who am I?" Operation
-[RFC5020](https://www.rfc-editor.org/rfc/rfc5020.txt): entryDN Operational Attribute
+* [RFC2696](https://www.rfc-editor.org/rfc/rfc2696.txt): LDAP Control Extension for Simple Paged Results Manipulation
+* [RFC2849](https://www.rfc-editor.org/rfc/rfc2849.txt): The LDAP Data Interchange Format (LDIF) - Technical Specification
+* [RFC3045](https://www.rfc-editor.org/rfc/rfc3045.txt): Storing Vendor Information in the LDAP root DSE
+* [RFC3062](https://www.rfc-editor.org/rfc/rfc3062.txt): LDAP Password Modify Extended Operation
+* [RFC4525](https://www.rfc-editor.org/rfc/rfc4525.txt): Modify-Increment Extension
+* [RFC4530](https://www.rfc-editor.org/rfc/rfc4530.txt): entryUUID Operational Attribute
+* [RFC4532](https://www.rfc-editor.org/rfc/rfc4532.txt): "Who am I?" Operation
+* [RFC5020](https://www.rfc-editor.org/rfc/rfc5020.txt): entryDN Operational Attribute
 
 ## 2. Product Overview
 
 ### 2.1 Product Perspective
 ### 2.2 Product Functions
 Main features, which are offered by the library:
-    * Manage LDAP entries: add, update, replace, delete.
-    * Loading object and class schemas from LDAP service or from local source.
-    * Searching objects by submitting search queries.
-    * Creating or modifying objects by providing changes in LDIF format.
-    * Multiple connection strategies: sync, async, mock sync, mock async.
-    * Additional abstraction layer to create LDAP objects and attributes and perform their verification.
+* Manage LDAP entries: add, update, replace, delete.
+* Loading object and class schemas from LDAP service or from local source.
+* Searching objects by submitting search queries.
+* Creating or modifying objects by providing changes in LDIF format.
+* Multiple connection strategies: sync, async, mock sync, mock async.
+* Additional abstraction layer to create LDAP objects and attributes and perform their verification.
 
 ### 2.3 User Classes and Characteristics
 Target users are software developers.
@@ -97,8 +97,8 @@ Target users are software developers.
 
 ### 2.5 Design and Implementation Constraints
 List of design and implementation constraints:
-    * Library must be implmented using C programming language.
-    * Library must utilize CMake as build system.
+* Library must be implmented using C programming language.
+* Library must utilize CMake as build system.
 
 ### 2.6 User Documentation
 Documentation for end users will be made available from project site. README.md file will contain link to the documentation page.
