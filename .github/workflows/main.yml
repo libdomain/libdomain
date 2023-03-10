@@ -25,3 +25,6 @@ jobs:
       os: ${{ matrix.os }}
       architecture: ${{ matrix.architecture }}
     secrets: inherit
+
+  spellcheck:
+    uses: ./.github/workflows/spellcheck.yml
