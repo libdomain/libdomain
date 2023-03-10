@@ -1,0 +1,27 @@
+name: Build, Spellcheck
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    types: [ opened, synchronize, ready_for_review ]
+
+concurrency:
+  # New commit on master branch cancels currently running workflows of this branch
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ "alt:sisyphus", "alt:p10" ]
+        architecture: [ amd64, i386 ]
+      fail-fast: false
+    uses: ./.github/workflows/build.yml
+    with:
+      os: ${{ matrix.os }}
+      architecture: ${{ matrix.architecture }}
+    secrets: inherit
