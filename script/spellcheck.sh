@@ -7,5 +7,5 @@ CODESPELL_SRC=${@:-".github/pull_request_template.md .github/ISSUE_TEMPLATE/bug_
 # Using option -f to check file names.
 # Using option -i to disable interactivity.
 # Builtin option takes a list of dictionaries to use.
-codespell -c -f -i 0 --builtin clear,rare,informal,usage,code,names $CODESPELL_SRC
+codespell -c -f -I .codespell-ignore-words -i 0 --builtin clear,rare,informal,usage,code,names $CODESPELL_SRC
 
