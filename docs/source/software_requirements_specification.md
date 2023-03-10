@@ -103,7 +103,7 @@ Target users are software developers.
 
 ### 2.5 Design and Implementation Constraints
 List of design and implementation constraints:
-* Library must be implmented using C programming language.
+* Library must be implemented using C programming language.
 * Library must utilize CMake as build system.
 
 ### 2.6 User Documentation
