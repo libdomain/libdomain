@@ -10,5 +10,8 @@ RUN apt-get update \
     && apt-get install -y \
     openldap-servers
 
-# Code file to execute when the docker container starts up (`build.sh`)
+# Copy entry point
+COPY start-ldap.sh /build.sh
+
+# Code file to execute when the docker container starts up (`start-ldap.sh`)
 ENTRYPOINT ["/start-ldap.sh"]
