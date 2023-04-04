@@ -1,8 +1,6 @@
 services:
   openldap:
-    build:
-      context: openldap-container
-      target: builder
+    build: openldap-container
     container_name: openldap-server
     environment:
       PORT: 3890
