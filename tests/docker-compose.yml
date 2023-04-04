@@ -1,0 +1,11 @@
+services:
+  openldap:
+    build:
+      context: openldap-container
+      target: builder
+    container_name: openldap-server
+    environment:
+      PORT: 3890
+    ports:
+      - '3890:3890'
+    restart: "no"
