@@ -15,4 +15,9 @@ macro(add_libdomain_library name)
 
 endmacro(add_libdomain_library)
 
+find_package(LibEvent REQUIRED)
+find_package(Ldap REQUIRED)
+
 add_libdomain_library(domain SHARED main.c)
+
+target_link_libraries(domain LibEvent::LibEvent)
