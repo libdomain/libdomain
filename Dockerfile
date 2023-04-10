@@ -25,6 +25,8 @@ RUN apt-get update \
     rpm-macros-cmake \
     cmake-modules \
     gcc \
+    libldap-devel \
+    libevent-devel \
     doxygen \
     sudo \
     && export CURRENT_PWD=`pwd` \

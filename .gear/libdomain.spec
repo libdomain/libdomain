@@ -14,6 +14,9 @@ BuildRequires: rpm-macros-cmake
 BuildRequires: cmake-modules
 BuildRequires: gcc
 
+BuildRequires: libldap-devel
+BuildRequires: libevent-devel
+
 BuildRequires: doxygen
 
 Source0: %name-%version.tar
