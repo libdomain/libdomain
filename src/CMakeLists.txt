@@ -15,4 +15,17 @@ macro(add_libdomain_library name)
 
 endmacro(add_libdomain_library)
 
-add_libdomain_library(domain SHARED main.c)
+set(PROJECT_SOURCES
+    common.h
+    connection.c
+    connection.h
+    connection_state_machine.c
+    connection_state_machine.h
+    directory.c
+    directory.h
+    entry.c
+    entry.h
+    main.c
+)
+
+add_libdomain_library(domain SHARED ${PROJECT_SOURCES})
