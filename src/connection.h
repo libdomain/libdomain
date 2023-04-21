@@ -26,13 +26,41 @@
 
 #include "common.h"
 
+typedef struct ldap_sasl_options_t
+{
+    char *mechanism;
+
+    const char *passwd;
+
+    int sasl_nocanon;
+    short sasl_flags;
+    char *sasl_secprops;
+} ldap_sasl_options_t;
+
+typedef struct ldap_sasl_defaults_t
+{
+    short flags;
+    char *mechanism;
+
+    char *realm;
+    char *authcid;
+    char *authzid;
+
+    char *passwd;
+} ldap_sasl_defaults_t;
+
 struct ldap_connection_config_t
 {
     const char *server;
     int port;
+
+    int protocol_verion;
+
     bool chase_referrals;
-    bool start_tls;
-    bool sasl;
+    bool use_start_tls;
+    bool use_sasl;
+
+    struct ldap_sasl_options_t *sasl_options;
 } ldap_connection_config_t;
 
 struct ldap_connection_ctx_t
@@ -50,6 +78,8 @@ struct ldap_connection_ctx_t
     struct event *write_event;
 
     int current_msgid;
+
+    struct ldap_sasl_defaults_t *ldap_defaults;
 } ldap_connection_ctx_t;
 
 enum OperationReturnCode connection_configure(struct ldap_global_context_t *global_ctx,
@@ -58,5 +88,9 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 enum OperationReturnCode connection_start_tls(struct ldap_connection_ctx_t *connection);
 enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *connection);
 enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *connection);
+
+// Operation handlers.
+void connection_on_read(evutil_socket_t fd, short flags, void *arg);
+void connection_on_write(evutil_socket_t fd, short flags, void *arg);
 
 #endif //LIBDOMAIN_CONNECTION_H
