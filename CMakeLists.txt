@@ -19,4 +19,14 @@ else()
     message(FATAL_ERROR "System not UNIX - not implemented yet")
 endif()
 
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+
+include(FindLibEvent)
+include(FindLdap)
+
 add_subdirectory(src)
+
+option(LIBDOMAIN_BUILD_TESTS "Build libdomain tests." OFF)
+
+enable_testing()
+add_subdirectory(tests)

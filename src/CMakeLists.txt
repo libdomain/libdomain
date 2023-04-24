@@ -29,3 +29,6 @@ set(PROJECT_SOURCES
 )
 
 add_libdomain_library(domain SHARED ${PROJECT_SOURCES})
+set_target_properties(domain PROPERTIES
+    INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}
+)
