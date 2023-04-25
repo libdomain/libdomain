@@ -32,7 +32,7 @@ typedef struct ldap_sasl_options_t
 
     const char *passwd;
 
-    int sasl_nocanon;
+    bool sasl_nocanon;
     short sasl_flags;
     char *sasl_secprops;
 } ldap_sasl_options_t;
@@ -88,6 +88,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 enum OperationReturnCode connection_start_tls(struct ldap_connection_ctx_t *connection);
 enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *connection);
 enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *connection);
+enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connection);
 
 // Operation handlers.
 void connection_on_read(evutil_socket_t fd, short flags, void *arg);

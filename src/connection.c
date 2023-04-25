@@ -69,6 +69,9 @@ const char* ldap_option2string(int option)
             error_exit; \
     } \
 
+#define set_bool_option(ldap, option, value) \
+    set_ldap_option(ldap, option, value ? LDAP_OPT_ON : LDAP_OPT_OFF); \
+
 #define get_ldap_option(ldap, option, value) \
     rc = ldap_get_option(ldap, option, value); \
     if (rc != LDAP_OPT_SUCCESS) \
@@ -78,6 +81,13 @@ const char* ldap_option2string(int option)
             error_exit; \
     } \
 
+/*!
+ * \brief connection_configure
+ * \param global_ctx
+ * \param connection
+ * \param config
+ * \return
+ */
 enum OperationReturnCode connection_configure(struct ldap_global_context_t *global_ctx,
                                               struct ldap_connection_ctx_t *connection,
                                               struct ldap_connection_config_t *config)
@@ -97,17 +107,17 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
     set_ldap_option(connection->ldap, LDAP_OPT_PROTOCOL_VERSION, &config->protocol_verion);
 
-    set_ldap_option(connection->ldap, LDAP_OPT_REFERRALS, &config->chase_referrals);
+    set_bool_option(connection->ldap, LDAP_OPT_REFERRALS, config->chase_referrals);
 
     set_ldap_option(connection->ldap, LDAP_OPT_CONNECT_ASYNC, LDAP_OPT_ON);
 
     if (config->use_sasl)
     {
-        set_ldap_option(connection->ldap, LDAP_OPT_X_SASL_NOCANON, &config->sasl_options->sasl_nocanon);
-        set_ldap_option(connection->ldap, LDAP_OPT_X_SASL_SECPROPS, &config->sasl_options->sasl_secprops);
+        set_bool_option(connection->ldap, LDAP_OPT_X_SASL_NOCANON, config->sasl_options->sasl_nocanon);
+        set_ldap_option(connection->ldap, LDAP_OPT_X_SASL_SECPROPS, config->sasl_options->sasl_secprops);
 
-        // TODO: Allocate memory for connection->sasl_defaults.
-        // We may non need whole sasl_defaults here.
+        connection->ldap_defaults = talloc(global_ctx->talloc_ctx, struct ldap_sasl_defaults_t);
+
         get_ldap_option(connection->ldap, LDAP_OPT_X_SASL_REALM, &connection->ldap_defaults->realm);
         get_ldap_option(connection->ldap, LDAP_OPT_X_SASL_AUTHCID, &connection->ldap_defaults->authcid);
         get_ldap_option(connection->ldap, LDAP_OPT_X_SASL_AUTHZID, &connection->ldap_defaults->authzid);
@@ -119,6 +129,14 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
     if (config->use_start_tls)
     {
         // TODO: Implement.
+    }
+
+    connection->base = event_base_new();
+    if (!connection->base)
+    {
+        error("Unable to create event base!");
+        goto
+          error_exit;
     }
 
     return RETURN_CODE_SUCCESS;
@@ -181,6 +199,7 @@ enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *conn
     if (connection_install_handlers(connection) != RETURN_CODE_SUCCESS)
     {
         error("Unable to install event handlers.");
+        ldap_unbind_ext_s(connection->ldap, NULL, NULL);
         return RETURN_CODE_FAILURE;
     }
     // TODO: Install bind message handlers.
@@ -202,7 +221,12 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
         return RETURN_CODE_FAILURE;
     }
 
-    connection_install_handlers(connection);
+    if (connection_install_handlers(connection) != RETURN_CODE_SUCCESS)
+    {
+        error("Unable to install event handlers.");
+        ldap_unbind_ext_s(connection->ldap, NULL, NULL);
+        return RETURN_CODE_FAILURE;
+    }
     // TODO: Install bind message handlers.
 
     return RETURN_CODE_FAILURE;
@@ -249,4 +273,13 @@ void connection_on_write(int fd, short flags, void *arg)
     (void)(fd);
     (void)(flags);
     (void)(arg);
+}
+
+enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connection)
+{
+    assert(connection);
+    talloc_free(connection->ldap_defaults);
+    event_base_free(connection->base);
+    ldap_unbind_ext(connection->ldap, NULL, NULL);
+    return RETURN_CODE_FAILURE;
 }
