@@ -186,8 +186,9 @@ enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *conn
 {
     assert(connection);
 
-    int rc = ldap_sasl_bind(connection->ldap, NULL, connection->ldap_defaults->mechanism,
-                            NULL, NULL, NULL, &connection->current_msgid);
+    int rc = ldap_sasl_bind(connection->ldap, connection->ldap_params->dn, connection->ldap_defaults->mechanism,
+                            connection->ldap_params->passwd, connection->ldap_params->serverctrls,
+                            connection->ldap_params->clientctrls, &connection->current_msgid);
     if (rc != LDAP_SUCCESS)
     {
         // TODO: Verify that we need to perform abandon operation here.
@@ -261,6 +262,9 @@ void connection_on_read(int fd, short flags, void *arg)
         break;
     default:
         // TODO: Execute operation handler.
+        get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
+        get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
+        error("Error - ldap_result failed - code: %d %s\n", error_code, diagnostic_message);
         break;
     };
 
@@ -279,6 +283,18 @@ enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connecti
 {
     assert(connection);
     talloc_free(connection->ldap_defaults);
+
+    if (connection->read_event)
+    {
+        event_del(connection->read_event);
+        event_free(connection->read_event);
+    }
+
+    if(connection->write_event) {
+        event_del(connection->write_event);
+        event_free(connection->write_event);
+    }
+
     event_base_free(connection->base);
     ldap_unbind_ext(connection->ldap, NULL, NULL);
     return RETURN_CODE_FAILURE;

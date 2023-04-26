@@ -49,6 +49,14 @@ typedef struct ldap_sasl_defaults_t
     char *passwd;
 } ldap_sasl_defaults_t;
 
+typedef struct ldap_sasl_params_t
+{
+    char *dn;
+    struct berval *passwd;
+    LDAPControl **serverctrls;
+    LDAPControl **clientctrls;
+} ldap_sasl_params_t;
+
 struct ldap_connection_config_t
 {
     const char *server;
@@ -80,6 +88,7 @@ struct ldap_connection_ctx_t
     int current_msgid;
 
     struct ldap_sasl_defaults_t *ldap_defaults;
+    struct ldap_sasl_params_t *ldap_params;
 } ldap_connection_ctx_t;
 
 enum OperationReturnCode connection_configure(struct ldap_global_context_t *global_ctx,
