@@ -58,7 +58,7 @@ Ensure(Cgreen, connection_sasl_bind_test) {
     ctx->config.sasl_options->sasl_secprops = "maxssf=56";
     ctx->config.sasl_options->sasl_flags = LDAP_SASL_QUIET | LDAP_AUTH_NEGOTIATE;
     ctx->connection_ctx.ldap_params = talloc(ctx->global_ctx.talloc_ctx, struct ldap_sasl_params_t);
-    ctx->connection_ctx.ldap_params->dn = NULL;
+    ctx->connection_ctx.ldap_params->dn = "";
     ctx->connection_ctx.ldap_params->passwd = talloc(ctx->global_ctx.talloc_ctx, struct berval);
     ctx->connection_ctx.ldap_params->passwd->bv_len = 0;
     ctx->connection_ctx.ldap_params->passwd->bv_val = NULL;
@@ -83,7 +83,7 @@ Ensure(Cgreen, connection_sasl_bind_test) {
         fprintf(stderr, "event_add() failed");
     }
 
-    if(event_base_dispatch(ctx->connection_ctx.base) < 0)
+    if(event_base_loop(ctx->connection_ctx.base, EVLOOP_ONCE) < 0)
     {
         fprintf(stderr, "event_base_dispatch() failed");
     }

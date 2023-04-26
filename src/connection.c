@@ -264,7 +264,8 @@ void connection_on_read(int fd, short flags, void *arg)
         // TODO: Execute operation handler.
         get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
         get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-        error("Error - ldap_result failed - code: %d %s\n", error_code, diagnostic_message);
+        error("Message - ldap_result : %s - operation code: %d diagnostic message: %s\n",
+              ldap_err2string(rc), error_code, diagnostic_message);
         break;
     };
 
