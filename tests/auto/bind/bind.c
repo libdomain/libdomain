@@ -3,6 +3,8 @@
 #include <connection.h>
 #include <talloc.h>
 
+const int LDAP_DEBUG_ANY = -1;
+
 Describe(Cgreen);
 BeforeEach(Cgreen) {}
 AfterEach(Cgreen) {}
@@ -38,6 +40,24 @@ static struct context_t* create_context()
 
 static void destroy_context(struct context_t* ctx)
 {
+    if (ctx->connection_ctx.ldap_defaults)
+    {
+        if (ctx->connection_ctx.ldap_defaults->authcid)
+        {
+            ldap_memfree(ctx->connection_ctx.ldap_defaults->authcid);
+        }
+
+        if (ctx->connection_ctx.ldap_defaults->authzid)
+        {
+            ldap_memfree(ctx->connection_ctx.ldap_defaults->authzid);
+        }
+
+        if (ctx->connection_ctx.ldap_defaults->realm)
+        {
+            ldap_memfree(ctx->connection_ctx.ldap_defaults->realm);
+        }
+    }
+
     connection_close(&ctx->connection_ctx);
     talloc_free(ctx->global_ctx.talloc_ctx);
     free(ctx);
@@ -48,28 +68,24 @@ Ensure(Cgreen, connection_sasl_bind_test) {
 
     ctx->config.use_sasl = true;
 
-    const char* passwd = "";
-
     ctx->config.sasl_options = talloc(ctx->global_ctx.talloc_ctx, struct ldap_sasl_options_t);
     ctx->config.sasl_options->mechanism = "GSSAPI";
-    ctx->config.sasl_options->passwd = passwd;
+    ctx->config.sasl_options->passwd = NULL;
 
     ctx->config.sasl_options->sasl_nocanon = true;
     ctx->config.sasl_options->sasl_secprops = "maxssf=56";
-    ctx->config.sasl_options->sasl_flags = LDAP_SASL_QUIET | LDAP_AUTH_NEGOTIATE;
+    ctx->config.sasl_options->sasl_flags = LDAP_SASL_QUIET;
     ctx->connection_ctx.ldap_params = talloc(ctx->global_ctx.talloc_ctx, struct ldap_sasl_params_t);
-    ctx->connection_ctx.ldap_params->dn = "";
+    ctx->connection_ctx.ldap_params->dn = NULL;
     ctx->connection_ctx.ldap_params->passwd = talloc(ctx->global_ctx.talloc_ctx, struct berval);
     ctx->connection_ctx.ldap_params->passwd->bv_len = 0;
     ctx->connection_ctx.ldap_params->passwd->bv_val = NULL;
-    ctx->connection_ctx.ldap_params->clientctrls = talloc_array(ctx->global_ctx.talloc_ctx, LDAPControl*, 1);
-    ctx->connection_ctx.ldap_params->clientctrls[0] = NULL;
-    ctx->connection_ctx.ldap_params->serverctrls = talloc_array(ctx->global_ctx.talloc_ctx, LDAPControl*, 1);
-    ctx->connection_ctx.ldap_params->serverctrls[0] = NULL;
+    ctx->connection_ctx.ldap_params->clientctrls = NULL;
+    ctx->connection_ctx.ldap_params->serverctrls = NULL;
 
     int rc = RETURN_CODE_FAILURE;
 
-    int debug_level = 0x0001 + 0x0002 + 0x0004 + 0x0008;
+    int debug_level = LDAP_DEBUG_ANY;
     ldap_set_option(ctx->connection_ctx.ldap, LDAP_OPT_DEBUG_LEVEL, &debug_level);
 
     rc = connection_configure(&ctx->global_ctx, &ctx->connection_ctx, &ctx->config);
