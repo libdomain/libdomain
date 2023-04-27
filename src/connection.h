@@ -71,6 +71,10 @@ struct ldap_connection_config_t
     struct ldap_sasl_options_t *sasl_options;
 } ldap_connection_config_t;
 
+struct ldap_connection_ctx_t;
+
+typedef enum OperationReturnCode (*operation_callback_fn)(int, LDAPMessage *, struct ldap_connection_ctx_t *);
+
 struct ldap_connection_ctx_t
 {
     LDAP *ldap;
@@ -84,6 +88,9 @@ struct ldap_connection_ctx_t
 
     struct event *read_event;
     struct event *write_event;
+
+    operation_callback_fn on_read_operation;
+    operation_callback_fn on_write_operation;
 
     int current_msgid;
 
@@ -102,5 +109,7 @@ enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connecti
 // Operation handlers.
 void connection_on_read(evutil_socket_t fd, short flags, void *arg);
 void connection_on_write(evutil_socket_t fd, short flags, void *arg);
+
+enum OperationReturnCode connection_bind_on_read(int, LDAPMessage *, struct ldap_connection_ctx_t *connection);
 
 #endif //LIBDOMAIN_CONNECTION_H

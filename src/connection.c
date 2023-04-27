@@ -203,7 +203,7 @@ enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *conn
         ldap_unbind_ext_s(connection->ldap, NULL, NULL);
         return RETURN_CODE_FAILURE;
     }
-    // TODO: Install bind message handlers.
+    connection->on_read_operation = connection_bind_on_read;
 
     return RETURN_CODE_SUCCESS;
 }
@@ -261,11 +261,9 @@ void connection_on_read(int fd, short flags, void *arg)
         ldap_memfree(result_message);
         break;
     default:
-        // TODO: Execute operation handler.
-        get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
-        get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-        error("Message - ldap_result : %s - operation code: %d diagnostic message: %s\n",
-              ldap_err2string(rc), error_code, diagnostic_message);
+        error_code = connection->on_read_operation ? connection->on_read_operation(rc, result_message, connection)
+                                                   : RETURN_CODE_FAILURE;
+        ldap_memfree(result_message);
         break;
     };
 
@@ -299,4 +297,21 @@ enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connecti
     event_base_free(connection->base);
     ldap_unbind_ext(connection->ldap, NULL, NULL);
     return RETURN_CODE_FAILURE;
+}
+
+enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, struct ldap_connection_ctx_t *connection)
+{
+    (void)(message);
+    (void)(connection);
+
+    switch (rc)
+    {
+    case LDAP_RES_BIND:
+        error("Message - connection_bind_on_read - bind success!");
+        break;
+    default:
+        break;
+    }
+
+    return RETURN_CODE_SUCCESS;
 }
