@@ -19,6 +19,7 @@
 ***********************************************************************************************************************/
 
 #include "entry.h"
+#include "connection.h"
 
 void add_on_read(int fd, short flags, void *arg)
 {
@@ -34,11 +35,31 @@ void add_on_write(int fd, short flags, void *arg)
     (void)(arg);
 }
 
-void search_on_read(int fd, short flags, void *arg)
+void search(struct ldap_connection_ctx_t connection, const char *base_dn, int scope, const char *filter,
+            char **attrs, bool attrsonly)
 {
-    (void)(fd);
-    (void)(flags);
-    (void)(arg);
+    int rc = ldap_search_ext(connection.ldap,
+                    base_dn,
+                    scope,
+                    filter,
+                    attrs,
+                    attrsonly,
+                    NULL,
+                    NULL,
+                    NULL,
+                    LDAP_NO_LIMIT,
+                    &connection.current_msgid);
+    if (rc != LDAP_SUCCESS)
+    {
+        error("Unable to create search request: \n");
+    }
+}
+
+void search_on_read(int rc, LDAPMessage * message, struct ldap_connection_ctx_t *connection)
+{
+    (void)(rc);
+    (void)(message);
+    (void)(connection);
 }
 
 void search_on_write(int fd, short flags, void *arg)

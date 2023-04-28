@@ -25,7 +25,7 @@
 void add_on_read(evutil_socket_t fd, short flags, void *arg);
 void add_on_write(evutil_socket_t fd, short flags, void *arg);
 
-void search_on_read(evutil_socket_t fd, short flags, void *arg);
+void search_on_read(evutil_socket_t rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection);
 void search_on_write(evutil_socket_t fd, short flags, void *arg);
 
 void modify_on_read(evutil_socket_t fd, short flags, void *arg);
