@@ -1,2 +1,3 @@
 add_subdirectory(bind)
 add_subdirectory(configure)
+add_subdirectory(connection_state_machine)
