@@ -17,27 +17,32 @@
 ** Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 **
 ***********************************************************************************************************************/
-#ifndef LIBDOMAIN_COMMON_H
-#define LIBDOMAIN_COMMON_H
 
-#include <ldap.h>
-#include <talloc.h>
+#include "common.h"
 
-enum OperationReturnCode
+void error(const char *format, ...)
 {
-    RETURN_CODE_SUCCESS           = 1,
-    RETURN_CODE_FAILURE           = 2,
-    RETURN_CODE_MISSING_ATTRIBUTE = 3
-};
+    fprintf(stderr, "Error: ");
+    va_list argptr;
+    va_start(argptr, format);
+    vfprintf(stderr, format, argptr);
+    va_end(argptr);
+}
 
-struct ldap_global_context_t
+void warning(const char *format, ...)
 {
-    LDAP *global_ldap;
-    TALLOC_CTX *talloc_ctx;
-} ldap_global_context_t;
+    fprintf(stderr, "Warning: ");
+    va_list argptr;
+    va_start(argptr, format);
+    vfprintf(stderr, format, argptr);
+    va_end(argptr);
+}
 
-void error(const char *format, ...);
-void warning(const char *format, ...);
-void info(const char *format, ...);
-
-#endif //LIBDOMAIN_COMMON_H
+void info(const char *format, ...)
+{
+    fprintf(stderr, "Info: ");
+    va_list argptr;
+    va_start(argptr, format);
+    vfprintf(stderr, format, argptr);
+    va_end(argptr);
+}

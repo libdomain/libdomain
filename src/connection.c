@@ -22,7 +22,6 @@
 
 #include <assert.h>
 
-#define error(data, ...) fprintf(stderr, data, ##__VA_ARGS__)
 #define number_of_elements(x)  (sizeof(x) / sizeof((x)[0]))
 
 typedef struct option_value_t

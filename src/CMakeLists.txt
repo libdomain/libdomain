@@ -16,6 +16,7 @@ macro(add_libdomain_library name)
 endmacro(add_libdomain_library)
 
 set(PROJECT_SOURCES
+    common.c
     common.h
     connection.c
     connection.h
