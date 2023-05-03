@@ -25,7 +25,16 @@
 void add_on_read(evutil_socket_t fd, short flags, void *arg);
 void add_on_write(evutil_socket_t fd, short flags, void *arg);
 
-void search_on_read(evutil_socket_t rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection);
+void whoami(struct ldap_connection_ctx_t *connection);
+
+void search(struct ldap_connection_ctx_t *connection,
+            const char *base_dn,
+            int scope,
+            const char *filter,
+            char **attrs,
+            bool attrsonly);
+
+enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection);
 void search_on_write(evutil_socket_t fd, short flags, void *arg);
 
 void modify_on_read(evutil_socket_t fd, short flags, void *arg);
@@ -33,5 +42,7 @@ void modify_on_write(evutil_socket_t fd, short flags, void *arg);
 
 void delete_on_read(evutil_socket_t fd, short flags, void *arg);
 void delete_on_write(evutil_socket_t fd, short flags, void *arg);
+
+enum OperationReturnCode whoami_on_read(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection);
 
 #endif //LIBDOMAIN_ENTRY_H

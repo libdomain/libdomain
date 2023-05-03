@@ -35,10 +35,10 @@ void add_on_write(int fd, short flags, void *arg)
     (void)(arg);
 }
 
-void search(struct ldap_connection_ctx_t connection, const char *base_dn, int scope, const char *filter,
+void search(struct ldap_connection_ctx_t* connection, const char *base_dn, int scope, const char *filter,
             char **attrs, bool attrsonly)
 {
-    int rc = ldap_search_ext(connection.ldap,
+    int rc = ldap_search_ext(connection->ldap,
                     base_dn,
                     scope,
                     filter,
@@ -48,18 +48,71 @@ void search(struct ldap_connection_ctx_t connection, const char *base_dn, int sc
                     NULL,
                     NULL,
                     LDAP_NO_LIMIT,
-                    &connection.current_msgid);
+                    &connection->current_msgid);
     if (rc != LDAP_SUCCESS)
     {
         error("Unable to create search request: \n");
     }
+    connection->on_read_operation = search_on_read;
 }
 
-void search_on_read(int rc, LDAPMessage * message, struct ldap_connection_ctx_t *connection)
+ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection)
 {
     (void)(rc);
     (void)(message);
     (void)(connection);
+
+    const char *attribute;
+    struct berval **values;
+    BerElement *ber_element;
+
+    int error_code = 0;
+    char *diagnostic_message = NULL;
+
+    switch (rc)
+    {
+    case LDAP_RES_SEARCH_ENTRY:
+    case LDAP_RES_SEARCH_RESULT:
+    {
+        while (message)
+        {
+            char* dn = ldap_get_dn(connection->ldap, message);
+            fprintf(stderr, "Search result - entry dn: %s\n", dn);
+            ldap_memfree(dn);
+
+            attribute = ldap_first_attribute(connection->ldap, message, &ber_element);
+            while (attribute != NULL)
+            {
+                values = ldap_get_values_len(connection->ldap, message, attribute);
+                for(int index = 0; index < ldap_count_values_len(values); index++)
+                {
+                    printf("%s: %s\n", attribute, values[index]->bv_val);
+                }
+                ldap_value_free_len(values);
+                attribute = ldap_next_attribute(connection->ldap, message, ber_element);
+            };
+            ber_free(ber_element, 0);
+
+            message = ldap_next_message(connection->ldap, message);
+        }
+
+        return RETURN_CODE_SUCCESS;
+    }
+        break;
+    case LDAP_RES_SEARCH_REFERENCE:
+        info("Received search referal but not following it!");
+        return RETURN_CODE_SUCCESS;
+    default:
+    {
+        ldap_get_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
+        ldap_get_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
+        error("ldap_result failed: %s\n", diagnostic_message);
+        ldap_memfree(diagnostic_message);
+    }
+        break;
+    }
+
+    return RETURN_CODE_FAILURE;
 }
 
 void search_on_write(int fd, short flags, void *arg)
@@ -95,4 +148,45 @@ void delete_on_write(int fd, short flags, void *arg)
     (void)(fd);
     (void)(flags);
     (void)(arg);
+}
+
+void whoami(struct ldap_connection_ctx_t *connection)
+{
+    int rc = ldap_whoami(connection->ldap, NULL, NULL, &connection->current_msgid);
+
+    if (rc != LDAP_SUCCESS)
+    {
+        error("Unable to create whoami request: \n");
+    }
+    connection->on_read_operation = whoami_on_read;
+}
+
+enum OperationReturnCode whoami_on_read(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection)
+{
+    (void)(rc);
+    (void)(message);
+    (void)(connection);
+
+    int error_code = 0;
+    char *diagnostic_message = NULL;
+
+    switch (rc)
+    {
+    case LDAP_RES_EXTENDED:
+    {
+        struct berval* authrizid = NULL;
+        ldap_parse_whoami(connection->ldap, message, &authrizid);
+    }
+        break;
+    default:
+    {
+        ldap_get_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
+        ldap_get_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
+        error("ldap_result failed: %s\n", diagnostic_message);
+        ldap_memfree(diagnostic_message);
+    }
+        break;
+    }
+
+    return RETURN_CODE_SUCCESS;
 }

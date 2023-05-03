@@ -21,6 +21,7 @@
 #include "connection.h"
 
 #include <assert.h>
+#include <sasl/sasl.h>
 
 #define number_of_elements(x)  (sizeof(x) / sizeof((x)[0]))
 
@@ -207,29 +208,98 @@ enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *conn
     return RETURN_CODE_SUCCESS;
 }
 
+int sasl_interact_gssapi(LDAP *ld, unsigned flags, void *indefaults, void *in) {
+    (void)(flags);
+
+    struct ldap_sasl_defaults_t *defaults = (struct ldap_sasl_defaults_t *) indefaults;
+    sasl_interact_t *interact = (sasl_interact_t *) in;
+
+    if (ld == NULL) {
+        return LDAP_PARAM_ERROR;
+    }
+
+    while (interact->id != SASL_CB_LIST_END) {
+        const char *dflt = interact->defresult;
+
+        switch (interact->id) {
+            case SASL_CB_GETREALM:
+                if (defaults)
+                    dflt = defaults->realm;
+                break;
+            case SASL_CB_AUTHNAME:
+                if (defaults)
+                    dflt = defaults->authcid;
+                break;
+            case SASL_CB_PASS:
+                if (defaults)
+                    dflt = defaults->passwd;
+                break;
+            case SASL_CB_USER:
+                if (defaults)
+                    dflt = defaults->authzid;
+                break;
+            case SASL_CB_NOECHOPROMPT:
+                break;
+            case SASL_CB_ECHOPROMPT:
+                break;
+        }
+
+        if (dflt && !*dflt) {
+            dflt = NULL;
+        }
+
+        /* input must be empty */
+        interact->result = (dflt && *dflt) ? dflt : "";
+        interact->len = strlen((const char *) interact->result);
+        interact++;
+    }
+
+    return LDAP_SUCCESS;
+}
+
 enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *connection)
 {
     assert(connection);
-    // TODO: Copy creds for bind.
 
-    int rc = ldap_gssapi_bind(connection->ldap, NULL, connection->ldap_defaults->passwd);
-    if (rc != LDAP_SUCCESS)
+    LDAPMessage* message = NULL;
+    const char *rmech = NULL;
+
+    int rc = LDAP_OTHER;
+    rc = ldap_sasl_interactive_bind(connection->ldap,
+                                        NULL,
+                                        connection->ldap_defaults->mechanism,
+                                        NULL,
+                                        NULL,
+                                        connection->ldap_defaults->flags,
+                                        sasl_interact_gssapi,
+                                        connection->ldap_defaults,
+                                        message,
+                                        &rmech,
+                                        &connection->current_msgid);
+
+    ldap_msgfree(message);
+
+    ldap_memfree(connection->ldap_defaults->realm);
+    ldap_memfree(connection->ldap_defaults->authcid);
+    ldap_memfree(connection->ldap_defaults->authzid);
+
+    if (rc != LDAP_SUCCESS && rc != LDAP_SASL_BIND_IN_PROGRESS)
     {
         // TODO: Verify that we need to perform abandon operation here.
-        error("Unable to perform ldap_gssapi_bind - error: %s", ldap_err2string(rc));
+        error("Unable to perform ldap_sasl_interactive_bind - error: %s\n", ldap_err2string(rc));
         ldap_unbind_ext_s(connection->ldap, NULL, NULL);
         return RETURN_CODE_FAILURE;
     }
 
     if (connection_install_handlers(connection) != RETURN_CODE_SUCCESS)
     {
-        error("Unable to install event handlers.");
+        error("Unable to install event handlers.\n");
         ldap_unbind_ext_s(connection->ldap, NULL, NULL);
         return RETURN_CODE_FAILURE;
     }
-    // TODO: Install bind message handlers.
+    connection->on_read_operation = connection_bind_on_read;
 
-    return RETURN_CODE_FAILURE;
+    return RETURN_CODE_SUCCESS;
 }
 
 void connection_on_read(int fd, short flags, void *arg)
@@ -303,14 +373,33 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
     (void)(message);
     (void)(connection);
 
+    int error_code = 0;
+    char *diagnostic_message = NULL;
+
     switch (rc)
     {
     case LDAP_RES_BIND:
-        error("Message - connection_bind_on_read - bind success!");
+        info("Message - connection_bind_on_read - bind success!\n");
+        struct berval *servercred = NULL;
+        int librc = ldap_parse_sasl_bind_result(connection->ldap, message, &servercred, 0);
+        if (librc != LDAP_SUCCESS)
+        {
+            get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
+            get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
+            error("Error - ldap_result failed - code: %d %s\n", error_code, diagnostic_message);
+            ldap_memfree(diagnostic_message);
+        }
+        if (servercred != NULL)
+        {
+            ber_bvfree(servercred);
+        }
         break;
     default:
         break;
     }
 
     return RETURN_CODE_SUCCESS;
+
+    error_exit:
+        return RETURN_CODE_FAILURE;
 }
