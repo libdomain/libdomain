@@ -105,6 +105,8 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
           error_exit;
     }
 
+    connection->rmech = NULL;
+
     set_ldap_option(connection->ldap, LDAP_OPT_PROTOCOL_VERSION, &config->protocol_verion);
 
     set_bool_option(connection->ldap, LDAP_OPT_REFERRALS, config->chase_referrals);
@@ -266,22 +268,17 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
 
     int rc = LDAP_OTHER;
     rc = ldap_sasl_interactive_bind(connection->ldap,
-                                        NULL,
-                                        connection->ldap_defaults->mechanism,
-                                        NULL,
-                                        NULL,
-                                        connection->ldap_defaults->flags,
-                                        sasl_interact_gssapi,
-                                        connection->ldap_defaults,
-                                        message,
-                                        &rmech,
-                                        &connection->current_msgid);
-
+                                    NULL,
+                                    connection->ldap_defaults->mechanism,
+                                    NULL,
+                                    NULL,
+                                    connection->ldap_defaults->flags,
+                                    sasl_interact_gssapi,
+                                    connection->ldap_defaults,
+                                    message,
+                                    &rmech,
+                                    &connection->current_msgid);
     ldap_msgfree(message);
-
-    ldap_memfree(connection->ldap_defaults->realm);
-    ldap_memfree(connection->ldap_defaults->authcid);
-    ldap_memfree(connection->ldap_defaults->authzid);
 
     if (rc != LDAP_SUCCESS && rc != LDAP_SASL_BIND_IN_PROGRESS)
     {
@@ -379,21 +376,36 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
     switch (rc)
     {
     case LDAP_RES_BIND:
-        info("Message - connection_bind_on_read - bind success!\n");
-        struct berval *servercred = NULL;
-        int librc = ldap_parse_sasl_bind_result(connection->ldap, message, &servercred, 0);
-        if (librc != LDAP_SUCCESS)
+        info("Message - connection_bind_on_read - message success!\n");
+        rc = ldap_sasl_interactive_bind(connection->ldap,
+                                        NULL,
+                                        connection->ldap_defaults->mechanism,
+                                        NULL,
+                                        NULL,
+                                        connection->ldap_defaults->flags,
+                                        sasl_interact_gssapi,
+                                        connection->ldap_defaults,
+                                        message,
+                                        &connection->rmech,
+                                        &connection->current_msgid);
+        if (rc == LDAP_SASL_BIND_IN_PROGRESS)
+        {
+            info("Bind in progress!\n");
+        }
+        else if (rc == LDAP_SUCCESS)
+        {
+            info("Message - connection_bind_on_read - bind success!\n");
+            connection->on_read_operation = NULL;
+            return RETURN_CODE_SUCCESS;
+        }
+        else
         {
             get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
             get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-            error("Error - ldap_result failed - code: %d %s\n", error_code, diagnostic_message);
+            error("Error - ldap_result failed - op code: %d - code: %d %s\n", rc, error_code, diagnostic_message);
             ldap_memfree(diagnostic_message);
+            return RETURN_CODE_FAILURE;
         }
-        if (servercred != NULL)
-        {
-            ber_bvfree(servercred);
-        }
-        break;
     default:
         break;
     }

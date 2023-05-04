@@ -93,6 +93,7 @@ struct ldap_connection_ctx_t
     operation_callback_fn on_write_operation;
 
     int current_msgid;
+    const char* rmech;
 
     struct ldap_sasl_defaults_t *ldap_defaults;
     struct ldap_sasl_params_t *ldap_params;
