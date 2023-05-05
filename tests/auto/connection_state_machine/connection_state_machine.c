@@ -105,7 +105,10 @@ Ensure(Cgreen, connection_state_machine_next_state) {
     assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
 
     rc = csm_next_state(csm);
-    assert_that(csm->state, is_equal_to(LDAP_CONNECTION_STATE_BOUND));
+    assert_that(csm->state, is_equal_to(LDAP_CONNECTION_STATE_BIND_IN_PROGRESS));
+    assert_that(rc, is_equal_to(RETURN_CODE_OPERATION_IN_PROGRESS));
+
+    rc = csm_set_state(csm, LDAP_CONNECTION_STATE_BOUND);
     assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
 
     rc = csm_next_state(csm);
