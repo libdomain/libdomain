@@ -19,6 +19,7 @@
 ***********************************************************************************************************************/
 
 #include "connection.h"
+#include "connection_state_machine.h"
 
 #include <assert.h>
 #include <sasl/sasl.h>
@@ -107,6 +108,9 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
     connection->rmech = NULL;
 
+    connection->state_machine = talloc(global_ctx->talloc_ctx, struct state_machine_ctx_t);
+    csm_init(connection->state_machine, connection);
+
     set_ldap_option(connection->ldap, LDAP_OPT_PROTOCOL_VERSION, &config->protocol_verion);
 
     set_bool_option(connection->ldap, LDAP_OPT_REFERRALS, config->chase_referrals);
@@ -140,6 +144,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
         goto
           error_exit;
     }
+
 
     return RETURN_CODE_SUCCESS;
 
@@ -295,7 +300,7 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
     }
     connection->on_read_operation = connection_bind_on_read;
 
-    return RETURN_CODE_SUCCESS;
+    return rc == LDAP_SASL_BIND_IN_PROGRESS ? RETURN_CODE_OPERATION_IN_PROGRESS : RETURN_CODE_SUCCESS;
 }
 
 void connection_on_read(int fd, short flags, void *arg)
@@ -394,6 +399,7 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
         else if (rc == LDAP_SUCCESS)
         {
             info("Message - connection_bind_on_read - bind success!\n");
+            csm_set_state(connection->state_machine, LDAP_CONNECTION_STATE_BOUND);
             connection->on_read_operation = NULL;
             return RETURN_CODE_SUCCESS;
         }

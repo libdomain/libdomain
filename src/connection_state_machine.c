@@ -32,6 +32,7 @@ const csm_state_value_t state_strings[] =
 {
     { LDAP_CONNECTION_STATE_INIT, "LDAP_CONNECTION_STATE_INIT" },
     { LDAP_CONNECTION_STATE_TRANSPORT_READY, "LDAP_CONNECTION_STATE_TRANSPORT_READY" },
+    { LDAP_CONNECTION_STATE_BIND_IN_PROGRESS, "LDAP_CONNECTION_STATE_BIND_IN_PROGRESS" },
     { LDAP_CONNECTION_STATE_BOUND, "LDAP_CONNECTION_STATE_BOUND" },
     { LDAP_CONNECTION_STATE_RUN, "LDAP_CONNECTION_STATE_RUN" },
     { LDAP_CONNECTION_STATE_ERROR, "LDAP_CONNECTION_STATE_ERROR" },
@@ -69,16 +70,18 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
         break;
 
     case LDAP_CONNECTION_STATE_TRANSPORT_READY:
-        if (ctx->ctx->ldap_defaults)
-        {
-            rc = connection_sasl_bind(ctx->ctx);
-        }
-        else
-        {
-            // TODO: Implement simple bind or remove it completely.
-        }
-        csm_set_state(ctx, rc == RETURN_CODE_SUCCESS ? LDAP_CONNECTION_STATE_BOUND : LDAP_CONNECTION_STATE_ERROR);
+//       TODO: Implement simple bind.
+//            rc = connection_sasl_bind(ctx->ctx);
+        rc = connection_ldap_bind(ctx->ctx);
+
+        csm_set_state(ctx, rc == RETURN_CODE_SUCCESS ? LDAP_CONNECTION_STATE_RUN
+                                                     :  rc == RETURN_CODE_OPERATION_IN_PROGRESS
+                                                        ? LDAP_CONNECTION_STATE_BIND_IN_PROGRESS
+                                                        : LDAP_CONNECTION_STATE_ERROR);
         return rc;
+
+    case LDAP_CONNECTION_STATE_BIND_IN_PROGRESS:
+        break;
 
     case LDAP_CONNECTION_STATE_BOUND:
         csm_set_state(ctx, LDAP_CONNECTION_STATE_RUN);

@@ -24,14 +24,15 @@
 
 enum LdapConnectionState
 {
-    LDAP_CONNECTION_STATE_INIT            = 1,
-    LDAP_CONNECTION_STATE_TRANSPORT_READY = 2,
-    LDAP_CONNECTION_STATE_BOUND           = 3,
-    LDAP_CONNECTION_STATE_RUN             = 4,
-    LDAP_CONNECTION_STATE_ERROR           = 5,
+    LDAP_CONNECTION_STATE_INIT             = 1,
+    LDAP_CONNECTION_STATE_TRANSPORT_READY  = 2,
+    LDAP_CONNECTION_STATE_BIND_IN_PROGRESS = 3,
+    LDAP_CONNECTION_STATE_BOUND            = 4,
+    LDAP_CONNECTION_STATE_RUN              = 5,
+    LDAP_CONNECTION_STATE_ERROR            = 6,
 };
 
-struct state_machine_ctx_t
+typedef struct state_machine_ctx_t
 {
     enum LdapConnectionState state;
     struct ldap_connection_ctx_t *ctx;

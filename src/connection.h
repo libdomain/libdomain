@@ -95,6 +95,8 @@ struct ldap_connection_ctx_t
     int current_msgid;
     const char* rmech;
 
+    struct state_machine_ctx_t* state_machine;
+
     struct ldap_sasl_defaults_t *ldap_defaults;
     struct ldap_sasl_params_t *ldap_params;
 } ldap_connection_ctx_t;
