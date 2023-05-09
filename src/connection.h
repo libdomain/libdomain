@@ -57,7 +57,7 @@ typedef struct ldap_sasl_params_t
     LDAPControl **clientctrls;
 } ldap_sasl_params_t;
 
-struct ldap_connection_config_t
+typedef struct ldap_connection_config_t
 {
     const char *server;
     int port;
@@ -75,7 +75,7 @@ struct ldap_connection_ctx_t;
 
 typedef enum OperationReturnCode (*operation_callback_fn)(int, LDAPMessage *, struct ldap_connection_ctx_t *);
 
-struct ldap_connection_ctx_t
+typedef struct ldap_connection_ctx_t
 {
     LDAP *ldap;
 

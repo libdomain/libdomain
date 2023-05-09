@@ -31,7 +31,7 @@ enum OperationReturnCode
     RETURN_CODE_OPERATION_IN_PROGRESS = 4,
 };
 
-struct ldap_global_context_t
+typedef struct ldap_global_context_t
 {
     LDAP *global_ldap;
     TALLOC_CTX *talloc_ctx;
