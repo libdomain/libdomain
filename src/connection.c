@@ -137,7 +137,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
         // TODO: Implement.
     }
 
-    connection->base = event_base_new();
+    connection->base = verto_new(NULL, 0);
     if (!connection->base)
     {
         error("Unable to create event base!");
@@ -172,15 +172,10 @@ enum OperationReturnCode connection_install_handlers(struct ldap_connection_ctx_
             error_exit;
     }
 
-    if (evutil_make_socket_nonblocking(fd) < 0)
-    {
-        error("Error - evutil_make_socket_nonblocking() failed\n");
-        goto
-            error_exit;
-    }
-
-    connection->read_event = event_new(connection->base, fd, EV_READ | EV_PERSIST, connection_on_read, connection);
-    connection->write_event = event_new(connection->base, fd, EV_WRITE | EV_PERSIST, connection_on_write, connection);
+    connection->read_event = verto_add_io(connection->base, VERTO_EV_FLAG_PERSIST | VERTO_EV_FLAG_IO_READ, connection_on_read, fd);
+    verto_set_private(connection->read_event, connection, NULL);
+    connection->write_event = verto_add_io(connection->base, VERTO_EV_FLAG_PERSIST | VERTO_EV_FLAG_IO_WRITE, connection_on_write, fd);
+    verto_set_private(connection->write_event, connection, NULL);
 
     return RETURN_CODE_SUCCESS;
 
@@ -303,11 +298,10 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
     return rc == LDAP_SASL_BIND_IN_PROGRESS ? RETURN_CODE_OPERATION_IN_PROGRESS : RETURN_CODE_SUCCESS;
 }
 
-void connection_on_read(int fd, short flags, void *arg)
+void connection_on_read(verto_ctx *ctx, verto_ev *ev)
 {
-    (void)(fd);
-    (void)(flags);
-    struct ldap_connection_ctx_t* connection = (struct ldap_connection_ctx_t*)arg;
+    (void)(ctx);
+    struct ldap_connection_ctx_t* connection = verto_get_private(ev);
 
     int rc = 0;
     LDAPMessage* result_message = NULL;
@@ -341,11 +335,10 @@ void connection_on_read(int fd, short flags, void *arg)
         return;
 }
 
-void connection_on_write(int fd, short flags, void *arg)
+void connection_on_write(verto_ctx *ctx, verto_ev *ev)
 {
-    (void)(fd);
-    (void)(flags);
-    (void)(arg);
+    (void)(ctx);
+    (void)(ev);
 }
 
 enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connection)
@@ -355,16 +348,14 @@ enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connecti
 
     if (connection->read_event)
     {
-        event_del(connection->read_event);
-        event_free(connection->read_event);
+        verto_del(connection->read_event);
     }
 
     if(connection->write_event) {
-        event_del(connection->write_event);
-        event_free(connection->write_event);
+        verto_del(connection->write_event);
     }
 
-    event_base_free(connection->base);
+    verto_free(connection->base);
     ldap_unbind_ext(connection->ldap, NULL, NULL);
     return RETURN_CODE_FAILURE;
 }

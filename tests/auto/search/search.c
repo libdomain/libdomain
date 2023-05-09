@@ -99,28 +99,14 @@ Ensure(Cgreen, entry_search_test) {
     {
         csm_next_state(ctx->connection_ctx.state_machine);
 
-        if (event_base_loop(ctx->connection_ctx.base, EVLOOP_NONBLOCK) < 0)
-        {
-            fprintf(stderr, "event_base_dispatch() failed");
-        }
-
-        if (ctx->connection_ctx.state_machine->state == LDAP_CONNECTION_STATE_BIND_IN_PROGRESS)
-        {
-            if (event_add(ctx->connection_ctx.read_event, NULL) < 0)
-            {
-                fprintf(stderr, "event_add() failed");
-            }
-        }
+        verto_run_once(ctx->connection_ctx.base);
     }
 
     static char	*attrs[] = LDAP_DIRECTORY_ATTRS;
     search(&ctx->connection_ctx, "CN=Administrator,CN=Users,DC=domain,DC=alt", LDAP_SCOPE_SUBTREE,
            "(objectClass=*)", attrs, 0);
 
-    if (event_base_loop(ctx->connection_ctx.base, EVLOOP_ONCE) < 0)
-    {
-        fprintf(stderr, "event_base_dispatch() failed");
-    }
+    verto_run(ctx->connection_ctx.base);
 
     assert_that(ctx->connection_ctx.ldap_defaults, is_not_null);
 

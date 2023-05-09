@@ -94,15 +94,7 @@ Ensure(Cgreen, connection_sasl_bind_test) {
     rc = connection_sasl_bind(&ctx->connection_ctx);
     assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
 
-    if(event_add(ctx->connection_ctx.read_event, NULL) < 0)
-    {
-        fprintf(stderr, "event_add() failed");
-    }
-
-    if(event_base_loop(ctx->connection_ctx.base, EVLOOP_ONCE) < 0)
-    {
-        fprintf(stderr, "event_base_dispatch() failed");
-    }
+    verto_run_once(ctx->connection_ctx.base);
 
     assert_that(ctx->connection_ctx.ldap_defaults, is_not_null);
 

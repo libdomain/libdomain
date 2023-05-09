@@ -20,7 +20,7 @@
 #ifndef LIBDOMAIN_CONNECTION_H
 #define LIBDOMAIN_CONNECTION_H
 
-#include <event2/event.h>
+#include <verto.h>
 #include <ldap.h>
 #include <stdbool.h>
 
@@ -82,12 +82,12 @@ typedef struct ldap_connection_ctx_t
     struct ldap_connection_ctx_t *next;
     struct ldap_connection_ctx_t *prev;
 
-    evutil_socket_t fd;
+    int fd;
 
-    struct event_base *base;
+    struct verto_ctx *base;
 
-    struct event *read_event;
-    struct event *write_event;
+    struct verto_ev *read_event;
+    struct verto_ev *write_event;
 
     operation_callback_fn on_read_operation;
     operation_callback_fn on_write_operation;
@@ -110,8 +110,8 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
 enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connection);
 
 // Operation handlers.
-void connection_on_read(evutil_socket_t fd, short flags, void *arg);
-void connection_on_write(evutil_socket_t fd, short flags, void *arg);
+void connection_on_read(verto_ctx *ctx, verto_ev *ev);
+void connection_on_write(verto_ctx *ctx, verto_ev *ev);
 
 enum OperationReturnCode connection_bind_on_read(int, LDAPMessage *, struct ldap_connection_ctx_t *connection);
 

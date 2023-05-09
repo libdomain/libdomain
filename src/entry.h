@@ -22,8 +22,8 @@
 
 #include "connection.h"
 
-void add_on_read(evutil_socket_t fd, short flags, void *arg);
-void add_on_write(evutil_socket_t fd, short flags, void *arg);
+void add_on_read(int fd, short flags, void *arg);
+void add_on_write(int fd, short flags, void *arg);
 
 void whoami(struct ldap_connection_ctx_t *connection);
 
@@ -35,13 +35,13 @@ void search(struct ldap_connection_ctx_t *connection,
             bool attrsonly);
 
 enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection);
-void search_on_write(evutil_socket_t fd, short flags, void *arg);
+void search_on_write(int fd, short flags, void *arg);
 
-void modify_on_read(evutil_socket_t fd, short flags, void *arg);
-void modify_on_write(evutil_socket_t fd, short flags, void *arg);
+void modify_on_read(int fd, short flags, void *arg);
+void modify_on_write(int fd, short flags, void *arg);
 
-void delete_on_read(evutil_socket_t fd, short flags, void *arg);
-void delete_on_write(evutil_socket_t fd, short flags, void *arg);
+void delete_on_read(int fd, short flags, void *arg);
+void delete_on_write(int fd, short flags, void *arg);
 
 enum OperationReturnCode whoami_on_read(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection);
 
