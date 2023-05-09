@@ -32,7 +32,6 @@ set(PROJECT_SOURCES
     directory.h
     entry.c
     entry.h
-    main.c
 )
 
 add_libdomain_library(domain SHARED ${PROJECT_SOURCES})
