@@ -137,7 +137,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
         // TODO: Implement.
     }
 
-    connection->base = verto_new(NULL, 0);
+    connection->base = verto_default(NULL, VERTO_EV_TYPE_NONE);
     if (!connection->base)
     {
         error("Unable to create event base!");
