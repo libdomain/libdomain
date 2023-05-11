@@ -21,7 +21,6 @@ endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
-include(FindLibEvent)
 include(FindLdap)
 
 add_subdirectory(src)
