@@ -11,7 +11,9 @@ Describe(Cgreen);
 BeforeEach(Cgreen) {}
 AfterEach(Cgreen) {}
 
-#define LDAP_DIRECTORY_ATTRS { "objectClass", NULL }
+char* LDAP_DIRECTORY_ATTRS[] = { "objectClass", NULL };
+
+const int CONNECTION_UPDATE_INTERVAL = 1000;
 
 typedef struct context_t
 {
@@ -67,6 +69,38 @@ static void destroy_context(struct context_t* ctx)
     free(ctx);
 }
 
+static void connection_on_search_message(verto_ctx *ctx, verto_ev *ev)
+{
+    (void)(ev);
+
+    static int callcount = 0;
+
+    if (++callcount > 10)
+    {
+        verto_break(ctx);
+    }
+}
+
+static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
+{
+    (void)(ctx);
+
+    struct ldap_connection_ctx_t* connection = verto_get_private(ev);
+
+    csm_next_state(connection->state_machine);
+
+    if (connection->state_machine->state == LDAP_CONNECTION_STATE_RUN)
+    {
+        verto_del(ev);
+
+        search(connection, "CN=Administrator,CN=Users,DC=domain,DC=alt", LDAP_SCOPE_SUBTREE,
+               "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0);
+
+        verto_add_timeout(ctx, VERTO_EV_FLAG_PERSIST, connection_on_search_message, CONNECTION_UPDATE_INTERVAL);
+    }
+}
+
+
 Ensure(Cgreen, entry_search_test) {
     struct context_t* ctx = create_context();
 
@@ -95,16 +129,9 @@ Ensure(Cgreen, entry_search_test) {
     rc = connection_configure(&ctx->global_ctx, &ctx->connection_ctx, &ctx->config);
     assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
 
-    while (ctx->connection_ctx.state_machine->state != LDAP_CONNECTION_STATE_RUN)
-    {
-        csm_next_state(ctx->connection_ctx.state_machine);
-
-        verto_run_once(ctx->connection_ctx.base);
-    }
-
-    static char	*attrs[] = LDAP_DIRECTORY_ATTRS;
-    search(&ctx->connection_ctx, "CN=Administrator,CN=Users,DC=domain,DC=alt", LDAP_SCOPE_SUBTREE,
-           "(objectClass=*)", attrs, 0);
+    verto_ev* ev = verto_add_timeout(ctx->connection_ctx.base, VERTO_EV_FLAG_PERSIST, connection_on_timeout,
+                                     CONNECTION_UPDATE_INTERVAL);
+    verto_set_private(ev, &ctx->connection_ctx, NULL);
 
     verto_run(ctx->connection_ctx.base);
 
