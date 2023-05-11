@@ -13,5 +13,7 @@ RUN apt-get update \
 # Copy entry point
 COPY start-ldap.sh /start-ldap.sh
 
+COPY slapd.conf /tmp/slapd.conf
+
 # Code file to execute when the docker container starts up (`start-ldap.sh`)
 ENTRYPOINT ["/start-ldap.sh"]

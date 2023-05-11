@@ -1,7 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 # Start slapd
-slapd -h "ldap://127.0.0.1:3890/" -f slapd.conf &
+slapd -h "ldap://0.0.0.0:3890/" -f /tmp/slapd.conf
 
-# Wait for LDAP to start
-sleep 1
+# Without this line our container will fail to keep runing
+# tail -f /dev/null
+
