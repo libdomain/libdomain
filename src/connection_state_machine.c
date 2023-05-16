@@ -52,6 +52,12 @@ const char* csm_state2str(int state)
     return "STATE_NOT_FOUND";
 }
 
+/**
+ * @brief csm_init Initializes state machine, sets machine state to LDAP_CONNECTION_STATE_INIT.
+ * @param ctx [in] state machine to initialize
+ * @param connection [in] connection to use
+ * @return RETURN_CODE_SUCCESS.
+ */
 enum OperationReturnCode csm_init(struct state_machine_ctx_t *ctx, struct ldap_connection_ctx_t *connection)
 {
     ctx->ctx = connection;
@@ -60,6 +66,14 @@ enum OperationReturnCode csm_init(struct state_machine_ctx_t *ctx, struct ldap_c
     return RETURN_CODE_SUCCESS;
 }
 
+/**
+ * @brief csm_next_state Advances state based on a current machine state.
+ * @param ctx [in] state machine to use
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_OPERATION_IN_PROGRESS is operation is still running.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
 {
     int rc = RETURN_CODE_FAILURE;
@@ -103,6 +117,12 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
     return RETURN_CODE_SUCCESS;
 }
 
+/**
+ * @brief csm_set_state Sets new state, prints transition between states.
+ * @param ctx [in] state machine to use
+ * @param state [in] state to set
+ * @return RETURN_CODE_SUCCESS.
+ */
 enum OperationReturnCode csm_set_state(struct state_machine_ctx_t *ctx, enum LdapConnectionState state)
 {
     info("Connection [%h] - transition from state: %s to state: %s\n", csm_state2str(ctx->state), csm_state2str(state));
