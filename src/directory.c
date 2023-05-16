@@ -20,6 +20,11 @@
 
 #include "directory.h"
 
+/**
+ * @brief directory_get_type
+ * @param connection
+ * @return
+ */
 enum OperationReturnCode directory_get_type(struct ldap_connection_ctx_t *connection)
 {
     (void)(connection);
@@ -27,6 +32,11 @@ enum OperationReturnCode directory_get_type(struct ldap_connection_ctx_t *connec
     return RETURN_CODE_FAILURE;
 }
 
+/**
+ * @brief directory_parse_result
+ * @param connection
+ * @return
+ */
 enum OperationReturnCode directory_parse_result(struct ldap_connection_ctx_t *connection)
 {
     (void)(connection);

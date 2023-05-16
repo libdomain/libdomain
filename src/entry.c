@@ -21,6 +21,12 @@
 #include "entry.h"
 #include "connection.h"
 
+/**
+ * @brief add_on_read
+ * @param fd
+ * @param flags
+ * @param arg
+ */
 void add_on_read(int fd, short flags, void *arg)
 {
     (void)(fd);
@@ -28,6 +34,12 @@ void add_on_read(int fd, short flags, void *arg)
     (void)(arg);
 }
 
+/**
+ * @brief add_on_write
+ * @param fd
+ * @param flags
+ * @param arg
+ */
 void add_on_write(int fd, short flags, void *arg)
 {
     (void)(fd);
@@ -35,6 +47,15 @@ void add_on_write(int fd, short flags, void *arg)
     (void)(arg);
 }
 
+/**
+ * @brief search
+ * @param connection
+ * @param base_dn
+ * @param scope
+ * @param filter
+ * @param attrs
+ * @param attrsonly
+ */
 void search(struct ldap_connection_ctx_t* connection, const char *base_dn, int scope, const char *filter,
             char **attrs, bool attrsonly)
 {
@@ -56,7 +77,14 @@ void search(struct ldap_connection_ctx_t* connection, const char *base_dn, int s
     connection->on_read_operation = search_on_read;
 }
 
- enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection)
+/**
+ * @brief search_on_read
+ * @param rc
+ * @param message
+ * @param connection
+ * @return
+ */
+enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection)
 {
     (void)(rc);
     (void)(message);
@@ -115,6 +143,12 @@ void search(struct ldap_connection_ctx_t* connection, const char *base_dn, int s
     return RETURN_CODE_FAILURE;
 }
 
+/**
+ * @brief search_on_write
+ * @param fd
+ * @param flags
+ * @param arg
+ */
 void search_on_write(int fd, short flags, void *arg)
 {
     (void)(fd);
@@ -122,6 +156,12 @@ void search_on_write(int fd, short flags, void *arg)
     (void)(arg);
 }
 
+/**
+ * @brief modify_on_read
+ * @param fd
+ * @param flags
+ * @param arg
+ */
 void modify_on_read(int fd, short flags, void *arg)
 {
     (void)(fd);
@@ -129,6 +169,12 @@ void modify_on_read(int fd, short flags, void *arg)
     (void)(arg);
 }
 
+/**
+ * @brief modify_on_write
+ * @param fd
+ * @param flags
+ * @param arg
+ */
 void modify_on_write(int fd, short flags, void *arg)
 {
     (void)(fd);
@@ -136,6 +182,12 @@ void modify_on_write(int fd, short flags, void *arg)
     (void)(arg);
 }
 
+/**
+ * @brief delete_on_read
+ * @param fd
+ * @param flags
+ * @param arg
+ */
 void delete_on_read(int fd, short flags, void *arg)
 {
     (void)(fd);
@@ -143,6 +195,12 @@ void delete_on_read(int fd, short flags, void *arg)
     (void)(arg);
 }
 
+/**
+ * @brief delete_on_write
+ * @param fd
+ * @param flags
+ * @param arg
+ */
 void delete_on_write(int fd, short flags, void *arg)
 {
     (void)(fd);
@@ -150,6 +208,10 @@ void delete_on_write(int fd, short flags, void *arg)
     (void)(arg);
 }
 
+/**
+ * @brief whoami
+ * @param connection
+ */
 void whoami(struct ldap_connection_ctx_t *connection)
 {
     int rc = ldap_whoami(connection->ldap, NULL, NULL, &connection->current_msgid);
@@ -161,6 +223,13 @@ void whoami(struct ldap_connection_ctx_t *connection)
     connection->on_read_operation = whoami_on_read;
 }
 
+/**
+ * @brief whoami_on_read
+ * @param rc
+ * @param message
+ * @param connection
+ * @return
+ */
 enum OperationReturnCode whoami_on_read(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection)
 {
     (void)(rc);
