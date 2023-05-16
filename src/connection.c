@@ -83,11 +83,17 @@ const char* ldap_option2string(int option)
     } \
 
 /*!
- * \brief connection_configure
- * \param global_ctx
- * \param connection
- * \param config
+ * \brief connection_configure Configures connection while performing following actions:
+ *  1. Creates LDAP handle and sets protocol version, turns on async connection flag.
+ *  2. Depending on usage of sasl configures sals flags for connection. Allocates structure to hold sasl parameters.
+ *  3. Depending on usage of TLS configures TLS flags for connection.
+ *  4. Creates event base for connection.
+ * \param global_ctx [in] global context to use
+ * \param connection [out] configured connection ready to be supplied to connection state machine
+ * \param config [in] connection configuration contains parameters for sasl, tls, etc.
  * \return
+ *      - RETURN_CODE_SUCCESS on success.
+ *      - RETURN_CODE_FAILURE on failure.
  */
 enum OperationReturnCode connection_configure(struct ldap_global_context_t *global_ctx,
                                               struct ldap_connection_ctx_t *connection,
@@ -152,6 +158,11 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
         return RETURN_CODE_FAILURE;
 }
 
+/**
+ * @brief connection_start_tls Setups tls transport.
+ * @param connection [in] connection to use
+ * @return
+ */
 enum OperationReturnCode connection_start_tls(struct ldap_connection_ctx_t *connection)
 {
     (void)(connection);
@@ -159,6 +170,15 @@ enum OperationReturnCode connection_start_tls(struct ldap_connection_ctx_t *conn
     return RETURN_CODE_FAILURE;
 }
 
+/**
+ * @brief connection_install_handlers Installs handlers for read and write operations.
+ * @param connection [in] connection to install handlers for.
+ * @see connection_on_read
+ * @see connection_on_write
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_SUCCESS on failure.
+ */
 enum OperationReturnCode connection_install_handlers(struct ldap_connection_ctx_t *connection)
 {
     int fd = 0;
@@ -184,6 +204,14 @@ enum OperationReturnCode connection_install_handlers(struct ldap_connection_ctx_
         return RETURN_CODE_FAILURE;
 }
 
+/**
+ * @brief connection_sasl_bind Tries to perform non interactive connection using sasl bind.
+ * Installs connection_bind_on_read operation handler.
+ * @param connection [in] connection to perform bind with.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *connection)
 {
     assert(connection);
@@ -210,20 +238,34 @@ enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *conn
     return RETURN_CODE_SUCCESS;
 }
 
-int sasl_interact_gssapi(LDAP *ld, unsigned flags, void *indefaults, void *in) {
+/**
+ * @brief sasl_interact_gssapi This function is a callback that is called by ldap_sasl_interactive_bind.
+ * @param ld [in] ldap handle to use
+ * @param flags [in] unused
+ * @param indefaults [in] we need to provide ldap_sasl_defaults_t
+ * @param in [in] list of client interactions with user for caller to fill in
+ * @return
+ *        - LDAP_SUCCESS on success.
+ *        - LDAP_PARAM_ERROR on parameter error.
+ */
+int sasl_interact_gssapi(LDAP *ld, unsigned flags, void *indefaults, void *in)
+{
     (void)(flags);
 
     struct ldap_sasl_defaults_t *defaults = (struct ldap_sasl_defaults_t *) indefaults;
     sasl_interact_t *interact = (sasl_interact_t *) in;
 
-    if (ld == NULL) {
+    if (ld == NULL)
+    {
         return LDAP_PARAM_ERROR;
     }
 
-    while (interact->id != SASL_CB_LIST_END) {
+    while (interact->id != SASL_CB_LIST_END)
+    {
         const char *dflt = interact->defresult;
 
-        switch (interact->id) {
+        switch (interact->id)
+        {
             case SASL_CB_GETREALM:
                 if (defaults)
                     dflt = defaults->realm;
@@ -246,7 +288,8 @@ int sasl_interact_gssapi(LDAP *ld, unsigned flags, void *indefaults, void *in) {
                 break;
         }
 
-        if (dflt && !*dflt) {
+        if (dflt && !*dflt)
+        {
             dflt = NULL;
         }
 
@@ -259,6 +302,14 @@ int sasl_interact_gssapi(LDAP *ld, unsigned flags, void *indefaults, void *in) {
     return LDAP_SUCCESS;
 }
 
+/**
+ * @brief connection_ldap_bind Preforms interactive bind and installs connection_bind_on_read operation handler.
+ * @param connection [in] connection to perform bind on
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_OPERATION_IN_PROGRESS if operation is still running.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *connection)
 {
     assert(connection);
@@ -298,6 +349,11 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
     return rc == LDAP_SASL_BIND_IN_PROGRESS ? RETURN_CODE_OPERATION_IN_PROGRESS : RETURN_CODE_SUCCESS;
 }
 
+/**
+ * @brief connection_on_read This callback is performed on read operation.
+ * @param ctx [in] event context
+ * @param ev [in] event
+ */
 void connection_on_read(verto_ctx *ctx, verto_ev *ev)
 {
     (void)(ctx);
@@ -335,12 +391,22 @@ void connection_on_read(verto_ctx *ctx, verto_ev *ev)
         return;
 }
 
+/**
+ * @brief connection_on_read This callback is performed on write operation.
+ * @param ctx [in] event context
+ * @param ev [in] event
+ */
 void connection_on_write(verto_ctx *ctx, verto_ev *ev)
 {
     (void)(ctx);
     (void)(ev);
 }
 
+/**
+ * @brief connection_close Closes connection and frees resources associated with said connection.
+ * @param connection [in] connection to use
+ * @return RETURN_CODE_SUCCESS.
+ */
 enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connection)
 {
     assert(connection);
@@ -357,9 +423,18 @@ enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connecti
 
     verto_free(connection->base);
     ldap_unbind_ext(connection->ldap, NULL, NULL);
-    return RETURN_CODE_FAILURE;
+    return RETURN_CODE_SUCCESS;
 }
 
+/**
+ * @brief connection_bind_on_read This callback is performed during bind operation.
+ * @param rc [in] result code of bind operation.
+ * @param message [in] message received during operation.
+ * @param connection [in] connection used during bind operation.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, struct ldap_connection_ctx_t *connection)
 {
     (void)(message);
