@@ -20,6 +20,10 @@
 
 #include "common.h"
 
+/**
+ * @brief error Logs error to stderror.
+ * @param format Format that used in printf function.
+ */
 void error(const char *format, ...)
 {
     fprintf(stderr, "Error: ");
@@ -29,6 +33,10 @@ void error(const char *format, ...)
     va_end(argptr);
 }
 
+/**
+ * @brief error Logs warning to stderror.
+ * @param format Format that used in printf function.
+ */
 void warning(const char *format, ...)
 {
     fprintf(stderr, "Warning: ");
@@ -38,6 +46,10 @@ void warning(const char *format, ...)
     va_end(argptr);
 }
 
+/**
+ * @brief error Logs information to stderror.
+ * @param format Format that used in printf function.
+ */
 void info(const char *format, ...)
 {
     fprintf(stderr, "Info: ");
