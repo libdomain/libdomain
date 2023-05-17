@@ -26,7 +26,15 @@ RUN apt-get update \
     cmake-modules \
     gcc \
     doxygen \
+    gcc-c++ \
     sudo \
+    libldap-devel \
+    libverto-devel \
+    libverto-libev-devel \
+    libverto-glib-devel \
+    libverto-libevent-devel \
+    libtalloc-devel \
+    libsasl2-devel \
     && export CURRENT_PWD=`pwd` \
     && groupadd --gid $GROUP_ID builder2 \
     && useradd --uid $USER_ID --gid $GROUP_ID -ms /bin/bash builder2 \
