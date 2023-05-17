@@ -41,6 +41,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - run: docker volume create --driver local --opt type=none --opt device=`pwd` --opt o=bind data-volume
+
       - run: cd tests && docker compose build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) --build-arg DISTR=${{ inputs.os }} --build-arg ARCH=${{ inputs.architecture }}
 
       - run: cd tests && docker compose up
