@@ -457,7 +457,7 @@ LOOKUP_CACHE_SIZE      = 0
 # normally produced when WARNINGS is set to YES.
 # The default value is: NO.
 
-EXTRACT_ALL            = NO
+EXTRACT_ALL            = YES
 
 # If the EXTRACT_PRIVATE tag is set to YES, all private members of a class will
 # be included in the documentation.
@@ -2540,3 +2540,8 @@ DOT_CLEANUP            = YES
 # Disable search for m.css
 
 M_SEARCH_DISABLED      = YES
+
+# In­clude un­doc­u­mented sym­bols, files and dir­ect­or­ies in the out­put. 
+# If not set, False is used.
+
+M_SHOW_UNDOCUMENTED    = YES
