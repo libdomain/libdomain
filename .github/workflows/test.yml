@@ -45,5 +45,5 @@ jobs:
 
       - run: cd tests && docker compose build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) --build-arg DISTR=${{ inputs.os }} --build-arg ARCH=${{ inputs.architecture }}
 
-      - run: cd tests && docker compose up --abort-on-container-exit
+      - run: cd tests && docker compose up --abort-on-container-exit --attach-dependencies
 
