@@ -5,7 +5,10 @@
 #include <entry.h>
 #include <talloc.h>
 
+#include <test_common.h>
+
 const int LDAP_DEBUG_ANY = -1;
+const int BUFFER_SIZE = 80;
 
 Describe(Cgreen);
 BeforeEach(Cgreen) {}
@@ -33,7 +36,10 @@ static struct context_t* create_context()
 
     memset(&ctx->connection_ctx, 0, sizeof(ldap_connection_ctx_t));
 
-    ctx->config.server = "ldap://dc0.domain.alt:389";
+    char *envvar = "LDAP_SERVER";
+    char *server = get_environment_variable(ctx->global_ctx.talloc_ctx, envvar);
+
+    ctx->config.server = server;
     ctx->config.port = 389;
     ctx->config.protocol_verion = LDAP_VERSION3;
 
@@ -98,8 +104,14 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
 
         verto_add_timeout(ctx, VERTO_EV_FLAG_PERSIST, connection_on_search_message, CONNECTION_UPDATE_INTERVAL);
     }
-}
 
+    if (connection->state_machine->state == LDAP_CONNECTION_STATE_ERROR)
+    {
+        verto_break(ctx);
+
+        fail_test("Error encountered during bind\n");
+    }
+}
 
 Ensure(Cgreen, entry_search_test) {
     struct context_t* ctx = create_context();

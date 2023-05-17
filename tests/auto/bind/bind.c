@@ -3,6 +3,8 @@
 #include <connection.h>
 #include <talloc.h>
 
+#include <test_common.h>
+
 const int LDAP_DEBUG_ANY = -1;
 
 Describe(Cgreen);
@@ -27,7 +29,10 @@ static struct context_t* create_context()
 
     memset(&ctx->connection_ctx, 0, sizeof(ldap_connection_ctx_t));
 
-    ctx->config.server = "ldap://dc0.domain.alt:389";
+    char *envvar = "LDAP_SERVER";
+    char *server = get_environment_variable(ctx->global_ctx.talloc_ctx, envvar);
+
+    ctx->config.server = server;
     ctx->config.port = 389;
     ctx->config.protocol_verion = LDAP_VERSION3;
 

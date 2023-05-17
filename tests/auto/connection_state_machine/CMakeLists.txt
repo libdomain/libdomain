@@ -15,7 +15,7 @@ set(SOURCES
 
 add_libdomain_test(${TEST_NAME} ${SOURCES})
 target_link_libraries(${TEST_NAME} ${CGREEN_LIBRARIES})
-target_link_libraries(${TEST_NAME} domain)
+target_link_libraries(${TEST_NAME} domain test-common)
 target_link_libraries(${TEST_NAME} Ldap::Ldap)
 target_link_libraries(${TEST_NAME} PkgConfig::Libverto)
 target_link_libraries(${TEST_NAME} PkgConfig::Talloc)
