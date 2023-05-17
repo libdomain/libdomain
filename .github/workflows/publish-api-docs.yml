@@ -1,9 +1,6 @@
 name: publish-api-docs
 
-on:
-  push:
-    branches:
-      - master
+on: [ workflow_dispatch, workflow_call ]
 
 jobs:
   api-doc:
@@ -26,7 +23,10 @@ jobs:
       run:  sudo pip3 install jinja2 Pygments
 
     - name: Install m.css
-      run:  git clone git://github.com/mosra/m.css
+      uses: actions/checkout@v3
+      with:
+        repository: mosra/m.css
+        path: m.css
 
     - name: Generate autodocs for libdomain library
       run:  |
