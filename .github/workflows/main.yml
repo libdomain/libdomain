@@ -40,3 +40,6 @@ jobs:
 
   spellcheck:
     uses: ./.github/workflows/spellcheck.yml
+
+  publish-api-docs:
+    uses: ./.github/workflows/publish-api-docs.yml
