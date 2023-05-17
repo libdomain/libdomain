@@ -16,6 +16,8 @@ services:
     build: testenv-container
     container_name: testenv
     restart: "no"
+    environment:
+      - LDAP_SERVER=ldap://openldap-server:3890
     volumes:
       - data-volume:/app
     depends_on:
