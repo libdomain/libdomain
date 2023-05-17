@@ -7,11 +7,6 @@ services:
     ports:
       - '3890:3890'
     restart: "no"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "ldap://localhost:3890"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
   testenv:
     build: testenv-container
     container_name: testenv
@@ -22,7 +17,7 @@ services:
       - data-volume:/app
     depends_on:
       openldap:
-        condition: service_healthy
+        condition: service_started
 
 volumes:
   data-volume:
