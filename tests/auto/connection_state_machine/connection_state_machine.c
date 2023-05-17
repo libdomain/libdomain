@@ -51,7 +51,7 @@ static void destroy_context(struct context_t* ctx)
     free(ctx);
 }
 
-Ensure(Cgreen, connection_state_machine_init) {
+xEnsure(Cgreen, connection_state_machine_init) {
     struct context_t* ctx = create_context();
 
     int rc = RETURN_CODE_FAILURE;
@@ -73,7 +73,7 @@ Ensure(Cgreen, connection_state_machine_init) {
     destroy_context(ctx);
 }
 
-Ensure(Cgreen, connection_state_machine_next_state) {
+xEnsure(Cgreen, connection_state_machine_next_state) {
     struct context_t* ctx = create_context();
 
     int rc = RETURN_CODE_FAILURE;
@@ -124,7 +124,7 @@ Ensure(Cgreen, connection_state_machine_next_state) {
 }
 
 
-Ensure(Cgreen, connection_state_machine_set_state) {
+xEnsure(Cgreen, connection_state_machine_set_state) {
     void* talloc_ctx = talloc_new(NULL);
 
     struct state_machine_ctx_t* csm = talloc(talloc_ctx, struct state_machine_ctx_t);
