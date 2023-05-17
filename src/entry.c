@@ -128,7 +128,7 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
     }
         break;
     case LDAP_RES_SEARCH_REFERENCE:
-        info("Received search referal but not following it!");
+        info("Received search referral but not following it!");
         return RETURN_CODE_SUCCESS;
     default:
     {

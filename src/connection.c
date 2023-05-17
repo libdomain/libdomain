@@ -303,7 +303,7 @@ int sasl_interact_gssapi(LDAP *ld, unsigned flags, void *indefaults, void *in)
 }
 
 /**
- * @brief connection_ldap_bind Preforms interactive bind and installs connection_bind_on_read operation handler.
+ * @brief connection_ldap_bind Performs interactive bind and installs connection_bind_on_read operation handler.
  * @param connection [in] connection to perform bind on
  * @return
  *        - RETURN_CODE_SUCCESS on success.
