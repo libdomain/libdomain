@@ -1,0 +1,9 @@
+dn: dc=domain,dc=alt
+objectClass: organization
+objectClass: dcObject
+dc: domain
+o: alt
+
+dn: ou=users,dc=domain,dc=alt
+objectClass: organizationalUnit
+ou: users
