@@ -21,9 +21,11 @@
 #define LIBDOMAIN_ENTRY_H
 
 #include "connection.h"
-
+void add(struct ldap_connection_ctx_t *connection,
+         const char *base_dn,
+         LDAPMod **attrs);
 void add_on_read(int fd, short flags, void *arg);
-void add_on_write(int fd, short flags, void *arg);
+enum OperationReturnCode add_on_write(int rc, LDAPMessage *message, ldap_connection_ctx_t *connection);
 
 void whoami(struct ldap_connection_ctx_t *connection);
 

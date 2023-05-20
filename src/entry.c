@@ -21,6 +21,17 @@
 #include "entry.h"
 #include "connection.h"
 
+void add(struct ldap_connection_ctx_t* connection, const char *base_dn, LDAPMod **attrs)
+{
+    int rc = ldap_add_ext(connection->ldap, base_dn, attrs, NULL, NULL, &connection->current_msgid);
+    if (rc != LDAP_SUCCESS)
+    {
+        error("Unable to add entry: %s\n", ldap_err2string(rc));
+        return;
+    }
+    connection->on_write_operation = add_on_write;
+}
+
 /**
  * @brief add_on_read
  * @param fd
@@ -35,16 +46,40 @@ void add_on_read(int fd, short flags, void *arg)
 }
 
 /**
- * @brief add_on_write
- * @param fd
- * @param flags
- * @param arg
+ * @brief add_on_write This callback called on complition of ldap add operation.
+ * @param rc [in] return code of ldap_result
+ * @param message [in] message received from
+ * @param connection [in] connection to work with.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
  */
-void add_on_write(int fd, short flags, void *arg)
+enum OperationReturnCode add_on_write(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection)
 {
-    (void)(fd);
-    (void)(flags);
-    (void)(arg);
+    (void)(message);
+
+    int error_code = LDAP_SUCCESS;
+    char *diagnostic_message = NULL;
+
+    switch (rc)
+    {
+    case LDAP_RES_ADD:
+    {
+        connection->on_write_operation = NULL;
+        return RETURN_CODE_SUCCESS;
+    }
+        break;
+    default:
+    {
+        ldap_get_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
+        ldap_get_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
+        error("ldap_result failed: %s\n", diagnostic_message);
+        ldap_memfree(diagnostic_message);
+    }
+        break;
+    }
+
+    return RETURN_CODE_FAILURE;
 }
 
 /**
