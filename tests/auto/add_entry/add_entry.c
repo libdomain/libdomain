@@ -15,32 +15,30 @@ BeforeEach(Cgreen) {}
 AfterEach(Cgreen) {}
 
 char* LDAP_DIRECTORY_ATTRS[] = { "objectClass", NULL };
+#define VALUE_ATTRIBUTES_SIZE 5
 
 typedef struct attribute_value_pair_s
 {
     char* name;
-    char* value;
+    char* value[VALUE_ATTRIBUTES_SIZE];
 } attribute_value_pair_t;
 
 #define number_of_elements(x)  (sizeof(x) / sizeof((x)[0]))
 
 attribute_value_pair_t LDAP_TEST_USER_ATTRIBUTES[] =
 {
-    { "objectClass", "top" },
-    { "objectClass", "account" },
-    { "objectClass", "posixAccount" },
-    { "objectClass", "shadowAccount" },
-    { "cn", "adam" },
-    { "uid", "adam" },
-    { "uidNumber", "0" },
-    { "gidNumber", "0" },
-    { "homeDirectory", "/home/adam" },
-    { "loginShell", "/bin/bash" },
-    { "gecos", "adam" },
-    { "userPassword", "{crypt}x" },
-    { "shadowLastChange", "0" },
-    { "shadowMax", "0" },
-    { "shadowWarning", "0" }
+    { "objectClass", { "top", "account", "posixAccount", "shadowAccount" , NULL } },
+    { "cn", { "adam", NULL, NULL, NULL, NULL } },
+    { "uid", { "adam", NULL, NULL, NULL, NULL } },
+    { "uidNumber", { "0", NULL, NULL, NULL, NULL } },
+    { "gidNumber", { "0", NULL, NULL, NULL, NULL } },
+    { "homeDirectory", { "/home/adam", NULL, NULL, NULL, NULL } },
+    { "loginShell", { "/bin/bash", NULL, NULL, NULL, NULL } },
+    { "gecos", { "adam", NULL, NULL, NULL, NULL } },
+    { "userPassword", { "{crypt}x", NULL, NULL, NULL, NULL } },
+    { "shadowLastChange", { "0", NULL, NULL, NULL, NULL } },
+    { "shadowMax", { "0", NULL, NULL, NULL, NULL } },
+    { "shadowWarning", { "0", NULL, NULL, NULL, NULL } }
 };
 const int USER_ATTRIBUTES_SIZE = number_of_elements(LDAP_TEST_USER_ATTRIBUTES);
 
@@ -135,15 +133,23 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
         for (; i < USER_ATTRIBUTES_SIZE; ++i)
         {
             char* name = LDAP_TEST_USER_ATTRIBUTES[i].name;
-            char* value = LDAP_TEST_USER_ATTRIBUTES[i].value;
+            char** value = LDAP_TEST_USER_ATTRIBUTES[i].value;
 
             attrs[i] = talloc(talloc_ctx, LDAPMod);
 
             attrs[i]->mod_op = LDAP_MOD_ADD;
             attrs[i]->mod_type = talloc_strndup(talloc_ctx, name, strlen(name));
-            attrs[i]->mod_values = talloc_array(talloc_ctx, char*, 2);
-            attrs[i]->mod_values[0] = talloc_strndup(talloc_ctx, value, strlen(value));
-            attrs[i]->mod_values[1] = NULL;
+            attrs[i]->mod_values = talloc_array(talloc_ctx, char*, VALUE_ATTRIBUTES_SIZE);
+
+            for (int index = 0; index < VALUE_ATTRIBUTES_SIZE; ++index)
+            {
+                if (!value[index])
+                {
+                    attrs[i]->mod_values[index] = NULL;
+                    break;
+                }
+                attrs[i]->mod_values[index] = talloc_strndup(talloc_ctx, value[index], strlen(value[index]));
+            }
         }
         attrs[USER_ATTRIBUTES_SIZE] = NULL;
 
