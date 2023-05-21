@@ -84,9 +84,9 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
         break;
 
     case LDAP_CONNECTION_STATE_TRANSPORT_READY:
-//       TODO: Implement simple bind.
-//            rc = connection_sasl_bind(ctx->ctx);
-        rc = connection_ldap_bind(ctx->ctx);
+//      TODO: Implement simple bind.
+//      rc = connection_ldap_bind(ctx->ctx);
+        rc = connection_sasl_bind(ctx->ctx);
 
         csm_set_state(ctx, rc == RETURN_CODE_SUCCESS ? LDAP_CONNECTION_STATE_RUN
                                                      :  rc == RETURN_CODE_OPERATION_IN_PROGRESS
