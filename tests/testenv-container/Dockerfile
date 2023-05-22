@@ -22,11 +22,12 @@ RUN apt-get update \
     apt-repo \
     apt-repo-tools \
     cmake \
+    ctest \
     rpm-macros-cmake \
     cmake-modules \
     gcc \
-    doxygen \
     gcc-c++ \
+    doxygen \
     sudo \
     libldap-devel \
     libverto-devel \
@@ -44,22 +45,25 @@ RUN apt-get update \
     && usermod -aG sudo builder2 \
     && echo "root ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers \
     && echo "builder2 ALL=(ALL) NOPASSWD:ALL" | tee -a /etc/sudoers \
-    && hasher-useradd builder2 \
     && mkdir /app \
     && chown root:builder2 /app
 
-# Copies your code file from your action repository to the filesystem path `/` of the container
-COPY script/build.sh /build.sh
-
-ARG ARCH
-
-RUN if [ "$ARCH" = "i386" ]; then \
-       sed -i 's/gear-hsh/i586 gear-hsh/g' /build.sh; \
-       sed -i 's/x86_64/i686/g' /build.sh; \
-    fi
+RUN git clone https://github.com/august-alt/cgreen/ \
+    && cd cgreen \
+    && git checkout alt_build \
+    && chown builder2:builder2 /cgreen
 
 USER builder2
-WORKDIR /home/builder2
 
-# Code file to execute when the docker container starts up (`build.sh`)
-ENTRYPOINT ["/build.sh"]
+RUN git config --global --add safe.directory /cgreen \
+    && cd cgreen && export CC=`which gcc` && export CXX=`which g++` && echo $CC $CXX && gear-rpm -ba
+
+USER root
+
+RUN apt-get install /home/builder2/RPM/RPMS/x86_64/cgreen-1.6.2-alt1.x86_64.rpm && rm -rf /cgreen && rm -rf /home/builder2/RPM/
+
+# Copy entry point
+COPY make-test.sh /make-test.sh
+
+# Code file to execute when the docker container starts up (`make-test.sh`)
+ENTRYPOINT ["/make-test.sh"]

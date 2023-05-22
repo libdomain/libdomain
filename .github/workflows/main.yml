@@ -26,5 +26,20 @@ jobs:
       architecture: ${{ matrix.architecture }}
     secrets: inherit
 
+  test:
+    strategy:
+      matrix:
+        os: [ "alt:sisyphus", "alt:p10" ]
+        architecture: [ amd64, i386 ]
+      fail-fast: false
+    uses: ./.github/workflows/test.yml
+    with:
+      os: ${{ matrix.os }}
+      architecture: ${{ matrix.architecture }}
+    secrets: inherit
+
   spellcheck:
     uses: ./.github/workflows/spellcheck.yml
+
+  publish-api-docs:
+    uses: ./.github/workflows/publish-api-docs.yml
