@@ -48,6 +48,20 @@ RUN apt-get update \
     && mkdir /app \
     && chown root:builder2 /app
 
+RUN git clone https://github.com/august-alt/cgreen/ \
+    && cd cgreen \
+    && git checkout alt_build \
+    && chown builder2:builder2 /cgreen
+
+USER builder2
+
+RUN git config --global --add safe.directory /cgreen \
+    && cd cgreen && export CC=`which gcc` && export CXX=`which g++` && echo $CC $CXX && gear-rpm -ba
+
+USER root
+
+RUN apt-get install /home/builder2/RPM/RPMS/x86_64/cgreen-1.6.2-alt1.x86_64.rpm && rm -rf /cgreen && rm -rf /home/builder2/RPM/
+
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY script/build.sh /build.sh
 
