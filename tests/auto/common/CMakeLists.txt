@@ -14,7 +14,7 @@ set(SOURCES
     test_common.c
 )
 
-add_library(${LIBRARY_NAME} SHARED ${SOURCES})
+add_library(${LIBRARY_NAME} STATIC ${SOURCES})
 target_link_libraries(${LIBRARY_NAME} ${CGREEN_LIBRARIES})
 target_link_libraries(${LIBRARY_NAME} domain)
 target_link_libraries(${LIBRARY_NAME} Ldap::Ldap)

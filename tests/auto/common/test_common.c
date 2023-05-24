@@ -2,7 +2,7 @@
 
 #include <cgreen/cgreen.h>
 
-const int BUFFER_SIZE = 80;
+static const int BUFFER_SIZE = 80;
 
 /**
  * @brief get_environment_variable Wrapper around getenv retrievs environment variable and stores it in current
