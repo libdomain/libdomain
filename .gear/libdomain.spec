@@ -22,7 +22,7 @@ BuildRequires: doxygen
 Source0: %name-%version.tar
 
 %description
-Group policy editor
+Libdomain library provides ability to manipulate LDAP entries.
 
 %package devel
 Summary: Developer tools for the libdomain client library
