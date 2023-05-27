@@ -20,6 +20,8 @@ BuildRequires: cgreen
 
 BuildRequires: doxygen
 
+Requires: libverto-glib libverto-libev libverto-libevent
+
 Source0: %name-%version.tar
 
 %description
