@@ -113,7 +113,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     }
 }
 
-xEnsure(Cgreen, entry_search_test) {
+Ensure(Cgreen, entry_search_test) {
     struct context_t* ctx = create_context();
 
     ctx->config.use_sasl = true;
