@@ -1,5 +1,6 @@
 add_subdirectory(add_entry)
 add_subdirectory(modify_entry)
+add_subdirectory(rename_entry)
 add_subdirectory(delete_entry)
 
 add_subdirectory(bind)
