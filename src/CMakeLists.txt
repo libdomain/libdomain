@@ -24,14 +24,24 @@ pkg_check_modules(Libverto REQUIRED IMPORTED_TARGET libverto)
 set(PROJECT_SOURCES
     common.c
     common.h
+    computer.c
+    computer.h
     connection.c
     connection.h
     connection_state_machine.c
     connection_state_machine.h
     directory.c
     directory.h
+    domain.h
+    domain.c
     entry.c
     entry.h
+    group.c
+    group.h
+    organizational_unit.c
+    organizational_unit.h
+    user.c
+    user.h
 )
 
 add_libdomain_library(domain SHARED ${PROJECT_SOURCES})
