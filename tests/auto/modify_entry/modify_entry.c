@@ -28,7 +28,6 @@ typedef struct attribute_value_pair_s
 attribute_value_pair_t LDAP_TEST_USER_ATTRIBUTES[] =
 {
     { "objectClass", { "top", "account", "posixAccount", "shadowAccount" , NULL } },
-    { "cn", { "adam2", NULL, NULL, NULL, NULL } },
     { "uid", { "adam2", NULL, NULL, NULL, NULL } },
     { "uidNumber", { "0", NULL, NULL, NULL, NULL } },
     { "gidNumber", { "0", NULL, NULL, NULL, NULL } },
@@ -141,14 +140,21 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
             attrs[i]->mod_type = talloc_strndup(talloc_ctx, name, strlen(name));
             attrs[i]->mod_values = talloc_array(talloc_ctx, char*, VALUE_ATTRIBUTES_SIZE);
 
+            info("Attribute to modify: %s with index %d \n", attrs[i]->mod_type, i);
+
             for (int index = 0; index < VALUE_ATTRIBUTES_SIZE; ++index)
             {
                 if (!value[index])
                 {
                     attrs[i]->mod_values[index] = NULL;
+
+                    info("Attribute value[%d]: %s \n", index, attrs[i]->mod_values[index]);
+
                     break;
                 }
                 attrs[i]->mod_values[index] = talloc_strndup(talloc_ctx, value[index], strlen(value[index]));
+
+                info("Attribute value[%d]: %s \n", index, attrs[i]->mod_values[index]);
             }
         }
         attrs[USER_ATTRIBUTES_SIZE] = NULL;
