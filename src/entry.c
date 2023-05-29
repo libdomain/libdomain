@@ -425,23 +425,23 @@ enum OperationReturnCode whoami_on_read(int rc, LDAPMessage *message, struct lda
 
 /**
  * @brief ld_rename Wraps ldap_rename function.
- * @param connection Connection to work with.
- * @param olddn      Old dn of the entry.
- * @param newdn      New dn of the entry.
- * @param newParent  New parent of the entry.
- * @param deleteOriginal If we going to delete original entry or not
+ * @param connection[in]      Connection to work with.
+ * @param olddn[in]           Old dn of the entry.
+ * @param newdn[in]           New dn of the entry.
+ * @param new_parent[in]      New parent of the entry.
+ * @param delete_original[in] If we going to delete original entry or not
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
  */
 enum OperationReturnCode ld_rename(struct ldap_connection_ctx_t *connection, const char *olddn,
-                                   const char *newdn, const char* newParent, bool deleteOriginal)
+                                   const char *newdn, const char* new_parent, bool delete_original)
 {
     int rc = ldap_rename(connection->ldap,
                          olddn,
                          newdn,
-                         newParent,
-                         deleteOriginal,
+                         new_parent,
+                         delete_original,
                          NULL,
                          NULL,
                          &connection->current_msgid);
