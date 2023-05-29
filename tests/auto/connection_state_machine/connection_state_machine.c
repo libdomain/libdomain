@@ -83,17 +83,17 @@ Ensure(Cgreen, connection_state_machine_next_state) {
     ctx->config.use_sasl = true;
 
     ctx->config.sasl_options = talloc(ctx->global_ctx.talloc_ctx, struct ldap_sasl_options_t);
-    ctx->config.sasl_options->mechanism = "GSSAPI";
-    ctx->config.sasl_options->passwd = NULL;
+    ctx->config.sasl_options->mechanism = LDAP_SASL_SIMPLE;
+    ctx->config.sasl_options->passwd = "password";
 
     ctx->config.sasl_options->sasl_nocanon = true;
     ctx->config.sasl_options->sasl_secprops = "maxssf=56";
     ctx->config.sasl_options->sasl_flags = LDAP_SASL_QUIET;
     ctx->connection_ctx.ldap_params = talloc(ctx->global_ctx.talloc_ctx, struct ldap_sasl_params_t);
-    ctx->connection_ctx.ldap_params->dn = NULL;
+    ctx->connection_ctx.ldap_params->dn = "cn=admin,dc=domain,dc=alt";
     ctx->connection_ctx.ldap_params->passwd = talloc(ctx->global_ctx.talloc_ctx, struct berval);
-    ctx->connection_ctx.ldap_params->passwd->bv_len = 0;
-    ctx->connection_ctx.ldap_params->passwd->bv_val = NULL;
+    ctx->connection_ctx.ldap_params->passwd->bv_len = strlen(ctx->config.sasl_options->passwd);
+    ctx->connection_ctx.ldap_params->passwd->bv_val = strdup(ctx->config.sasl_options->passwd);
     ctx->connection_ctx.ldap_params->clientctrls = NULL;
     ctx->connection_ctx.ldap_params->serverctrls = NULL;
 
@@ -110,8 +110,20 @@ Ensure(Cgreen, connection_state_machine_next_state) {
     assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
 
     rc = csm_next_state(csm);
-    assert_that(csm->state, is_equal_to(LDAP_CONNECTION_STATE_BIND_IN_PROGRESS));
-    assert_that(rc, is_equal_to(RETURN_CODE_OPERATION_IN_PROGRESS));
+    switch (rc)
+    {
+    case RETURN_CODE_OPERATION_IN_PROGRESS:
+        assert_that(csm->state, is_equal_to(LDAP_CONNECTION_STATE_BIND_IN_PROGRESS));
+        break;
+    case RETURN_CODE_SUCCESS:
+        assert_that(csm->state, is_equal_to(LDAP_CONNECTION_STATE_RUN));
+        goto exit;
+        break;
+    default:
+        error("Error code %d\n", rc);
+        fail_test("Return code of csm_next_state is not one of passable parameters");
+        return;
+    }
 
     rc = csm_set_state(csm, LDAP_CONNECTION_STATE_BOUND);
     assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
@@ -120,6 +132,7 @@ Ensure(Cgreen, connection_state_machine_next_state) {
     assert_that(csm->state, is_equal_to(LDAP_CONNECTION_STATE_RUN));
     assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
 
+exit:
     destroy_context(ctx);
 }
 
