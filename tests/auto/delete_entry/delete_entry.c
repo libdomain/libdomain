@@ -125,7 +125,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     {
         verto_del(ev);
 
-        delete(connection, "cn=adam,ou=users,dc=domain,dc=alt");
+        delete(connection, "cn=adam2,ou=users,dc=domain,dc=alt");
 
         verto_add_timeout(ctx, VERTO_EV_FLAG_PERSIST, connection_on_delete_message, CONNECTION_UPDATE_INTERVAL);
     }
