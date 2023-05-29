@@ -422,3 +422,86 @@ enum OperationReturnCode whoami_on_read(int rc, LDAPMessage *message, struct lda
 
     return RETURN_CODE_SUCCESS;
 }
+
+/**
+ * @brief ld_rename Wraps ldap_rename function.
+ * @param connection Connection to work with.
+ * @param olddn      Old dn of the entry.
+ * @param newdn      New dn of the entry.
+ * @param newParent  New parent of the entry.
+ * @param deleteOriginal If we going to delete original entry or not
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
+enum OperationReturnCode ld_rename(struct ldap_connection_ctx_t *connection, const char *olddn,
+                                   const char *newdn, const char* newParent, bool deleteOriginal)
+{
+    int rc = ldap_rename(connection->ldap,
+                         olddn,
+                         newdn,
+                         newParent,
+                         deleteOriginal,
+                         NULL,
+                         NULL,
+                         &connection->current_msgid);
+
+    if (rc != LDAP_SUCCESS)
+    {
+        error("Unable to create whoami request: %s\n", ldap_err2string(rc));
+        return RETURN_CODE_FAILURE;
+    }
+    connection->on_read_operation = rename_on_read;
+
+    return RETURN_CODE_SUCCESS;
+}
+
+/**
+ * @brief rename_on_read This callback determines result of rename operation.
+ * @param[in] rc         Return code of ldap_result.
+ * @param[in] message    Message received from ldap.
+ * @param[in] connection Connection to work with.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
+enum OperationReturnCode rename_on_read(int rc, LDAPMessage *message, ldap_connection_ctx_t *connection)
+{
+    int error_code = LDAP_SUCCESS;
+    char *diagnostic_message = NULL;
+
+    switch (rc)
+    {
+    case LDAP_RES_RENAME:
+    {
+        char *dn = NULL;
+
+        connection->on_read_operation = NULL;
+
+        ldap_parse_result(connection->ldap, message, &error_code, &dn, &diagnostic_message, NULL, NULL, false);
+        info("ldap_result: %s %s %d\n", diagnostic_message, ldap_err2string(error_code), error_code);
+        ldap_memfree(diagnostic_message);
+        ldap_memfree(dn);
+
+        switch (error_code)
+        {
+        case LDAP_SUCCESS:
+            return RETURN_CODE_SUCCESS;
+
+        default:
+            return RETURN_CODE_FAILURE;
+        }
+    }
+        break;
+    default:
+    {
+        ldap_get_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
+        ldap_get_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
+        error("ldap_result failed: %s\n", diagnostic_message);
+        ldap_memfree(diagnostic_message);
+    }
+        break;
+    }
+
+    return RETURN_CODE_FAILURE;
+}
