@@ -21,19 +21,37 @@
 #ifndef LIB_DOMAIN_H
 #define LIB_DOMAIN_H
 
-void ld_init();
-void ld_install_handlers();
-void ld_exec();
-void ld_exec_once();
+#include <stdbool.h>
 
-void ld_search();
+/**
+ * @brief LDHandle Structure that represents an libdomain session handle.
+ */
+typedef struct ldhandle LDHandle;
 
-void ld_add_entry();
-void ld_del_entry();
-void ld_mod_entry();
-void ld_rename_entry();
+/**
+ * @brief config_t
+ */
+typedef struct config_s config_t;
 
-void ld_add_attribute();
-void ld_del_attribute();
+config_t *ld_create_config(char* host,
+                           int port,
+                           int protocol_version,
+                           char *base_dn,
+                           char *username,
+                           char *password,
+                           bool simple_bind,
+                           bool use_tls,
+                           bool use_sasl,
+                           bool use_anon,
+                           int  timeout,
+                           char* cacertfile,
+                           char* certfile,
+                           char* keyfile);
+
+void ld_init(LDHandle* handle, const config_t* config);
+void ld_install_handlers(LDHandle* handle);
+void ld_exec(LDHandle* handle);
+void ld_exec_once(LDHandle* handle);
+void ld_free(LDHandle* handle);
 
 #endif//LIB_DOMAIN_H
