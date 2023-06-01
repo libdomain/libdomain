@@ -21,14 +21,15 @@
 #ifndef LIB_DOMAIN_GROUP_H
 #define LIB_DOMAIN_GROUP_H
 
+#include "common.h"
 #include "domain.h"
 
-void ld_add_group(LDHandle* handle, const char* name, const char* base_dn);
-void ld_del_group(LDHandle* handle, const char* name);
-void ld_mod_group(LDHandle* handle, const char* comment);
-void ld_rename_group(LDHandle* handle, const char* old_name, const char* new_name);
+enum OperationReturnCode ld_add_group(LDHandle *handle, const char *name, const char *base_dn);
+enum OperationReturnCode ld_del_group(LDHandle *handle, const char *name);
+enum OperationReturnCode ld_mod_group(LDHandle *handle, const char *name, const char *comment);
+enum OperationReturnCode ld_rename_group(LDHandle *handle, const char *old_name, const char *new_name);
 
-void ld_group_add_user(LDHandle* handle, const char* group_name, const char* user_name);
-void ld_group_remove_user(LDHandle* handle, const char* group_name, const char* user_name);
+enum OperationReturnCode ld_group_add_user(LDHandle *handle, const char *group_name, const char *user_name);
+enum OperationReturnCode ld_group_remove_user(LDHandle *handle, const char *group_name, const char *user_name);
 
-#endif//LIB_DOMAIN_GROUP_H
+#endif //LIB_DOMAIN_GROUP_H

@@ -21,10 +21,12 @@
 #ifndef LIB_DOMAIN_USER_H
 #define LIB_DOMAIN_USER_H
 
-void ld_add_user();
-void ld_del_user();
-void ld_mod_user();
-void ld_rename_user();
-void ld_list_users();
+#include "common.h"
+#include "domain.h"
 
-#endif//LIB_DOMAIN_USER_H
+enum OperationReturnCode ld_add_user(LDHandle *handle, const char *name, void **user_attrs);
+enum OperationReturnCode ld_del_user(LDHandle *handle, const char *name);
+enum OperationReturnCode ld_mod_user(LDHandle *handle, const char *name, void **user_attrs);
+enum OperationReturnCode ld_rename_user(LDHandle *handle, const char *old_name, const char *new_name);
+
+#endif //LIB_DOMAIN_USER_H

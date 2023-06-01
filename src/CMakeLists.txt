@@ -33,6 +33,7 @@ set(PROJECT_SOURCES
     directory.c
     directory.h
     domain.h
+    domain_p.h
     domain.c
     entry.c
     entry.h

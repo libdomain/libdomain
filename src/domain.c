@@ -19,42 +19,17 @@
 ***********************************************************************************************************************/
 
 #include "domain.h"
+#include "domain_p.h"
 #include "common.h"
 #include "connection.h"
 #include "connection_state_machine.h"
+#include "entry.h"
+
+#include <stdio.h>
 
 #include <talloc.h>
 
 static const int CONNECTION_UPDATE_INTERVAL = 1000;
-
-typedef struct ldhandle
-{
-    TALLOC_CTX* talloc_ctx;
-    struct ldap_global_context_t* global_ctx;
-    struct ldap_connection_ctx_t* connection_ctx;
-    struct ldap_connection_config_t* config_ctx;
-} LDHandle;
-
-typedef struct config_s
-{
-    char* host;
-    int protocol_version;
-
-    char* base_dn;
-    char* username;
-    char* password;
-
-    bool simple_bind;
-    bool use_tls;
-    bool use_sasl;
-    bool use_anon;
-
-    int  timeout;
-
-    char* cacertfile;
-    char* certfile;
-    char* keyfile;
-} config_t;
 
 /**
  * @brief ld_create_config
@@ -99,12 +74,12 @@ config_t *ld_create_config(char *host,
         return NULL;
     }
 
-    result->host = talloc_asprintf(ctx, "%s://%s:%d", use_tls ? "ldaps" : "ldap", host, port);
+    asprintf(result->host, "%s://%s:%d", use_tls ? "ldaps" : "ldap", host, port);
     result->protocol_version = protocol_version;
 
-    result->base_dn  = talloc_strdup(ctx, base_dn);
-    result->username = talloc_strdup(ctx, username);
-    result->password = talloc_strdup(ctx, password);
+    result->base_dn  = strndup(base_dn, strlen(base_dn));
+    result->username = strndup(username, strlen(username));
+    result->password = strndup(password, strlen(password));
 
     result->simple_bind = simple_bind;
     result->use_tls     = use_tls;
@@ -113,9 +88,9 @@ config_t *ld_create_config(char *host,
 
     result->timeout = timeout;
 
-    result->cacertfile = talloc_strdup(ctx, cacertfile);
-    result->certfile   = talloc_strdup(ctx, certfile);
-    result->keyfile    = talloc_strdup(ctx, keyfile);
+    result->cacertfile = strndup(cacertfile, strlen(cacertfile));
+    result->certfile   = strndup(certfile, strlen(certfile));
+    result->keyfile    = strndup(keyfile, strlen(keyfile));
 
     return result;
 }
@@ -132,9 +107,19 @@ void ld_init(LDHandle* handle, const config_t* config)
     if (!handle)
     {
         error("Unable to allocate memory for ldhandle");
+        return;
+    }
+
+    if (!config)
+    {
+        error("Config is invalid!");
+        return;
     }
 
     handle->talloc_ctx = talloc_new(NULL);
+
+    handle->global_config = talloc_memdup(handle->talloc_ctx, config, sizeof (config_t));
+
     handle->global_ctx = talloc_zero(handle->talloc_ctx, ldap_global_context_t);
     handle->connection_ctx = talloc_zero(handle->talloc_ctx, ldap_connection_ctx_t);
     handle->config_ctx = talloc_zero(handle->talloc_ctx, ldap_connection_config_t);
@@ -232,4 +217,112 @@ void ld_free(LDHandle* handle)
     connection_close(handle->connection_ctx);
     talloc_free(handle->talloc_ctx);
     free(handle);
+}
+
+enum OperationReturnCode ld_add_entry(LDHandle *handle, const char *name, const char* parent, void **entry_attrs)
+{
+    const char* entry_name = NULL;
+    const char* entry_parent = NULL;
+
+    enum OperationReturnCode rc = RETURN_CODE_FAILURE;
+
+    (void)(entry_attrs);
+
+    check_handle(handle, "ld_add_entry");
+
+    check_string(name, entry_name, "ld_add_entry");
+    check_string(parent, entry_parent, "ld_add_entry");
+
+    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+
+    const char* dn = talloc_asprintf(talloc_ctx,"cn=%s,%s,%s", entry_name, entry_parent, handle->global_config->base_dn);
+
+    LDAPMod **attrs = talloc_array(talloc_ctx, LDAPMod*, 1);
+    attrs[0] = NULL;
+
+    rc = add(handle->connection_ctx, dn, attrs);
+
+    talloc_free(talloc_ctx);
+
+    return rc;
+}
+
+enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const char* parent)
+{
+    const char* entry_name = NULL;
+    const char* entry_parent = NULL;
+
+    enum OperationReturnCode rc = RETURN_CODE_FAILURE;
+
+    check_handle(handle, "ld_del_entry");
+
+    check_string(name, entry_name, "ld_del_entry");
+    check_string(parent, entry_parent, "ld_del_entry");
+
+    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+
+    const char* dn = talloc_asprintf(talloc_ctx,"cn=%s,%s,%s", entry_name, entry_parent, handle->global_config->base_dn);
+
+    rc = delete(handle->connection_ctx, dn);
+
+    talloc_free(talloc_ctx);
+
+    return rc;
+}
+
+enum OperationReturnCode ld_mod_entry(LDHandle *handle, const char *name, const char* parent, void **entry_attrs)
+{
+    const char* entry_name = NULL;
+    const char* entry_parent = NULL;
+
+    enum OperationReturnCode rc = RETURN_CODE_FAILURE;
+
+    (void)(entry_attrs);
+
+    check_handle(handle, "ld_mod_entry");
+
+    check_string(name, entry_name, "ld_mod_entry");
+    check_string(parent, entry_parent, "ld_mod_entry");
+
+    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+
+    LDAPMod **attrs = talloc_array(talloc_ctx, LDAPMod*, 1);
+    attrs[0] = NULL;
+
+    const char* dn = talloc_asprintf(talloc_ctx,"cn=%s,%s,%s", entry_name, entry_parent, handle->global_config->base_dn);
+
+    rc = modify(handle->connection_ctx, dn, attrs);
+
+    talloc_free(talloc_ctx);
+
+    return rc;
+}
+
+enum OperationReturnCode ld_rename_entry(LDHandle *handle, const char *old_name, const char *new_name,
+                                         const char* parent)
+{
+    const char* entry_old_name = NULL;
+    const char* entry_new_name = NULL;
+    const char* entry_parent = NULL;
+
+    enum OperationReturnCode rc = RETURN_CODE_FAILURE;
+
+    check_handle(handle, "ld_rename_entry");
+
+    check_string(old_name, entry_old_name, "ld_rename_entry");
+    check_string(new_name, entry_new_name, "ld_rename_entry");
+    check_string(parent, entry_parent, "ld_rename_entry");
+
+    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+
+    const char* old_dn = talloc_asprintf(talloc_ctx,"cn=%s,%s,%s", entry_old_name, entry_parent, handle->global_config->base_dn);
+    const char* new_dn = talloc_asprintf(talloc_ctx,"cn=%s,%s,%s", entry_new_name, entry_parent, handle->global_config->base_dn);
+
+    const char* parent_dn = talloc_asprintf(talloc_ctx,"%s,%s", entry_parent, handle->global_config->base_dn);
+
+    rc = ld_rename(handle->connection_ctx, old_dn, new_dn, parent_dn, true);
+
+    talloc_free(talloc_ctx);
+
+    return rc;
 }
