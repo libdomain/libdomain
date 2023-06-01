@@ -24,9 +24,30 @@
 #include "common.h"
 #include "domain.h"
 
-enum OperationReturnCode ld_add_group(LDHandle *handle, const char *name, const char *base_dn);
+enum GroupScope
+{
+    GROUP_SCOPE_DOMAIN_LOCAL = 0,
+    GROUP_SCOPE_GLOBAL       = 1,
+    GROUP_SCOPE_UNIVERSAL    = 2
+};
+
+enum GroupCategory
+{
+    GROUP_CATEGORY_DISTRIBUTION = 0,
+    GROUP_CATEGORY_SECURITY     = 1
+};
+
+enum OperationReturnCode ld_add_group(LDHandle *handle,
+                                      const char *name,
+                                      const char *description,
+                                      const char *display_name,
+                                      enum GroupCategory group_category,
+                                      enum GroupScope group_scope,
+                                      const char *home_page,
+                                      const char *parent,
+                                      const char *sam_account_name);
 enum OperationReturnCode ld_del_group(LDHandle *handle, const char *name);
-enum OperationReturnCode ld_mod_group(LDHandle *handle, const char *name, const char *comment);
+enum OperationReturnCode ld_mod_group(LDHandle *handle, const char *name, LDAPAttribute_t **group_attrs);
 enum OperationReturnCode ld_rename_group(LDHandle *handle, const char *old_name, const char *new_name);
 
 enum OperationReturnCode ld_group_add_user(LDHandle *handle, const char *group_name, const char *user_name);

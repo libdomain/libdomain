@@ -33,6 +33,12 @@ typedef struct ldhandle LDHandle;
  */
 typedef struct config_s config_t;
 
+typedef struct LDAPAttribute_s
+{
+    char* name;
+    char** values;
+} LDAPAttribute_t;
+
 config_t *ld_create_config(char* host,
                            int port,
                            int protocol_version,

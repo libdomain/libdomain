@@ -25,30 +25,81 @@
 
 #include <string.h>
 
-enum OperationReturnCode ld_add_group(LDHandle *handle, const char *name, const char *base_dn)
+static attribute_value_pair_t LDAP_GROUP_ATTRIBUTES[] =
 {
-    const char* group_name = NULL;
-    const char* group_dn = NULL;
+    { "objectClass", "group" },
+    { "cn", NULL },
+    { "description", NULL },
+    { "displayName", NULL },
+    { "groupType", NULL },
+    { "wWWHomePage", NULL },
+    { "sAMAccountName", NULL },
+};
+static const int LDAP_GROUP_ATTRIBUTES_SIZE = number_of_elements(LDAP_GROUP_ATTRIBUTES);
 
-    check_handle(handle, "ld_add_group");
+enum GroupAttributeIndex
+{
+    OBJECT_CLASS = 0,
+    CN           = 1,
+    DESCRIPTION  = 2,
+    DISPLAY_NAME = 3,
+    GROUP_TYPE   = 4,
+    HOME_PAGE    = 5,
+    ACCOUNT_NAME = 6
+};
 
-    check_string(name, group_name, "ld_add_group");
-
-    if (!base_dn || strlen(base_dn) == 0)
-    {
-        group_dn = "";
+static int value_from_group_scope(enum GroupScope group_scope)
+{
+    switch (group_scope) {
+    case GROUP_SCOPE_GLOBAL:
+        return 0x00000002;
+    case GROUP_SCOPE_DOMAIN_LOCAL:
+        return 0x00000004;
+    case GROUP_SCOPE_UNIVERSAL:
+        return 0x00000008;
+    default:
+        break;
     }
-    else
-    {
-        group_dn = base_dn;
-    }
+
+    return 0;
+}
+
+enum OperationReturnCode ld_add_group(LDHandle *handle,
+                                      const char *name,
+                                      const char *description,
+                                      const char *display_name,
+                                      enum GroupCategory group_category,
+                                      enum GroupScope group_scope,
+                                      const char *home_page,
+                                      const char *parent,
+                                      const char *sam_account_name)
+{
+    (void)(group_category);
+
+    const char *dn = handle ? handle->global_config->base_dn : NULL;
+    enum OperationReturnCode rc = RETURN_CODE_FAILURE;
 
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
-    LDAPMod **attrs = talloc_array(talloc_ctx, LDAPMod*, 1);
-    attrs[0] = NULL;
+    LDAPAttribute_t **group_attrs  = assign_default_attribute_values(talloc_ctx,
+                                                                     LDAP_GROUP_ATTRIBUTES,
+                                                                     LDAP_GROUP_ATTRIBUTES_SIZE);
 
-    int rc = add(handle->connection_ctx, group_name, attrs);
+    char* group_type = talloc_asprintf(talloc_ctx, "%d", value_from_group_scope(group_scope));
+
+    check_and_assign_attribute(group_attrs, name, CN, talloc_ctx);
+    check_and_assign_attribute(group_attrs, description, DESCRIPTION, talloc_ctx);
+    check_and_assign_attribute(group_attrs, display_name, DISPLAY_NAME, talloc_ctx);
+    check_and_assign_attribute(group_attrs, group_type, GROUP_TYPE, talloc_ctx);
+    check_and_assign_attribute(group_attrs, home_page, HOME_PAGE, talloc_ctx);
+    check_and_assign_attribute(group_attrs, sam_account_name, ACCOUNT_NAME, talloc_ctx);
+
+    if (parent && strlen(parent) > 0)
+    {
+        dn = parent;
+    }
+
+    rc = ld_add_entry(handle, name, dn, group_attrs);
 
     talloc_free(talloc_ctx);
 
@@ -56,58 +107,18 @@ enum OperationReturnCode ld_add_group(LDHandle *handle, const char *name, const 
 }
 
 enum OperationReturnCode ld_del_group(LDHandle *handle, const char *name)
-{
-    const char* group_name = NULL;
-
-    check_handle(handle, "ld_del_group");
-
-    check_string(name, group_name, "ld_del_group");
-
-    return delete(handle->connection_ctx, group_name);
+{   
+    return ld_del_entry(handle, name, handle ? handle->global_config->base_dn : NULL);
 }
 
-enum OperationReturnCode ld_mod_group(LDHandle *handle,  const char *name, const char *comment)
+enum OperationReturnCode ld_mod_group(LDHandle *handle,  const char *name, LDAPAttribute_t **group_attrs)
 {
-    const char* group_comment = NULL;
-    const char* group_name = NULL;
-
-    check_handle(handle, "ld_mod_group");
-
-    check_string(name, group_name, "ld_mod_group");
-
-    if (!comment || strlen(comment) == 0)
-    {
-        group_comment = "";
-    }
-    else
-    {
-        group_comment = comment;
-    }
-
-    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
-
-    LDAPMod **attrs = talloc_array(talloc_ctx, LDAPMod*, 1);
-    attrs[0] = NULL;
-
-    int rc = modify(handle->connection_ctx, name, attrs);
-
-    talloc_free(talloc_ctx);
-
-    return rc;
+    return ld_mod_entry(handle, name, handle ? handle->global_config->base_dn : NULL, group_attrs);
 }
 
 enum OperationReturnCode ld_rename_group(LDHandle *handle, const char *old_name, const char *new_name)
 {
-    const char* group_old_name = NULL;
-    const char* group_new_name = NULL;
-
-    check_handle(handle, "ld_rename_group");
-
-    check_string(old_name, group_old_name, "ld_rename_group");
-
-    check_string(new_name, group_new_name, "ld_rename_group");
-
-    return ld_rename(handle->connection_ctx, old_name, new_name, NULL, false);
+    return ld_rename_entry(handle, old_name, new_name, handle ? handle->global_config->base_dn : NULL);
 }
 
 static enum OperationReturnCode group_member_modify(LDHandle *handle, const char *group_name, const char *user_name,
@@ -150,3 +161,4 @@ enum OperationReturnCode ld_group_remove_user(LDHandle *handle, const char *grou
 {
     return group_member_modify(handle, group_name, user_name, LDAP_MOD_DELETE);
 }
+

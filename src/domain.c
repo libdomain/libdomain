@@ -219,7 +219,7 @@ void ld_free(LDHandle* handle)
     free(handle);
 }
 
-enum OperationReturnCode ld_add_entry(LDHandle *handle, const char *name, const char* parent, void **entry_attrs)
+enum OperationReturnCode ld_add_entry(LDHandle *handle, const char *name, const char* parent, LDAPAttribute_t **entry_attrs)
 {
     const char* entry_name = NULL;
     const char* entry_parent = NULL;
@@ -235,7 +235,7 @@ enum OperationReturnCode ld_add_entry(LDHandle *handle, const char *name, const 
 
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
-    const char* dn = talloc_asprintf(talloc_ctx,"cn=%s,%s,%s", entry_name, entry_parent, handle->global_config->base_dn);
+    const char* dn = talloc_asprintf(talloc_ctx,"cn=%s,%s", entry_name, entry_parent);
 
     LDAPMod **attrs = talloc_array(talloc_ctx, LDAPMod*, 1);
     attrs[0] = NULL;
@@ -261,7 +261,7 @@ enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const 
 
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
-    const char* dn = talloc_asprintf(talloc_ctx,"cn=%s,%s,%s", entry_name, entry_parent, handle->global_config->base_dn);
+    const char* dn = talloc_asprintf(talloc_ctx,"cn=%s,%s", entry_name, entry_parent);
 
     rc = delete(handle->connection_ctx, dn);
 
@@ -270,7 +270,7 @@ enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const 
     return rc;
 }
 
-enum OperationReturnCode ld_mod_entry(LDHandle *handle, const char *name, const char* parent, void **entry_attrs)
+enum OperationReturnCode ld_mod_entry(LDHandle *handle, const char *name, const char* parent, LDAPAttribute_t **entry_attrs)
 {
     const char* entry_name = NULL;
     const char* entry_parent = NULL;
@@ -289,7 +289,7 @@ enum OperationReturnCode ld_mod_entry(LDHandle *handle, const char *name, const 
     LDAPMod **attrs = talloc_array(talloc_ctx, LDAPMod*, 1);
     attrs[0] = NULL;
 
-    const char* dn = talloc_asprintf(talloc_ctx,"cn=%s,%s,%s", entry_name, entry_parent, handle->global_config->base_dn);
+    const char* dn = talloc_asprintf(talloc_ctx,"cn=%s,%s", entry_name, entry_parent);
 
     rc = modify(handle->connection_ctx, dn, attrs);
 
@@ -315,14 +315,35 @@ enum OperationReturnCode ld_rename_entry(LDHandle *handle, const char *old_name,
 
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
-    const char* old_dn = talloc_asprintf(talloc_ctx,"cn=%s,%s,%s", entry_old_name, entry_parent, handle->global_config->base_dn);
-    const char* new_dn = talloc_asprintf(talloc_ctx,"cn=%s,%s,%s", entry_new_name, entry_parent, handle->global_config->base_dn);
+    const char* old_dn = talloc_asprintf(talloc_ctx,"cn=%s,%s", entry_old_name, entry_parent);
+    const char* new_dn = talloc_asprintf(talloc_ctx,"cn=%s,%s", entry_new_name, entry_parent);
 
-    const char* parent_dn = talloc_asprintf(talloc_ctx,"%s,%s", entry_parent, handle->global_config->base_dn);
-
-    rc = ld_rename(handle->connection_ctx, old_dn, new_dn, parent_dn, true);
+    rc = ld_rename(handle->connection_ctx, old_dn, new_dn, entry_parent, true);
 
     talloc_free(talloc_ctx);
 
     return rc;
+}
+
+LDAPAttribute_t **assign_default_attribute_values(TALLOC_CTX *talloc_ctx,
+                                                  attribute_value_pair_t default_attrs[],
+                                                  int size)
+{
+    LDAPAttribute_t **entry_attrs  = talloc_array(talloc_ctx, LDAPAttribute_t*, size + 1);
+
+    for (int i = 0; i < size; ++i)
+    {
+        entry_attrs[i] = talloc(talloc_ctx, LDAPAttribute_t);
+        entry_attrs[i]->name = default_attrs[i].name;
+
+        if (default_attrs[i].value != NULL)
+        {
+            entry_attrs[i]->values = talloc_array(talloc_ctx, char*, 2);
+            entry_attrs[i]->values[0] = talloc_strdup(talloc_ctx, default_attrs[i].value);
+            entry_attrs[i]->values[1] = NULL;
+        }
+    }
+    entry_attrs[size] = NULL;
+
+    return entry_attrs;
 }

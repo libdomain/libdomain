@@ -21,10 +21,20 @@
 #ifndef LIB_DOMAIN_ORGANIZATIONAL_UNIT_H
 #define LIB_DOMAIN_ORGANIZATIONAL_UNIT_H
 
-void ld_add_ou();
-void ld_del_ou();
-void ld_mod_ou();
-void ld_rename_ou();
-void ld_list_ous();
+#include "common.h"
+#include "domain.h"
 
+enum OperationReturnCode ld_add_ou(LDHandle *handle,
+                                   const char *name,
+                                   const char *city,
+                                   const char *country,
+                                   const char *description,
+                                   const char *display_name,
+                                   const char *parent,
+                                   const char *postalCode,
+                                   const char *state,
+                                   const char *street_address);
+enum OperationReturnCode ld_del_ou(LDHandle *handle, const char *name, const char *parent);
+enum OperationReturnCode ld_mod_ou(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **ou_attrs);
+enum OperationReturnCode ld_rename_ou(LDHandle *handle, const char *old_name, const char *new_name, const char *parent);
 #endif//LIB_DOMAIN_ORGANIZATIONAL_UNIT_H

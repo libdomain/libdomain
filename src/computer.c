@@ -20,13 +20,72 @@
 
 #include "computer.h"
 
-void ld_add_computer() {}
+#include "common.h"
+#include "domain_p.h"
+#include "entry.h"
 
-void ld_del_computer() {}
+static attribute_value_pair_t LDAP_COMPUTER_ATTRIBUTES[] =
+{
+    { "objectClass", "top:computer" },
+    { "cn", NULL },
+    { "description", NULL },
+    { "displayName", NULL },
+    { "name", NULL },
+};
+static const int LDAP_COMPUTER_ATTRIBUTES_SIZE = number_of_elements(LDAP_COMPUTER_ATTRIBUTES);
 
-void ld_mod_computer() {}
+enum ComputerAttributeIndex
+{
+    OBJECT_CLASS = 0,
+    CN           = 1,
+    DESCRIPTION  = 2,
+    DISPLAY_NAME = 3,
+    NAME         = 4,
+};
 
-void ld_rename_computer() {}
+enum OperationReturnCode ld_add_computer(LDHandle *handle,
+                                         const char *name,
+                                         const char *description,
+                                         const char *display_name,
+                                         const char *parent)
+{
+    const char *dn = handle ? handle->global_config->base_dn : NULL;
+    enum OperationReturnCode rc = RETURN_CODE_FAILURE;
 
-void ld_list_computers() {}
+    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
+    LDAPAttribute_t **attrs  = assign_default_attribute_values(talloc_ctx,
+                                                               LDAP_COMPUTER_ATTRIBUTES,
+                                                               LDAP_COMPUTER_ATTRIBUTES_SIZE);
+
+    check_and_assign_attribute(attrs, name, CN, talloc_ctx);
+    check_and_assign_attribute(attrs, name, NAME, talloc_ctx);
+    check_and_assign_attribute(attrs, description, DESCRIPTION, talloc_ctx);
+    check_and_assign_attribute(attrs, display_name, DISPLAY_NAME, talloc_ctx);
+
+    if (parent && strlen(parent) > 0)
+    {
+        dn = parent;
+    }
+
+    rc = ld_add_entry(handle, name, dn, attrs);
+
+    talloc_free(talloc_ctx);
+
+    return rc;
+}
+
+enum OperationReturnCode ld_del_computer(LDHandle *handle, const char *name, const char *parent)
+{
+    return ld_del_entry(handle, name, handle ? handle->global_config->base_dn : NULL);
+}
+
+enum OperationReturnCode ld_mod_computer(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **computer_attrs)
+{
+    return ld_mod_entry(handle, name, handle ? handle->global_config->base_dn : NULL, computer_attrs);
+}
+
+enum OperationReturnCode ld_rename_computer(LDHandle *handle, const char *old_name, const char *new_name, const char *parent)
+{
+    return ld_rename_entry(handle, old_name, new_name, parent ? parent : handle ? handle->global_config->base_dn : NULL);
+}

@@ -21,10 +21,16 @@
 #ifndef LIB_DOMAIN_COMPUTER_H
 #define LIB_DOMAIN_COMPUTER_H
 
-void ld_add_computer();
-void ld_del_computer();
-void ld_mod_computer();
-void ld_rename_computer();
-void ld_list_computers();
+#include "common.h"
+#include "domain.h"
+
+enum OperationReturnCode ld_add_computer(LDHandle *handle,
+                                         const char *name,
+                                         const char *description,
+                                         const char *display_name,
+                                         const char *parent);
+enum OperationReturnCode ld_del_computer(LDHandle *handle, const char *name, const char *parent);
+enum OperationReturnCode ld_mod_computer(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **computer_attrs);
+enum OperationReturnCode ld_rename_computer(LDHandle *handle, const char *old_name, const char *new_name, const char *parent);
 
 #endif//LIB_DOMAIN_COMPUTER_H
