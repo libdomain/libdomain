@@ -19,13 +19,45 @@
 ***********************************************************************************************************************/
 
 #include "group.h"
+#include "common.h"
+#include "entry.h"
 
-void ld_add_group() {}
+#include <string.h>
 
-void ld_del_group() {}
+// TODO:
+// - Base dn in handle
+// - Private header for domain.c
+// - List of attributes for group.
 
-void ld_mod_group() {}
+void ld_add_group(LDHandle *handle, const char *name, const char *base_dn)
+{
+    const char* group_name = NULL;
+    const char* group_dn = NULL;
 
-void ld_rename_group() {}
+    if (!handle)
+    {
+        error("Handle is null - ld_add_group");
+        return;
+    }
 
-void ld_list_groups() {}
+    if (!name || strlen(name) == 0)
+    {
+        error("No group name - ld_add_group");
+        return;
+    }
+    else
+    {
+        group_name = name;
+    }
+
+    if (!base_dn || strlen(base_dn) == 0)
+    {
+        group_dn = "";
+    }
+    else
+    {
+        group_dn = base_dn;
+    }
+
+    add(handle->connection_ctx, group_name, NULL);
+}
