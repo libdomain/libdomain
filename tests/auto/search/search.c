@@ -99,7 +99,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     {
         verto_del(ev);
 
-        search(connection, "CN=Administrator,CN=Users,DC=domain,DC=alt", LDAP_SCOPE_SUBTREE,
+        search(connection, "cn=adam,ou=users,dc=domain,dc=alt", LDAP_SCOPE_SUBTREE,
                "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0);
 
         verto_add_timeout(ctx, VERTO_EV_FLAG_PERSIST, connection_on_search_message, CONNECTION_UPDATE_INTERVAL);
