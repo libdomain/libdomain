@@ -20,9 +20,9 @@
 #ifndef LIBDOMAIN_CONNECTION_H
 #define LIBDOMAIN_CONNECTION_H
 
-#include <verto.h>
 #include <ldap.h>
 #include <stdbool.h>
+#include <verto.h>
 
 #include "common.h"
 
@@ -75,8 +75,12 @@ struct ldap_connection_ctx_t;
 
 typedef enum OperationReturnCode (*operation_callback_fn)(int, LDAPMessage *, struct ldap_connection_ctx_t *);
 
+typedef struct ldhandle LDHandle;
+
 typedef struct ldap_connection_ctx_t
 {
+    LDHandle *handle;
+
     LDAP *ldap;
 
     struct ldap_connection_ctx_t *next;
@@ -91,11 +95,12 @@ typedef struct ldap_connection_ctx_t
 
     operation_callback_fn on_read_operation;
     operation_callback_fn on_write_operation;
+    operation_callback_fn on_error_operation;
 
     int current_msgid;
-    const char* rmech;
+    const char *rmech;
 
-    struct state_machine_ctx_t* state_machine;
+    struct state_machine_ctx_t *state_machine;
 
     struct ldap_sasl_defaults_t *ldap_defaults;
     struct ldap_sasl_params_t *ldap_params;

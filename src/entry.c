@@ -81,6 +81,10 @@ enum OperationReturnCode add_on_read(int rc, LDAPMessage *message, struct ldap_c
             return RETURN_CODE_SUCCESS;
 
         default:
+            if (connection->on_error_operation)
+            {
+                connection->on_error_operation(rc, message, connection);
+            }
             return RETURN_CODE_FAILURE;
         }
     }
@@ -93,6 +97,11 @@ enum OperationReturnCode add_on_read(int rc, LDAPMessage *message, struct ldap_c
         ldap_memfree(diagnostic_message);
     }
         break;
+    }
+
+    if (connection->on_error_operation)
+    {
+        connection->on_error_operation(rc, message, connection);
     }
 
     return RETURN_CODE_FAILURE;
@@ -214,6 +223,11 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
         break;
     }
 
+    if (connection->on_error_operation)
+    {
+        connection->on_error_operation(rc, message, connection);
+    }
+
     return RETURN_CODE_FAILURE;
 }
 
@@ -278,6 +292,11 @@ enum OperationReturnCode modify_on_read(int rc, LDAPMessage *message, struct lda
             return RETURN_CODE_SUCCESS;
 
         default:
+            if (connection->on_error_operation)
+            {
+                connection->on_error_operation(rc, message, connection);
+            }
+
             return RETURN_CODE_FAILURE;
         }
     }
@@ -290,6 +309,11 @@ enum OperationReturnCode modify_on_read(int rc, LDAPMessage *message, struct lda
         ldap_memfree(diagnostic_message);
     }
         break;
+    }
+
+    if (connection->on_error_operation)
+    {
+        connection->on_error_operation(rc, message, connection);
     }
 
     return RETURN_CODE_FAILURE;
@@ -353,6 +377,10 @@ enum OperationReturnCode delete_on_read(int rc, LDAPMessage *message, struct lda
             return RETURN_CODE_SUCCESS;
 
         default:
+            if (connection->on_error_operation)
+            {
+                connection->on_error_operation(rc, message, connection);
+            }
             return RETURN_CODE_FAILURE;
         }
     }
@@ -365,6 +393,11 @@ enum OperationReturnCode delete_on_read(int rc, LDAPMessage *message, struct lda
         ldap_memfree(diagnostic_message);
     }
         break;
+    }
+
+    if (connection->on_error_operation)
+    {
+        connection->on_error_operation(rc, message, connection);
     }
 
     return RETURN_CODE_FAILURE;
@@ -489,6 +522,10 @@ enum OperationReturnCode rename_on_read(int rc, LDAPMessage *message, ldap_conne
             return RETURN_CODE_SUCCESS;
 
         default:
+            if (connection->on_error_operation)
+            {
+                connection->on_error_operation(rc, message, connection);
+            }
             return RETURN_CODE_FAILURE;
         }
     }
@@ -501,6 +538,11 @@ enum OperationReturnCode rename_on_read(int rc, LDAPMessage *message, ldap_conne
         ldap_memfree(diagnostic_message);
     }
         break;
+    }
+
+    if (connection->on_error_operation)
+    {
+        connection->on_error_operation(rc, message, connection);
     }
 
     return RETURN_CODE_FAILURE;
