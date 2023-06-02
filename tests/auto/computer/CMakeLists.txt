@@ -1,0 +1,4 @@
+add_subdirectory(add_computer)
+add_subdirectory(mod_computer)
+add_subdirectory(rename_computer)
+add_subdirectory(delete_computer)
