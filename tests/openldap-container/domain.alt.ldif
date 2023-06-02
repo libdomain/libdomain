@@ -5,5 +5,117 @@ dc: domain
 o: alt
 
 dn: ou=users,dc=domain,dc=alt
+objectClass: top
 objectClass: organizationalUnit
 ou: users
+description: Central location for users
+
+dn: ou=groups,dc=domain,dc=alt
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+description: Central location for groups
+
+dn: ou=test_delete_ou,dc=domain,dc=alt
+objectClass: top
+objectClass: organizationalUnit
+ou: test_delete_ou
+description: OU for deletion testing
+
+dn: ou=test_rename_ou,dc=domain,dc=alt
+objectClass: top
+objectClass: organizationalUnit
+ou: test_rename_ou
+description: OU for rename testing
+
+dn: ou=test_mod_ou,dc=domain,dc=alt
+objectClass: top
+objectClass: organizationalUnit
+ou: test_mod_ou
+description: OU for modififcation testing
+
+dn: cn=test_delete_group,ou=groups,dc=domain,dc=alt
+objectClass: top
+objectClass: posixGroup
+cn: test_delete_group
+gidNumber: 0
+
+dn: cn=test_rename_group,ou=groups,dc=domain,dc=alt
+objectClass: top
+objectClass: posixGroup
+cn: test_rename_group
+gidNumber: 1
+
+dn: cn=test_mod_group,ou=groups,dc=domain,dc=alt
+objectClass: top
+objectClass: posixGroup
+cn: test_mod_group
+gidNumber: 1
+
+dn: cn=test_delete_user,ou=users,dc=domain,dc=alt
+uid: test_delete_user
+gecos: test_delete_user
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+userPassword: {SSHA}RsAMqOI3647qg1gAZF3x2BKBnp0sEVfa
+shadowLastChange: 15140
+shadowMin: 0
+shadowMax: 99999
+shadowWarning: 7
+loginShell: /bin/false
+uidNumber: 801
+gidNumber: 801
+homeDirectory: /home/test_delete_user
+
+dn: cn=test_mod_user,ou=users,dc=domain,dc=alt
+uid: test_mod_user
+gecos: test_mod_user
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+userPassword: {SSHA}RsAMqOI3647qg1gAZF3x2BKBnp0sEVfa
+shadowLastChange: 15140
+shadowMin: 0
+shadowMax: 99999
+shadowWarning: 7
+loginShell: /bin/false
+uidNumber: 801
+gidNumber: 801
+homeDirectory: /home/test_mod_user
+
+dn: cn=test_rename_user,ou=users,dc=domain,dc=alt
+uid: test_rename_user
+gecos: test_rename_user
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+userPassword: {SSHA}RsAMqOI3647qg1gAZF3x2BKBnp0sEVfa
+shadowLastChange: 15140
+shadowMin: 0
+shadowMax: 99999
+shadowWarning: 7
+loginShell: /bin/false
+uidNumber: 801
+gidNumber: 801
+homeDirectory: /home/test_rename_user
+
+dn: cn=test_search_user,ou=users,dc=domain,dc=alt
+uid: test_search_user
+gecos: test_search_user
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+userPassword: {SSHA}RsAMqOI3647qg1gAZF3x2BKBnp0sEVfa
+shadowLastChange: 15140
+shadowMin: 0
+shadowMax: 99999
+shadowWarning: 7
+loginShell: /bin/false
+uidNumber: 801
+gidNumber: 801
+homeDirectory: /home/test_search_user
