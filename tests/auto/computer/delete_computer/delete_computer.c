@@ -17,7 +17,7 @@ AfterEach(Cgreen) {}
 
 xEnsure(Cgreen, computer_delete_test)
 {
-    fail_test("Computer deletion was not successfull\n");
+    fail_test("Computer deletion was not successful\n");
 }
 
 int main(int argc, char **argv) {

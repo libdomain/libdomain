@@ -68,7 +68,7 @@ static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void
 
     verto_break(((ldap_connection_ctx_t*)connection)->base);
 
-    fail_test("OU addition was not successfull\n");
+    fail_test("OU addition was not successful\n");
 
     return RETURN_CODE_SUCCESS;
 }

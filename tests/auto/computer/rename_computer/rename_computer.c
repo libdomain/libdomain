@@ -17,7 +17,7 @@ AfterEach(Cgreen) {}
 
 xEnsure(Cgreen, computer_rename_test)
 {
-    fail_test("Computer rename was not successfull\n");
+    fail_test("Computer rename was not successful\n");
 }
 
 int main(int argc, char **argv) {

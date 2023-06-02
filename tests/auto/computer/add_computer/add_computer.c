@@ -17,7 +17,7 @@ AfterEach(Cgreen) {}
 
 xEnsure(Cgreen, computer_add_test)
 {
-    fail_test("Computer addition was not successfull\n");
+    fail_test("Computer addition was not successful\n");
 }
 
 int main(int argc, char **argv) {

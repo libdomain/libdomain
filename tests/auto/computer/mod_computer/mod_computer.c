@@ -17,7 +17,7 @@ AfterEach(Cgreen) {}
 
 xEnsure(Cgreen, computer_mod_test)
 {
-    fail_test("Computer modification was not successfull\n");
+    fail_test("Computer modification was not successful\n");
 }
 
 int main(int argc, char **argv) {
