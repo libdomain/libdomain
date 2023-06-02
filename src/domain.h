@@ -22,6 +22,7 @@
 #define LIB_DOMAIN_H
 
 #include <stdbool.h>
+#include <verto.h>
 
 /**
  * @brief LDHandle Structure that represents an libdomain session handle.
@@ -35,11 +36,13 @@ typedef struct config_s config_t;
 
 typedef struct LDAPAttribute_s
 {
-    char* name;
-    char** values;
+    char *name;
+    char **values;
 } LDAPAttribute_t;
 
-config_t *ld_create_config(char* host,
+typedef enum OperationReturnCode (*error_callback_fn)(int, void *, void *);
+
+config_t *ld_create_config(char *host,
                            int port,
                            int protocol_version,
                            char *base_dn,
@@ -49,15 +52,17 @@ config_t *ld_create_config(char* host,
                            bool use_tls,
                            bool use_sasl,
                            bool use_anon,
-                           int  timeout,
-                           char* cacertfile,
-                           char* certfile,
-                           char* keyfile);
+                           int timeout,
+                           char *cacertfile,
+                           char *certfile,
+                           char *keyfile);
 
-void ld_init(LDHandle* handle, const config_t* config);
-void ld_install_handlers(LDHandle* handle);
-void ld_exec(LDHandle* handle);
-void ld_exec_once(LDHandle* handle);
-void ld_free(LDHandle* handle);
+void ld_init(LDHandle **handle, const config_t *config);
+void ld_install_default_handlers(LDHandle *handle);
+void ld_install_handler(LDHandle *handle, verto_callback *callback, time_t interval);
+void ld_install_error_handler(LDHandle *handle, error_callback_fn callback);
+void ld_exec(LDHandle *handle);
+void ld_exec_once(LDHandle *handle);
+void ld_free(LDHandle *handle);
 
-#endif//LIB_DOMAIN_H
+#endif //LIB_DOMAIN_H

@@ -46,9 +46,15 @@ enum OperationReturnCode ld_add_group(LDHandle *handle,
                                       const char *home_page,
                                       const char *parent,
                                       const char *sam_account_name);
-enum OperationReturnCode ld_del_group(LDHandle *handle, const char *name);
-enum OperationReturnCode ld_mod_group(LDHandle *handle, const char *name, LDAPAttribute_t **group_attrs);
-enum OperationReturnCode ld_rename_group(LDHandle *handle, const char *old_name, const char *new_name);
+enum OperationReturnCode ld_del_group(LDHandle *handle, const char *name, const char *parent);
+enum OperationReturnCode ld_mod_group(LDHandle *handle,
+                                      const char *name,
+                                      const char *parent,
+                                      LDAPAttribute_t **group_attrs);
+enum OperationReturnCode ld_rename_group(LDHandle *handle,
+                                         const char *old_name,
+                                         const char *new_name,
+                                         const char *parent);
 
 enum OperationReturnCode ld_group_add_user(LDHandle *handle, const char *group_name, const char *user_name);
 enum OperationReturnCode ld_group_remove_user(LDHandle *handle, const char *group_name, const char *user_name);

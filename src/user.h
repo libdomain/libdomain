@@ -24,9 +24,22 @@
 #include "common.h"
 #include "domain.h"
 
-enum OperationReturnCode ld_add_user(LDHandle *handle, const char *name, LDAPAttribute_t **user_attrs);
-enum OperationReturnCode ld_del_user(LDHandle *handle, const char *name);
-enum OperationReturnCode ld_mod_user(LDHandle *handle, const char *name, LDAPAttribute_t **user_attrs);
-enum OperationReturnCode ld_rename_user(LDHandle *handle, const char *old_name, const char *new_name);
+enum OperationReturnCode ld_add_user(LDHandle *handle,
+                                     const char *name,
+                                     int uid,
+                                     int gid,
+                                     const char *home_directory,
+                                     const char *login_shell,
+                                     const char *password,
+                                     const char *parent);
+enum OperationReturnCode ld_del_user(LDHandle *handle, const char *name, const char *parent);
+enum OperationReturnCode ld_mod_user(LDHandle *handle,
+                                     const char *name,
+                                     const char *parent,
+                                     LDAPAttribute_t **user_attrs);
+enum OperationReturnCode ld_rename_user(LDHandle *handle,
+                                        const char *old_name,
+                                        const char *new_name,
+                                        const char *parent);
 
 #endif //LIB_DOMAIN_USER_H

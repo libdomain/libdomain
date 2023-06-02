@@ -77,7 +77,7 @@ enum OperationReturnCode ld_add_computer(LDHandle *handle,
 
 enum OperationReturnCode ld_del_computer(LDHandle *handle, const char *name, const char *parent)
 {
-    return ld_del_entry(handle, name, handle ? handle->global_config->base_dn : NULL);
+    return ld_del_entry(handle, name, handle ? handle->global_config->base_dn : NULL, "cn");
 }
 
 enum OperationReturnCode ld_mod_computer(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **computer_attrs)
@@ -87,5 +87,5 @@ enum OperationReturnCode ld_mod_computer(LDHandle *handle, const char *name, con
 
 enum OperationReturnCode ld_rename_computer(LDHandle *handle, const char *old_name, const char *new_name, const char *parent)
 {
-    return ld_rename_entry(handle, old_name, new_name, parent ? parent : handle ? handle->global_config->base_dn : NULL);
+    return ld_rename_entry(handle, old_name, new_name, parent ? parent : handle ? handle->global_config->base_dn : NULL, "cn");
 }

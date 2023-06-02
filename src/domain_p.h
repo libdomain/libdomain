@@ -73,12 +73,12 @@ typedef struct ldhandle
     }
 
 #define check_and_assign_attribute(attrs, value, index, talloc_ctx) \
-      if (value && strlen(value) > 0) \
-      { \
-         attrs[index]->values = talloc_array(talloc_ctx, char*, 2); \
-         attrs[index]->values[0] = talloc_strndup(talloc_ctx, value, strlen(value)); \
-         attrs[index]->values[1] = NULL; \
-      }
+    if (value && strlen(value) > 0) \
+    { \
+        attrs[index]->values    = talloc_array(talloc_ctx, char *, 2); \
+        attrs[index]->values[0] = talloc_strndup(talloc_ctx, value, strlen(value)); \
+        attrs[index]->values[1] = NULL; \
+    }
 
 typedef struct attribute_value_pair_s
 {
@@ -88,18 +88,22 @@ typedef struct attribute_value_pair_s
 
 #define number_of_elements(x) (sizeof(x) / sizeof((x)[0]))
 
-enum OperationReturnCode ld_add_entry(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **entry_attrs);
-enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const char *parent);
-enum OperationReturnCode ld_mod_entry(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **entry_attrs);
-enum OperationReturnCode ld_rename_entry(LDHandle *handle,
-                                         const char *old_name,
-                                         const char *new_name,
-                                         const char *parent);
+enum OperationReturnCode ld_add_entry(LDHandle *handle,
+                                      const char *name,
+                                      const char *parent,
+                                      LDAPAttribute_t **entry_attrs);
+enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const char *parent, const char *prefix);
+enum OperationReturnCode ld_mod_entry(LDHandle *handle,
+                                      const char *name,
+                                      const char *parent,
+                                      LDAPAttribute_t **entry_attrs);
+enum OperationReturnCode ld_rename_entry(
+    LDHandle *handle, const char *old_name, const char *new_name, const char *parent, const char *prefix);
 
 typedef struct LDAPAttribute_s LDAPAttribute_t;
 
-LDAPAttribute_t **assign_default_attribute_values(TALLOC_CTX* talloc_ctx,
-                                     attribute_value_pair_t default_attrs[],
-                                     int size);
+LDAPAttribute_t **assign_default_attribute_values(TALLOC_CTX *talloc_ctx,
+                                                  attribute_value_pair_t default_attrs[],
+                                                  int size);
 
 #endif //LIB_DOMAIN_PRIVATE_H

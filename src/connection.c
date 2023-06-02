@@ -447,17 +447,21 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
     {
     case LDAP_RES_BIND:
         info("Message - connection_bind_on_read - message success!\n");
-        rc = ldap_sasl_interactive_bind(connection->ldap,
-                                        NULL,
-                                        connection->ldap_defaults->mechanism,
-                                        NULL,
-                                        NULL,
-                                        connection->ldap_defaults->flags,
-                                        sasl_interact_gssapi,
-                                        connection->ldap_defaults,
-                                        message,
-                                        &connection->rmech,
-                                        &connection->current_msgid);
+        if (!connection->ldap_params)
+        {
+            rc = ldap_sasl_interactive_bind(connection->ldap,
+                                            NULL,
+                                            connection->ldap_defaults->mechanism,
+                                            NULL,
+                                            NULL,
+                                            connection->ldap_defaults->flags,
+                                            sasl_interact_gssapi,
+                                            connection->ldap_defaults,
+                                            message,
+                                            &connection->rmech,
+                                            &connection->current_msgid);
+        }
+
         if (rc == LDAP_SASL_BIND_IN_PROGRESS)
         {
             info("Bind in progress!\n");

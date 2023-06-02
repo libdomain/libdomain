@@ -25,10 +25,10 @@
 
 static attribute_value_pair_t LDAP_OU_ATTRIBUTES[] =
 {
-    { "objectClass", "top:organizationalUnit" },
+    { "objectClass", "organizationalUnit" },
     { "ou", NULL },
     { "l", NULL },
-    { "c", NULL },
+    { "description", NULL },
     { "description", NULL },
     { "displayName", NULL },
     { "postalCode", NULL },
@@ -75,7 +75,7 @@ enum OperationReturnCode ld_add_ou(LDHandle *handle,
     check_and_assign_attribute(attrs, name, OU, talloc_ctx);
     check_and_assign_attribute(attrs, name, NAME, talloc_ctx);
     check_and_assign_attribute(attrs, city, CITY, talloc_ctx);
-    check_and_assign_attribute(attrs, country, COUNTRY, talloc_ctx);
+//    check_and_assign_attribute(attrs, country, COUNTRY, talloc_ctx);
     check_and_assign_attribute(attrs, description, DESCRIPTION, talloc_ctx);
     check_and_assign_attribute(attrs, display_name, DISPLAY_NAME, talloc_ctx);
     check_and_assign_attribute(attrs, postalCode, POSTAL_CODE, talloc_ctx);
@@ -96,7 +96,7 @@ enum OperationReturnCode ld_add_ou(LDHandle *handle,
 
 enum OperationReturnCode ld_del_ou(LDHandle *handle, const char *name, const char *parent)
 {
-    return ld_del_entry(handle, name, parent ? parent : handle ? handle->global_config->base_dn : NULL);
+    return ld_del_entry(handle, name, parent ? parent : handle ? handle->global_config->base_dn : NULL, "ou");
 }
 
 enum OperationReturnCode ld_mod_ou(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **ou_attrs)
@@ -106,5 +106,5 @@ enum OperationReturnCode ld_mod_ou(LDHandle *handle, const char *name, const cha
 
 enum OperationReturnCode ld_rename_ou(LDHandle *handle, const char *old_name, const char *new_name, const char *parent)
 {
-    return ld_rename_entry(handle, old_name, new_name, parent ? parent : handle ? handle->global_config->base_dn : NULL);
+    return ld_rename_entry(handle, old_name, new_name, parent ? parent : handle ? handle->global_config->base_dn : NULL, "ou");
 }

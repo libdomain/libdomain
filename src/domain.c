@@ -74,7 +74,15 @@ config_t *ld_create_config(char *host,
         return NULL;
     }
 
-    asprintf(result->host, "%s://%s:%d", use_tls ? "ldaps" : "ldap", host, port);
+    if (port > 0)
+    {
+        result->host = talloc_asprintf(NULL, "%s:%d", host, port);
+    }
+    else
+    {
+        result->host = talloc_asprintf(NULL, "%s", host);
+    }
+
     result->protocol_version = protocol_version;
 
     result->base_dn  = strndup(base_dn, strlen(base_dn));
@@ -100,11 +108,11 @@ config_t *ld_create_config(char *host,
  * @param[out] handle
  * @param[in]  config
  */
-void ld_init(LDHandle* handle, const config_t* config)
+void ld_init(LDHandle** handle, const config_t* config)
 {
-    handle = malloc(sizeof(LDHandle));
+    *handle = malloc(sizeof(LDHandle));
 
-    if (!handle)
+    if (!*handle)
     {
         error("Unable to allocate memory for ldhandle");
         return;
@@ -116,29 +124,54 @@ void ld_init(LDHandle* handle, const config_t* config)
         return;
     }
 
-    handle->talloc_ctx = talloc_new(NULL);
+    (*handle)->talloc_ctx = talloc_new(NULL);
 
-    handle->global_config = talloc_memdup(handle->talloc_ctx, config, sizeof (config_t));
+    (*handle)->global_config = talloc_memdup((*handle)->talloc_ctx, config, sizeof (config_t));
 
-    handle->global_ctx = talloc_zero(handle->talloc_ctx, ldap_global_context_t);
-    handle->connection_ctx = talloc_zero(handle->talloc_ctx, ldap_connection_ctx_t);
-    handle->config_ctx = talloc_zero(handle->talloc_ctx, ldap_connection_config_t);
+    (*handle)->global_ctx = talloc_zero((*handle)->talloc_ctx, ldap_global_context_t);
+    (*handle)->connection_ctx = talloc_zero((*handle)->talloc_ctx, ldap_connection_ctx_t);
+    (*handle)->config_ctx = talloc_zero((*handle)->talloc_ctx, ldap_connection_config_t);
 
-    handle->global_ctx->talloc_ctx = handle->talloc_ctx;
+    (*handle)->global_ctx->talloc_ctx = (*handle)->talloc_ctx;
 
-    handle->config_ctx->server = config->host;
-    handle->config_ctx->protocol_verion = config->protocol_version;
+    (*handle)->config_ctx->server = config->host;
+    (*handle)->config_ctx->protocol_verion = config->protocol_version;
 
-    handle->config_ctx->use_sasl = config->use_sasl;
-    handle->config_ctx->use_start_tls = config->use_tls;
-    handle->config_ctx->chase_referrals = false;
+    (*handle)->config_ctx->use_sasl = config->use_sasl;
+    (*handle)->config_ctx->use_start_tls = config->use_tls;
+    (*handle)->config_ctx->chase_referrals = false;
 
-    int rc = connection_configure(handle->global_ctx, handle->connection_ctx, handle->config_ctx);
+    if (config->use_sasl)
+    {
+        (*handle)->config_ctx->sasl_options = talloc((*handle)->global_ctx->talloc_ctx, struct ldap_sasl_options_t);
+        (*handle)->config_ctx->sasl_options->mechanism = config->simple_bind ? LDAP_SASL_SIMPLE : "GSSAPI";
+        (*handle)->config_ctx->sasl_options->passwd = talloc_strdup((*handle)->global_ctx->talloc_ctx, config->password);
+
+        (*handle)->config_ctx->sasl_options->sasl_nocanon = true;
+        (*handle)->config_ctx->sasl_options->sasl_secprops = "maxssf=56";
+        (*handle)->config_ctx->sasl_options->sasl_flags = LDAP_SASL_QUIET;
+
+    }
+
+    (*handle)->connection_ctx->ldap_params = talloc((*handle)->global_ctx->talloc_ctx, struct ldap_sasl_params_t);
+    (*handle)->connection_ctx->ldap_params->dn = talloc_asprintf((*handle)->global_ctx->talloc_ctx,
+                                                                 "cn=%s,%s",config->username, config->base_dn);
+    (*handle)->connection_ctx->ldap_params->passwd = talloc((*handle)->global_ctx->talloc_ctx, struct berval);
+    (*handle)->connection_ctx->ldap_params->passwd->bv_len = strlen(config->password);
+    (*handle)->connection_ctx->ldap_params->passwd->bv_val = talloc_strdup((*handle)->global_ctx->talloc_ctx,
+                                                                           config->password);
+    (*handle)->connection_ctx->ldap_params->clientctrls = NULL;
+    (*handle)->connection_ctx->ldap_params->serverctrls = NULL;
+
+    int rc = connection_configure((*handle)->global_ctx, (*handle)->connection_ctx, (*handle)->config_ctx);
 
     if (rc != RETURN_CODE_SUCCESS)
     {
         error("Unable to configure connection");
+        return;
     }
+
+    (*handle)->connection_ctx->handle = (*handle);
 }
 
 static void connection_update(verto_ctx *ctx, verto_ev *ev)
@@ -157,18 +190,35 @@ static void connection_update(verto_ctx *ctx, verto_ev *ev)
 }
 
 /**
- * @brief ld_install_handlers
+ * @brief ld_install_default_handlers
  * @param[in] handle Pointer to libdomain session handle.
  */
-void ld_install_handlers(LDHandle* handle)
+void ld_install_default_handlers(LDHandle* handle)
 {
     if (!handle)
     {
-        error("Invalid handle was provided - ld_install_handlers");
+        error("Invalid handle was provided - ld_install_default_handlers\n");
         return;
     }
 
-    verto_ev* ev = verto_add_timeout(handle->connection_ctx->base, VERTO_EV_FLAG_PERSIST, connection_update, CONNECTION_UPDATE_INTERVAL);
+    verto_ev* ev = verto_add_timeout(handle->connection_ctx->base, VERTO_EV_FLAG_PERSIST, connection_update,
+                                     CONNECTION_UPDATE_INTERVAL);
+    verto_set_private(ev, handle->connection_ctx, NULL);
+}
+
+/**
+ * @brief ld_install_handler
+ * @param[in] handle Pointer to libdomain session handle.
+ */
+void ld_install_handler(LDHandle* handle, verto_callback *callback, time_t interval)
+{
+    if (!handle)
+    {
+        error("Invalid handle was provided - ld_install_handler\n");
+        return;
+    }
+
+    verto_ev* ev = verto_add_timeout(handle->connection_ctx->base, VERTO_EV_FLAG_PERSIST, callback, interval);
     verto_set_private(ev, handle->connection_ctx, NULL);
 }
 
@@ -180,7 +230,7 @@ void ld_exec(LDHandle* handle)
 {
     if (!handle)
     {
-        error("Invalid handle was provided - ld_exec");
+        error("Invalid handle was provided - ld_exec\n");
         return;
     }
 
@@ -195,7 +245,7 @@ void ld_exec_once(LDHandle* handle)
 {
     if (!handle)
     {
-        error("Invalid handle was provided - ld_exec_once");
+        error("Invalid handle was provided - ld_exec_once\n");
         return;
     }
 
@@ -219,6 +269,48 @@ void ld_free(LDHandle* handle)
     free(handle);
 }
 
+static LDAPMod ** fill_attributes(LDAPAttribute_t **entry_attrs, TALLOC_CTX *talloc_ctx)
+{
+    int attr_count = 0;
+    int attr_index = 0;
+
+    while (entry_attrs[attr_count] != NULL)
+    {
+        attr_count++;
+    }
+
+    LDAPMod **attrs = talloc_array(talloc_ctx, LDAPMod*, attr_count + 1);
+
+    while (entry_attrs[attr_index] != NULL)
+    {
+        attrs[attr_index] = talloc(talloc_ctx, LDAPMod);
+        attrs[attr_index]->mod_op = LDAP_MOD_ADD;
+        attrs[attr_index]->mod_type = talloc_strdup(talloc_ctx, entry_attrs[attr_index]->name);
+
+        int val_count = 0;
+        while (entry_attrs[attr_index]->values[val_count] != NULL)
+        {
+            val_count++;
+        }
+
+        attrs[attr_index]->mod_values = talloc_array(talloc_ctx, char*, val_count + 1);
+
+        int val_index = 0;
+        while (entry_attrs[attr_index]->values[val_index] != NULL)
+        {
+            attrs[attr_index]->mod_values[val_index] = talloc_strdup(talloc_ctx, entry_attrs[attr_index]->values[val_index]);
+            val_index++;
+        }
+        attrs[attr_index]->mod_values[val_count] = NULL;
+
+        attr_index++;
+    }
+
+    attrs[attr_count] = NULL;
+
+    return attrs;
+}
+
 enum OperationReturnCode ld_add_entry(LDHandle *handle, const char *name, const char* parent, LDAPAttribute_t **entry_attrs)
 {
     const char* entry_name = NULL;
@@ -237,8 +329,7 @@ enum OperationReturnCode ld_add_entry(LDHandle *handle, const char *name, const 
 
     const char* dn = talloc_asprintf(talloc_ctx,"cn=%s,%s", entry_name, entry_parent);
 
-    LDAPMod **attrs = talloc_array(talloc_ctx, LDAPMod*, 1);
-    attrs[0] = NULL;
+    LDAPMod **attrs = fill_attributes(entry_attrs, talloc_ctx);
 
     rc = add(handle->connection_ctx, dn, attrs);
 
@@ -247,7 +338,7 @@ enum OperationReturnCode ld_add_entry(LDHandle *handle, const char *name, const 
     return rc;
 }
 
-enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const char* parent)
+enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const char* parent, const char* prefix)
 {
     const char* entry_name = NULL;
     const char* entry_parent = NULL;
@@ -261,7 +352,7 @@ enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const 
 
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
-    const char* dn = talloc_asprintf(talloc_ctx,"cn=%s,%s", entry_name, entry_parent);
+    const char* dn = talloc_asprintf(talloc_ctx,"%s=%s,%s", prefix, entry_name, entry_parent);
 
     rc = delete(handle->connection_ctx, dn);
 
@@ -286,8 +377,7 @@ enum OperationReturnCode ld_mod_entry(LDHandle *handle, const char *name, const 
 
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
-    LDAPMod **attrs = talloc_array(talloc_ctx, LDAPMod*, 1);
-    attrs[0] = NULL;
+    LDAPMod **attrs = fill_attributes(entry_attrs, talloc_ctx);
 
     const char* dn = talloc_asprintf(talloc_ctx,"cn=%s,%s", entry_name, entry_parent);
 
@@ -299,7 +389,7 @@ enum OperationReturnCode ld_mod_entry(LDHandle *handle, const char *name, const 
 }
 
 enum OperationReturnCode ld_rename_entry(LDHandle *handle, const char *old_name, const char *new_name,
-                                         const char* parent)
+                                         const char* parent, const char* prefix)
 {
     const char* entry_old_name = NULL;
     const char* entry_new_name = NULL;
@@ -315,8 +405,8 @@ enum OperationReturnCode ld_rename_entry(LDHandle *handle, const char *old_name,
 
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
-    const char* old_dn = talloc_asprintf(talloc_ctx,"cn=%s,%s", entry_old_name, entry_parent);
-    const char* new_dn = talloc_asprintf(talloc_ctx,"cn=%s,%s", entry_new_name, entry_parent);
+    const char* old_dn = talloc_asprintf(talloc_ctx,"%s=%s,%s", prefix, entry_old_name, entry_parent);
+    const char* new_dn = talloc_asprintf(talloc_ctx,"%s=%s", prefix, entry_new_name);
 
     rc = ld_rename(handle->connection_ctx, old_dn, new_dn, entry_parent, true);
 
@@ -335,15 +425,37 @@ LDAPAttribute_t **assign_default_attribute_values(TALLOC_CTX *talloc_ctx,
     {
         entry_attrs[i] = talloc(talloc_ctx, LDAPAttribute_t);
         entry_attrs[i]->name = default_attrs[i].name;
+        entry_attrs[i]->values = talloc_array(talloc_ctx, char*, 2);
 
         if (default_attrs[i].value != NULL)
         {
-            entry_attrs[i]->values = talloc_array(talloc_ctx, char*, 2);
             entry_attrs[i]->values[0] = talloc_strdup(talloc_ctx, default_attrs[i].value);
+            entry_attrs[i]->values[1] = NULL;
+        }
+        else
+        {
+            entry_attrs[i]->values[0] = talloc_strdup(talloc_ctx, "");
             entry_attrs[i]->values[1] = NULL;
         }
     }
     entry_attrs[size] = NULL;
 
     return entry_attrs;
+}
+
+void ld_install_error_handler(LDHandle *handle, error_callback_fn callback)
+{
+    if (!handle)
+    {
+        error("Invalid handle - ld_install_error_handler\n");
+        return;
+    }
+
+    if (!callback)
+    {
+        error("Invalid callback - ld_install_error_handler\n");
+        return;
+    }
+
+    handle->connection_ctx->on_error_operation = (operation_callback_fn)callback;
 }

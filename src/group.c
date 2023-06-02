@@ -27,7 +27,7 @@
 
 static attribute_value_pair_t LDAP_GROUP_ATTRIBUTES[] =
 {
-    { "objectClass", "group" },
+    { "objectClass", "posixGroup" },
     { "cn", NULL },
     { "description", NULL },
     { "displayName", NULL },
@@ -106,33 +106,34 @@ enum OperationReturnCode ld_add_group(LDHandle *handle,
     return rc;
 }
 
-enum OperationReturnCode ld_del_group(LDHandle *handle, const char *name)
-{   
-    return ld_del_entry(handle, name, handle ? handle->global_config->base_dn : NULL);
-}
-
-enum OperationReturnCode ld_mod_group(LDHandle *handle,  const char *name, LDAPAttribute_t **group_attrs)
+enum OperationReturnCode ld_del_group(LDHandle *handle, const char *name, const char* parent)
 {
-    return ld_mod_entry(handle, name, handle ? handle->global_config->base_dn : NULL, group_attrs);
+    return ld_del_entry(handle, name, parent ? parent : handle ? handle->global_config->base_dn : NULL, "cn");
 }
 
-enum OperationReturnCode ld_rename_group(LDHandle *handle, const char *old_name, const char *new_name)
+enum OperationReturnCode ld_mod_group(LDHandle *handle,  const char *name, const char *parent,
+                                      LDAPAttribute_t **group_attrs)
 {
-    return ld_rename_entry(handle, old_name, new_name, handle ? handle->global_config->base_dn : NULL);
+    return ld_mod_entry(handle, name, parent ? parent : handle ? handle->global_config->base_dn : NULL, group_attrs);
 }
 
-static enum OperationReturnCode group_member_modify(LDHandle *handle, const char *group_name, const char *user_name,
+enum OperationReturnCode ld_rename_group(LDHandle *handle, const char *old_name, const char *new_name, const char *parent)
+{
+    return ld_rename_entry(handle, old_name, new_name, parent ? parent : handle ? handle->global_config->base_dn : NULL, "cn");
+}
+
+static enum OperationReturnCode group_member_modify(LDHandle *handle, const char *group_dn, const char *user_dn,
                                                     char mod_operation)
 {
-    const char *this_group_name = NULL;
-    const char *this_user_name = NULL;
+    const char *this_group_dn = NULL;
+    const char *this_user_dn = NULL;
     const char *member = "member";
 
     check_handle(handle, "ld_group_add_user");
 
-    check_string(group_name, this_group_name, "ld_group_add_user");
+    check_string(group_dn, this_group_dn, "ld_group_add_user");
 
-    check_string(user_name, this_user_name, "ld_group_add_user");
+    check_string(user_dn, this_user_dn, "ld_group_add_user");
 
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
@@ -141,11 +142,11 @@ static enum OperationReturnCode group_member_modify(LDHandle *handle, const char
     attrs[0]->mod_type = talloc_strndup(talloc_ctx, member, strlen(member));
     attrs[0]->mod_values = talloc_array(talloc_ctx, char*, 2);
 
-    attrs[0]->mod_values[0] = talloc_strndup(talloc_ctx, this_user_name, strlen(this_user_name));
+    attrs[0]->mod_values[0] = talloc_strndup(talloc_ctx, this_user_dn, strlen(this_user_dn));
     attrs[0]->mod_values[1] = NULL;
     attrs[1] = NULL;
 
-    int rc = modify(handle->connection_ctx, this_group_name, attrs);
+    int rc = modify(handle->connection_ctx, this_group_dn, attrs);
 
     talloc_free(talloc_ctx);
 
