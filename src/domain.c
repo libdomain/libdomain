@@ -32,18 +32,18 @@
 static const int CONNECTION_UPDATE_INTERVAL = 1000;
 
 /**
- * @brief ld_create_config
+ * @brief ld_create_config     Fills fields of configuration structure.
  * @param[in] host             Hostname of LDAP server.
  * @param[in] port             Port number.
  * @param[in] protocol_version LDAP protocol version.
  * @param[in] base_dn          DN to use during bind.
- * @param[in] username
- * @param[in] password
- * @param[in] simple_bind
- * @param[in] use_tls
- * @param[in] use_sasl
- * @param[in] use_anon
- * @param[in] timeout
+ * @param[in] username         Username to use
+ * @param[in] password         User password
+ * @param[in] simple_bind      If we going to perform simple bind instead of interactive bind.
+ * @param[in] use_tls          If we going to use TLS encryption.
+ * @param[in] use_sasl         If we going to enable SASL.
+ * @param[in] use_anon         If we going to enable anonymous logon.
+ * @param[in] timeout          Timeout to read and write operations.
  * @param[in] cacertfile
  * @param[in] certfile
  * @param[in] keyfile
@@ -104,9 +104,9 @@ config_t *ld_create_config(char *host,
 }
 
 /**
- * @brief ld_init
- * @param[out] handle
- * @param[in]  config
+ * @brief ld_init     Initializes the library allowing us to performing various operations.
+ * @param[out] handle Pointer to libdomain session handle.
+ * @param[in]  config Configuration of the connections.
  */
 void ld_init(LDHandle** handle, const config_t* config)
 {
@@ -180,6 +180,7 @@ static void connection_update(verto_ctx *ctx, verto_ev *ev)
 
     struct ldap_connection_ctx_t* connection = verto_get_private(ev);
 
+    // TODO: Implement error checking.
     csm_next_state(connection->state_machine);
 
     if (connection->state_machine->state == LDAP_CONNECTION_STATE_RUN
@@ -190,7 +191,8 @@ static void connection_update(verto_ctx *ctx, verto_ev *ev)
 }
 
 /**
- * @brief ld_install_default_handlers
+ * @brief ld_install_default_handlers Installs default handlers to control connection. This method must be
+ * called before performing any operations.
  * @param[in] handle Pointer to libdomain session handle.
  */
 void ld_install_default_handlers(LDHandle* handle)
@@ -207,7 +209,7 @@ void ld_install_default_handlers(LDHandle* handle)
 }
 
 /**
- * @brief ld_install_handler
+ * @brief ld_install_handler If we need to install custom error callback this method allows us to do so.
  * @param[in] handle Pointer to libdomain session handle.
  */
 void ld_install_handler(LDHandle* handle, verto_callback *callback, time_t interval)
@@ -223,7 +225,8 @@ void ld_install_handler(LDHandle* handle, verto_callback *callback, time_t inter
 }
 
 /**
- * @brief ld_exec
+ * @brief ld_exec Start main event cycle. You don't need to call this function if there is already existing
+ * event loop e.g. inside of Qt application.
  * @param[in] handle Pointer to libdomain session handle.
  */
 void ld_exec(LDHandle* handle)
@@ -238,7 +241,7 @@ void ld_exec(LDHandle* handle)
 }
 
 /**
- * @brief ld_exec_once
+ * @brief ld_exec_once Cycles through event list once. May block.
  * @param[in] handle Pointer to libdomain session handle.
  */
 void ld_exec_once(LDHandle* handle)
@@ -253,7 +256,8 @@ void ld_exec_once(LDHandle* handle)
 }
 
 /**
- * @brief ld_free
+ * @brief ld_free Free library handle and resources associated with it. After freeing the handle you can no longer
+ * perform any operations.
  * @param[in] handle Pointer to libdomain session handle.
  */
 void ld_free(LDHandle* handle)
@@ -311,6 +315,16 @@ static LDAPMod ** fill_attributes(LDAPAttribute_t **entry_attrs, TALLOC_CTX *tal
     return attrs;
 }
 
+/**
+ * @brief ld_add_entry    Creates the entry.
+ * @param[in] handle      Pointer to libdomain session handle.
+ * @param[in] name        Name of the entry.
+ * @param[in] parent      Parent container that holds the entry.
+ * @param[in] entry_attrs List of the attributes to create entry with.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_add_entry(LDHandle *handle, const char *name, const char* parent, LDAPAttribute_t **entry_attrs)
 {
     const char* entry_name = NULL;
@@ -338,6 +352,16 @@ enum OperationReturnCode ld_add_entry(LDHandle *handle, const char *name, const 
     return rc;
 }
 
+/**
+ * @brief ld_del_entry Deletes entry.
+ * @param[in] handle   Pointer to libdomain session handle.
+ * @param[in] name     Name of the entry.
+ * @param[in] parent   Parent container that holds the entry.
+ * @param[in] prefix   Prefix of the entry.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const char* parent, const char* prefix)
 {
     const char* entry_name = NULL;
@@ -361,6 +385,16 @@ enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const 
     return rc;
 }
 
+/**
+ * @brief ld_mod_entry    Modifies the entry.
+ * @param[in] handle      Pointer to libdomain session handle.
+ * @param[in] name        Name of the entry.
+ * @param[in] parent      Parent container that holds the entry.
+ * @param[in] entry_attrs List of the attributes to modify.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_mod_entry(LDHandle *handle, const char *name, const char* parent, LDAPAttribute_t **entry_attrs)
 {
     const char* entry_name = NULL;
@@ -388,6 +422,17 @@ enum OperationReturnCode ld_mod_entry(LDHandle *handle, const char *name, const 
     return rc;
 }
 
+/**
+ * @brief ld_rename_entry Renames the entry.
+ * @param[in] handle      Pointer to libdomain session handle.
+ * @param[in] old_name    Old name of the entry.
+ * @param[in] new_name    New name of the entry.
+ * @param[in] parent      Parent container that holds the entry.
+ * @param[in] prefix      Prefix for entry type.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_rename_entry(LDHandle *handle, const char *old_name, const char *new_name,
                                          const char* parent, const char* prefix)
 {
@@ -443,6 +488,11 @@ LDAPAttribute_t **assign_default_attribute_values(TALLOC_CTX *talloc_ctx,
     return entry_attrs;
 }
 
+/**
+ * @brief ld_install_error_handler Allows us to install custom error handle for our application.
+ * @param[in] handle   Pointer to libdomain session handle.
+ * @param[in] callback Callback to call.
+ */
 void ld_install_error_handler(LDHandle *handle, error_callback_fn callback)
 {
     if (!handle)
