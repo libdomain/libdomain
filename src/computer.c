@@ -43,6 +43,17 @@ enum ComputerAttributeIndex
     NAME         = 4,
 };
 
+/**
+ * @brief ld_add_computer   Creates new computer
+ * @param[in] handle        LibDomain handle
+ * @param[in] name          name of the computer
+ * @param[in] description   Description of the computer.
+ * @param[in] display_name  Display name of the computer.
+ * @param[in] parent        Parent container of the computer.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_add_computer(LDHandle *handle,
                                          const char *name,
                                          const char *description,
@@ -75,16 +86,47 @@ enum OperationReturnCode ld_add_computer(LDHandle *handle,
     return rc;
 }
 
+/**
+ * @brief ld_del_computer Deletes computer
+ * @param[in] handle      Pointer to libdomain session handle.
+ * @param[in] name        Name of the computer.
+ * @param[in] parent      Parent container of the computer.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_del_computer(LDHandle *handle, const char *name, const char *parent)
 {
+    (void)(parent);
     return ld_del_entry(handle, name, handle ? handle->global_config->base_dn : NULL, "cn");
 }
 
+/**
+ * @brief ld_mod_computer    Modifies computer
+ * @param[in] handle         Pointer to libdomain session handle.
+ * @param[in] name           Name of the computer.
+ * @param[in] parent         Parent container of the computer.
+ * @param[in] computer_attrs List of the attributes to modify.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_mod_computer(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **computer_attrs)
 {
+    (void)(parent);
     return ld_mod_entry(handle, name, handle ? handle->global_config->base_dn : NULL, computer_attrs);
 }
 
+/**
+ * @brief ld_rename_computer Renames computer
+ * @param[in] handle         Pointer to libdomain session handle.
+ * @param[in] old_name       Old name of the computer.
+ * @param[in] new_name       New name of the computer.
+ * @param[in] parent         Parent container of the computer.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_rename_computer(LDHandle *handle, const char *old_name, const char *new_name, const char *parent)
 {
     return ld_rename_entry(handle, old_name, new_name, parent ? parent : handle ? handle->global_config->base_dn : NULL, "cn");
