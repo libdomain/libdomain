@@ -21,9 +21,11 @@
 #include "directory.h"
 
 /**
- * @brief directory_get_type
- * @param connection
+ * @brief directory_get_type Request LDAP type from service.
+ * @param[in] connection connection to use
  * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
  */
 enum OperationReturnCode directory_get_type(struct ldap_connection_ctx_t *connection)
 {
@@ -33,9 +35,11 @@ enum OperationReturnCode directory_get_type(struct ldap_connection_ctx_t *connec
 }
 
 /**
- * @brief directory_parse_result
- * @param connection
+ * @brief directory_parse_result Parse results of directory type request and intialize the connection directory type.
+ * @param[in] connection connection to use
  * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
  */
 enum OperationReturnCode directory_parse_result(struct ldap_connection_ctx_t *connection)
 {
