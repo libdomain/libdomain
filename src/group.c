@@ -64,6 +64,21 @@ static int value_from_group_scope(enum GroupScope group_scope)
     return 0;
 }
 
+/**
+ * @brief ld_add_group     Creates the group.
+ * @param[in] handle           Pointer to libdomain session handle.
+ * @param[in] name             Name of the group.
+ * @param[in] description      Description.
+ * @param[in] display_name     Display name of the group.
+ * @param[in] group_category   Category of the group.
+ * @param[in] group_scope      Scope of the group.
+ * @param[in] home_page        Home page of the group.
+ * @param[in] parent           Parent container that holds the group.
+ * @param[in] sam_account_name Name of the groups security account.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_add_group(LDHandle *handle,
                                       const char *name,
                                       const char *description,
@@ -106,17 +121,46 @@ enum OperationReturnCode ld_add_group(LDHandle *handle,
     return rc;
 }
 
+/**
+ * @brief ld_del_group     Deletes the group.
+ * @param[in] handle       Pointer to libdomain session handle.
+ * @param[in] name         Name of the group.
+ * @param[in] parent       Container that holds the group.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_del_group(LDHandle *handle, const char *name, const char* parent)
 {
     return ld_del_entry(handle, name, parent ? parent : handle ? handle->global_config->base_dn : NULL, "cn");
 }
 
+/**
+ * @brief ld_mod_group     Modifies the group.
+ * @param[in] handle       Pointer to libdomain session handle.
+ * @param[in] name         Name of the group.
+ * @param[in] parent       Container that holds the group.
+ * @param[in] group_attrs  List of attributes to modify.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_mod_group(LDHandle *handle,  const char *name, const char *parent,
                                       LDAPAttribute_t **group_attrs)
 {
     return ld_mod_entry(handle, name, parent ? parent : handle ? handle->global_config->base_dn : NULL, group_attrs);
 }
 
+/**
+ * @brief ld_rename_group     Renames group.
+ * @param[in] handle          Pointer to libdomain session handle.
+ * @param[in] old_name        Old name of the group.
+ * @param[in] new_name        New name of the group.
+ * @param[in] parent          Container that holds the group.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_rename_group(LDHandle *handle, const char *old_name, const char *new_name, const char *parent)
 {
     return ld_rename_entry(handle, old_name, new_name, parent ? parent : handle ? handle->global_config->base_dn : NULL, "cn");
@@ -153,11 +197,29 @@ static enum OperationReturnCode group_member_modify(LDHandle *handle, const char
     return rc;
 }
 
+/**
+ * @brief ld_group_add_user Adds user to the group.
+ * @param[in] handle            Pointer to libdomain session handle.
+ * @param[in] group_name        Name of the group to add user into.
+ * @param[in] user_name         Name of the user to add.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_group_add_user(LDHandle *handle, const char *group_name, const char *user_name)
 {
     return group_member_modify(handle, group_name, user_name, LDAP_MOD_ADD);
 }
 
+/**
+ * @brief ld_group_remove_user Removes user from the group.
+ * @param[in] handle               Pointer to libdomain session handle.
+ * @param[in] group_name           Name of the group to remove user from.
+ * @param[in] user_name            Name of the user.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_group_remove_user(LDHandle *handle, const char *group_name, const char *user_name)
 {
     return group_member_modify(handle, group_name, user_name, LDAP_MOD_DELETE);
