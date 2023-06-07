@@ -35,7 +35,7 @@ enum OperationReturnCode directory_get_type(struct ldap_connection_ctx_t *connec
 }
 
 /**
- * @brief directory_parse_result Parse results of directory type request and intialize the connection directory type.
+ * @brief directory_parse_result Parse results of directory type request and initialize the connection directory type.
  * @param[in] connection connection to use
  * @return
  *        - RETURN_CODE_SUCCESS on success.
