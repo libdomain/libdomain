@@ -52,6 +52,22 @@ enum OUAttributeIndex
     NAME         = 9
 };
 
+/**
+ * @brief ld_add_ou       Creates the OU.
+ * @param handle          Pointer to libdomain session handle.
+ * @param name            Name of the OU.
+ * @param city            City of the OU.
+ * @param country         Country of the OU.
+ * @param description     Description of the OU.
+ * @param display_name    Display name of the OU.
+ * @param parent          Parent container that holds the OU.
+ * @param postalCode      Postal code of the OU.
+ * @param state           State of the OU.
+ * @param street_address  Street address of the OU.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_add_ou(LDHandle *handle,
                                    const char *name,
                                    const char *city,
@@ -94,16 +110,45 @@ enum OperationReturnCode ld_add_ou(LDHandle *handle,
     return rc;
 }
 
+/**
+ * @brief ld_del_ou   Deletes the OU.
+ * @param handle      Pointer to libdomain session handle.
+ * @param name        Name of the OU.
+ * @param parent      Parent container that holds the OU.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_del_ou(LDHandle *handle, const char *name, const char *parent)
 {
     return ld_del_entry(handle, name, parent ? parent : handle ? handle->global_config->base_dn : NULL, "ou");
 }
 
+/**
+ * @brief ld_mod_ou    Modifies the OU.
+ * @param handle       Pointer to libdomain session handle.
+ * @param name         Name of the OU.
+ * @param parent       Parent container that holds the OU.
+ * @param ou_attrs     List of the attributes to modify.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_mod_ou(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **ou_attrs)
 {
     return ld_mod_entry(handle, name, parent ? parent : handle ? handle->global_config->base_dn : NULL, ou_attrs);
 }
 
+/**
+ * @brief ld_rename_ou Renames the OU.
+ * @param handle       Pointer to libdomain session handle.
+ * @param old_name     Old name of the OU.
+ * @param new_name     New name of the OU.
+ * @param parent       Parent container that holds the OU.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_rename_ou(LDHandle *handle, const char *old_name, const char *new_name, const char *parent)
 {
     return ld_rename_entry(handle, old_name, new_name, parent ? parent : handle ? handle->global_config->base_dn : NULL, "ou");
