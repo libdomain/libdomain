@@ -17,7 +17,7 @@ AfterEach(Cgreen) {}
 
 const int CONNECTION_UPDATE_INTERVAL = 1000;
 
-static void connection_on_add_message(verto_ctx *ctx, verto_ev *ev)
+static void connection_on_delete_message(verto_ctx *ctx, verto_ev *ev)
 {
     (void)(ev);
 
@@ -42,7 +42,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
         int rc = ld_del_group(connection->handle, "test_delete_group", "ou=groups,dc=domain,dc=alt");
         assert_that(rc,is_equal_to(RETURN_CODE_SUCCESS));
 
-        ld_install_handler(connection->handle, connection_on_add_message, CONNECTION_UPDATE_INTERVAL);
+        ld_install_handler(connection->handle, connection_on_delete_message, CONNECTION_UPDATE_INTERVAL);
     }
 
     if (connection->state_machine->state == LDAP_CONNECTION_STATE_ERROR)
@@ -66,7 +66,7 @@ static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void
     return RETURN_CODE_SUCCESS;
 }
 
-Ensure(Cgreen, group_add_test)
+Ensure(Cgreen, group_delete_test)
 {
     TALLOC_CTX* talloc_ctx = talloc_new(NULL);
 
@@ -95,6 +95,6 @@ int main(int argc, char **argv) {
     (void)(argv);
     (void)(contextForCgreen);
     TestSuite *suite = create_test_suite();
-    add_test_with_context(suite, Cgreen, group_add_test);
+    add_test_with_context(suite, Cgreen, group_delete_test);
     return run_test_suite(suite, create_text_reporter());
 }

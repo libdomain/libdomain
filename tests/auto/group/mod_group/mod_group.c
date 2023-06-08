@@ -17,6 +17,21 @@ AfterEach(Cgreen) {}
 
 const int CONNECTION_UPDATE_INTERVAL = 1000;
 
+LDAPAttribute_t** attrs;
+
+static LDAPAttribute_t** fill_group_attributes(TALLOC_CTX* ctx)
+{
+    attrs = talloc_array(ctx, LDAPAttribute_t*, 2);
+    attrs[0] = talloc(ctx, LDAPAttribute_t);
+    attrs[0]->values = talloc_array(ctx, char*, 2);
+    attrs[0]->name = talloc_strdup(ctx, "description");
+    attrs[0]->values[0] = talloc_strdup(ctx, "Description_Change_Successful");
+    attrs[0]->values[1] = NULL;
+    attrs[1] = NULL;
+
+    return attrs;
+}
+
 static void connection_on_add_message(verto_ctx *ctx, verto_ev *ev)
 {
     (void)(ev);
@@ -39,9 +54,13 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     {
         verto_del(ev);
 
+        TALLOC_CTX* talloc_ctx = talloc_new(NULL);
+
         int rc = ld_mod_group(connection->handle, "test_mod_group", "ou=groups,dc=domain,dc=alt",
-                              NULL);
+                              fill_group_attributes(talloc_ctx));
         assert_that(rc,is_equal_to(RETURN_CODE_SUCCESS));
+
+        talloc_free(talloc_ctx);
 
         ld_install_handler(connection->handle, connection_on_add_message, CONNECTION_UPDATE_INTERVAL);
     }
@@ -67,7 +86,7 @@ static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void
     return RETURN_CODE_SUCCESS;
 }
 
-xEnsure(Cgreen, group_add_test)
+Ensure(Cgreen, group_modification_test)
 {
     TALLOC_CTX* talloc_ctx = talloc_new(NULL);
 
@@ -96,6 +115,6 @@ int main(int argc, char **argv) {
     (void)(argv);
     (void)(contextForCgreen);
     TestSuite *suite = create_test_suite();
-    add_test_with_context(suite, Cgreen, group_add_test);
+    add_test_with_context(suite, Cgreen, group_modification_test);
     return run_test_suite(suite, create_text_reporter());
 }

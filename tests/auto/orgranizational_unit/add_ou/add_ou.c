@@ -39,15 +39,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     {
         verto_del(ev);
 
-        ld_add_ou(connection->handle, "test_ou_creation",
-                     "city",
-                     "country",
-                     "description",
-                     "display_name",
-                     "ou=users,dc=domain,dc=alt",
-                     "postal_code",
-                     "state",
-                     "street_address");
+        ld_add_ou(connection->handle, "test_ou_creation", "description", "ou=users,dc=domain,dc=alt");
 
         ld_install_handler(connection->handle, connection_on_add_message, CONNECTION_UPDATE_INTERVAL);
     }
@@ -73,7 +65,7 @@ static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void
     return RETURN_CODE_SUCCESS;
 }
 
-xEnsure(Cgreen, ou_add_test)
+Ensure(Cgreen, ou_add_test)
 {
     TALLOC_CTX* talloc_ctx = talloc_new(NULL);
 

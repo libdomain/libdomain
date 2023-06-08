@@ -1,7 +1,7 @@
 #include <cgreen/cgreen.h>
 
 #include <domain.h>
-#include <group.h>
+#include <user.h>
 #include <talloc.h>
 
 #include <connection_state_machine.h>
@@ -16,6 +16,21 @@ BeforeEach(Cgreen) {}
 AfterEach(Cgreen) {}
 
 const int CONNECTION_UPDATE_INTERVAL = 1000;
+
+LDAPAttribute_t** attrs;
+
+static LDAPAttribute_t** fill_user_attributes(TALLOC_CTX* ctx)
+{
+    attrs = talloc_array(ctx, LDAPAttribute_t*, 2);
+    attrs[0] = talloc(ctx, LDAPAttribute_t);
+    attrs[0]->values = talloc_array(ctx, char*, 2);
+    attrs[0]->name = talloc_strdup(ctx, "userPassword");
+    attrs[0]->values[0] = talloc_strdup(ctx, "plainPass123");
+    attrs[0]->values[1] = NULL;
+    attrs[1] = NULL;
+
+    return attrs;
+}
 
 static void connection_on_add_message(verto_ctx *ctx, verto_ev *ev)
 {
@@ -39,8 +54,13 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     {
         verto_del(ev);
 
-        int rc = ld_mod_group(connection->handle, "test_mod_user", "ou=users,dc=domain,dc=alt", NULL);
+        TALLOC_CTX* talloc_ctx = talloc_new(NULL);
+
+        int rc = ld_mod_user(connection->handle, "test_mod_user", "ou=users,dc=domain,dc=alt",
+                             fill_user_attributes(talloc_ctx));
         assert_that(rc,is_equal_to(RETURN_CODE_SUCCESS));
+
+        talloc_free(talloc_ctx);
 
         ld_install_handler(connection->handle, connection_on_add_message, CONNECTION_UPDATE_INTERVAL);
     }
@@ -66,7 +86,7 @@ static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void
     return RETURN_CODE_SUCCESS;
 }
 
-xEnsure(Cgreen, user_mod_test)
+Ensure(Cgreen, user_mod_test)
 {
     TALLOC_CTX* talloc_ctx = talloc_new(NULL);
 

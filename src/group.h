@@ -37,15 +37,8 @@ enum GroupCategory
     GROUP_CATEGORY_SECURITY     = 1
 };
 
-enum OperationReturnCode ld_add_group(LDHandle *handle,
-                                      const char *name,
-                                      const char *description,
-                                      const char *display_name,
-                                      enum GroupCategory group_category,
-                                      enum GroupScope group_scope,
-                                      const char *home_page,
-                                      const char *parent,
-                                      const char *sam_account_name);
+enum OperationReturnCode ld_add_group(
+    LDHandle *handle, const char *name, const char *description, int gid, const char *parent);
 enum OperationReturnCode ld_del_group(LDHandle *handle, const char *name, const char *parent);
 enum OperationReturnCode ld_mod_group(LDHandle *handle,
                                       const char *name,
