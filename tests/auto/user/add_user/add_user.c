@@ -70,7 +70,7 @@ static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void
     return RETURN_CODE_SUCCESS;
 }
 
-xEnsure(Cgreen, user_add_test)
+Ensure(Cgreen, user_add_test)
 {
     TALLOC_CTX* talloc_ctx = talloc_new(NULL);
 

@@ -80,23 +80,21 @@ typedef struct ldhandle
         attrs[index]->values[1] = NULL; \
     }
 
+#define MAX_ATTRIBUTES 5
+
 typedef struct attribute_value_pair_s
 {
     char *name;
-    char *value;
+    char *value[MAX_ATTRIBUTES];
 } attribute_value_pair_t;
 
 #define number_of_elements(x) (sizeof(x) / sizeof((x)[0]))
 
-enum OperationReturnCode ld_add_entry(LDHandle *handle,
-                                      const char *name,
-                                      const char *parent,
-                                      LDAPAttribute_t **entry_attrs);
+enum OperationReturnCode ld_add_entry(
+    LDHandle *handle, const char *name, const char *parent, const char *prefix, LDAPAttribute_t **entry_attrs);
 enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const char *parent, const char *prefix);
-enum OperationReturnCode ld_mod_entry(LDHandle *handle,
-                                      const char *name,
-                                      const char *parent,
-                                      LDAPAttribute_t **entry_attrs);
+enum OperationReturnCode ld_mod_entry(
+    LDHandle *handle, const char *name, const char *parent, const char *prefix, LDAPAttribute_t **entry_attrs);
 enum OperationReturnCode ld_rename_entry(
     LDHandle *handle, const char *old_name, const char *new_name, const char *parent, const char *prefix);
 

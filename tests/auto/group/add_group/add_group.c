@@ -39,12 +39,17 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     {
         verto_del(ev);
 
-        ld_add_group(connection->handle, "test_group", "description",
-                     "display_name", GROUP_CATEGORY_SECURITY, GROUP_SCOPE_GLOBAL,
-                     "www.home_page.org", "ou=users,dc=domain,dc=alt",
-                     "testGroup");
+        int rc = ld_add_group(connection->handle, "test_group", "description", 100, "dc=domain,dc=alt");
+        if (rc != RETURN_CODE_SUCCESS)
+        {
+            verto_break(ctx);
 
-        ld_install_handler(connection->handle, connection_on_add_message, CONNECTION_UPDATE_INTERVAL);
+            fail_test("Error encountered during bind\n");
+        }
+        else
+        {
+            ld_install_handler(connection->handle, connection_on_add_message, CONNECTION_UPDATE_INTERVAL);
+        }
     }
 
     if (connection->state_machine->state == LDAP_CONNECTION_STATE_ERROR)
@@ -68,7 +73,7 @@ static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void
     return RETURN_CODE_SUCCESS;
 }
 
-xEnsure(Cgreen, group_add_test)
+Ensure(Cgreen, group_add_test)
 {
     TALLOC_CTX* talloc_ctx = talloc_new(NULL);
 

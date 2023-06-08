@@ -27,13 +27,10 @@
 
 static attribute_value_pair_t LDAP_GROUP_ATTRIBUTES[] =
 {
-    { "objectClass", "posixGroup" },
-    { "cn", NULL },
-    { "description", NULL },
-    { "displayName", NULL },
-    { "groupType", NULL },
-    { "wWWHomePage", NULL },
-    { "sAMAccountName", NULL },
+    { "objectClass", { "top", "posixGroup", NULL, NULL, NULL } },
+    { "cn", { NULL, NULL, NULL, NULL, NULL } },
+    { "description", { NULL, NULL, NULL, NULL, NULL } },
+    { "gidNumber", { NULL, NULL, NULL, NULL, NULL } }
 };
 static const int LDAP_GROUP_ATTRIBUTES_SIZE = number_of_elements(LDAP_GROUP_ATTRIBUTES);
 
@@ -42,27 +39,8 @@ enum GroupAttributeIndex
     OBJECT_CLASS = 0,
     CN           = 1,
     DESCRIPTION  = 2,
-    DISPLAY_NAME = 3,
-    GROUP_TYPE   = 4,
-    HOME_PAGE    = 5,
-    ACCOUNT_NAME = 6
+    GID_NUMBER   = 3,
 };
-
-static int value_from_group_scope(enum GroupScope group_scope)
-{
-    switch (group_scope) {
-    case GROUP_SCOPE_GLOBAL:
-        return 0x00000002;
-    case GROUP_SCOPE_DOMAIN_LOCAL:
-        return 0x00000004;
-    case GROUP_SCOPE_UNIVERSAL:
-        return 0x00000008;
-    default:
-        break;
-    }
-
-    return 0;
-}
 
 /**
  * @brief ld_add_group     Creates the group.
@@ -82,15 +60,9 @@ static int value_from_group_scope(enum GroupScope group_scope)
 enum OperationReturnCode ld_add_group(LDHandle *handle,
                                       const char *name,
                                       const char *description,
-                                      const char *display_name,
-                                      enum GroupCategory group_category,
-                                      enum GroupScope group_scope,
-                                      const char *home_page,
-                                      const char *parent,
-                                      const char *sam_account_name)
+                                      int gid,
+                                      const char* parent)
 {
-    (void)(group_category);
-
     const char *dn = handle ? handle->global_config->base_dn : NULL;
     enum OperationReturnCode rc = RETURN_CODE_FAILURE;
 
@@ -100,21 +72,16 @@ enum OperationReturnCode ld_add_group(LDHandle *handle,
                                                                      LDAP_GROUP_ATTRIBUTES,
                                                                      LDAP_GROUP_ATTRIBUTES_SIZE);
 
-    char* group_type = talloc_asprintf(talloc_ctx, "%d", value_from_group_scope(group_scope));
-
     check_and_assign_attribute(group_attrs, name, CN, talloc_ctx);
     check_and_assign_attribute(group_attrs, description, DESCRIPTION, talloc_ctx);
-    check_and_assign_attribute(group_attrs, display_name, DISPLAY_NAME, talloc_ctx);
-    check_and_assign_attribute(group_attrs, group_type, GROUP_TYPE, talloc_ctx);
-    check_and_assign_attribute(group_attrs, home_page, HOME_PAGE, talloc_ctx);
-    check_and_assign_attribute(group_attrs, sam_account_name, ACCOUNT_NAME, talloc_ctx);
+    check_and_assign_attribute(group_attrs, talloc_asprintf(talloc_ctx, "%d", gid), GID_NUMBER, talloc_ctx);
 
     if (parent && strlen(parent) > 0)
     {
         dn = parent;
     }
 
-    rc = ld_add_entry(handle, name, dn, group_attrs);
+    rc = ld_add_entry(handle, name, dn, "cn", group_attrs);
 
     talloc_free(talloc_ctx);
 
@@ -148,7 +115,7 @@ enum OperationReturnCode ld_del_group(LDHandle *handle, const char *name, const 
 enum OperationReturnCode ld_mod_group(LDHandle *handle,  const char *name, const char *parent,
                                       LDAPAttribute_t **group_attrs)
 {
-    return ld_mod_entry(handle, name, parent ? parent : handle ? handle->global_config->base_dn : NULL, group_attrs);
+    return ld_mod_entry(handle, name, parent ? parent : handle ? handle->global_config->base_dn : NULL, "cn", group_attrs);
 }
 
 /**

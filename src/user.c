@@ -9,18 +9,18 @@
 
 static attribute_value_pair_t LDAP_USER_ATTRIBUTES[] =
 {
-    { "objectClass", "top:account:posixAccount:shadowAccount" },
-    { "cn", NULL },
-    { "uid", NULL },
-    { "uidNumber", NULL },
-    { "gidNumber", NULL },
-    { "homeDirectory", NULL },
-    { "loginShell", NULL },
-    { "gecos", NULL },
-    { "userPassword", NULL },
-    { "shadowLastChange", NULL },
-    { "shadowMax", NULL },
-    { "shadowWarning", NULL }
+    { "objectClass", { "top", "account", "posixAccount", "shadowAccount", NULL } },
+    { "cn", { NULL, NULL, NULL, NULL, NULL } },
+    { "uid", { NULL, NULL, NULL, NULL, NULL } },
+    { "uidNumber", { NULL, NULL, NULL, NULL, NULL } },
+    { "gidNumber", { NULL, NULL, NULL, NULL, NULL } },
+    { "homeDirectory", { NULL, NULL, NULL, NULL, NULL } },
+    { "loginShell", { NULL, NULL, NULL, NULL, NULL } },
+    { "gecos", { NULL, NULL, NULL, NULL, NULL } },
+    { "userPassword", { NULL, NULL, NULL, NULL, NULL } },
+    { "shadowLastChange", { "0", NULL, NULL, NULL, NULL } },
+    { "shadowMax", { "0", NULL, NULL, NULL, NULL } },
+    { "shadowWarning", { "0", NULL, NULL, NULL, NULL } }
 };
 static const int USER_ATTRIBUTES_SIZE = number_of_elements(LDAP_USER_ATTRIBUTES);
 
@@ -88,7 +88,7 @@ enum OperationReturnCode ld_add_user(LDHandle *handle, const char *name, int uid
         dn = create_user_parent(talloc_ctx, handle);
     }
 
-    rc = ld_add_entry(handle, name, dn, group_attrs);
+    rc = ld_add_entry(handle, name, dn, "cn", group_attrs);
 
     talloc_free(talloc_ctx);
 
@@ -129,7 +129,7 @@ enum OperationReturnCode ld_mod_user(LDHandle *handle, const char *name, const c
 {
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
-    int rc = ld_mod_entry(handle, name, parent ? parent : create_user_parent(talloc_ctx, handle), user_attrs);
+    int rc = ld_mod_entry(handle, name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn", user_attrs);
 
     talloc_free(talloc_ctx);
 

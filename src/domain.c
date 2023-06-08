@@ -141,6 +141,9 @@ void ld_init(LDHandle** handle, const config_t* config)
     (*handle)->config_ctx->use_start_tls = config->use_tls;
     (*handle)->config_ctx->chase_referrals = false;
 
+    int debug_level = -1;
+    ldap_set_option((*handle)->connection_ctx->ldap, LDAP_OPT_DEBUG_LEVEL, &debug_level);
+
     if (config->use_sasl)
     {
         (*handle)->config_ctx->sasl_options = talloc((*handle)->global_ctx->talloc_ctx, struct ldap_sasl_options_t);
@@ -273,7 +276,7 @@ void ld_free(LDHandle* handle)
     free(handle);
 }
 
-static LDAPMod ** fill_attributes(LDAPAttribute_t **entry_attrs, TALLOC_CTX *talloc_ctx)
+static LDAPMod ** fill_attributes(LDAPAttribute_t **entry_attrs, TALLOC_CTX *talloc_ctx, int mod_op)
 {
     int attr_count = 0;
     int attr_index = 0;
@@ -288,7 +291,7 @@ static LDAPMod ** fill_attributes(LDAPAttribute_t **entry_attrs, TALLOC_CTX *tal
     while (entry_attrs[attr_index] != NULL)
     {
         attrs[attr_index] = talloc(talloc_ctx, LDAPMod);
-        attrs[attr_index]->mod_op = LDAP_MOD_ADD;
+        attrs[attr_index]->mod_op = mod_op;
         attrs[attr_index]->mod_type = talloc_strdup(talloc_ctx, entry_attrs[attr_index]->name);
 
         int val_count = 0;
@@ -325,7 +328,8 @@ static LDAPMod ** fill_attributes(LDAPAttribute_t **entry_attrs, TALLOC_CTX *tal
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
  */
-enum OperationReturnCode ld_add_entry(LDHandle *handle, const char *name, const char* parent, LDAPAttribute_t **entry_attrs)
+enum OperationReturnCode ld_add_entry(LDHandle *handle, const char *name, const char* parent, const char* prefix,
+                                      LDAPAttribute_t **entry_attrs)
 {
     const char* entry_name = NULL;
     const char* entry_parent = NULL;
@@ -341,9 +345,9 @@ enum OperationReturnCode ld_add_entry(LDHandle *handle, const char *name, const 
 
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
-    const char* dn = talloc_asprintf(talloc_ctx,"cn=%s,%s", entry_name, entry_parent);
+    const char* dn = talloc_asprintf(talloc_ctx,"%s=%s,%s", prefix, entry_name, entry_parent);
 
-    LDAPMod **attrs = fill_attributes(entry_attrs, talloc_ctx);
+    LDAPMod **attrs = fill_attributes(entry_attrs, talloc_ctx, LDAP_MOD_ADD);
 
     rc = add(handle->connection_ctx, dn, attrs);
 
@@ -395,7 +399,8 @@ enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const 
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
  */
-enum OperationReturnCode ld_mod_entry(LDHandle *handle, const char *name, const char* parent, LDAPAttribute_t **entry_attrs)
+enum OperationReturnCode ld_mod_entry(LDHandle *handle, const char *name, const char* parent, const char* prefix,
+                                      LDAPAttribute_t **entry_attrs)
 {
     const char* entry_name = NULL;
     const char* entry_parent = NULL;
@@ -411,9 +416,9 @@ enum OperationReturnCode ld_mod_entry(LDHandle *handle, const char *name, const 
 
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
-    LDAPMod **attrs = fill_attributes(entry_attrs, talloc_ctx);
+    LDAPMod **attrs = fill_attributes(entry_attrs, talloc_ctx, LDAP_MOD_REPLACE);
 
-    const char* dn = talloc_asprintf(talloc_ctx,"cn=%s,%s", entry_name, entry_parent);
+    const char* dn = talloc_asprintf(talloc_ctx,"%s=%s,%s", prefix, entry_name, entry_parent);
 
     rc = modify(handle->connection_ctx, dn, attrs);
 
@@ -470,15 +475,25 @@ LDAPAttribute_t **assign_default_attribute_values(TALLOC_CTX *talloc_ctx,
     {
         entry_attrs[i] = talloc(talloc_ctx, LDAPAttribute_t);
         entry_attrs[i]->name = default_attrs[i].name;
-        entry_attrs[i]->values = talloc_array(talloc_ctx, char*, 2);
 
-        if (default_attrs[i].value != NULL)
+        if (default_attrs[i].value[0] != NULL)
         {
-            entry_attrs[i]->values[0] = talloc_strdup(talloc_ctx, default_attrs[i].value);
-            entry_attrs[i]->values[1] = NULL;
+            int attribute_count = 0;
+            while (default_attrs[i].value[attribute_count] != NULL) {
+                ++attribute_count;
+            }
+
+            entry_attrs[i]->values = talloc_array(talloc_ctx, char*, attribute_count + 1);
+
+            for (int j = 0; j < attribute_count; ++j)
+            {
+                entry_attrs[i]->values[j] = talloc_strdup(talloc_ctx, default_attrs[i].value[j]);
+            }
+            entry_attrs[i]->values[attribute_count] = NULL;
         }
         else
         {
+            entry_attrs[i]->values = talloc_array(talloc_ctx, char*, 2);
             entry_attrs[i]->values[0] = talloc_strdup(talloc_ctx, "");
             entry_attrs[i]->values[1] = NULL;
         }

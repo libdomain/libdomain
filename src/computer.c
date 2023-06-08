@@ -26,11 +26,11 @@
 
 static attribute_value_pair_t LDAP_COMPUTER_ATTRIBUTES[] =
 {
-    { "objectClass", "top:computer" },
-    { "cn", NULL },
-    { "description", NULL },
-    { "displayName", NULL },
-    { "name", NULL },
+    { "objectClass", { "top", "computer", NULL, NULL, NULL } },
+    { "cn", { NULL, NULL, NULL, NULL, NULL } },
+    { "description", { NULL, NULL, NULL, NULL, NULL } },
+    { "displayName", { NULL, NULL, NULL, NULL, NULL } },
+    { "name", { NULL, NULL, NULL, NULL, NULL } },
 };
 static const int LDAP_COMPUTER_ATTRIBUTES_SIZE = number_of_elements(LDAP_COMPUTER_ATTRIBUTES);
 
@@ -79,7 +79,7 @@ enum OperationReturnCode ld_add_computer(LDHandle *handle,
         dn = parent;
     }
 
-    rc = ld_add_entry(handle, name, dn, attrs);
+    rc = ld_add_entry(handle, name, dn, "cn", attrs);
 
     talloc_free(talloc_ctx);
 
@@ -114,7 +114,7 @@ enum OperationReturnCode ld_del_computer(LDHandle *handle, const char *name, con
 enum OperationReturnCode ld_mod_computer(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **computer_attrs)
 {
     (void)(parent);
-    return ld_mod_entry(handle, name, handle ? handle->global_config->base_dn : NULL, computer_attrs);
+    return ld_mod_entry(handle, name, handle ? handle->global_config->base_dn : NULL, "cn", computer_attrs);
 }
 
 /**
