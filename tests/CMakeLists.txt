@@ -15,7 +15,7 @@ macro(add_libdomain_test test_executable sources)
   add_custom_command(TARGET ${test_executable} POST_BUILD COMMAND
       ${CMAKE_COMMAND} ARGS -E copy
         $<TARGET_FILE:${test_executable}>
-        ${CMAKE_BINARY_DIR}/bin/$<TARGET_FILE_NAME:${test_executable}>
+        "${CMAKE_BINARY_DIR}/bin/${test_name_local}"
       COMMENT "Copy ${test_executable} to ${CMAKE_BINARY_DIR}/bin")
 endmacro(add_libdomain_test)
 
