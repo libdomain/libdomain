@@ -19,3 +19,5 @@ add_subdirectory(sasl)
 add_subdirectory(tls)
 add_subdirectory(timeout)
 add_subdirectory(reconnect)
+
+add_subdirectory(attributes)
