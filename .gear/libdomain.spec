@@ -72,7 +72,7 @@ install -v -p -m 644 -D %_builddir/%name-%version/src/*.h %buildroot%_includedir
 %changelog
 * Thu Jun 14 2023 Vladimir Rubanov <august@altlinux.org> 0.7.0-alt1
 - Implemented:
-  + Implement test stubs for SASL, TLS, timeout testing.
+  + Implement test stubs for TLS, timeout testing.
   + Implement tests for user addition to and removal from group.
   + Implement test stubs for blocking and unblocking users.
   + Implement tests for reconnection testing.
