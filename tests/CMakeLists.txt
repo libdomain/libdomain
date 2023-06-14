@@ -5,6 +5,7 @@ endif()
 macro(add_libdomain_test test_executable sources)
   set(test_name_local "test.${test_executable}")
   add_executable(${test_executable} ${sources})
+  set_target_properties(${test_executable} PROPERTIES OUTPUT_NAME ${test_name_local})
   add_test(NAME ${test_name_local} COMMAND ${test_executable})
 
   # set permissions
