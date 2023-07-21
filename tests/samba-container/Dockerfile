@@ -18,7 +18,4 @@ RUN apt-get update \
 # Copy entry point
 COPY start-samba.sh /start-samba.sh
 
-# Copy data
-COPY domain.alt.ldif /tmp/domain.alt.ldif
-
 ENTRYPOINT [ "/start-samba.sh" ]
