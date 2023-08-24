@@ -422,7 +422,10 @@ enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connecti
     }
 
     verto_free(connection->base);
-    ldap_unbind_ext(connection->ldap, NULL, NULL);
+    if (connection->state_machine->state != LDAP_CONNECTION_STATE_ERROR)
+    {
+        ldap_unbind_ext(connection->ldap, NULL, NULL);
+    }
     return RETURN_CODE_SUCCESS;
 }
 
