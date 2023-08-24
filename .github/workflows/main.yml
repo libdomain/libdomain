@@ -17,7 +17,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ "alt:sisyphus", "alt:p10" ]
+        os: [ "alt:p10" ]
         architecture: [ amd64, i386 ]
       fail-fast: false
     uses: ./.github/workflows/build.yml
@@ -29,7 +29,7 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ "alt:sisyphus", "alt:p10" ]
+        os: [ "alt:p10" ]
         architecture: [ amd64, i386 ]
       fail-fast: false
     uses: ./.github/workflows/test.yml
