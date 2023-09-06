@@ -13,9 +13,12 @@ RUN apt-get update \
     ldb-tools \
     samba-dc-common \
     samba-dc \
-    samba-dc-client \
+    samba-dc-client
+
+# Copy provision script
+COPY provision-samba.sh /provision-samba.sh
 
 # Copy entry point
 COPY start-samba.sh /start-samba.sh
 
-ENTRYPOINT [ "/start-samba.sh" ]
+CMD /provision-samba.sh && /start-samba.sh
