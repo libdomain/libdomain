@@ -3,8 +3,8 @@
 mkdir /tmp/samba
 
 if [ $? -ne 0 ]; then
-    echo "Error while configuring slapd service!"
-    cat /tmp/slapd.log
+    echo "Error while configuring samba service!"
+    cat //var/log/samba/*.log
     exit 1
 fi
 
