@@ -2,14 +2,14 @@
 
 set -e
 
-info () {
+print_message () {
     echo "[INFO] $@"
 }
 
 info "Running provision"
 
 # Check if samba is already been provisioned.
-[ -f /var/lib/samba/.ready ] && info "Already provisioned. Exiting." && exit 0
+[ -f /var/lib/samba/.ready ] && print_message "Already provisioned. Exiting." && exit 0
 
 rm /etc/samba/smb.conf
 
