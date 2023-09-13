@@ -37,8 +37,8 @@ RUN apt-get update \
     libtalloc-devel \
     libsasl2-devel \
     && export CURRENT_PWD=`pwd` \
-    && groupadd --gid $GROUP_ID builder2 \
-    && useradd --uid $USER_ID --gid $GROUP_ID -ms /bin/bash builder2 \
+    && groupadd builder2 \
+    && useradd --uid $USER_ID --gid builder2 -ms /bin/bash builder2 \
     && groupadd sudo \
     && usermod -aG rpm builder2 \
     && usermod -aG sudo root \
