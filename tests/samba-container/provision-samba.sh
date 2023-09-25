@@ -26,5 +26,7 @@ mv /etc/samba/smb.conf /var/lib/samba/private/smb.conf
 
 mv /smb.conf /etc/samba/smb.conf
 
+mv /krb5.conf /etc/krb5.conf
+
 touch /var/lib/samba/.ready
 
