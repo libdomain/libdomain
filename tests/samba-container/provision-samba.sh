@@ -6,7 +6,7 @@ print_message () {
     echo "[INFO] $@"
 }
 
-info "Running provision"
+print_message "Running provision"
 
 # Check if samba is already been provisioned.
 [ -f /var/lib/samba/.ready ] && print_message "Already provisioned. Exiting." && exit 0
