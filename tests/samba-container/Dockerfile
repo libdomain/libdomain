@@ -23,6 +23,6 @@ COPY start-samba.sh /start-samba.sh
 
 COPY smb.conf /smb.conf
 
-COPY krb5.conf /etc/krb5.conf
+COPY krb5.conf /krb5.conf
 
 CMD /provision-samba.sh && /start-samba.sh
