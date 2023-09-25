@@ -2,6 +2,8 @@
 
 mkdir /tmp/samba
 
+samba --foreground  --no-process-group --debug-stdout --configfile=/var/lib/samba/private/smb.conf
+
 if [ $? -ne 0 ]; then
     echo "Error while configuring samba service!"
     cat /var/log/samba/*.log
