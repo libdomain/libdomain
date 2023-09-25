@@ -21,4 +21,6 @@ COPY provision-samba.sh /provision-samba.sh
 # Copy entry point
 COPY start-samba.sh /start-samba.sh
 
+COPY smb.conf /smb.conf
+
 CMD /provision-samba.sh && /start-samba.sh

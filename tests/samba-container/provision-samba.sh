@@ -17,12 +17,14 @@ samba-tool domain provision\
  --server-role=dc\
  --use-rfc2307\
  --dns-backend=SAMBA_INTERNAL\
- --realm=domain\
- --domain=domain.alt\
+ --realm=DOMAIN\
+ --domain=DOMAIN.ALT\
  --adminpass=password145Qw!\
  --host-ip=`hostname -i`
 
 mv /etc/samba/smb.conf /var/lib/samba/private/smb.conf
+
+mv /smb.conf /etc/samba/smb.conf
 
 touch /var/lib/samba/.ready
 

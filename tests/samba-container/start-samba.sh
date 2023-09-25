@@ -2,7 +2,7 @@
 
 mkdir /tmp/samba
 
-samba --foreground  --no-process-group --debug-stdout --configfile=/var/lib/samba/private/smb.conf
+samba --foreground  --no-process-group --debug-stdout
 
 if [ $? -ne 0 ]; then
     echo "Error while configuring samba service!"
