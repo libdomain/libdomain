@@ -1,7 +1,7 @@
 services:
   openldap:
-    build: openldap-container
-    container_name: openldap-server
+    build: samba-container
+    container_name: samba-server
     environment:
       PORT: 3890
     ports:
