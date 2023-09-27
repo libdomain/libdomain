@@ -2,6 +2,10 @@
 
 mkdir /tmp/samba
 
+/usr/sbin/named -g -c /etc/bind/named.conf -d 10  -L /var/log/named.log -t / &
+
+samba --foreground  --no-process-group --debug-stdout
+
 if [ $? -ne 0 ]; then
     echo "Error while configuring samba service!"
     cat /var/log/samba/*.log
