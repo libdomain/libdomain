@@ -51,6 +51,8 @@ RUN apt-get update \
 
 USER root
 
+RUN chmod a=rwx,u+t /tmp
+
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY script/build.sh /build.sh
 
