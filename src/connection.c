@@ -454,7 +454,7 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
     {
     case LDAP_RES_BIND:
         info("Message - connection_bind_on_read - message success!\n");
-        if (!connection->ldap_params)
+        if (connection->bind_type == BIND_TYPE_INTERACTIVE)
         {
             rc = ldap_sasl_interactive_bind(connection->ldap,
                                             NULL,

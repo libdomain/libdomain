@@ -68,6 +68,8 @@ typedef struct ldap_connection_config_t
     bool use_start_tls;
     bool use_sasl;
 
+    int bind_type;
+
     struct ldap_sasl_options_t *sasl_options;
 } ldap_connection_config_t;
 
@@ -76,6 +78,12 @@ struct ldap_connection_ctx_t;
 typedef enum OperationReturnCode (*operation_callback_fn)(int, LDAPMessage *, struct ldap_connection_ctx_t *);
 
 typedef struct ldhandle LDHandle;
+
+enum BindType
+{
+    BIND_TYPE_INTERACTIVE = 1,
+    BIND_TYPE_SIMPLE      = 2,
+};
 
 typedef struct ldap_connection_ctx_t
 {
