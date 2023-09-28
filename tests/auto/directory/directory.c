@@ -2,6 +2,7 @@
 
 #include <connection.h>
 #include <connection_state_machine.h>
+#include <directory.h>
 #include <entry.h>
 #include <talloc.h>
 
@@ -99,7 +100,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     {
         verto_del(ev);
 
-        search(connection, "", LDAP_SCOPE_BASE, "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0);
+        directory_get_type(connection);
 
         verto_add_timeout(ctx, VERTO_EV_FLAG_PERSIST, connection_on_search_message, CONNECTION_UPDATE_INTERVAL);
     }
@@ -145,6 +146,8 @@ Ensure(Cgreen, get_diretory_type_test) {
     verto_set_private(ev, &ctx->connection_ctx, NULL);
 
     verto_run(ctx->connection_ctx.base);
+
+    assert_that(ctx->connection_ctx.directory_type, is_equal_to(LDAP_TYPE_OPENLDAP));
 
     assert_that(ctx->connection_ctx.ldap_defaults, is_not_null);
 

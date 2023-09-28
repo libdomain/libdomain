@@ -21,7 +21,7 @@
 #include "directory.h"
 #include "entry.h"
 
-char* LDAP_DIRECTORY_ATTRS[] = { LDAP_ROOT_DSE, NULL };
+char* LDAP_DIRECTORY_ATTRS[] = { "*", NULL };
 
 /**
  * @brief directory_get_type Request LDAP type from service.
@@ -35,7 +35,7 @@ enum OperationReturnCode directory_get_type(struct ldap_connection_ctx_t *connec
     int rc = ldap_search_ext(connection->ldap,
                     "",
                     LDAP_SCOPE_BASE,
-                    NULL,
+                    "(objectClass=*)",
                     LDAP_DIRECTORY_ATTRS,
                     0,
                     NULL,
@@ -48,7 +48,7 @@ enum OperationReturnCode directory_get_type(struct ldap_connection_ctx_t *connec
         error("Unable to create directory type request: %s\n", ldap_err2string(rc));
         return RETURN_CODE_FAILURE;
     }
-    connection->on_read_operation = search_on_read;
+    connection->on_read_operation = directory_parse_result;
 
     return RETURN_CODE_SUCCESS;
 
@@ -70,12 +70,16 @@ bool directory_process_attribute(const char* attribute_name, struct ldap_connect
     {
         connection->directory_type = LDAP_TYPE_ACTIVE_DIRECTORY;
 
+        info("Directory type is Active Directory\n");
+
         return true;
     }
 
     if (strcmp(attribute_name, "objectClass") == 0)
     {
         connection->directory_type = LDAP_TYPE_OPENLDAP;
+
+        info("Directory type is OpenLDAP\n");
 
         return true;
     }
