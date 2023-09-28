@@ -19,6 +19,9 @@
 ***********************************************************************************************************************/
 
 #include "directory.h"
+#include "entry.h"
+
+char* LDAP_DIRECTORY_ATTRS[] = { "*", NULL };
 
 /**
  * @brief directory_get_type Request LDAP type from service.
@@ -29,21 +32,120 @@
  */
 enum OperationReturnCode directory_get_type(struct ldap_connection_ctx_t *connection)
 {
-    (void)(connection);
+    int rc = ldap_search_ext(connection->ldap,
+                    "",
+                    LDAP_SCOPE_BASE,
+                    "(objectClass=*)",
+                    LDAP_DIRECTORY_ATTRS,
+                    0,
+                    NULL,
+                    NULL,
+                    NULL,
+                    LDAP_NO_LIMIT,
+                    &connection->current_msgid);
+    if (rc != LDAP_SUCCESS)
+    {
+        error("Unable to create directory type request: %s\n", ldap_err2string(rc));
+        return RETURN_CODE_FAILURE;
+    }
+    connection->on_read_operation = directory_parse_result;
+
+    return RETURN_CODE_SUCCESS;
+
 
     return RETURN_CODE_FAILURE;
 }
 
 /**
- * @brief directory_parse_result Parse results of directory type request and initialize the connection directory type.
- * @param[in] connection connection to use
+ * @brief directory_process_attribute
+ * @param[in] attribute_name
+ * @param[in] connection
+ * @return
+ *        - true if directory type is recognized.
+ *        - false if we have not detected directory type yet.
+ */
+bool directory_process_attribute(const char* attribute_name, struct ldap_connection_ctx_t *connection)
+{
+    if (strcmp(attribute_name, "isGlobalCatalogReady") == 0)
+    {
+        connection->directory_type = LDAP_TYPE_ACTIVE_DIRECTORY;
+
+        info("Directory type is Active Directory\n");
+
+        return true;
+    }
+
+    if (strcmp(attribute_name, "objectClass") == 0)
+    {
+        connection->directory_type = LDAP_TYPE_OPENLDAP;
+
+        info("Directory type is OpenLDAP\n");
+
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * @brief directory_parse_result Parses results returned by directory_get_type.
+ * @param[in] rc                 Return code of ldap_result.
+ * @param[in] message            Message received from ldap.
+ * @param[in] connection         Connection to work with.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
  */
-enum OperationReturnCode directory_parse_result(struct ldap_connection_ctx_t *connection)
+enum OperationReturnCode directory_parse_result(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection)
 {
-    (void)(connection);
+    const char *attribute   = NULL;
+    BerElement *ber_element = NULL;
+
+    int error_code = 0;
+    char *diagnostic_message = NULL;
+
+    switch (rc)
+    {
+    case LDAP_RES_SEARCH_ENTRY:
+    case LDAP_RES_SEARCH_RESULT:
+    {
+        while (message)
+        {
+            attribute = ldap_first_attribute(connection->ldap, message, &ber_element);
+            while (attribute != NULL)
+            {
+                if (directory_process_attribute(attribute, connection))
+                {
+                    break;
+                }
+
+                attribute = ldap_next_attribute(connection->ldap, message, ber_element);
+            };
+            ber_free(ber_element, 0);
+
+            message = ldap_next_message(connection->ldap, message);
+        }
+
+        return RETURN_CODE_SUCCESS;
+    }
+        break;
+    case LDAP_RES_SEARCH_REFERENCE:
+        info("Received search referral but not following it!");
+        return RETURN_CODE_SUCCESS;
+    default:
+    {
+        ldap_get_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
+        ldap_get_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
+        error("ldap_result failed: %s\n", diagnostic_message);
+        ldap_memfree(diagnostic_message);
+    }
+        break;
+    }
+
+    if (connection->on_error_operation)
+    {
+        connection->on_error_operation(rc, message, connection);
+    }
 
     return RETURN_CODE_FAILURE;
 }

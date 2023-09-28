@@ -20,6 +20,7 @@
 
 #include "connection.h"
 #include "connection_state_machine.h"
+#include "directory.h"
 
 #include <assert.h>
 #include <sasl/sasl.h>
@@ -142,6 +143,8 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
     {
         // TODO: Implement.
     }
+
+    connection->directory_type = LDAP_TYPE_UNKNOWN;
 
     connection->base = verto_default(NULL, VERTO_EV_TYPE_NONE);
     if (!connection->base)
