@@ -3,6 +3,8 @@ add_subdirectory(modify_entry)
 add_subdirectory(rename_entry)
 add_subdirectory(delete_entry)
 
+add_subdirectory(directory)
+
 add_subdirectory(computer)
 add_subdirectory(group)
 add_subdirectory(orgranizational_unit)
