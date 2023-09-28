@@ -97,6 +97,9 @@ typedef struct ldap_connection_ctx_t
     operation_callback_fn on_write_operation;
     operation_callback_fn on_error_operation;
 
+    int bind_type;
+    int directory_type;
+
     int current_msgid;
     const char *rmech;
 
