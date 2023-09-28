@@ -144,14 +144,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
         // TODO: Implement.
     }
 
-    if (config->bind_type == BIND_TYPE_INTERACTIVE)
-    {
-        connection->bind_type = BIND_TYPE_INTERACTIVE;
-    }
-    else
-    {
-        connection->bind_type = BIND_TYPE_SIMPLE;
-    }
+    connection->bind_type = config->bind_type;
     connection->directory_type = LDAP_TYPE_UNKNOWN;
 
     connection->base = verto_default(NULL, VERTO_EV_TYPE_NONE);
