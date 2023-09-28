@@ -144,7 +144,6 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
         // TODO: Implement.
     }
 
-    connection->bind_type = config->bind_type;
     connection->directory_type = LDAP_TYPE_UNKNOWN;
 
     connection->base = verto_default(NULL, VERTO_EV_TYPE_NONE);
