@@ -475,7 +475,6 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
         }
         else if (rc == LDAP_SUCCESS)
         {
-            bound:
             info("Message - connection_bind_on_read - bind success!\n");
             csm_set_state(connection->state_machine, LDAP_CONNECTION_STATE_BOUND);
             connection->on_read_operation = NULL;
@@ -487,14 +486,7 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
             get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
             error("Error - ldap_result failed - op code: %d - code: %d %s\n", rc, error_code, diagnostic_message);
             ldap_memfree(diagnostic_message);
-            if (error_code == LDAP_SUCCESS)
-            {
-                goto bound;
-            }
-            else
-            {
-                return RETURN_CODE_FAILURE;
-            }
+            return RETURN_CODE_FAILURE;
         }
     default:
         break;
