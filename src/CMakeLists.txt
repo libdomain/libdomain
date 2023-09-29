@@ -41,6 +41,8 @@ set(PROJECT_SOURCES
     group.h
     organizational_unit.c
     organizational_unit.h
+    request_queue.h
+    request_queue.c
     user.c
     user.h
 )
