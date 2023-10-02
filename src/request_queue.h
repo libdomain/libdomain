@@ -23,6 +23,8 @@
 
 #include "common.h"
 
+#include <stdbool.h>
+
 typedef struct request_queue request_queue;
 
 struct Queue_Node_s
@@ -49,5 +51,10 @@ request_queue_pop(request_queue* queue);
 
 struct Queue_Node_s*
 request_queue_peek(request_queue* queue);
+
+bool request_queue_empty(request_queue* queue);
+
+enum RequestQueueErrorCode
+request_queue_move(request_queue* from, request_queue* to);
 
 #endif//LIB_DOMAIN_REQUEST_QUEUE_H
