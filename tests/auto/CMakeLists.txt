@@ -22,3 +22,5 @@ add_subdirectory(timeout)
 add_subdirectory(reconnect)
 
 add_subdirectory(attributes)
+
+add_subdirectory(request_queue)
