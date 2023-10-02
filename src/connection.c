@@ -22,8 +22,14 @@
 #include "connection_state_machine.h"
 #include "directory.h"
 
+#include "request_queue.h"
+
 #include <assert.h>
 #include <sasl/sasl.h>
+
+#define container_of(ptr, type, member) ({ \
+               const typeof(((type *)0)->member) *mptr = (ptr); \
+               (type *)((char *)mptr - offsetof(type, member));})
 
 #define number_of_elements(x)  (sizeof(x) / sizeof((x)[0]))
 
@@ -82,6 +88,17 @@ const char* ldap_option2string(int option)
         goto \
             error_exit; \
     } \
+
+void requests_init(struct ldap_request_t* requests, int size)
+{
+    for (int i = 0; i < size; ++i)
+    {
+        requests[i].msgid = -1;
+        requests[i].on_read_operation = NULL;
+        requests[i].on_write_operation = NULL;
+        memset(&requests[i].node, 0, sizeof(struct Queue_Node_s));
+    }
+}
 
 /*!
  * \brief connection_configure Configures connection while performing following actions:
@@ -145,6 +162,14 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
     }
 
     connection->directory_type = LDAP_TYPE_UNKNOWN;
+
+    connection->callqueue = request_queue_new(global_ctx->talloc_ctx, MAX_REQUESTS);
+
+    connection->n_read_requests = 0;
+    connection->n_write_requests = 0;
+
+    requests_init(connection->read_requests, MAX_REQUESTS);
+    requests_init(connection->write_requests, MAX_REQUESTS);
 
     connection->base = verto_default(NULL, VERTO_EV_TYPE_NONE);
     if (!connection->base)
@@ -236,7 +261,12 @@ enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *conn
         ldap_unbind_ext_s(connection->ldap, NULL, NULL);
         return RETURN_CODE_FAILURE;
     }
-    connection->on_read_operation = connection_bind_on_read;
+
+    struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
+    request->msgid = connection->current_msgid;
+    request->on_read_operation = connection_bind_on_read;
+    ++connection->n_read_requests;
+    request_queue_push(connection->callqueue, &request->node);
 
     return RETURN_CODE_SUCCESS;
 }
@@ -347,7 +377,12 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
         ldap_unbind_ext_s(connection->ldap, NULL, NULL);
         return RETURN_CODE_FAILURE;
     }
-    connection->on_read_operation = connection_bind_on_read;
+
+    struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
+    request->msgid = connection->current_msgid;
+    request->on_read_operation = connection_bind_on_read;
+    ++connection->n_read_requests;
+    request_queue_push(connection->callqueue, &request->node);
 
     return rc == LDAP_SASL_BIND_IN_PROGRESS ? RETURN_CODE_OPERATION_IN_PROGRESS : RETURN_CODE_SUCCESS;
 }
@@ -368,27 +403,54 @@ void connection_on_read(verto_ctx *ctx, verto_ev *ev)
 
     int error_code = 0;
     char *diagnostic_message = NULL;
+    struct Queue_Node_s* top = NULL;
 
-    rc = ldap_result(connection->ldap, connection->current_msgid, LDAP_MSG_ALL, &timeout, &result_message);
-    switch (rc)
+    struct ldap_request_t pending_requests[MAX_REQUESTS];
+    int n_pending_requests = 0;
+
+    while (!request_queue_empty(connection->callqueue) && (top = request_queue_pop(connection->callqueue)) != NULL)
     {
-    case LDAP_RES_ANY:
-        get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
-        get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-        error("Error - ldap_result failed - code: %d %s\n", error_code, diagnostic_message);
-        ldap_memfree(diagnostic_message);
-        ldap_memfree(result_message);
-        break;
-    case LDAP_RES_UNSOLICITED:
-        error("Warning - Message timeout\n!");
-        ldap_memfree(result_message);
-        break;
-    default:
-        error_code = connection->on_read_operation ? connection->on_read_operation(rc, result_message, connection)
-                                                   : RETURN_CODE_FAILURE;
-        ldap_memfree(result_message);
-        break;
-    };
+        struct ldap_request_t* request = container_of(top, struct ldap_request_t, node);
+
+        info("Processing message #%d\n", request->msgid);
+
+        rc = ldap_result(connection->ldap, request->msgid, LDAP_MSG_ALL, &timeout, &result_message);
+        switch (rc)
+        {
+        case LDAP_RES_ANY:
+            get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
+            get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
+            error("Error - ldap_result failed - code: %d %s\n", error_code, diagnostic_message);
+            ldap_memfree(diagnostic_message);
+            ldap_msgfree(result_message);
+            break;
+        case LDAP_RES_UNSOLICITED:
+            warning("Warning - Pending message with id %d!\n", request->msgid);
+            ldap_msgfree(result_message);
+
+            pending_requests[n_pending_requests] = *request;
+            ++n_pending_requests;
+
+            break;
+        default:
+            error_code = request->on_read_operation ? request->on_read_operation(rc, result_message, connection)
+                                                    : RETURN_CODE_FAILURE;
+            ldap_msgfree(result_message);
+            break;
+        };
+    }
+
+    connection->n_read_requests = 0;
+
+    if (n_pending_requests > 0)
+    {
+        for (int i = 0; i < n_pending_requests; ++i)
+        {
+            connection->read_requests[i] = pending_requests[i];
+            request_queue_push(connection->callqueue, &connection->read_requests[i].node);
+        }
+        connection->n_read_requests = n_pending_requests;
+    }
 
     error_exit:
         return;
@@ -476,7 +538,6 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
         {
             info("Message - connection_bind_on_read - bind success!\n");
             csm_set_state(connection->state_machine, LDAP_CONNECTION_STATE_BOUND);
-            connection->on_read_operation = NULL;
             return RETURN_CODE_SUCCESS;
         }
         else

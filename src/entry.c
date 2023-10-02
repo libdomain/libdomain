@@ -42,7 +42,12 @@ enum OperationReturnCode add(struct ldap_connection_ctx_t* connection, const cha
         error("Unable to add entry: %s\n", ldap_err2string(rc));
         return RETURN_CODE_FAILURE;
     }
-    connection->on_read_operation = add_on_read;
+
+    struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
+    request->msgid = connection->current_msgid;
+    request->on_read_operation = add_on_read;
+    ++connection->n_read_requests;
+    request_queue_push(connection->callqueue, &request->node);
 
     return RETURN_CODE_SUCCESS;
 }
@@ -66,8 +71,6 @@ enum OperationReturnCode add_on_read(int rc, LDAPMessage *message, struct ldap_c
     case LDAP_RES_ADD:
     {
         char *dn = NULL;
-
-        connection->on_read_operation = NULL;
 
         ldap_parse_result(connection->ldap, message, &error_code, &dn, &diagnostic_message, NULL, NULL, false);
         info("ldap_result: %s %s %d\n", diagnostic_message, ldap_err2string(error_code), error_code);
@@ -157,7 +160,12 @@ enum OperationReturnCode  search(struct ldap_connection_ctx_t* connection, const
         error("Unable to create search request: %s\n", ldap_err2string(rc));
         return RETURN_CODE_FAILURE;
     }
-    connection->on_read_operation = search_on_read;
+
+    struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
+    request->msgid = connection->current_msgid;
+    request->on_read_operation = search_on_read;
+    ++connection->n_read_requests;
+    request_queue_push(connection->callqueue, &request->node);
 
     return RETURN_CODE_SUCCESS;
 }
@@ -254,7 +262,12 @@ enum OperationReturnCode modify(struct ldap_connection_ctx_t* connection, const 
         error("Unable to create modify request: %s\n", ldap_err2string(rc));
         return RETURN_CODE_FAILURE;
     }
-    connection->on_read_operation = modify_on_read;
+
+    struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
+    request->msgid = connection->current_msgid;
+    request->on_read_operation = modify_on_read;
+    ++connection->n_read_requests;
+    request_queue_push(connection->callqueue, &request->node);
 
     return RETURN_CODE_SUCCESS;
 }
@@ -278,8 +291,6 @@ enum OperationReturnCode modify_on_read(int rc, LDAPMessage *message, struct lda
     case LDAP_RES_MODIFY:
     {
         char *dn = NULL;
-
-        connection->on_read_operation = NULL;
 
         ldap_parse_result(connection->ldap, message, &error_code, &dn, &diagnostic_message, NULL, NULL, false);
         info("ldap_result: %s %s %d\n", diagnostic_message, ldap_err2string(error_code), error_code);
@@ -339,7 +350,12 @@ enum OperationReturnCode delete(struct ldap_connection_ctx_t* connection, const 
         error("Unable to create modify request: %s\n", ldap_err2string(rc));
         return RETURN_CODE_FAILURE;
     }
-    connection->on_read_operation = delete_on_read;
+
+    struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
+    request->msgid = connection->current_msgid;
+    request->on_read_operation = delete_on_read;
+    ++connection->n_read_requests;
+    request_queue_push(connection->callqueue, &request->node);
 
     return RETURN_CODE_SUCCESS;
 }
@@ -363,8 +379,6 @@ enum OperationReturnCode delete_on_read(int rc, LDAPMessage *message, struct lda
     case LDAP_RES_DELETE:
     {
         char *dn = NULL;
-
-        connection->on_read_operation = NULL;
 
         ldap_parse_result(connection->ldap, message, &error_code, &dn, &diagnostic_message, NULL, NULL, false);
         info("ldap_result: %s %s %d\n", diagnostic_message, ldap_err2string(error_code), error_code);
@@ -416,7 +430,12 @@ enum OperationReturnCode whoami(struct ldap_connection_ctx_t *connection)
         error("Unable to create whoami request: %s\n", ldap_err2string(rc));
         return RETURN_CODE_FAILURE;
     }
-    connection->on_read_operation = whoami_on_read;
+
+    struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
+    request->msgid = connection->current_msgid;
+    request->on_read_operation = whoami_on_read;
+    ++connection->n_read_requests;
+    request_queue_push(connection->callqueue, &request->node);
 
     return RETURN_CODE_SUCCESS;
 }
@@ -484,7 +503,12 @@ enum OperationReturnCode ld_rename(struct ldap_connection_ctx_t *connection, con
         error("Unable to create whoami request: %s\n", ldap_err2string(rc));
         return RETURN_CODE_FAILURE;
     }
-    connection->on_read_operation = rename_on_read;
+
+    struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
+    request->msgid = connection->current_msgid;
+    request->on_read_operation = rename_on_read;
+    ++connection->n_read_requests;
+    request_queue_push(connection->callqueue, &request->node);
 
     return RETURN_CODE_SUCCESS;
 }
@@ -508,8 +532,6 @@ enum OperationReturnCode rename_on_read(int rc, LDAPMessage *message, ldap_conne
     case LDAP_RES_RENAME:
     {
         char *dn = NULL;
-
-        connection->on_read_operation = NULL;
 
         ldap_parse_result(connection->ldap, message, &error_code, &dn, &diagnostic_message, NULL, NULL, false);
         info("ldap_result: %s %s %d\n", diagnostic_message, ldap_err2string(error_code), error_code);
