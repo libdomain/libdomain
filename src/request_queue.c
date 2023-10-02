@@ -232,7 +232,7 @@ enum RequestQueueErrorCode request_queue_move(request_queue *from, request_queue
 
         if ((to->size + from->size) > to->capacity)
         {
-            error("Unable add reuests to queue %d due to insufficient capacity of receiving queue\n", to);
+            error("Unable add requests to queue %d due to insufficient capacity of receiving queue\n", to);
 
             return OPERATION_ERROR_FULL;
         }
