@@ -48,7 +48,12 @@ enum OperationReturnCode directory_get_type(struct ldap_connection_ctx_t *connec
         error("Unable to create directory type request: %s\n", ldap_err2string(rc));
         return RETURN_CODE_FAILURE;
     }
-    connection->on_read_operation = directory_parse_result;
+
+    struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
+    request->msgid = connection->current_msgid;
+    request->on_read_operation = directory_parse_result;
+    ++connection->n_read_requests;
+    request_queue_push(connection->callqueue, &request->node);
 
     return RETURN_CODE_SUCCESS;
 

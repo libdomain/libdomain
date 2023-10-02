@@ -26,6 +26,10 @@
 
 #include "common.h"
 
+#include "request_queue.h"
+
+#define MAX_REQUESTS 8192
+
 typedef struct ldap_sasl_options_t
 {
     char *mechanism;
@@ -77,6 +81,17 @@ typedef enum OperationReturnCode (*operation_callback_fn)(int, LDAPMessage *, st
 
 typedef struct ldhandle LDHandle;
 
+typedef struct ldap_request_t
+{
+    int msgid;
+
+    operation_callback_fn on_read_operation;
+    operation_callback_fn on_write_operation;
+
+    struct Queue_Node_s node;
+
+} ldap_request_t;
+
 typedef struct ldap_connection_ctx_t
 {
     LDHandle *handle;
@@ -93,8 +108,6 @@ typedef struct ldap_connection_ctx_t
     struct verto_ev *read_event;
     struct verto_ev *write_event;
 
-    operation_callback_fn on_read_operation;
-    operation_callback_fn on_write_operation;
     operation_callback_fn on_error_operation;
 
     int bind_type;
@@ -102,6 +115,14 @@ typedef struct ldap_connection_ctx_t
 
     int current_msgid;
     const char *rmech;
+
+    struct request_queue* callqueue;
+
+    struct ldap_request_t read_requests[MAX_REQUESTS];
+    struct ldap_request_t write_requests[MAX_REQUESTS];
+
+    int n_read_requests;
+    int n_write_requests;
 
     struct state_machine_ctx_t *state_machine;
 
