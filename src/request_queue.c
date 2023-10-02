@@ -174,6 +174,13 @@ struct Queue_Node_s *request_queue_peek(request_queue *queue)
     return queue->head;
 }
 
+/*!
+ * \brief request_queue_empty Returns true if queue is empty.
+ * \param queue[in]           Current queue to operate upon.
+ * \return
+ *        - true if empty.
+ *        - false if there are elements in queue.
+ */
 bool request_queue_empty(request_queue *queue)
 {
     if (!queue)
@@ -186,6 +193,17 @@ bool request_queue_empty(request_queue *queue)
     return queue->size <= 0;
 }
 
+/*!
+ * \brief request_queue_move Moves elements from @var{from} to @var{to}.
+ * \param from[in]           Source queue.
+ * \param to[in]             Target queue.
+ * \return
+ *        - OPERATION_ERROR_INVALID_PARAMETER - if @var{from} or/and @var{to} is NULL.
+ *        - OPERATION_ERROR_FAULT - if @var{to} queue has NULL tail pointer. Or if @var{from} queue has invalid
+ *                                  tail or head pointers.
+ *        - OPERATION_ERROR_FULL - if there is overflow.
+ *        - OPERATION_SUCCESS - if operation was successful.
+ */
 enum RequestQueueErrorCode request_queue_move(request_queue *from, request_queue *to)
 {
     if (!from || !to)
