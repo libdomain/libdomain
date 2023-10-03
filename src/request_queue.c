@@ -80,7 +80,7 @@ enum RequestQueueErrorCode request_queue_push(request_queue *queue, struct Queue
 
     if (queue->size >= queue->capacity)
     {
-        error("Queue overflow %d", queue);
+        error("Queue overflow %d\n", queue);
 
         return OPERATION_ERROR_FULL;
     }
@@ -187,7 +187,7 @@ bool request_queue_empty(request_queue *queue)
     {
         error("Queue pointer is NULL\n");
 
-        return NULL;
+        return true;
     }
 
     return queue->size <= 0;
@@ -223,7 +223,7 @@ enum RequestQueueErrorCode request_queue_move(request_queue *from, request_queue
 
     if (from->head && from->tail)
     {
-        if (!to->tail)
+        if (!to->tail && to->size > 0)
         {
             error("Queue does not contain valid tail pointer %d\n", to);
 
@@ -250,10 +250,14 @@ enum RequestQueueErrorCode request_queue_move(request_queue *from, request_queue
             to->tail = from->tail;
             to->size = from->size;
         }
+
+        from->head = from->tail = NULL;
+        from->size = 0;
     }
     else
     {
-        error("From queue malformed: from %d, to %d\n", from, to);
+        error("From queue malformed: from %d -> head %d, tail %d, size %d; to %d\n",
+              from, from->head, from->tail, from->size, to);
 
         return OPERATION_ERROR_FAULT;
     }

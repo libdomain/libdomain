@@ -10,10 +10,16 @@ include_directories(${CGREEN_INCLUDE_DIRS})
 set(TEST_NAME request_queue)
 
 set(SOURCES
+    request_queue_new.c
+    request_queue_push.c
+    request_queue_pop.c
+    request_queue_empty.c
+    request_queue_move.c
     request_queue.c
+    request_queue_tests.h
 )
 
-add_libdomain_test(${TEST_NAME} ${SOURCES})
+add_libdomain_test(${TEST_NAME} "${SOURCES}")
 target_link_libraries(${TEST_NAME} ${CGREEN_LIBRARIES})
 target_link_libraries(${TEST_NAME} domain test-common)
 target_link_libraries(${TEST_NAME} Ldap::Ldap)
