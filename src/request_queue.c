@@ -80,7 +80,7 @@ enum RequestQueueErrorCode request_queue_push(request_queue *queue, struct Queue
 
     if (queue->size >= queue->capacity)
     {
-        error("Queue overflow %d", queue);
+        error("Queue overflow %d\n", queue);
 
         return OPERATION_ERROR_FULL;
     }
