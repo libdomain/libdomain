@@ -112,7 +112,7 @@ enum RequestQueueErrorCode request_queue_push(request_queue *queue, struct Queue
 
 /*!
  * \brief request_queue_pop Get node from the top of queue and remove it.
- * \param queue[in]         Current queue to receive element from.
+ * \param[in] queue         Current queue to receive element from.
  * \return
  *        - NULL on underflow.
  *        - Pointer to element on success.
@@ -150,7 +150,7 @@ struct Queue_Node_s *request_queue_pop(request_queue *queue)
 
 /*!
  * \brief request_queue_peek Get pointer to the head of queue.
- * \param queue[in]          Current queue to receive element from.
+ * \param[in] queue          Current queue to receive element from.
  * \return
  *        - NULL on underflow.
  *        - Pointer to element on success.
@@ -176,7 +176,7 @@ struct Queue_Node_s *request_queue_peek(request_queue *queue)
 
 /*!
  * \brief request_queue_empty Returns true if queue is empty.
- * \param queue[in]           Current queue to operate upon.
+ * \param[in] queue           Current queue to operate upon.
  * \return
  *        - true if empty.
  *        - false if there are elements in queue.
@@ -195,8 +195,8 @@ bool request_queue_empty(request_queue *queue)
 
 /*!
  * \brief request_queue_move Moves elements from @var{from} to @var{to}.
- * \param from[in]           Source queue.
- * \param to[in]             Target queue.
+ * \param[in] from           Source queue.
+ * \param[in] to             Target queue.
  * \return
  *        - OPERATION_ERROR_INVALID_PARAMETER - if @var{from} or/and @var{to} is NULL.
  *        - OPERATION_ERROR_FAULT - if @var{to} queue has NULL tail pointer. Or if @var{from} queue has invalid
