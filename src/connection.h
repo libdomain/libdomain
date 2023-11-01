@@ -81,6 +81,16 @@ typedef struct ldap_connection_config_t
     int bind_type;
 
     struct ldap_sasl_options_t *sasl_options;
+
+    int ssl_mode;
+    const char *tls_ca_cert_file;
+    const char *tls_ca_cert_path;
+
+    const char *tls_cert_file;
+    const char *tls_key_file;
+
+    bool *tls_require_cert;
+    int tls_min_protocol_version;
 } ldap_connection_config_t;
 
 struct ldap_connection_ctx_t;

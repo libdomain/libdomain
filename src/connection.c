@@ -50,6 +50,13 @@ const option_value_t option_strings[] =
     { LDAP_OPT_X_SASL_REALM, "LDAP_OPT_X_SASL_REALM" },
     { LDAP_OPT_X_SASL_AUTHCID, "LDAP_OPT_X_SASL_AUTHCID" },
     { LDAP_OPT_X_SASL_AUTHZID, "LDAP_OPT_X_SASL_AUTHZID" },
+    { LDAP_OPT_X_TLS, "LDAP_OPT_X_TLS" },
+    { LDAP_OPT_X_TLS_CACERTFILE, "LDAP_OPT_X_TLS_CACERTFILE" },
+    { LDAP_OPT_X_TLS_CACERTDIR, "LDAP_OPT_X_TLS_CACERTDIR" },
+    { LDAP_OPT_X_TLS_CERTFILE, "LDAP_OPT_X_TLS_CERTFILE" },
+    { LDAP_OPT_X_TLS_KEYFILE, "LDAP_OPT_X_TLS_KEYFILE" },
+    { LDAP_OPT_X_TLS_REQUIRE_CERT, "LDAP_OPT_X_TLS_REQUIRE_CERT" },
+    { LDAP_OPT_X_TLS_PROTOCOL_MIN, "LDAP_OPT_X_TLS_PROTOCOL_MIN" },
     { LDAP_OPT_RESULT_CODE, "LDAP_OPT_RESULT_CODE" },
     { LDAP_OPT_DIAGNOSTIC_MESSAGE, "LDAP_OPT_DIAGNOSTIC_MESSAGE" }
 };
@@ -158,7 +165,39 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
     if (config->use_start_tls)
     {
-        // TODO: Implement.
+        set_ldap_option(connection->ldap, LDAP_OPT_X_TLS, &config->ssl_mode);
+
+        if (config->tls_ca_cert_file)
+        {
+            set_ldap_option(connection->ldap, LDAP_OPT_X_TLS_CACERTFILE, &config->tls_ca_cert_file);
+        }
+        if (config->tls_ca_cert_path)
+        {
+            set_ldap_option(connection->ldap, LDAP_OPT_X_TLS_CACERTDIR, &config->tls_ca_cert_path);
+        }
+
+        if (config->tls_cert_file)
+        {
+            set_ldap_option(connection->ldap, LDAP_OPT_X_TLS_CERTFILE, &config->tls_cert_file);
+        }
+        if (config->tls_key_file)
+        {
+            set_ldap_option(connection->ldap, LDAP_OPT_X_TLS_KEYFILE, &config->tls_key_file);
+        }
+
+        set_bool_option(connection->ldap, LDAP_OPT_X_TLS_REQUIRE_CERT, &config->tls_require_cert);
+
+        if (config->tls_min_protocol_version > 0)
+        {
+            set_ldap_option(connection->ldap, LDAP_OPT_X_TLS_PROTOCOL_MIN, &config->tls_min_protocol_version);
+        }
+
+        /*
+         * We need to initialize new tls context to prevent errors.
+         * https://stackoverflow.com/questions/65422215/ldaps-openldap-bind-successful-even-after-deleting-ca-certificate-from-root-dir
+         */
+        const bool is_server = 0;
+        set_ldap_option(connection->ldap, LDAP_OPT_X_TLS_NEWCTX, &is_server);
     }
 
     if (config->bind_type == BIND_TYPE_INTERACTIVE)
