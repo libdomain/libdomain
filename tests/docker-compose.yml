@@ -1,22 +1,14 @@
 services:
-  openldap:
-    build: openldap-container
-    container_name: openldap-server
-    environment:
-      PORT: 3890
-    ports:
-      - '3890:3890'
-    restart: "no"
   testenv:
     build: testenv-container
     container_name: testenv
     restart: "no"
     environment:
-      - LDAP_SERVER=ldap://openldap-server:3890
+      - LDAP_SERVER=ldap://directory-server:3890
     volumes:
       - data-volume:/app
     depends_on:
-      openldap:
+      directory:
         condition: service_started
 
 volumes:

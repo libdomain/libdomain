@@ -1,0 +1,9 @@
+services:
+  directory:
+    build: openldap-container
+    container_name: directory-server
+    environment:
+      PORT: 3890
+    ports:
+      - '3890:3890'
+    restart: "no"

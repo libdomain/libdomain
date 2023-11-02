@@ -31,11 +31,13 @@ jobs:
       matrix:
         os: [ "alt:p10" ]
         architecture: [ amd64, i386 ]
+        environment: [ "openldap" ]
       fail-fast: false
     uses: ./.github/workflows/test.yml
     with:
       os: ${{ matrix.os }}
       architecture: ${{ matrix.architecture }}
+      environment: ${{ matrix.environment }}
     secrets: inherit
 
   spellcheck:
