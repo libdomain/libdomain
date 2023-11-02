@@ -5,10 +5,10 @@ docker volume create --driver local --opt type=none --opt device=`pwd` --opt o=b
 ```
 Next you need to build docker images, this can be done using following command:
 ```
-docker-compose build  --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) --build-arg DISTR=alt:p10
+docker compose -f docker-compose.openldap.yml -f docker-compose.yml build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) --build-arg DISTR=alt:p10
 ```
 After that you can run test by executing:
 ```
-docker-compose up --abort-on-container-exit --attach-dependencies
+docker compose -f docker-compose.openldap.yml -f docker-compose.yml up --abort-on-container-exit --attach-dependencies
 ```
 
