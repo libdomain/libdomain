@@ -55,9 +55,7 @@ jobs:
 
       - run: docker volume create --driver local --opt type=none --opt device=`pwd` --opt o=bind data-volume
 
-      - run: cd tests && docker compose -f docker-compose.${{ inputs.environment }}.yml build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) --build-arg DISTR=${{ inputs.os }} --build-arg ARCH=${{ inputs.architecture }}
+      - run: cd tests && docker compose -f docker-compose.${{ inputs.environment }}.yml -f docker-compose.yml build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) --build-arg DISTR=${{ inputs.os }} --build-arg ARCH=${{ inputs.architecture }}
 
-      - run: cd tests && docker compose -f docker-compose.yml build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) --build-arg DISTR=${{ inputs.os }} --build-arg ARCH=${{ inputs.architecture }}
-
-      - run: cd tests && docker compose up --abort-on-container-exit --attach-dependencies
+      - run: cd tests && docker compose -f docker-compose.${{ inputs.environment }}.yml -f docker-compose.yml up --abort-on-container-exit --attach-dependencies
 
