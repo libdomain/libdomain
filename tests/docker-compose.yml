@@ -3,13 +3,11 @@ services:
     build: testenv-container
     container_name: testenv
     restart: "no"
-    environment:
-      - LDAP_SERVER=ldap://directory-server:3890
     volumes:
       - data-volume:/app
     depends_on:
       directory:
-        condition: service_started
+        condition: service_healthy
 
 volumes:
   data-volume:

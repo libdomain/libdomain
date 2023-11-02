@@ -1,17 +1,19 @@
 services:
   directory:
-    build: openldap-container
+    build: samba-container
     container_name: directory-server
     environment:
-      PORT: 3890
+      PORT: 389
     ports:
-      - '3890:3890'
+      - '389:389'
     restart: "no"
+    privileged: true
     healthcheck:
-      test: ldapsearch -H ldap://127.0.0.1:3890 -x -b '' -s base
+      test: smbclient -L \\localhost -U % -m SMB3
       interval: 60s
       timeout: 15s
       retries: 5
   testenv:
     environment:
-      - LDAP_SERVER=ldap://directory-server:3890
+      - LDAP_SERVER=ldap://directory-server:389
+
