@@ -444,6 +444,7 @@ void connection_on_read(verto_ctx *ctx, verto_ev *ev)
 
             break;
         default:
+            connection->msgid = request->msgid;
             error_code = request->on_read_operation ? request->on_read_operation(rc, result_message, connection)
                                                     : RETURN_CODE_FAILURE;
             ldap_msgfree(result_message);
@@ -526,20 +527,25 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
     {
     case LDAP_RES_BIND:
         info("Message - connection_bind_on_read - message success!\n");
-        if (!connection->ldap_params)
+        if (connection->bind_type == BIND_TYPE_INTERACTIVE)
         {
-            int msgid = 0; // TODO: Replace with actual msgid.
-            rc = ldap_sasl_interactive_bind(connection->ldap,
-                                            NULL,
-                                            connection->ldap_defaults->mechanism,
-                                            NULL,
-                                            NULL,
-                                            connection->ldap_defaults->flags,
-                                            sasl_interact_gssapi,
-                                            connection->ldap_defaults,
-                                            message,
-                                            &connection->rmech,
-                                            &msgid);
+            int msgid = connection->msgid; // TODO: Replace with actual msgid.
+            info("Current bind message id: %i \n", msgid);
+            do
+            {
+                rc = ldap_sasl_interactive_bind(connection->ldap,
+                                                NULL,
+                                                connection->ldap_defaults->mechanism,
+                                                NULL,
+                                                NULL,
+                                                connection->ldap_defaults->flags,
+                                                sasl_interact_gssapi,
+                                                connection->ldap_defaults,
+                                                message,
+                                                &connection->rmech,
+                                                &msgid);
+            } while (rc == LDAP_SASL_BIND_IN_PROGRESS);
+            info("Operation result: %s!\n", ldap_err2string(rc));
         }
 
         if (rc == LDAP_SASL_BIND_IN_PROGRESS)
@@ -558,6 +564,10 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
             get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
             error("Error - ldap_result failed - op code: %d - code: %d %s\n", rc, error_code, diagnostic_message);
             ldap_memfree(diagnostic_message);
+            if (error_code != LDAP_SUCCESS)
+            {
+                csm_set_state(connection->state_machine, LDAP_CONNECTION_STATE_ERROR);
+            }
             return RETURN_CODE_FAILURE;
         }
     default:

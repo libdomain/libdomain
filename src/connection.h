@@ -120,6 +120,7 @@ typedef struct ldap_connection_ctx_t
 
     int bind_type;
     int directory_type;
+    int msgid;
 
     const char *rmech;
 
