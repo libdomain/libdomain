@@ -161,6 +161,15 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
         // TODO: Implement.
     }
 
+    if (config->bind_type == BIND_TYPE_INTERACTIVE)
+    {
+        connection->bind_type = BIND_TYPE_INTERACTIVE;
+    }
+    else
+    {
+        connection->bind_type = BIND_TYPE_SIMPLE;
+    }
+
     connection->directory_type = LDAP_TYPE_UNKNOWN;
 
     connection->callqueue = request_queue_new(global_ctx->talloc_ctx, MAX_REQUESTS);
