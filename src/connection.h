@@ -113,7 +113,6 @@ typedef struct ldap_connection_ctx_t
     int bind_type;
     int directory_type;
 
-    int current_msgid;
     const char *rmech;
 
     struct request_queue* callqueue;

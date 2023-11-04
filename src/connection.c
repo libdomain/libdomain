@@ -244,9 +244,10 @@ enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *conn
 {
     assert(connection);
 
+    int msgid = 0;
     int rc = ldap_sasl_bind(connection->ldap, connection->ldap_params->dn, connection->ldap_defaults->mechanism,
                             connection->ldap_params->passwd, connection->ldap_params->serverctrls,
-                            connection->ldap_params->clientctrls, &connection->current_msgid);
+                            connection->ldap_params->clientctrls, &msgid);
     if (rc != LDAP_SUCCESS)
     {
         // TODO: Verify that we need to perform abandon operation here.
@@ -263,7 +264,7 @@ enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *conn
     }
 
     struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
-    request->msgid = connection->current_msgid;
+    request->msgid = msgid;
     request->on_read_operation = connection_bind_on_read;
     ++connection->n_read_requests;
     request_queue_push(connection->callqueue, &request->node);
@@ -350,6 +351,7 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
     LDAPMessage* bind_message = NULL;
 
     int rc = LDAP_OTHER;
+    int msgid = 0;
     rc = ldap_sasl_interactive_bind(connection->ldap,
                                     NULL,
                                     connection->ldap_defaults->mechanism,
@@ -360,7 +362,7 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
                                     connection->ldap_defaults,
                                     bind_message,
                                     &connection->rmech,
-                                    &connection->current_msgid);
+                                    &msgid);
     ldap_msgfree(bind_message);
 
     if (rc != LDAP_SUCCESS && rc != LDAP_SASL_BIND_IN_PROGRESS)
@@ -379,7 +381,7 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
     }
 
     struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
-    request->msgid = connection->current_msgid;
+    request->msgid = msgid;
     request->on_read_operation = connection_bind_on_read;
     ++connection->n_read_requests;
     request_queue_push(connection->callqueue, &request->node);
@@ -517,6 +519,7 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
         info("Message - connection_bind_on_read - message success!\n");
         if (!connection->ldap_params)
         {
+            int msgid = 0; // TODO: Replace with actual msgid.
             rc = ldap_sasl_interactive_bind(connection->ldap,
                                             NULL,
                                             connection->ldap_defaults->mechanism,
@@ -527,7 +530,7 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
                                             connection->ldap_defaults,
                                             message,
                                             &connection->rmech,
-                                            &connection->current_msgid);
+                                            &msgid);
         }
 
         if (rc == LDAP_SASL_BIND_IN_PROGRESS)
