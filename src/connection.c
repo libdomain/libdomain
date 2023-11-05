@@ -359,6 +359,9 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
 
     LDAPMessage* bind_message = NULL;
 
+    int error_code = 0;
+    char *diagnostic_message = NULL;
+
     int rc = LDAP_OTHER;
     int msgid = 0;
     rc = ldap_sasl_interactive_bind(connection->ldap,
@@ -377,9 +380,13 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
     if (rc != LDAP_SUCCESS && rc != LDAP_SASL_BIND_IN_PROGRESS)
     {
         // TODO: Verify that we need to perform abandon operation here.
-        error("Unable to perform ldap_sasl_interactive_bind - error: %s\n", ldap_err2string(rc));
-        ldap_unbind_ext_s(connection->ldap, NULL, NULL);
-        return RETURN_CODE_FAILURE;
+        get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
+        get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
+        error_exit:
+            error("Unable to perform ldap_sasl_interactive_bind - op code: %d - code: %d %s\n", rc, error_code, diagnostic_message);
+            ldap_memfree(diagnostic_message);
+            ldap_unbind_ext_s(connection->ldap, NULL, NULL);
+            return RETURN_CODE_FAILURE;
     }
 
     if (connection_install_handlers(connection) != RETURN_CODE_SUCCESS)
