@@ -146,14 +146,14 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
         set_bool_option(connection->ldap, LDAP_OPT_X_SASL_NOCANON, config->sasl_options->sasl_nocanon);
         set_ldap_option(connection->ldap, LDAP_OPT_X_SASL_SECPROPS, config->sasl_options->sasl_secprops);
 
-        connection->ldap_defaults = talloc(global_ctx->talloc_ctx, struct ldap_sasl_defaults_t);
+        connection->ldap_defaults = talloc_zero(global_ctx->talloc_ctx, struct ldap_sasl_defaults_t);
 
         get_ldap_option(connection->ldap, LDAP_OPT_X_SASL_REALM, &connection->ldap_defaults->realm);
         get_ldap_option(connection->ldap, LDAP_OPT_X_SASL_AUTHCID, &connection->ldap_defaults->authcid);
         get_ldap_option(connection->ldap, LDAP_OPT_X_SASL_AUTHZID, &connection->ldap_defaults->authzid);
 
         connection->ldap_defaults->flags = config->sasl_options->sasl_flags;
-        connection->ldap_defaults->mechanism = config->sasl_options->mechanism;
+        connection->ldap_defaults->mechanism = talloc_strdup(global_ctx->talloc_ctx, config->sasl_options->mechanism);
     }
 
     if (config->use_start_tls)
