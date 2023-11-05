@@ -216,5 +216,7 @@ int main(int argc, char **argv) {
     (void)(contextForCgreen);
     TestSuite *suite = create_test_suite();
     add_test_with_context(suite, Cgreen, entry_add_test);
-    return run_test_suite(suite, create_text_reporter());
+    int result = run_test_suite(suite, create_text_reporter());
+    destroy_test_suite(suite);
+    return result;
 }
