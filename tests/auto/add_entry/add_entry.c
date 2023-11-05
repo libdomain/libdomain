@@ -14,7 +14,7 @@ Describe(Cgreen);
 BeforeEach(Cgreen) {}
 AfterEach(Cgreen) {}
 
-char* LDAP_DIRECTORY_ATTRS[] = { "objectClass", NULL };
+static char* LDAP_DIRECTORY_ATTRS[] = { "objectClass", NULL };
 #define VALUE_ATTRIBUTES_SIZE 5
 
 typedef struct attribute_value_pair_s

@@ -21,7 +21,7 @@
 #include "directory.h"
 #include "entry.h"
 
-char* LDAP_DIRECTORY_ATTRS[] = { "*", NULL };
+static char* LDAP_DIRECTORY_ATTRS[] = { "*", NULL };
 
 /**
  * @brief directory_get_type Request LDAP type from service.
