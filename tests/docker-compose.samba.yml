@@ -2,6 +2,7 @@ services:
   directory:
     build: samba-container
     container_name: directory-server
+    hostname: dc0
     environment:
       PORT: 389
     ports:
@@ -18,5 +19,5 @@ services:
         ipv4_address: 10.5.0.2
   testenv:
     environment:
-      - LDAP_SERVER=ldap://domain.alt:389
+      - LDAP_SERVER=ldap://dc0.domain.alt:389
 
