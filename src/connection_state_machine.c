@@ -91,7 +91,7 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
         }
         else
         {
-            rc = connection_ldap_bind(ctx->ctx);
+            rc = connection_sasl_bind(ctx->ctx);
         }
 
         csm_set_state(ctx, rc == RETURN_CODE_SUCCESS ? LDAP_CONNECTION_STATE_RUN
