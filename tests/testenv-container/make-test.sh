@@ -3,7 +3,7 @@
 export BUILD_DIR=build
 export KRB5CCNAME=`mktemp`
 
-mv /krb5.conf /etc/krb5.conf
+cp /krb5.conf /etc/krb5.conf
 cat /resolv.conf > /etc/resolv.conf
 chown -R builder2:builder2 /app/
 echo 'password145Qw!' | kinit administrator@DOMAIN.ALT
