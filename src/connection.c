@@ -536,28 +536,29 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
         info("Message - connection_bind_on_read - message success!\n");
         if (connection->bind_type == BIND_TYPE_INTERACTIVE)
         {
-            int msgid = connection->msgid; // TODO: Replace with actual msgid.
-            info("Current bind message id: %i \n", msgid);
-            do
-            {
-                rc = ldap_sasl_interactive_bind(connection->ldap,
-                                                NULL,
-                                                connection->ldap_defaults->mechanism,
-                                                NULL,
-                                                NULL,
-                                                connection->ldap_defaults->flags,
-                                                sasl_interact_gssapi,
-                                                connection->ldap_defaults,
-                                                message,
-                                                &connection->rmech,
-                                                &msgid);
-            } while (rc == LDAP_SASL_BIND_IN_PROGRESS);
+            info("Current bind message id: %i \n", connection->msgid);
+            rc = ldap_sasl_interactive_bind(connection->ldap,
+                                            NULL,
+                                            connection->ldap_defaults->mechanism,
+                                            NULL,
+                                            NULL,
+                                            connection->ldap_defaults->flags,
+                                            sasl_interact_gssapi,
+                                            connection->ldap_defaults,
+                                            message,
+                                            &connection->rmech,
+                                            &connection->msgid);
             info("Operation result: %s!\n", ldap_err2string(rc));
         }
 
         if (rc == LDAP_SASL_BIND_IN_PROGRESS)
         {
-            info("Bind in progress!\n");
+            info("Bind in progress - request send: %d !\n", connection->msgid);
+            struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
+            request->msgid = connection->msgid;
+            request->on_read_operation = connection_bind_on_read;
+            ++connection->n_read_requests;
+            request_queue_push(connection->callqueue, &request->node);
         }
         else if (rc == LDAP_SUCCESS)
         {
