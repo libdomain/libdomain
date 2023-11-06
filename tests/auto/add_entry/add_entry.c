@@ -172,15 +172,15 @@ Ensure(Cgreen, entry_add_test) {
     struct context_t* ctx = create_context();
 
     ctx->config.use_sasl = true;
-    ctx->config.bind_type = BIND_TYPE_INTERACTIVE;
+    ctx->config.bind_type = BIND_TYPE_SIMPLE;
 
     ctx->config.sasl_options = talloc_zero(ctx->global_ctx.talloc_ctx, struct ldap_sasl_options_t);
     ctx->config.sasl_options->mechanism = "GSSAPI";
-    ctx->config.sasl_options->passwd = "password145Qw!";
+    ctx->config.sasl_options->passwd = "password";
 
     ctx->config.sasl_options->sasl_nocanon = true;
     ctx->config.sasl_options->sasl_secprops = "maxssf=48";
-    ctx->config.sasl_options->sasl_flags = LDAP_SASL_INTERACTIVE;
+    ctx->config.sasl_options->sasl_flags = LDAP_SASL_SIMPLE;
     ctx->connection_ctx.ldap_params = talloc(ctx->global_ctx.talloc_ctx, struct ldap_sasl_params_t);
     ctx->connection_ctx.ldap_params->dn = "cn=admin,dc=domain,dc=alt";
     ctx->connection_ctx.ldap_params->passwd = talloc(ctx->global_ctx.talloc_ctx, struct berval);
