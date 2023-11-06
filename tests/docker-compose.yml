@@ -8,8 +8,18 @@ services:
     depends_on:
       directory:
         condition: service_healthy
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.3
 
 volumes:
   data-volume:
     external: true
 
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1

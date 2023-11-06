@@ -36,7 +36,8 @@
  */
 enum OperationReturnCode add(struct ldap_connection_ctx_t* connection, const char *dn, LDAPMod **attrs)
 {
-    int rc = ldap_add_ext(connection->ldap, dn, attrs, NULL, NULL, &connection->current_msgid);
+    int msgid = 0;
+    int rc = ldap_add_ext(connection->ldap, dn, attrs, NULL, NULL, &msgid);
     if (rc != LDAP_SUCCESS)
     {
         error("Unable to add entry: %s\n", ldap_err2string(rc));
@@ -44,7 +45,7 @@ enum OperationReturnCode add(struct ldap_connection_ctx_t* connection, const cha
     }
 
     struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
-    request->msgid = connection->current_msgid;
+    request->msgid = msgid;
     request->on_read_operation = add_on_read;
     ++connection->n_read_requests;
     request_queue_push(connection->callqueue, &request->node);
@@ -144,6 +145,7 @@ enum OperationReturnCode add_on_read(int rc, LDAPMessage *message, struct ldap_c
 enum OperationReturnCode  search(struct ldap_connection_ctx_t* connection, const char *base_dn, int scope,
                                  const char *filter, char **attrs, bool attrsonly)
 {
+    int msgid = 0;
     int rc = ldap_search_ext(connection->ldap,
                     base_dn,
                     scope,
@@ -154,7 +156,7 @@ enum OperationReturnCode  search(struct ldap_connection_ctx_t* connection, const
                     NULL,
                     NULL,
                     LDAP_NO_LIMIT,
-                    &connection->current_msgid);
+                    &msgid);
     if (rc != LDAP_SUCCESS)
     {
         error("Unable to create search request: %s\n", ldap_err2string(rc));
@@ -162,7 +164,7 @@ enum OperationReturnCode  search(struct ldap_connection_ctx_t* connection, const
     }
 
     struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
-    request->msgid = connection->current_msgid;
+    request->msgid = msgid;
     request->on_read_operation = search_on_read;
     ++connection->n_read_requests;
     request_queue_push(connection->callqueue, &request->node);
@@ -251,12 +253,13 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
  */
 enum OperationReturnCode modify(struct ldap_connection_ctx_t* connection, const char *dn, LDAPMod **attrs)
 {
+    int msgid = 0;
     int rc = ldap_modify_ext(connection->ldap,
                              dn,
                              attrs,
                              NULL,
                              NULL,
-                             &connection->current_msgid);
+                             &msgid);
     if (rc != LDAP_SUCCESS)
     {
         error("Unable to create modify request: %s\n", ldap_err2string(rc));
@@ -264,7 +267,7 @@ enum OperationReturnCode modify(struct ldap_connection_ctx_t* connection, const 
     }
 
     struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
-    request->msgid = connection->current_msgid;
+    request->msgid = msgid;
     request->on_read_operation = modify_on_read;
     ++connection->n_read_requests;
     request_queue_push(connection->callqueue, &request->node);
@@ -340,11 +343,12 @@ enum OperationReturnCode modify_on_read(int rc, LDAPMessage *message, struct lda
  */
 enum OperationReturnCode delete(struct ldap_connection_ctx_t* connection, const char *dn)
 {
+    int msgid = 0;
     int rc = ldap_delete_ext(connection->ldap,
                              dn,
                              NULL,
                              NULL,
-                             &connection->current_msgid);
+                             &msgid);
     if (rc != LDAP_SUCCESS)
     {
         error("Unable to create modify request: %s\n", ldap_err2string(rc));
@@ -352,7 +356,7 @@ enum OperationReturnCode delete(struct ldap_connection_ctx_t* connection, const 
     }
 
     struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
-    request->msgid = connection->current_msgid;
+    request->msgid = msgid;
     request->on_read_operation = delete_on_read;
     ++connection->n_read_requests;
     request_queue_push(connection->callqueue, &request->node);
@@ -423,7 +427,8 @@ enum OperationReturnCode delete_on_read(int rc, LDAPMessage *message, struct lda
  */
 enum OperationReturnCode whoami(struct ldap_connection_ctx_t *connection)
 {
-    int rc = ldap_whoami(connection->ldap, NULL, NULL, &connection->current_msgid);
+    int msgid = 0;
+    int rc = ldap_whoami(connection->ldap, NULL, NULL, &msgid);
 
     if (rc != LDAP_SUCCESS)
     {
@@ -432,7 +437,7 @@ enum OperationReturnCode whoami(struct ldap_connection_ctx_t *connection)
     }
 
     struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
-    request->msgid = connection->current_msgid;
+    request->msgid = msgid;
     request->on_read_operation = whoami_on_read;
     ++connection->n_read_requests;
     request_queue_push(connection->callqueue, &request->node);
@@ -489,6 +494,7 @@ enum OperationReturnCode whoami_on_read(int rc, LDAPMessage *message, struct lda
 enum OperationReturnCode ld_rename(struct ldap_connection_ctx_t *connection, const char *olddn,
                                    const char *newdn, const char* new_parent, bool delete_original)
 {
+    int msgid = 0;
     int rc = ldap_rename(connection->ldap,
                          olddn,
                          newdn,
@@ -496,7 +502,7 @@ enum OperationReturnCode ld_rename(struct ldap_connection_ctx_t *connection, con
                          delete_original,
                          NULL,
                          NULL,
-                         &connection->current_msgid);
+                         &msgid);
 
     if (rc != LDAP_SUCCESS)
     {
@@ -505,7 +511,7 @@ enum OperationReturnCode ld_rename(struct ldap_connection_ctx_t *connection, con
     }
 
     struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
-    request->msgid = connection->current_msgid;
+    request->msgid = msgid;
     request->on_read_operation = rename_on_read;
     ++connection->n_read_requests;
     request_queue_push(connection->callqueue, &request->node);

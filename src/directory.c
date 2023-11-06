@@ -21,7 +21,7 @@
 #include "directory.h"
 #include "entry.h"
 
-char* LDAP_DIRECTORY_ATTRS[] = { "*", NULL };
+static char* LDAP_DIRECTORY_ATTRS[] = { "*", NULL };
 
 /**
  * @brief directory_get_type Request LDAP type from service.
@@ -32,6 +32,7 @@ char* LDAP_DIRECTORY_ATTRS[] = { "*", NULL };
  */
 enum OperationReturnCode directory_get_type(struct ldap_connection_ctx_t *connection)
 {
+    int msgid = 0;
     int rc = ldap_search_ext(connection->ldap,
                     "",
                     LDAP_SCOPE_BASE,
@@ -42,7 +43,7 @@ enum OperationReturnCode directory_get_type(struct ldap_connection_ctx_t *connec
                     NULL,
                     NULL,
                     LDAP_NO_LIMIT,
-                    &connection->current_msgid);
+                    &msgid);
     if (rc != LDAP_SUCCESS)
     {
         error("Unable to create directory type request: %s\n", ldap_err2string(rc));
@@ -50,7 +51,7 @@ enum OperationReturnCode directory_get_type(struct ldap_connection_ctx_t *connec
     }
 
     struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
-    request->msgid = connection->current_msgid;
+    request->msgid = msgid;
     request->on_read_operation = directory_parse_result;
     ++connection->n_read_requests;
     request_queue_push(connection->callqueue, &request->node);

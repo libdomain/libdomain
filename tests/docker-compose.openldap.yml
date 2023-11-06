@@ -12,6 +12,9 @@ services:
       interval: 60s
       timeout: 15s
       retries: 5
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.2
   testenv:
     environment:
-      - LDAP_SERVER=ldap://directory-server:3890
+      - LDAP_SERVER=ldap://10.5.0.2:3890

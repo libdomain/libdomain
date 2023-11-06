@@ -14,7 +14,7 @@ Describe(Cgreen);
 BeforeEach(Cgreen) {}
 AfterEach(Cgreen) {}
 
-char* LDAP_DIRECTORY_ATTRS[] = { "objectClass", NULL };
+static char* LDAP_DIRECTORY_ATTRS[] = { "objectClass", NULL };
 #define VALUE_ATTRIBUTES_SIZE 5
 
 typedef struct attribute_value_pair_s
@@ -172,19 +172,20 @@ Ensure(Cgreen, entry_add_test) {
     struct context_t* ctx = create_context();
 
     ctx->config.use_sasl = true;
+    ctx->config.bind_type = BIND_TYPE_SIMPLE;
 
-    ctx->config.sasl_options = talloc(ctx->global_ctx.talloc_ctx, struct ldap_sasl_options_t);
-    ctx->config.sasl_options->mechanism = LDAP_SASL_SIMPLE;
+    ctx->config.sasl_options = talloc_zero(ctx->global_ctx.talloc_ctx, struct ldap_sasl_options_t);
+    ctx->config.sasl_options->mechanism = "GSSAPI";
     ctx->config.sasl_options->passwd = "password";
 
     ctx->config.sasl_options->sasl_nocanon = true;
-    ctx->config.sasl_options->sasl_secprops = "maxssf=56";
-    ctx->config.sasl_options->sasl_flags = LDAP_SASL_QUIET;
+    ctx->config.sasl_options->sasl_secprops = "maxssf=48";
+    ctx->config.sasl_options->sasl_flags = LDAP_SASL_SIMPLE;
     ctx->connection_ctx.ldap_params = talloc(ctx->global_ctx.talloc_ctx, struct ldap_sasl_params_t);
     ctx->connection_ctx.ldap_params->dn = "cn=admin,dc=domain,dc=alt";
     ctx->connection_ctx.ldap_params->passwd = talloc(ctx->global_ctx.talloc_ctx, struct berval);
-    ctx->connection_ctx.ldap_params->passwd->bv_len = strlen(ctx->config.sasl_options->passwd);
-    ctx->connection_ctx.ldap_params->passwd->bv_val = strdup(ctx->config.sasl_options->passwd);
+    ctx->connection_ctx.ldap_params->passwd->bv_len = strlen(ctx->config.sasl_options->passwd) - 1;
+    ctx->connection_ctx.ldap_params->passwd->bv_val = talloc_strdup(ctx->global_ctx.talloc_ctx, ctx->config.sasl_options->passwd);
     ctx->connection_ctx.ldap_params->clientctrls = NULL;
     ctx->connection_ctx.ldap_params->serverctrls = NULL;
 
@@ -215,5 +216,7 @@ int main(int argc, char **argv) {
     (void)(contextForCgreen);
     TestSuite *suite = create_test_suite();
     add_test_with_context(suite, Cgreen, entry_add_test);
-    return run_test_suite(suite, create_text_reporter());
+    int result = run_test_suite(suite, create_text_reporter());
+    destroy_test_suite(suite);
+    return result;
 }

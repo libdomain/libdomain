@@ -37,6 +37,9 @@ RUN apt-get update \
     libtalloc-devel \
     libsasl2-devel \
     cgreen \
+    krb5-kinit \
+    cyrus-sasl2 \
+    libsasl2-plugin-gssapi \
     && export CURRENT_PWD=`pwd` \
     && groupadd builder2 \
     && useradd --uid $USER_ID --gid builder2 -ms /bin/bash builder2 \
@@ -53,6 +56,10 @@ USER root
 
 # Copy entry point
 COPY make-test.sh /make-test.sh
+
+COPY resolv.conf /resolv.conf
+
+COPY krb5.conf /krb5.conf
 
 # Code file to execute when the docker container starts up (`make-test.sh`)
 ENTRYPOINT ["/make-test.sh"]
