@@ -55,7 +55,7 @@ jobs:
 
       - run: mkdir -p /tmp/certs
 
-      - run: cd /tmp/certs && bash script/generate_cert.sh `pwd` && docker volume create --driver local --opt type=none --opt device=`pwd` --opt o=bind cert-volume
+      - run: export SCRIPT_PATH=`pwd` && cd /tmp/certs && bash "${SCRIPT_PATH}/script/generate_cert.sh" `pwd` && docker volume create --driver local --opt type=none --opt device=`pwd` --opt o=bind cert-volume
 
       - run: docker volume create --driver local --opt type=none --opt device=`pwd` --opt o=bind data-volume
 
