@@ -2,11 +2,15 @@ services:
   directory:
     build: openldap-container
     container_name: directory-server
+    hostname: dc0.domain.alt
     environment:
       PORT: 3890
     ports:
       - '3890:3890'
+      - '6360:6360'
     restart: "no"
+    volumes:
+      - cert-volume:/certs
     healthcheck:
       test: ldapsearch -H ldap://127.0.0.1:3890 -x -b '' -s base
       interval: 60s
@@ -18,3 +22,7 @@ services:
   testenv:
     environment:
       - LDAP_SERVER=ldap://10.5.0.2:3890
+
+volumes:
+  cert-volume:
+    external: true
