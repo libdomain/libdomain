@@ -4,6 +4,7 @@ services:
     container_name: testenv
     restart: "no"
     volumes:
+      - cert-volume:/certs
       - data-volume:/app
     depends_on:
       directory:
@@ -14,6 +15,8 @@ services:
 
 volumes:
   data-volume:
+    external: true
+  cert-volume:
     external: true
 
 networks:

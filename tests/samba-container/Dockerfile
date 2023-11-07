@@ -34,6 +34,8 @@ COPY rndc.conf /etc/bind/rndc.conf
 
 COPY resolv.conf /resolv.conf
 
+COPY smb.conf /smb.conf
+
 EXPOSE 53 53/udp 88 88/udp 135 137-138/udp 139 389 389/udp 445 464 464/udp 636 3268-3269 49152-65535
 
 CMD /provision-samba.sh && /start-samba.sh

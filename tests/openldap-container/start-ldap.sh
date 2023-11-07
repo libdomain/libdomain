@@ -3,7 +3,7 @@
 mkdir /tmp/ldap
 
 # Start slapd
-slapd -d any -h "ldap://0.0.0.0:3890/" -f /tmp/slapd.conf 2>&1 > /tmp/slapd.log &
+slapd -d any -h "ldap://0.0.0.0:3890/ ldaps://0.0.0.0:6360" -f /tmp/slapd.conf 2>&1 > /tmp/slapd.log &
 
 # Populating database
 i=0
