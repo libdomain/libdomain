@@ -11,4 +11,11 @@ After that you can run test by executing:
 ```
 docker compose -f docker-compose.openldap.yml -f docker-compose.yml up --abort-on-container-exit --attach-dependencies
 ```
+Testing certificates:
+```
+export LDAPTLS_CERT: /certs/dc0.domain.alt.pem
+export LDAPTLS_KEY: /certs/dc0.domain.alt.key
+export LDAPTLS_CACERT: /certs/ca.pem
 
+ldapsearch -H ldaps://dc0.domain.alt:6360 -s base "(objectClass=*)" -x
+```
