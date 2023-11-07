@@ -3,6 +3,12 @@ To run tests locally you first have to create data-volume, you need to run follo
 ```
 docker volume create --driver local --opt type=none --opt device=`pwd` --opt o=bind data-volume
 ```
+Now you need to create certificates and container for them
+```
+mkdir certs && cd certs && ../../script/generate_cert.sh `pwd`
+
+docker volume create --driver local --opt type=none --opt device=`pwd` --opt o=bind cert-volume
+```
 Next you need to build docker images, this can be done using following command:
 ```
 docker compose -f docker-compose.openldap.yml -f docker-compose.yml build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) --build-arg DISTR=alt:p10
@@ -18,4 +24,8 @@ export LDAPTLS_KEY: /certs/dc0.domain.alt.key
 export LDAPTLS_CACERT: /certs/ca.pem
 
 ldapsearch -H ldaps://dc0.domain.alt:6360 -s base "(objectClass=*)" -x
+```
+View certificates with openssl:
+```
+openssl s_client -connect dc0.domain.alt:636
 ```
