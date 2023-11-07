@@ -80,11 +80,11 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
     switch (ctx->state)
     {
     case LDAP_CONNECTION_STATE_INIT:
+        // TODO: Implement Start TLS.
         csm_set_state(ctx, LDAP_CONNECTION_STATE_TRANSPORT_READY);
         break;
 
     case LDAP_CONNECTION_STATE_TRANSPORT_READY:
-//      TODO: Implement simple bind.
         if (ctx->ctx->bind_type == BIND_TYPE_INTERACTIVE)
         {
             rc = connection_ldap_bind(ctx->ctx);
