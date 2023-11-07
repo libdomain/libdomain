@@ -7,7 +7,10 @@ services:
       PORT: 389
     ports:
       - '389:389'
+      - '636:636'
     restart: "no"
+    volumes:
+      - cert-volume:/certs
     privileged: true
     healthcheck:
       test: smbclient -L \\localhost -U % -m SMB3
@@ -21,3 +24,6 @@ services:
     environment:
       - LDAP_SERVER=ldap://dc0.domain.alt:389
 
+volumes:
+  cert-volume:
+    external: true
