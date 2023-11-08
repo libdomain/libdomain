@@ -2,7 +2,8 @@ services:
   directory:
     build: openldap-container
     container_name: directory-server
-    hostname: dc0.domain.alt
+    hostname: dc0
+    domainname: domain.alt
     environment:
       PORT: 3890
     ports:
