@@ -22,7 +22,7 @@ services:
   testenv:
     environment:
       - LDAP_SERVER=ldap://10.5.0.2:3890
-      - LDAPS_SERVER=ldap://dc0.domain.alt:6360
+      - LDAPS_SERVER=ldaps://dc0.domain.alt:6360
       - LDAP_CA_CERT=/certs/ca.pem
 
 volumes:
