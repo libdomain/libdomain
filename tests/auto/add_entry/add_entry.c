@@ -180,7 +180,7 @@ Ensure(Cgreen, entry_add_test) {
 
     ctx->config.sasl_options->sasl_nocanon = true;
     ctx->config.sasl_options->sasl_secprops = "maxssf=48";
-    ctx->config.sasl_options->sasl_flags = LDAP_SASL_SIMPLE;
+    ctx->config.sasl_options->sasl_flags = LDAP_SASL_AUTOMATIC;
     ctx->connection_ctx.ldap_params = talloc(ctx->global_ctx.talloc_ctx, struct ldap_sasl_params_t);
     ctx->connection_ctx.ldap_params->dn = "cn=admin,dc=domain,dc=alt";
     ctx->connection_ctx.ldap_params->passwd = talloc(ctx->global_ctx.talloc_ctx, struct berval);
