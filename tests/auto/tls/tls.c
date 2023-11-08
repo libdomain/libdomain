@@ -25,6 +25,25 @@ typedef struct context_t
     struct ldap_connection_config_t config;
 } context_t;
 
+char *get_optional_environment_variable(TALLOC_CTX *talloc_ctx, const char *envvar)
+{
+    char *value = talloc_array(talloc_ctx, char, BUFFER_SIZE);
+
+    if (!getenv(envvar))
+    {
+        return NULL;
+    }
+
+    int cx = snprintf(value, BUFFER_SIZE, "%s", getenv(envvar));
+
+    if (cx < 0 || cx >= BUFFER_SIZE)
+    {
+        return NULL;
+    }
+
+    return value;
+}
+
 static struct context_t* create_context()
 {
     struct context_t* ctx = malloc(sizeof(context_t));
@@ -42,9 +61,9 @@ static struct context_t* create_context()
     const char *ca_cert_var = "LDAP_CA_CERT";
     char *ca_cert = get_environment_variable(ctx->global_ctx.talloc_ctx, ca_cert_var);
     const char *cert_var = "LDAP_CERT";
-    char *cert = get_environment_variable(ctx->global_ctx.talloc_ctx, cert_var);
+    char *cert = get_optional_environment_variable(ctx->global_ctx.talloc_ctx, cert_var);
     const char *key_var = "LDAP_KEY";
-    char *key = get_environment_variable(ctx->global_ctx.talloc_ctx, key_var);
+    char *key = get_optional_environment_variable(ctx->global_ctx.talloc_ctx, key_var);
 
     ctx->config.server = server;
     ctx->config.port = 636;
