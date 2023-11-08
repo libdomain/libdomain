@@ -31,6 +31,7 @@ typedef struct csm_state_value_t
 const csm_state_value_t state_strings[] =
 {
     { LDAP_CONNECTION_STATE_INIT, "LDAP_CONNECTION_STATE_INIT" },
+    { LDAP_CONNECTION_STATE_TLS_NEGOTIATION, "LDAP_CONNECTION_STATE_TLS_NEGOTIATION" },
     { LDAP_CONNECTION_STATE_TRANSPORT_READY, "LDAP_CONNECTION_STATE_TRANSPORT_READY" },
     { LDAP_CONNECTION_STATE_BIND_IN_PROGRESS, "LDAP_CONNECTION_STATE_BIND_IN_PROGRESS" },
     { LDAP_CONNECTION_STATE_BOUND, "LDAP_CONNECTION_STATE_BOUND" },
@@ -80,11 +81,23 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
     switch (ctx->state)
     {
     case LDAP_CONNECTION_STATE_INIT:
-        csm_set_state(ctx, LDAP_CONNECTION_STATE_TRANSPORT_READY);
+        if (ctx->ctx->config->use_start_tls)
+        {
+            rc = connection_start_tls(ctx->ctx);
+
+            csm_set_state(ctx, rc == RETURN_CODE_SUCCESS ? LDAP_CONNECTION_STATE_TLS_NEGOTIATION
+                                                         : LDAP_CONNECTION_STATE_ERROR);
+        }
+        else
+        {
+            csm_set_state(ctx, LDAP_CONNECTION_STATE_TRANSPORT_READY);
+        }
+        break;
+
+    case LDAP_CONNECTION_STATE_TLS_NEGOTIATION:
         break;
 
     case LDAP_CONNECTION_STATE_TRANSPORT_READY:
-//      TODO: Implement simple bind.
         if (ctx->ctx->bind_type == BIND_TYPE_INTERACTIVE)
         {
             rc = connection_ldap_bind(ctx->ctx);
@@ -136,4 +149,17 @@ enum OperationReturnCode csm_set_state(struct state_machine_ctx_t *ctx, enum Lda
     ctx->state = state;
 
     return RETURN_CODE_SUCCESS;
+}
+
+/**
+ * @brief csm_is_in_state Checks if state macheine is in desired state.
+ * @param[in] ctx state machine to use
+ * @param[in] state state to set
+ * @return
+ *        - true - if machine current state matches @arg{state}
+ *        - false - if not
+ */
+bool csm_is_in_state(state_machine_ctx_t *ctx, enum LdapConnectionState state)
+{
+    return ctx->state == state;
 }

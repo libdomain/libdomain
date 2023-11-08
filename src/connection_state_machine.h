@@ -25,11 +25,12 @@
 enum LdapConnectionState
 {
     LDAP_CONNECTION_STATE_INIT             = 1,
-    LDAP_CONNECTION_STATE_TRANSPORT_READY  = 2,
-    LDAP_CONNECTION_STATE_BIND_IN_PROGRESS = 3,
-    LDAP_CONNECTION_STATE_BOUND            = 4,
-    LDAP_CONNECTION_STATE_RUN              = 5,
-    LDAP_CONNECTION_STATE_ERROR            = 6,
+    LDAP_CONNECTION_STATE_TLS_NEGOTIATION  = 2,
+    LDAP_CONNECTION_STATE_TRANSPORT_READY  = 3,
+    LDAP_CONNECTION_STATE_BIND_IN_PROGRESS = 4,
+    LDAP_CONNECTION_STATE_BOUND            = 5,
+    LDAP_CONNECTION_STATE_RUN              = 6,
+    LDAP_CONNECTION_STATE_ERROR            = 7,
 };
 
 typedef struct state_machine_ctx_t
@@ -41,5 +42,6 @@ typedef struct state_machine_ctx_t
 enum OperationReturnCode csm_init(struct state_machine_ctx_t *ctx, struct ldap_connection_ctx_t *connection);
 enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx);
 enum OperationReturnCode csm_set_state(struct state_machine_ctx_t *ctx, enum LdapConnectionState state);
+bool csm_is_in_state(struct state_machine_ctx_t *ctx, enum LdapConnectionState state);
 
 #endif //LIBDOMAIN_CSM_H

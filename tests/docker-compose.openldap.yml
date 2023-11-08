@@ -2,7 +2,7 @@ services:
   directory:
     build: openldap-container
     container_name: directory-server
-    hostname: dc0.domain.alt
+    hostname: dc0
     environment:
       PORT: 3890
     ports:
@@ -22,6 +22,8 @@ services:
   testenv:
     environment:
       - LDAP_SERVER=ldap://10.5.0.2:3890
+      - LDAPS_SERVER=ldaps://dc0.domain.alt:6360
+      - LDAP_CA_CERT=/certs/ca.pem
 
 volumes:
   cert-volume:

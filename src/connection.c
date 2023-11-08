@@ -50,6 +50,14 @@ const option_value_t option_strings[] =
     { LDAP_OPT_X_SASL_REALM, "LDAP_OPT_X_SASL_REALM" },
     { LDAP_OPT_X_SASL_AUTHCID, "LDAP_OPT_X_SASL_AUTHCID" },
     { LDAP_OPT_X_SASL_AUTHZID, "LDAP_OPT_X_SASL_AUTHZID" },
+    { LDAP_OPT_X_TLS, "LDAP_OPT_X_TLS" },
+    { LDAP_OPT_X_TLS_CACERTFILE, "LDAP_OPT_X_TLS_CACERTFILE" },
+    { LDAP_OPT_X_TLS_CACERTDIR, "LDAP_OPT_X_TLS_CACERTDIR" },
+    { LDAP_OPT_X_TLS_CERTFILE, "LDAP_OPT_X_TLS_CERTFILE" },
+    { LDAP_OPT_X_TLS_KEYFILE, "LDAP_OPT_X_TLS_KEYFILE" },
+    { LDAP_OPT_X_TLS_REQUIRE_CERT, "LDAP_OPT_X_TLS_REQUIRE_CERT" },
+    { LDAP_OPT_X_TLS_PROTOCOL_MIN, "LDAP_OPT_X_TLS_PROTOCOL_MIN" },
+    { LDAP_OPT_X_TLS_NEWCTX, "LDAP_OPT_X_TLS_NEWCTX" },
     { LDAP_OPT_RESULT_CODE, "LDAP_OPT_RESULT_CODE" },
     { LDAP_OPT_DIAGNOSTIC_MESSAGE, "LDAP_OPT_DIAGNOSTIC_MESSAGE" }
 };
@@ -130,6 +138,10 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
           error_exit;
     }
 
+    connection->config = config;
+
+    connection->handlers_installed = false;
+
     connection->rmech = NULL;
 
     connection->state_machine = talloc(global_ctx->talloc_ctx, struct state_machine_ctx_t);
@@ -141,12 +153,13 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
     set_ldap_option(connection->ldap, LDAP_OPT_CONNECT_ASYNC, LDAP_OPT_ON);
 
+    connection->ldap_defaults = talloc_zero(global_ctx->talloc_ctx, struct ldap_sasl_defaults_t);
+    connection->ldap_defaults->mechanism = LDAP_SASL_SIMPLE;
+
     if (config->use_sasl)
     {
         set_bool_option(connection->ldap, LDAP_OPT_X_SASL_NOCANON, config->sasl_options->sasl_nocanon);
         set_ldap_option(connection->ldap, LDAP_OPT_X_SASL_SECPROPS, config->sasl_options->sasl_secprops);
-
-        connection->ldap_defaults = talloc_zero(global_ctx->talloc_ctx, struct ldap_sasl_defaults_t);
 
         get_ldap_option(connection->ldap, LDAP_OPT_X_SASL_REALM, &connection->ldap_defaults->realm);
         get_ldap_option(connection->ldap, LDAP_OPT_X_SASL_AUTHCID, &connection->ldap_defaults->authcid);
@@ -158,7 +171,30 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
     if (config->use_start_tls)
     {
-        // TODO: Implement.
+        if (config->tls_ca_cert_file)
+        {
+            set_ldap_option(connection->ldap, LDAP_OPT_X_TLS_CACERTFILE, config->tls_ca_cert_file);
+        }
+        if (config->tls_ca_cert_path)
+        {
+            set_ldap_option(connection->ldap, LDAP_OPT_X_TLS_CACERTDIR, config->tls_ca_cert_path);
+        }
+
+        if (config->tls_cert_file)
+        {
+            set_ldap_option(connection->ldap, LDAP_OPT_X_TLS_CERTFILE, config->tls_cert_file);
+        }
+        if (config->tls_key_file)
+        {
+            set_ldap_option(connection->ldap, LDAP_OPT_X_TLS_KEYFILE, config->tls_key_file);
+        }
+
+        /*
+         * We need to initialize new tls context to prevent errors.
+         * https://stackoverflow.com/questions/65422215/ldaps-openldap-bind-successful-even-after-deleting-ca-certificate-from-root-dir
+         */
+        const bool is_server = 0;
+        set_ldap_option(connection->ldap, LDAP_OPT_X_TLS_NEWCTX, &is_server);
     }
 
     if (config->bind_type == BIND_TYPE_INTERACTIVE)
@@ -196,18 +232,6 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 }
 
 /**
- * @brief connection_start_tls Setups tls transport.
- * @param connection [in] connection to use
- * @return
- */
-enum OperationReturnCode connection_start_tls(struct ldap_connection_ctx_t *connection)
-{
-    (void)(connection);
-
-    return RETURN_CODE_FAILURE;
-}
-
-/**
  * @brief connection_install_handlers Installs handlers for read and write operations.
  * @param connection [in] connection to install handlers for.
  * @see connection_on_read
@@ -234,11 +258,49 @@ enum OperationReturnCode connection_install_handlers(struct ldap_connection_ctx_
     connection->write_event = verto_add_io(connection->base, VERTO_EV_FLAG_PERSIST | VERTO_EV_FLAG_IO_WRITE, connection_on_write, fd);
     verto_set_private(connection->write_event, connection, NULL);
 
+    connection->handlers_installed = true;
+
     return RETURN_CODE_SUCCESS;
 
     error_exit:
         ldap_unbind_ext_s(connection->ldap, NULL, NULL);
         return RETURN_CODE_FAILURE;
+}
+
+/**
+ * @brief connection_start_tls Setups tls transport.
+ * @param[in] connection  connection to use
+ * @return
+ */
+enum OperationReturnCode connection_start_tls(struct ldap_connection_ctx_t *connection)
+{
+    int msgid = 0;
+    int rc = ldap_start_tls(connection->ldap,
+                            connection->ldap_params->serverctrls,
+                            connection->ldap_params->clientctrls,
+                            &msgid);
+    if (rc != LDAP_SUCCESS)
+    {
+        // TODO: Verify that we need to perform abandon operation here.
+        error("Unable to perform ldap_start_tls - error: %s", ldap_err2string(rc));
+        ldap_unbind_ext_s(connection->ldap, NULL, NULL);
+        return RETURN_CODE_FAILURE;
+    }
+
+    if (!connection->handlers_installed && connection_install_handlers(connection) != RETURN_CODE_SUCCESS)
+    {
+        error("Unable to install event handlers.");
+        ldap_unbind_ext_s(connection->ldap, NULL, NULL);
+        return RETURN_CODE_FAILURE;
+    }
+
+    struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
+    request->msgid = msgid;
+    request->on_read_operation = connection_start_tls_on_read;
+    ++connection->n_read_requests;
+    request_queue_push(connection->callqueue, &request->node);
+
+    return RETURN_CODE_SUCCESS;
 }
 
 /**
@@ -254,9 +316,13 @@ enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *conn
     assert(connection);
 
     int msgid = 0;
-    int rc = ldap_sasl_bind(connection->ldap, connection->ldap_params->dn, connection->ldap_defaults->mechanism,
-                            connection->ldap_params->passwd, connection->ldap_params->serverctrls,
-                            connection->ldap_params->clientctrls, &msgid);
+    int rc = ldap_sasl_bind(connection->ldap,
+                            connection->ldap_params->dn,
+                            connection->ldap_defaults->mechanism,
+                            connection->ldap_params->passwd,
+                            connection->ldap_params->serverctrls,
+                            connection->ldap_params->clientctrls,
+                            &msgid);
     if (rc != LDAP_SUCCESS)
     {
         // TODO: Verify that we need to perform abandon operation here.
@@ -265,7 +331,7 @@ enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *conn
         return RETURN_CODE_FAILURE;
     }
 
-    if (connection_install_handlers(connection) != RETURN_CODE_SUCCESS)
+    if (!connection->handlers_installed && connection_install_handlers(connection) != RETURN_CODE_SUCCESS)
     {
         error("Unable to install event handlers.");
         ldap_unbind_ext_s(connection->ldap, NULL, NULL);
@@ -389,7 +455,7 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
             return RETURN_CODE_FAILURE;
     }
 
-    if (connection_install_handlers(connection) != RETURN_CODE_SUCCESS)
+    if (!connection->handlers_installed && connection_install_handlers(connection) != RETURN_CODE_SUCCESS)
     {
         error("Unable to install event handlers.\n");
         ldap_unbind_ext_s(connection->ldap, NULL, NULL);
@@ -403,6 +469,15 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
     request_queue_push(connection->callqueue, &request->node);
 
     return rc == LDAP_SASL_BIND_IN_PROGRESS ? RETURN_CODE_OPERATION_IN_PROGRESS : RETURN_CODE_SUCCESS;
+}
+
+void connection_optional_transition_on_error(struct ldap_connection_ctx_t* connection)
+{
+    if (csm_is_in_state(connection->state_machine, LDAP_CONNECTION_STATE_TLS_NEGOTIATION)
+    || csm_is_in_state(connection->state_machine, LDAP_CONNECTION_STATE_BIND_IN_PROGRESS))
+    {
+        csm_set_state(connection->state_machine, LDAP_CONNECTION_STATE_ERROR);
+    }
 }
 
 /**
@@ -438,9 +513,10 @@ void connection_on_read(verto_ctx *ctx, verto_ev *ev)
         case LDAP_RES_ANY:
             get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
             get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-            error("Error - ldap_result failed - code: %d %s\n", error_code, diagnostic_message);
+            error("Error - ldap_result failed - code: %d %s %s\n", error_code, ldap_err2string(error_code), diagnostic_message);
             ldap_memfree(diagnostic_message);
             ldap_msgfree(result_message);
+            connection_optional_transition_on_error(connection);
             break;
         case LDAP_RES_UNSOLICITED:
             warning("Warning - Pending message with id %d!\n", request->msgid);
@@ -578,6 +654,60 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
             }
             return RETURN_CODE_FAILURE;
         }
+    default:
+        break;
+    }
+
+    return RETURN_CODE_SUCCESS;
+
+    error_exit:
+        return RETURN_CODE_FAILURE;
+}
+
+/**
+ * @brief connection_start_tls_on_read This callback is performed during initiation of tls connection.
+ * @param[in] rc         result code of bind operation.
+ * @param[in] message    message received during operation.
+ * @param[in] connection connection used during bind operation.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
+enum OperationReturnCode connection_start_tls_on_read(int rc, LDAPMessage * message, ldap_connection_ctx_t *connection)
+{
+    (void)(message);
+    (void)(connection);
+
+    int tls_rc = LDAP_SUCCESS;
+    int error_code = 0;
+    char *diagnostic_message = NULL;
+
+    switch (rc)
+    {
+    case LDAP_RES_EXTENDED:
+        if (!ldap_tls_inplace(connection->ldap))
+        {
+            tls_rc = ldap_install_tls(connection->ldap);
+        }
+        else
+        {
+            info("connection_start_tls_on_read - SSL/TLS handler was already installed.\n");
+        }
+
+        if (tls_rc != LDAP_SUCCESS && tls_rc != LDAP_LOCAL_ERROR)
+        {
+            get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
+            get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
+            error("Error - ldap_install_tls failed - op code: %d %s - code: %d %s\n", tls_rc, ldap_err2string(tls_rc),
+                  error_code, diagnostic_message);
+            ldap_memfree(diagnostic_message);
+
+            csm_set_state(connection->state_machine, LDAP_CONNECTION_STATE_ERROR);
+
+            return RETURN_CODE_FAILURE;
+        }
+
+        csm_set_state(connection->state_machine, LDAP_CONNECTION_STATE_TRANSPORT_READY);
     default:
         break;
     }

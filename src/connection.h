@@ -81,6 +81,16 @@ typedef struct ldap_connection_config_t
     int bind_type;
 
     struct ldap_sasl_options_t *sasl_options;
+
+    int ssl_mode;
+    const char *tls_ca_cert_file;
+    const char *tls_ca_cert_path;
+
+    const char *tls_cert_file;
+    const char *tls_key_file;
+
+    bool *tls_require_cert;
+    int tls_min_protocol_version;
 } ldap_connection_config_t;
 
 struct ldap_connection_ctx_t;
@@ -111,6 +121,8 @@ typedef struct ldap_connection_ctx_t
 
     int fd;
 
+    bool handlers_installed;
+
     struct verto_ctx *base;
 
     struct verto_ev *read_event;
@@ -136,6 +148,8 @@ typedef struct ldap_connection_ctx_t
 
     struct ldap_sasl_defaults_t *ldap_defaults;
     struct ldap_sasl_params_t *ldap_params;
+
+    struct ldap_connection_config_t* config;
 } ldap_connection_ctx_t;
 
 enum OperationReturnCode connection_configure(struct ldap_global_context_t *global_ctx,
@@ -151,5 +165,6 @@ void connection_on_read(verto_ctx *ctx, verto_ev *ev);
 void connection_on_write(verto_ctx *ctx, verto_ev *ev);
 
 enum OperationReturnCode connection_bind_on_read(int, LDAPMessage *, struct ldap_connection_ctx_t *connection);
+enum OperationReturnCode connection_start_tls_on_read(int, LDAPMessage *, struct ldap_connection_ctx_t *connection);
 
 #endif //LIBDOMAIN_CONNECTION_H
