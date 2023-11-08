@@ -31,6 +31,7 @@ typedef struct csm_state_value_t
 const csm_state_value_t state_strings[] =
 {
     { LDAP_CONNECTION_STATE_INIT, "LDAP_CONNECTION_STATE_INIT" },
+    { LDAP_CONNECTION_STATE_TLS_NEGOTIATION, "LDAP_CONNECTION_STATE_TLS_NEGOTIATION" },
     { LDAP_CONNECTION_STATE_TRANSPORT_READY, "LDAP_CONNECTION_STATE_TRANSPORT_READY" },
     { LDAP_CONNECTION_STATE_BIND_IN_PROGRESS, "LDAP_CONNECTION_STATE_BIND_IN_PROGRESS" },
     { LDAP_CONNECTION_STATE_BOUND, "LDAP_CONNECTION_STATE_BOUND" },
@@ -80,8 +81,20 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
     switch (ctx->state)
     {
     case LDAP_CONNECTION_STATE_INIT:
-        // TODO: Implement Start TLS.
-        csm_set_state(ctx, LDAP_CONNECTION_STATE_TRANSPORT_READY);
+        if (ctx->ctx->config->use_start_tls)
+        {
+            rc = connection_start_tls(ctx->ctx);
+
+            csm_set_state(ctx, rc == RETURN_CODE_SUCCESS ? LDAP_CONNECTION_STATE_TLS_NEGOTIATION
+                                                         : LDAP_CONNECTION_STATE_ERROR);
+        }
+        else
+        {
+            csm_set_state(ctx, LDAP_CONNECTION_STATE_TRANSPORT_READY);
+        }
+        break;
+
+    case LDAP_CONNECTION_STATE_TLS_NEGOTIATION:
         break;
 
     case LDAP_CONNECTION_STATE_TRANSPORT_READY:

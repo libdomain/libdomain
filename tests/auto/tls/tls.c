@@ -39,9 +39,20 @@ static struct context_t* create_context()
     char *envvar = "LDAPS_SERVER";
     char *server = get_environment_variable(ctx->global_ctx.talloc_ctx, envvar);
 
+    const char *ca_cert_var = "LDAP_CA_CERT";
+    char *ca_cert = get_environment_variable(ctx->global_ctx.talloc_ctx, ca_cert_var);
+    const char *cert_var = "LDAP_CERT";
+    char *cert = get_environment_variable(ctx->global_ctx.talloc_ctx, cert_var);
+    const char *key_var = "LDAP_KEY";
+    char *key = get_environment_variable(ctx->global_ctx.talloc_ctx, key_var);
+
     ctx->config.server = server;
     ctx->config.port = 636;
     ctx->config.protocol_verion = LDAP_VERSION3;
+
+    ctx->config.tls_ca_cert_file = ca_cert;
+    ctx->config.tls_cert_file = cert;
+    ctx->config.tls_key_file = key;
 
     ctx->config.use_sasl = false;
     ctx->config.use_start_tls = false;
@@ -118,8 +129,6 @@ Ensure(Cgreen, tls_connection_test) {
     ctx->config.use_sasl = false;
 
     ctx->config.use_start_tls = true;
-    ctx->config.tls_ca_cert_file = talloc_strdup(ctx->global_ctx.talloc_ctx, "/certs/ca.pem");
-    ctx->config.tls_ca_cert_path = NULL;
 
     ctx->config.sasl_options = talloc(ctx->global_ctx.talloc_ctx, struct ldap_sasl_options_t);
     ctx->config.sasl_options->mechanism = LDAP_SASL_SIMPLE;
