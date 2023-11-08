@@ -20,6 +20,8 @@ services:
     networks:
       vpcbr:
         ipv4_address: 10.5.0.2
+        aliases:
+          - dc0.domain.alt
   testenv:
     environment:
       - LDAP_SERVER=ldap://10.5.0.2:3890
