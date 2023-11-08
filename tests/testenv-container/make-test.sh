@@ -3,6 +3,7 @@
 export BUILD_DIR=build
 export KRB5CCNAME=`mktemp`
 
+echo '10.5.0.2      dc0.domain.alt dc0' >> /etc/hosts
 cp /krb5.conf /etc/krb5.conf
 cat /resolv.conf > /etc/resolv.conf
 chown -R builder2:builder2 /app/

@@ -3,7 +3,6 @@ services:
     build: openldap-container
     container_name: directory-server
     hostname: dc0
-    domainname: domain.alt
     environment:
       PORT: 3890
     ports:
@@ -20,8 +19,6 @@ services:
     networks:
       vpcbr:
         ipv4_address: 10.5.0.2
-        aliases:
-          - dc0.domain.alt
   testenv:
     environment:
       - LDAP_SERVER=ldap://10.5.0.2:3890
