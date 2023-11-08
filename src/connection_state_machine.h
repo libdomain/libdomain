@@ -42,5 +42,6 @@ typedef struct state_machine_ctx_t
 enum OperationReturnCode csm_init(struct state_machine_ctx_t *ctx, struct ldap_connection_ctx_t *connection);
 enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx);
 enum OperationReturnCode csm_set_state(struct state_machine_ctx_t *ctx, enum LdapConnectionState state);
+bool csm_is_in_state(struct state_machine_ctx_t *ctx, enum LdapConnectionState state);
 
 #endif //LIBDOMAIN_CSM_H

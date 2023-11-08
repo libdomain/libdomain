@@ -471,6 +471,15 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
     return rc == LDAP_SASL_BIND_IN_PROGRESS ? RETURN_CODE_OPERATION_IN_PROGRESS : RETURN_CODE_SUCCESS;
 }
 
+void connection_optional_transition_on_error(struct ldap_connection_ctx_t* connection)
+{
+    if (csm_is_in_state(connection->state_machine, LDAP_CONNECTION_STATE_TLS_NEGOTIATION)
+    || csm_is_in_state(connection->state_machine, LDAP_CONNECTION_STATE_BIND_IN_PROGRESS))
+    {
+        csm_set_state(connection->state_machine, LDAP_CONNECTION_STATE_ERROR);
+    }
+}
+
 /**
  * @brief connection_on_read This callback is performed on read operation.
  * @param ctx [in] event context
@@ -507,7 +516,7 @@ void connection_on_read(verto_ctx *ctx, verto_ev *ev)
             error("Error - ldap_result failed - code: %d %s %s\n", error_code, ldap_err2string(error_code), diagnostic_message);
             ldap_memfree(diagnostic_message);
             ldap_msgfree(result_message);
-            csm_set_state(connection->state_machine, LDAP_CONNECTION_STATE_ERROR);
+            connection_optional_transition_on_error(connection);
             break;
         case LDAP_RES_UNSOLICITED:
             warning("Warning - Pending message with id %d!\n", request->msgid);

@@ -150,3 +150,16 @@ enum OperationReturnCode csm_set_state(struct state_machine_ctx_t *ctx, enum Lda
 
     return RETURN_CODE_SUCCESS;
 }
+
+/**
+ * @brief csm_is_in_state Checks if state macheine is in desired state.
+ * @param[in] ctx state machine to use
+ * @param[in] state state to set
+ * @return
+ *        - true - if machine current state matches @arg{state}
+ *        - false - if not
+ */
+bool csm_is_in_state(state_machine_ctx_t *ctx, enum LdapConnectionState state)
+{
+    return ctx->state == state;
+}
