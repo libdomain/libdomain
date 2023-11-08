@@ -504,9 +504,10 @@ void connection_on_read(verto_ctx *ctx, verto_ev *ev)
         case LDAP_RES_ANY:
             get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
             get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-            error("Error - ldap_result failed - code: %d %s\n", error_code, diagnostic_message);
+            error("Error - ldap_result failed - code: %d %s %s\n", error_code, ldap_err2string(error_code), diagnostic_message);
             ldap_memfree(diagnostic_message);
             ldap_msgfree(result_message);
+            csm_set_state(connection->state_machine, LDAP_CONNECTION_STATE_ERROR);
             break;
         case LDAP_RES_UNSOLICITED:
             warning("Warning - Pending message with id %d!\n", request->msgid);
