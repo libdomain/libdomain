@@ -39,7 +39,16 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     {
         verto_del(ev);
 
-        int rc = ld_add_computer(connection->handle, "test_computer_add", "description", "100", "dc=domain,dc=alt");
+        int rc = ld_add_computer(connection->handle,
+                                 "test_computer_add",
+                                 "description",
+                                 "11-77-23-15",
+                                 "dc=domain,dc=alt",
+                                 "test org. inc",
+                                 "room 12",
+                                 "cn=john smith,ou=people,dc=domain,dc=alt",
+                                 "r&d",
+                                 "ou=equipment,dc=domain,dc=alt");
         if (rc != RETURN_CODE_SUCCESS)
         {
             verto_break(ctx);
@@ -73,7 +82,7 @@ static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void
     return RETURN_CODE_SUCCESS;
 }
 
-xEnsure(Cgreen, computer_add_test)
+Ensure(Cgreen, computer_add_test)
 {
     TALLOC_CTX* talloc_ctx = talloc_new(NULL);
 

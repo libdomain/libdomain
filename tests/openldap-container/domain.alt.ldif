@@ -16,6 +16,12 @@ objectClass: organizationalUnit
 ou: groups
 description: Central location for groups
 
+dn: ou=equipment,dc=domain,dc=alt
+objectClass: top
+objectClass: organizationalUnit
+ou: equipment
+description: Central location for computers
+
 dn: ou=test_delete_ou,dc=domain,dc=alt
 objectClass: top
 objectClass: organizationalUnit
@@ -119,3 +125,37 @@ loginShell: /bin/false
 uidNumber: 801
 gidNumber: 801
 homeDirectory: /home/test_search_user
+
+dn: cn=test_rename_computer,ou=equipment,dc=domain,dc=alt
+objectClass: top
+objectClass: device
+cn: test_rename_computer
+description: Some brand of computer
+seeAlso: dc=domain,dc=alt
+serialnumber: 1-77-23-13
+l: Room 17
+owner: cn=john smith,ou=people,dc=domain,dc=alt
+ou: equipment
+
+dn: cn=test_mod_computer,ou=equipment,dc=domain,dc=alt
+objectClass: top
+objectClass: device
+cn: test_mod_computer
+description: Some brand of computer
+seeAlso: dc=domain,dc=alt
+serialnumber: 1-77-23-17
+l: Room 17
+owner: cn=john smith,ou=people,dc=domain,dc=alt
+ou: equipment
+
+dn: cn=test_delete_computer,ou=equipment,dc=domain,dc=alt
+objectClass: top
+objectClass: device
+cn: test_delete_computer
+description: Some brand of computer
+seeAlso: dc=domain,dc=alt
+serialnumber: 1-77-23-18
+l: Room 17
+owner: cn=john smith,ou=people,dc=domain,dc=alt
+ou: equipment
+
