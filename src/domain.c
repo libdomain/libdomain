@@ -86,8 +86,8 @@ config_t *ld_create_config(char *host,
     result->protocol_version = protocol_version;
 
     result->base_dn  = strndup(base_dn, strlen(base_dn));
-    result->username = strndup(username, strlen(username));
-    result->password = strndup(password, strlen(password));
+    result->username = username ? strndup(username, strlen(username)) : NULL;
+    result->password = password ? strndup(password, strlen(password)) : NULL;
 
     result->simple_bind = simple_bind;
     result->use_tls     = use_tls;
@@ -160,9 +160,9 @@ void ld_init(LDHandle** handle, const config_t* config)
     (*handle)->connection_ctx->ldap_params->dn = talloc_asprintf((*handle)->global_ctx->talloc_ctx,
                                                                  "cn=%s,%s",config->username, config->base_dn);
     (*handle)->connection_ctx->ldap_params->passwd = talloc((*handle)->global_ctx->talloc_ctx, struct berval);
-    (*handle)->connection_ctx->ldap_params->passwd->bv_len = strlen(config->password);
-    (*handle)->connection_ctx->ldap_params->passwd->bv_val = talloc_strdup((*handle)->global_ctx->talloc_ctx,
-                                                                           config->password);
+    (*handle)->connection_ctx->ldap_params->passwd->bv_len = config->password ? strlen(config->password) : 0;
+    (*handle)->connection_ctx->ldap_params->passwd->bv_val = config->password ? talloc_strdup((*handle)->global_ctx->talloc_ctx,
+                                                                           config->password) : NULL;
     (*handle)->connection_ctx->ldap_params->clientctrls = NULL;
     (*handle)->connection_ctx->ldap_params->serverctrls = NULL;
 
