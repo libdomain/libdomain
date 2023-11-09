@@ -37,7 +37,7 @@ enum OperationReturnCode modify(struct ldap_connection_ctx_t *connection, const 
 enum OperationReturnCode modify_on_read(int rc, LDAPMessage *message, ldap_connection_ctx_t *connection);
 
 enum OperationReturnCode delete(struct ldap_connection_ctx_t* connection, const char *dn);
-enum OperationReturnCode  delete_on_read(int rc, LDAPMessage *message, ldap_connection_ctx_t *connection);
+enum OperationReturnCode delete_on_read(int rc, LDAPMessage *message, ldap_connection_ctx_t *connection);
 
 enum OperationReturnCode ld_rename(struct ldap_connection_ctx_t *connection, const char *olddn, const char *newdn,
                                    const char *new_parent, bool delete_original);
