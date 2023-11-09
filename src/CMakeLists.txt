@@ -22,6 +22,8 @@ pkg_check_modules(Talloc REQUIRED IMPORTED_TARGET talloc)
 pkg_check_modules(Libverto REQUIRED IMPORTED_TARGET libverto)
 
 set(PROJECT_SOURCES
+    attribute.c
+    attribute.h
     common.c
     common.h
     computer.c

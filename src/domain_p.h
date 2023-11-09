@@ -57,14 +57,14 @@ typedef struct ldhandle
 #define check_handle(handle, function_name) \
     if (!handle) \
     { \
-        error("Handle is null - %s", function_name); \
+        error("Handle is null - %s \n", function_name); \
         return RETURN_CODE_FAILURE; \
     }
 
 #define check_string(input, output, function_name) \
     if (!input || strlen(input) == 0) \
     { \
-        error("No group name - %s", function_name); \
+        error("Empty string in function - %s \n", function_name); \
         return RETURN_CODE_FAILURE; \
     } \
     else \
@@ -97,6 +97,9 @@ enum OperationReturnCode ld_mod_entry(
     LDHandle *handle, const char *name, const char *parent, const char *prefix, LDAPAttribute_t **entry_attrs);
 enum OperationReturnCode ld_rename_entry(
     LDHandle *handle, const char *old_name, const char *new_name, const char *parent, const char *prefix);
+enum OperationReturnCode ld_mod_entry_attrs(
+        LDHandle *handle, const char *name, const char *parent, const char *prefix, LDAPAttribute_t **entry_attrs,
+        int opcode);
 
 typedef struct LDAPAttribute_s LDAPAttribute_t;
 
