@@ -524,3 +524,51 @@ void ld_install_error_handler(LDHandle *handle, error_callback_fn callback)
 
     handle->connection_ctx->on_error_operation = (operation_callback_fn)callback;
 }
+
+/**
+ * @brief ld_mod_entry_attrs Modifies list of attributes using supplied operation.
+ * @param[in] handle         Pointer to libdomain session handle.
+ * @param[in] name           Name of the entry.
+ * @param[in] parent         Parent container that holds the entry.
+ * @param[in] prefix         Prefix of the entry.
+ * @param[in] entry_attrs    List of the attributes to modify.
+ * @param[in] opcode         Code of operation e.g. LDAP_MOD_REPLACE.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
+enum OperationReturnCode ld_mod_entry_attrs(LDHandle *handle, const char *name, const char *parent, const char *prefix,
+                                            LDAPAttribute_t **entry_attrs, int opcode)
+{
+    const char* entry_name = NULL;
+    const char* entry_parent = NULL;
+
+    enum OperationReturnCode rc = RETURN_CODE_FAILURE;
+
+    (void)(entry_attrs);
+
+    check_handle(handle, "ld_mod_entry_attrs");
+
+    check_string(name, entry_name, "ld_mod_entry_attrs");
+    check_string(parent, entry_parent, "ld_mod_entry_attrs");
+
+    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+
+    LDAPMod **attrs = fill_attributes(entry_attrs, talloc_ctx, opcode);
+
+    const char* dn;
+    if (strlen(prefix) > 0)
+    {
+        dn = talloc_asprintf(talloc_ctx,"%s=%s,%s", prefix, entry_name, entry_parent);
+    }
+    else
+    {
+        dn = talloc_asprintf(talloc_ctx,"%s,%s", entry_name, entry_parent);
+    }
+
+    rc = modify(handle->connection_ctx, dn, attrs);
+
+    talloc_free(talloc_ctx);
+
+    return rc;
+}
