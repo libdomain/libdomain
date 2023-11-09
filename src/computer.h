@@ -27,7 +27,12 @@
 enum OperationReturnCode ld_add_computer(LDHandle *handle,
                                          const char *name,
                                          const char *description,
-                                         const char *display_name,
+                                         const char *serial_number,
+                                         const char *see_also,
+                                         const char *organization_name,
+                                         const char *locality_name,
+                                         const char *owner,
+                                         const char *organization_unit_name,
                                          const char *parent);
 enum OperationReturnCode ld_del_computer(LDHandle *handle, const char *name, const char *parent);
 enum OperationReturnCode ld_mod_computer(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **computer_attrs);
