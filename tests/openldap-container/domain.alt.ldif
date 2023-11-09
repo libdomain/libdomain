@@ -22,6 +22,20 @@ objectClass: organizationalUnit
 ou: equipment
 description: Central location for computers
 
+dn: ou=policies,dc=domain,dc=alt
+objectClass: top
+objectClass: organizationalUnit
+ou: policies
+description: Central location for policies
+
+dn: cn=default,ou=policies,dc=domain,dc=alt
+objectClass: top
+objectClass: device
+objectClass: pwdPolicy
+cn: default
+pwdAttribute: userPassword
+pwdLockout: TRUE
+
 dn: ou=test_delete_ou,dc=domain,dc=alt
 objectClass: top
 objectClass: organizationalUnit
@@ -125,6 +139,23 @@ loginShell: /bin/false
 uidNumber: 801
 gidNumber: 801
 homeDirectory: /home/test_search_user
+
+dn: cn=test_block_user,ou=users,dc=domain,dc=alt
+uid: test_block_user
+gecos: test_block_user
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+userPassword: {SSHA}gVK8WC9YyFT1gMsQHTGCgT3sSv5zYWx0
+shadowLastChange: 15140
+shadowMin: 0
+shadowMax: 99999
+shadowWarning: 7
+loginShell: /bin/false
+uidNumber: 801
+gidNumber: 801
+homeDirectory: /home/test_block_user
 
 dn: cn=test_rename_computer,ou=equipment,dc=domain,dc=alt
 objectClass: top
