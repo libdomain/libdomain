@@ -6,6 +6,7 @@
 #include "entry.h"
 
 #include <string.h>
+#include <time.h>
 
 static attribute_value_pair_t LDAP_USER_ATTRIBUTES[] =
 {
@@ -39,6 +40,43 @@ enum UserAttributeIndex
 const char* create_user_parent(TALLOC_CTX *talloc_ctx, LDHandle *handle)
 {
     return talloc_asprintf(talloc_ctx, "%s,%s", "ou=users", handle ? handle->global_config->base_dn : "");
+}
+
+static LDAPAttribute_t** create_lockout_time_attributes(TALLOC_CTX* ctx, const char* value)
+{
+    LDAPAttribute_t** attrs;
+
+    attrs = talloc_array(ctx, LDAPAttribute_t*, 2);
+    attrs[0] = talloc(ctx, LDAPAttribute_t);
+    attrs[0]->values = talloc_array(ctx, char*, 2);
+    attrs[0]->name = talloc_strdup(ctx, "pwdAccountLockedTime");
+    attrs[0]->values[0] = value ? talloc_strdup(ctx, value) : NULL;
+    attrs[0]->values[1] = NULL;
+    attrs[1] = NULL;
+
+    return attrs;
+}
+
+const char* get_current_datetime(TALLOC_CTX* ctx)
+{
+    const int MAX_SIZE = 200;
+
+    char outstr[MAX_SIZE];
+    time_t t = time(NULL);
+    struct tm *tmp = localtime(&t);
+    if (tmp == NULL) {
+        error("get_current_datetime - localtime returned 0.\n");
+        return NULL;
+    }
+
+    if (strftime(outstr, sizeof(outstr), "%Y%m%d%H%M%SZ", tmp) == 0)
+    {
+        error("get_current_datetime - strftime returned 0.\n");
+        return NULL;
+    }
+    info("get_current_datetime - %s. \n", outstr);
+
+    return talloc_strdup(ctx, outstr);
 }
 
 /**
@@ -151,6 +189,39 @@ enum OperationReturnCode ld_rename_user(LDHandle *handle, const char *old_name, 
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
     int rc = ld_rename_entry(handle, old_name, new_name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn");
+
+    talloc_free(talloc_ctx);
+
+    return rc;
+}
+
+enum OperationReturnCode ld_block_user(LDHandle *handle, const char *name, const char *parent)
+{
+    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+
+    const char* datetime = get_current_datetime(talloc_ctx);
+
+    if (!datetime)
+    {
+        return RETURN_CODE_FAILURE;
+    }
+
+    LDAPAttribute_t** attrs = create_lockout_time_attributes(talloc_ctx, datetime);
+
+    int rc = ld_mod_entry_attrs(handle, name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn", attrs, LDAP_MOD_ADD);
+
+    talloc_free(talloc_ctx);
+
+    return rc;
+}
+
+enum OperationReturnCode ld_unblock_user(LDHandle *handle, const char *name, const char *parent)
+{
+    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+
+    LDAPAttribute_t** attrs = create_lockout_time_attributes(talloc_ctx, NULL);
+
+    int rc = ld_mod_entry_attrs(handle, name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn", attrs, LDAP_MOD_DELETE);
 
     talloc_free(talloc_ctx);
 

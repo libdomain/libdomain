@@ -41,5 +41,10 @@ enum OperationReturnCode ld_rename_user(LDHandle *handle,
                                         const char *old_name,
                                         const char *new_name,
                                         const char *parent);
-
+enum OperationReturnCode ld_block_user(LDHandle *handle,
+                                       const char *name,
+                                       const char *parent);
+enum OperationReturnCode ld_unblock_user(LDHandle *handle,
+                                         const char *name,
+                                         const char *parent);
 #endif //LIB_DOMAIN_USER_H
