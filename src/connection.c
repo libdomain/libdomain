@@ -108,6 +108,29 @@ void requests_init(struct ldap_request_t* requests, int size)
     }
 }
 
+/**
+ * @brief connection_microseconds_to_timeval
+ * @param[in] talloc_ctx
+ * @param[in] microseconds Number of microseconds for timeout.
+ * @return Pointer to timeval struct.
+ */
+struct timeval* connection_microseconds_to_timeval(TALLOC_CTX *talloc_ctx, int microseconds)
+{
+    struct timeval* time_interval = talloc(talloc_ctx, struct timeval);
+    if (microseconds < 0)
+    {
+        time_interval->tv_sec = -1;
+        time_interval->tv_usec = 0;
+    }
+    else
+    {
+        time_interval->tv_sec = 0;
+        time_interval->tv_usec = microseconds;
+    }
+
+    return time_interval;
+}
+
 /*!
  * \brief connection_configure Configures connection while performing following actions:
  *  1. Creates LDAP handle and sets protocol version, turns on async connection flag.
@@ -129,6 +152,9 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
     assert(connection);
     assert(config);
 
+    struct timeval* search_timeout = NULL;
+    struct timeval* network_timeout = NULL;
+
     int rc = ldap_initialize(&connection->ldap, config->server);
 
     if (rc != LDAP_SUCCESS)
@@ -146,6 +172,15 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
     connection->state_machine = talloc(global_ctx->talloc_ctx, struct state_machine_ctx_t);
     csm_init(connection->state_machine, connection);
+
+    if (config->search_timelimit > 0)
+    {
+        search_timeout = connection_microseconds_to_timeval(global_ctx->talloc_ctx, config->search_timelimit);
+        set_ldap_option(connection->ldap, LDAP_OPT_TIMELIMIT, search_timeout);
+    }
+
+    network_timeout = connection_microseconds_to_timeval(global_ctx->talloc_ctx, config->network_timeout);
+    set_ldap_option(connection->ldap, LDAP_OPT_NETWORK_TIMEOUT, network_timeout);
 
     set_ldap_option(connection->ldap, LDAP_OPT_PROTOCOL_VERSION, &config->protocol_verion);
 

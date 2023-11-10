@@ -91,6 +91,9 @@ typedef struct ldap_connection_config_t
 
     bool *tls_require_cert;
     int tls_min_protocol_version;
+
+    int search_timelimit;
+    int network_timeout;
 } ldap_connection_config_t;
 
 struct ldap_connection_ctx_t;
