@@ -77,6 +77,8 @@ install -v -p -m 644 -D %_builddir/%name-%version/src/*.h %buildroot%_includedir
   + Implement tests for blocking and unblocking users in OpenLDAP.
   + Implement tests for reconnection testing.
   + Implement tests for anonymous connection.
+- Fixes:
+  + Fix description in spec file. (Closes: 46202).
 
 * Mon Oct 09 2023 Vladimir Rubanov <august@altlinux.org> 0.8.0-alt1
 - Implemented:
