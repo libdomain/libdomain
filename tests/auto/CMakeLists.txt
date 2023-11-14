@@ -16,6 +16,8 @@ add_subdirectory(configure)
 add_subdirectory(connection_state_machine)
 add_subdirectory(search)
 
+add_subdirectory(schema)
+
 add_subdirectory(anonymous)
 add_subdirectory(tls)
 add_subdirectory(timeout)
