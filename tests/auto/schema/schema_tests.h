@@ -12,4 +12,7 @@ schema_attributetype_test_suite();
 TestSuite*
 schema_objectclass_test_suite();
 
+TestSuite*
+schema_ad_test_suite();
+
 #endif//SCHEMA_TESTS_H
