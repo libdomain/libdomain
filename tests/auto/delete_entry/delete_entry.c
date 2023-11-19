@@ -67,7 +67,7 @@ static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void
     return RETURN_CODE_SUCCESS;
 }
 
-Ensure(Cgreen, entry_add_test)
+Ensure(Cgreen, entry_delete_test)
 {
     TALLOC_CTX* talloc_ctx = talloc_new(NULL);
 
@@ -96,6 +96,6 @@ int main(int argc, char **argv) {
     (void)(argv);
     (void)(contextForCgreen);
     TestSuite *suite = create_test_suite();
-    add_test_with_context(suite, Cgreen, entry_add_test);
+    add_test_with_context(suite, Cgreen, entry_delete_test);
     return run_test_suite(suite, create_text_reporter());
 }
