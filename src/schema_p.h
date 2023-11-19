@@ -22,6 +22,7 @@
 #define LIB_DOMAIN_SCHEMA_PRIVATE_H
 
 #include "common.h"
+#include "connection.h"
 
 #include <stdbool.h>
 
@@ -40,5 +41,9 @@ struct ldap_schema_t
     int attribute_types_size;
     int attribute_types_capacity;
 };
+
+enum OperationReturnCode schema_load_active_directory(struct ldap_connection_ctx_t *connection,
+                                                      struct ldap_schema_t* schema,
+                                                      const char *basedn);
 
 #endif//LIB_DOMAIN_SCHEMA_PRIVATE_H
