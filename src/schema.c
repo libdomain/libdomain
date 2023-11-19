@@ -24,6 +24,7 @@
 #include "common.h"
 
 #include "directory.h"
+#include "entry.h"
 
 #include <talloc.h>
 
@@ -269,4 +270,52 @@ ldap_schema_ready(struct ldap_connection_ctx_t* connection)
     default:
         return true;
     }
+}
+enum OperationReturnCode schema_load_active_directory(struct ldap_connection_ctx_t *connection,
+                                                      struct ldap_schema_t *schema,
+                                                      const char* basedn)
+{
+    TALLOC_CTX* talloc_ctx = talloc_new(NULL);
+    int rc = RETURN_CODE_SUCCESS;
+
+    if (!talloc_ctx)
+    {
+        error("schema_load_active_directory - unable to allocate memory.\n");
+
+        return RETURN_CODE_FAILURE;
+    }
+
+    const char* schema_dn = talloc_asprintf(talloc_ctx, "cn=schema,cn=configuration,%s", basedn);
+
+    rc = search(connection,
+           schema_dn,
+           LDAP_SCOPE_SUB,
+           "(objectClass=attributeSchema)",
+           NULL,
+           false);
+
+    if (rc != RETURN_CODE_SUCCESS)
+    {
+        error("schema_load_active_directory - unable to search attributes.\n");
+
+        return RETURN_CODE_FAILURE;
+    }
+
+    rc = search(connection,
+           schema_dn,
+           LDAP_SCOPE_SUB,
+           "(objectClass=classSchema)",
+           NULL,
+           false);
+
+    if (rc != RETURN_CODE_SUCCESS)
+    {
+        error("schema_load_active_directory - unable to search object classes.\n");
+
+        return RETURN_CODE_FAILURE;
+    }
+
+    talloc_free(talloc_ctx);
+
+    return RETURN_CODE_SUCCESS;
 }
