@@ -16,6 +16,11 @@ COPY start-ldap.sh /start-ldap.sh
 
 # Copy configuration files
 COPY slapd.conf /tmp/slapd.conf
+
+RUN if [ "$DISTR" = "alt:sisyphus" ] ; then \
+    sed -i 's/include         /etc/openldap/schema/ppolicy.schema//g' /tmp/slapd.conf; \
+fi
+
 COPY domain.alt.ldif /tmp/domain.alt.ldif
 
 # Code file to execute when the docker container starts up (`start-ldap.sh`)
