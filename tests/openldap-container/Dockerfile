@@ -17,8 +17,10 @@ COPY start-ldap.sh /start-ldap.sh
 # Copy configuration files
 COPY slapd.conf /tmp/slapd.conf
 
-RUN if [ "$DISTR" = "alt:sisyphus" ] ; then \
-    sed -i 's/include         /etc/openldap/schema/ppolicy.schema//g' /tmp/slapd.conf; \
+ARG DISTR
+
+RUN if [ "$DISTR" = "alt:p10" ] ; then \
+    sed -i 's/# include/include/g' /tmp/slapd.conf; \
 fi
 
 COPY domain.alt.ldif /tmp/domain.alt.ldif
