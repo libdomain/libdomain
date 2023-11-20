@@ -57,28 +57,6 @@ static LDAPAttribute_t** create_lockout_time_attributes(TALLOC_CTX* ctx, const c
     return attrs;
 }
 
-const char* get_current_datetime(TALLOC_CTX* ctx)
-{
-    const int MAX_SIZE = 200;
-
-    char outstr[MAX_SIZE];
-    time_t t = time(NULL);
-    struct tm *tmp = localtime(&t);
-    if (tmp == NULL) {
-        error("get_current_datetime - localtime returned 0.\n");
-        return NULL;
-    }
-
-    if (strftime(outstr, sizeof(outstr), "%Y%m%d%H%M%SZ", tmp) == 0)
-    {
-        error("get_current_datetime - strftime returned 0.\n");
-        return NULL;
-    }
-    info("get_current_datetime - %s. \n", outstr);
-
-    return talloc_strdup(ctx, outstr);
-}
-
 /**
  * @brief ld_add_user     Creates user.
  * @param handle          Pointer to libdomain session handle.
@@ -199,7 +177,7 @@ enum OperationReturnCode ld_block_user(LDHandle *handle, const char *name, const
 {
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
-    const char* datetime = get_current_datetime(talloc_ctx);
+    const char* datetime = "000001010000Z";
 
     if (!datetime)
     {
