@@ -29,12 +29,17 @@ ou: policies
 description: Central location for policies
 
 dn: cn=default,ou=policies,dc=domain,dc=alt
-objectClass: top
-objectClass: device
-objectClass: pwdPolicy
 cn: default
+objectClass: organizationalRole
+objectClass: pwdPolicy
 pwdAttribute: userPassword
+pwdMinLength: 12
+pwdCheckQuality: 2
+pwdMaxFailure: 10
 pwdLockout: TRUE
+pwdLockoutDuration: 600
+pwdInHistory: 5
+pwdMustChange: TRUE
 
 dn: ou=test_delete_ou,dc=domain,dc=alt
 objectClass: top

@@ -29,7 +29,7 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ "alt:p10" ]
+        os: [ "alt:p10", "alt:sisyphus" ]
         architecture: [ amd64, i386 ]
         environment: [ "openldap" ]
       fail-fast: false
