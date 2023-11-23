@@ -1,5 +1,7 @@
 #include "common.h"
 
+#include <directory.h>
+
 #include <cgreen/cgreen.h>
 
 static const int BUFFER_SIZE = 80;
@@ -32,4 +34,35 @@ char *get_environment_variable(TALLOC_CTX *talloc_ctx, const char *envvar)
     }
 
     return value;
+}
+
+/**
+ * @brief get_current_directory_type Gets current directory type.
+ * @param[in] directory_type String with directory name.
+ * @return
+ *        - Various directory types based on provided string.
+ */
+int get_current_directory_type(const char* directory_type)
+{
+    if (!directory_type || strlen(directory_type) == 0)
+    {
+        return LDAP_TYPE_UNKNOWN;
+    }
+
+    if (strcasecmp(directory_type, "AD") == 0)
+    {
+        return LDAP_TYPE_ACTIVE_DIRECTORY;
+    }
+
+    if (strcasecmp(directory_type, "OpenLDAP") == 0)
+    {
+        return LDAP_TYPE_OPENLDAP;
+    }
+
+    if (strcasecmp(directory_type, "FreeIPA") == 0)
+    {
+        return LDAP_TYPE_FREE_IPA;
+    }
+
+    return LDAP_TYPE_UNKNOWN;
 }
