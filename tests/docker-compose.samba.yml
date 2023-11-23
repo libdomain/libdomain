@@ -25,6 +25,7 @@ services:
       - LDAP_SERVER=ldap://dc0.domain.alt:389
       - LDAPS_SERVER=ldaps://dc0.domain.alt:636
       - LDAP_CA_CERT=/certs/ca.pem
+      - DIRECTORY_TYPE=AD
 
 volumes:
   cert-volume:
