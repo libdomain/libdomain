@@ -61,7 +61,7 @@ const int USER_ATTRIBUTES_SIZE = number_of_elements(LDAP_TEST_USER_ATTRIBUTES);
 static testcase_t OPENLDAP_TESTCASES[] =
 {
     {
-        "valid entry testcase",
+        "Addition of valid entry testcase",
         "cn=adam,ou=users,dc=domain,dc=alt",
         USER_ATTRIBUTES_SIZE,
         RETURN_CODE_SUCCESS,
@@ -103,7 +103,7 @@ static const int USER_ATTRIBUTES_AD_SIZE = number_of_elements(LDAP_TEST_USER_ATT
 static testcase_t AD_TESTCASES[] =
 {
     {
-        "valid entry testcase",
+        "Addition of valid entry testcase",
         "cn=adam,cn=users,dc=domain,dc=alt",
         USER_ATTRIBUTES_AD_SIZE,
         RETURN_CODE_SUCCESS,
@@ -197,6 +197,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
             talloc_free(talloc_ctx);
 
             assert_that(rc, is_equal_to(testcase.desired_test_result));
+            test_status(testcase);
         }
 
         ld_install_handler(connection->handle, connection_on_add_message, CONNECTION_UPDATE_INTERVAL);
@@ -210,59 +211,9 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     }
 }
 
-static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void* connection)
-{
-    (void)(unused_a);
-
-    assert_that(rc, is_not_equal_to(LDAP_SUCCESS));
-
-    verto_break(((ldap_connection_ctx_t*)connection)->base);
-
-    fail_test("Entry addition was not successful\n");
-
-    return RETURN_CODE_SUCCESS;
-}
-
 Ensure(Cgreen, entry_add_test)
 {
-    TALLOC_CTX* talloc_ctx = talloc_new(NULL);
-
-    char *server_envvar = "LDAP_SERVER";
-    char *server = get_environment_variable(talloc_ctx, server_envvar);
-
-    char *directory_envvar = "DIRECTORY_TYPE";
-    char *directory = get_environment_variable(talloc_ctx, directory_envvar);
-    current_directory_type = get_current_directory_type(directory);
-
-    config_t *config = NULL;
-    switch (current_directory_type)
-    {
-    case LDAP_TYPE_OPENLDAP:
-        config = ld_create_config(server, 0, LDAP_VERSION3, "dc=domain,dc=alt",
-                                            "admin", "password", true, false, true, false, CONNECTION_UPDATE_INTERVAL,
-                                            "", "", "");
-    case LDAP_TYPE_ACTIVE_DIRECTORY:
-        config = ld_create_config(server, 0, LDAP_VERSION3, "dc=domain,dc=alt",
-                                            "admin", "password145Qw!", false, false, false, false, CONNECTION_UPDATE_INTERVAL,
-                                            "", "", "");
-        break;
-    default:
-        fail_test("Unknown directory type, please check environment variables!\n");
-        exit(EXIT_FAILURE);
-    }
-
-    LDHandle *handle = NULL;
-    ld_init(&handle, config);
-
-    ld_install_default_handlers(handle);
-    ld_install_handler(handle, connection_on_timeout, CONNECTION_UPDATE_INTERVAL);
-    ld_install_error_handler(handle, connection_on_error);
-
-    ld_exec(handle);
-
-    ld_free(handle);
-
-    talloc_free(talloc_ctx);
+    start_test(connection_on_timeout, CONNECTION_UPDATE_INTERVAL, &current_directory_type);
 }
 
 int main(int argc, char **argv) {
