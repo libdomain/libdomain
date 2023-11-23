@@ -12,5 +12,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+/bin/bash /create-test-data.sh
+
 # Without this line our container will fail to keep running
 tail -f /dev/null
