@@ -76,8 +76,6 @@ static attribute_value_pair_t LDAP_TEST_USER_ATTRIBUTES_AD[] =
     { "objectCategory", { "CN=Person,CN=Schema,CN=Configuration,DC=domain,DC=alt", NULL, NULL, NULL, NULL } },
     { "codePage", { "0", NULL, NULL, NULL, NULL } },
     { "countryCode", { "0", NULL, NULL, NULL, NULL } },
-    { "distinguishedName", { "CN=adam,CN=Users,DC=domain,DC=alt", NULL, NULL, NULL, NULL } },
-    { "cn", { "adam", NULL, NULL, NULL, NULL } },
     { "sn", { "adam", NULL, NULL, NULL, NULL } },
     { "givenName", { "adam2", NULL, NULL, NULL, NULL } },
     { "displayName", { "adam2", NULL, NULL, NULL, NULL } },
