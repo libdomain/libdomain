@@ -144,6 +144,8 @@ void ld_init(LDHandle** handle, const config_t* config)
     int debug_level = -1;
     ldap_set_option((*handle)->connection_ctx->ldap, LDAP_OPT_DEBUG_LEVEL, &debug_level);
 
+    (*handle)->config_ctx->bind_type = config->simple_bind ? BIND_TYPE_SIMPLE : BIND_TYPE_INTERACTIVE;
+
     if (config->use_sasl)
     {
         (*handle)->config_ctx->sasl_options = talloc((*handle)->global_ctx->talloc_ctx, struct ldap_sasl_options_t);
