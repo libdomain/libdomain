@@ -83,7 +83,6 @@ static attribute_value_pair_t LDAP_TEST_USER_ATTRIBUTES_AD[] =
     { "displayName", { "adam2", NULL, NULL, NULL, NULL } },
     { "name", { "adam", NULL, NULL, NULL, NULL } },
     { "telephoneNumber", { "+7(999) 999-99-99", NULL, NULL, NULL, NULL } },
-    { "instanceType", { "4", NULL, NULL, NULL, NULL } },
     { "userAccountControl", { "514", NULL, NULL, NULL, NULL } },
     { "accountExpires", { "0", NULL, NULL, NULL, NULL } },
     { "uidNumber", { "500", NULL, NULL, NULL, NULL } },
