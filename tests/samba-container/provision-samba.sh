@@ -42,7 +42,7 @@ chmod 600 /certs/*
 
 echo 'dc0' > /etc/hostname
 
-update_chrooted all
+update_chrooted all || :
 
 touch /var/lib/samba/.ready
 
