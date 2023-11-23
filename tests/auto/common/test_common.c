@@ -1,5 +1,6 @@
 #include "common.h"
 
+#include <domain.h>
 #include <directory.h>
 
 #include <cgreen/cgreen.h>
@@ -65,4 +66,59 @@ int get_current_directory_type(const char* directory_type)
     }
 
     return LDAP_TYPE_UNKNOWN;
+}
+
+static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void* connection)
+{
+    (void)(unused_a);
+
+    assert_that(rc, is_not_equal_to(LDAP_SUCCESS));
+
+    verto_break(((ldap_connection_ctx_t*)connection)->base);
+
+    fail_test("Unable to perform test!\n");
+
+    return RETURN_CODE_SUCCESS;
+}
+
+void start_test(verto_callback *update_callback, const int update_interval, int* current_directory_type)
+{
+    TALLOC_CTX* talloc_ctx = talloc_new(NULL);
+
+    char *server_envvar = "LDAP_SERVER";
+    char *server = get_environment_variable(talloc_ctx, server_envvar);
+
+    char *directory_envvar = "DIRECTORY_TYPE";
+    char *directory = get_environment_variable(talloc_ctx, directory_envvar);
+    (*current_directory_type) = get_current_directory_type(directory);
+
+    config_t *config = NULL;
+    switch ((*current_directory_type))
+    {
+    case LDAP_TYPE_OPENLDAP:
+        config = ld_create_config(server, 0, LDAP_VERSION3, "dc=domain,dc=alt",
+                                            "admin", "password", true, false, true, false, update_interval,
+                                            "", "", "");
+    case LDAP_TYPE_ACTIVE_DIRECTORY:
+        config = ld_create_config(server, 0, LDAP_VERSION3, "dc=domain,dc=alt",
+                                            "admin", "password145Qw!", false, false, false, false, update_interval,
+                                            "", "", "");
+        break;
+    default:
+        fail_test("Unknown directory type, please check environment variables!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    LDHandle *handle = NULL;
+    ld_init(&handle, config);
+
+    ld_install_default_handlers(handle);
+    ld_install_handler(handle, update_callback, update_interval);
+    ld_install_error_handler(handle, connection_on_error);
+
+    ld_exec(handle);
+
+    ld_free(handle);
+
+    talloc_free(talloc_ctx);
 }
