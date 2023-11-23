@@ -99,6 +99,7 @@ void start_test(verto_callback *update_callback, const int update_interval, int*
         config = ld_create_config(server, 0, LDAP_VERSION3, "dc=domain,dc=alt",
                                             "admin", "password", true, false, true, false, update_interval,
                                             "", "", "");
+        break;
     case LDAP_TYPE_ACTIVE_DIRECTORY:
         config = ld_create_config(server, 0, LDAP_VERSION3, "dc=domain,dc=alt",
                                             "admin", "password145Qw!", false, false, false, false, update_interval,
