@@ -56,7 +56,7 @@ static attribute_value_pair_t LDAP_TEST_USER_ATTRIBUTES[] =
     { "shadowMax", { "0", NULL, NULL, NULL, NULL } },
     { "shadowWarning", { "0", NULL, NULL, NULL, NULL } }
 };
-const int USER_ATTRIBUTES_SIZE = number_of_elements(LDAP_TEST_USER_ATTRIBUTES);
+static const int USER_ATTRIBUTES_SIZE = number_of_elements(LDAP_TEST_USER_ATTRIBUTES);
 
 static testcase_t OPENLDAP_TESTCASES[] =
 {
@@ -69,7 +69,7 @@ static testcase_t OPENLDAP_TESTCASES[] =
     }
 };
 
-const int NUMBER_OF_OPENLDAP_TESTCASES = number_of_elements(OPENLDAP_TESTCASES);
+static const int NUMBER_OF_OPENLDAP_TESTCASES = number_of_elements(OPENLDAP_TESTCASES);
 
 static attribute_value_pair_t LDAP_TEST_USER_ATTRIBUTES_AD[] =
 {
@@ -111,7 +111,7 @@ static testcase_t AD_TESTCASES[] =
     }
 };
 
-const int NUMBER_OF_AD_TESTCASES = number_of_elements(AD_TESTCASES);
+static const int NUMBER_OF_AD_TESTCASES = number_of_elements(AD_TESTCASES);
 
 static const int CONNECTION_UPDATE_INTERVAL = 1000;
 
