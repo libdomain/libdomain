@@ -24,6 +24,7 @@ services:
       - LDAP_SERVER=ldap://10.5.0.2:3890
       - LDAPS_SERVER=ldaps://dc0.domain.alt:6360
       - LDAP_CA_CERT=/certs/ca.pem
+      - DIRECTORY_TYPE=OpenLDAP
 
 volumes:
   cert-volume:
