@@ -15,6 +15,32 @@ Describe(Cgreen);
 BeforeEach(Cgreen) {}
 AfterEach(Cgreen) {}
 
+#define number_of_elements(x)  (sizeof(x) / sizeof((x)[0]))
+
+static char* OPENLDAP_OBJECT_CLASSES[] = { "top", "device", NULL };
+static char* OPENLDAP_CN[] = { "test_computer_add", NULL };
+static char* OPENLDAP_DESCRIPTION[] = { "description", NULL };
+static char* OPENLDAP_SERIAL_NUMBER[] = { "11-77-23-15", NULL };
+static char* OPENLDAP_SEE_ALSO[] = { "dc=domain,dc=alt", NULL };
+static char* OPENLDAP_O[] = { "test org. inc", NULL };
+static char* OPENLDAP_L[] = { "room 12", NULL };
+static char* OPENLDAP_OWNER[] = { "cn=john smith,ou=people,dc=domain,dc=alt", NULL };
+static char* OPENLDAP_OU[] = { "r&d", NULL };
+
+static LDAPAttribute_t OPENLDAP_COMPUTER_ATTRIBUTES[] =
+{
+    { .name = "objectClass", .values = OPENLDAP_OBJECT_CLASSES },
+    { "cn", OPENLDAP_CN },
+    { "description", OPENLDAP_DESCRIPTION },
+    { "serialnumber", OPENLDAP_SERIAL_NUMBER },
+    { "seeAlso", OPENLDAP_SEE_ALSO },
+    { "o", OPENLDAP_O },
+    { "l", OPENLDAP_L },
+    { "owner", OPENLDAP_OWNER },
+    { "ou", OPENLDAP_OU },
+};
+static const int OPENLDAP_COMPUTER_ATTRIBUTES_SIZE = number_of_elements(OPENLDAP_COMPUTER_ATTRIBUTES);
+
 const int CONNECTION_UPDATE_INTERVAL = 1000;
 
 static void connection_on_add_message(verto_ctx *ctx, verto_ev *ev)
