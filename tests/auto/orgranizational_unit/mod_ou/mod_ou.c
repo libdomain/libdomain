@@ -103,7 +103,6 @@ static current_testcases_t get_current_testcases(int directory_type)
     return result;
 }
 
-
 static void connection_on_add_message(verto_ctx *ctx, verto_ev *ev)
 {
     (void)(ev);
