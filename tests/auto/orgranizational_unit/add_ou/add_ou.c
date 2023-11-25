@@ -199,7 +199,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
             testcase_t testcase = current_testcases.testcases[test_index];
 
             enum OperationReturnCode rc = ld_add_ou(connection->handle, testcase.entry_cn, &testcase.attributes, testcase.parent_dn);
-            assert_equal(rc, testcase.desired_test_result);
+            assert_that(rc,is_equal_to(testcase.desired_test_result));
             test_status(testcase);
         }
 
