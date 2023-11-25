@@ -37,8 +37,7 @@ enum GroupCategory
     GROUP_CATEGORY_SECURITY     = 1
 };
 
-enum OperationReturnCode ld_add_group(
-    LDHandle *handle, const char *name, const char *description, int gid, const char *parent);
+enum OperationReturnCode ld_add_group(LDHandle *handle, const char *name, LDAPAttribute_t **attributes, const char *parent);
 enum OperationReturnCode ld_del_group(LDHandle *handle, const char *name, const char *parent);
 enum OperationReturnCode ld_mod_group(LDHandle *handle,
                                       const char *name,
