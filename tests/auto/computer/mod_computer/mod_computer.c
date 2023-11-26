@@ -21,7 +21,7 @@ const int CONNECTION_UPDATE_INTERVAL = 1000;
 #define number_of_elements(x)  (sizeof(x) / sizeof((x)[0]))
 
 static char* OPENLDAP_OBJECT_CLASSES[] = { "top", "device", NULL };
-static char* OPENLDAP_CN[] = { "test_computer_add", NULL };
+static char* OPENLDAP_CN[] = { "test_mod_computer", NULL };
 static char* OPENLDAP_DESCRIPTION[] = { "description", NULL };
 static char* OPENLDAP_SERIAL_NUMBER[] = { "11-77-23-15", NULL };
 static char* OPENLDAP_SEE_ALSO[] = { "dc=domain,dc=alt", NULL };
