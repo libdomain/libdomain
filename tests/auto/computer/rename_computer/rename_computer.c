@@ -115,7 +115,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
                                                              testcase.old_entry_cn,
                                                              testcase.new_entry_cn,
                                                              testcase.entry_parent);
-            assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
+            assert_that(rc, is_equal_to(testcase.desired_test_result));
             test_status(testcase);
         }
 
