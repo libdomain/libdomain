@@ -200,8 +200,15 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
         {
             testcase_t testcase = current_testcases.testcases[test_index];
 
-            int rc = ld_add_group(connection->handle, testcase.entry_cn, &testcase.attributes, testcase.entry_parent);
+            TALLOC_CTX* talloc_ctx = talloc_new(NULL);
+
+            int rc = ld_add_group(connection->handle,
+                                  testcase.entry_cn,
+                                  fill_user_attributes(talloc_ctx, testcase.attributes, testcase.number_of_attributes),
+                                  testcase.entry_parent);
             test_status(testcase);
+
+            talloc_free(talloc_ctx);
 
             if (rc != RETURN_CODE_SUCCESS)
             {
