@@ -19,13 +19,13 @@ AfterEach(Cgreen) {}
 #define number_of_elements(x)  (sizeof(x) / sizeof((x)[0]))
 
 static char* OPENLDAP_OU_OBJECTCLASS[] = { "top", "organizationalUnit", NULL };
-static char* OPENLDAP_OU_CN[] = { "test_ou_creation", NULL };
+static char* OPENLDAP_OU_OU[] = { "test_ou_creation", NULL };
 static char* OPENLDAP_OU_DESCRIPTION[] = { "description", NULL };
 
 static LDAPAttribute_t OPENLDAP_OU_ATTRIBUTES[] =
 {
     { .name = "objectClass", .values = OPENLDAP_OU_OBJECTCLASS },
-    { .name = "cn", .values = OPENLDAP_OU_CN },
+    { .name = "ou", .values = OPENLDAP_OU_OU },
     { .name = "description", .values = OPENLDAP_OU_DESCRIPTION }
 };
 static const int OPENLDAP_OU_ATTRIBUTES_SIZE = number_of_elements(OPENLDAP_OU_ATTRIBUTES);
