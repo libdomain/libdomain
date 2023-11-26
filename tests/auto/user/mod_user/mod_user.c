@@ -19,7 +19,7 @@ const int CONNECTION_UPDATE_INTERVAL = 1000;
 
 LDAPAttribute_t** attrs;
 
-static LDAPAttribute_t** fill_user_attributes(TALLOC_CTX* ctx)
+static LDAPAttribute_t** fill_user_attributes2(TALLOC_CTX* ctx)
 {
     attrs = talloc_array(ctx, LDAPAttribute_t*, 2);
     attrs[0] = talloc(ctx, LDAPAttribute_t);
@@ -57,7 +57,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
         TALLOC_CTX* talloc_ctx = talloc_new(NULL);
 
         int rc = ld_mod_user(connection->handle, "test_mod_user", "ou=users,dc=domain,dc=alt",
-                             fill_user_attributes(talloc_ctx));
+                             fill_user_attributes2(talloc_ctx));
         assert_that(rc,is_equal_to(RETURN_CODE_SUCCESS));
 
         talloc_free(talloc_ctx);
