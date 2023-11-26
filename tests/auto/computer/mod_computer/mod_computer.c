@@ -216,12 +216,16 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
         {
             testcase_t testcase = current_testcases.testcases[test_index];
 
+            TALLOC_CTX* talloc_ctx = talloc_new(NULL);
+
             enum OperationReturnCode rc = ld_mod_computer(connection->handle,
                                                           testcase.entry_cn,
                                                           testcase.entry_parent,
-                                                          &testcase.attributes);
+                                                          fill_user_attributes(talloc_ctx, testcase.attributes, testcase.number_of_attributes));
             assert_that(rc,is_equal_to(testcase.desired_test_result));
             test_status(testcase);
+
+            talloc_free(talloc_ctx);
         }
 
         ld_install_handler(connection->handle, connection_on_add_message, CONNECTION_UPDATE_INTERVAL);
