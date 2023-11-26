@@ -35,7 +35,7 @@ typedef struct current_testcases_s
 static testcase_t OPENLDAP_TESTCASES[] =
 {
     {
-        "Fill testcase description",
+        "Delete existing computer OpenLDAP",
         "test_delete_computer",
         "ou=equipment,dc=domain,dc=alt",
         RETURN_CODE_SUCCESS
@@ -47,7 +47,7 @@ static const int NUMBER_OF_OPENLDAP_TESTCASES = number_of_elements(OPENLDAP_TEST
 static testcase_t AD_TESTCASES[] =
 {
     {
-        "Fill testcase description",
+        "Delete existing computer AD",
         "test_delete_computer",
         "dc=domain,dc=alt",
         RETURN_CODE_SUCCESS
