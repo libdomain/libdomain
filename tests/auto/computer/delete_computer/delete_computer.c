@@ -110,7 +110,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
             enum OperationReturnCode rc = ld_del_computer(connection->handle,
                                                           testcase.entry_cn,
                                                           testcase.entry_parent);
-            assert_that(rc,is_equal_to(RETURN_CODE_SUCCESS));
+            assert_that(rc,is_equal_to(testcase.desired_test_result));
             test_status(testcase);
         }
 
