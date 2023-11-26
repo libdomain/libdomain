@@ -216,12 +216,17 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
         {
             testcase_t testcase = current_testcases.testcases[test_index];
 
+            TALLOC_CTX* talloc_ctx = talloc_new(NULL);
+
             enum OperationReturnCode rc = ld_add_computer(connection->handle,
                                                           testcase.entry_cn,
-                                                          &testcase.attributes,
+                                                          fill_user_attributes(talloc_ctx, testcase.attributes, testcase.number_of_attributes),
                                                           testcase.entry_parent);
             assert_that(rc,is_equal_to(testcase.desired_test_result));
             test_status(testcase);
+
+            talloc_free(talloc_ctx);
+
             if (rc != RETURN_CODE_SUCCESS)
             {
                 verto_break(ctx);
