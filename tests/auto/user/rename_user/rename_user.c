@@ -50,7 +50,7 @@ static testcase_t AD_TESTCASES[] =
 {
     {
         "Rename existing user in AD",
-        "test_rename_user",
+        "rename user",
         "user2",
         "cn=users,dc=domain,dc=alt",
         RETURN_CODE_SUCCESS
