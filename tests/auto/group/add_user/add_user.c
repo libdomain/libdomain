@@ -50,8 +50,8 @@ static testcase_t AD_TESTCASES[] =
 {
     {
         "Add user to a group in AD",
-        "cn=test_mod_group,cn=users,dc=domain,dc=alt",
-        "cn=test_mod_user,cn=users,dc=domain,dc=alt",
+        "CN=test_mod_group,CN=Users,DC=domain,DC=alt",
+        "cn=test mod,cn=users,dc=domain,dc=alt",
         RETURN_CODE_SUCCESS
     }
 };
