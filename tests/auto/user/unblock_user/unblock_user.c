@@ -46,7 +46,7 @@ static testcase_t AD_TESTCASES[] =
 {
     {
         "Test existing user unblock in AD",
-        "block user",
+        "test block",
         RETURN_CODE_SUCCESS
     }
 };

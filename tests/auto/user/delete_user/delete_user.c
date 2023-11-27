@@ -48,7 +48,7 @@ static testcase_t AD_TESTCASES[] =
 {
     {
         "Removal of existing user from AD",
-        "delete user",
+        "test delete",
         "cn=users,dc=domain,dc=alt",
         RETURN_CODE_SUCCESS
     }
