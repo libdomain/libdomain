@@ -1,5 +1,6 @@
 #include <cgreen/cgreen.h>
 
+#include <directory.h>
 #include <domain.h>
 #include <group.h>
 #include <talloc.h>
