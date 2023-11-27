@@ -35,17 +35,17 @@ static LDAPAttribute_t OPENLDAP_GROUP_ATTRIBUTES[] =
 static const int OPENLDAP_GROUP_ATTRIBUTES_SIZE = number_of_elements(OPENLDAP_GROUP_ATTRIBUTES);
 
 static char* AD_GROUP_OBJECTCLASS[] = { "top", "group", NULL };
-static char* AD_GROUP_MSSFU30NAME[] = { "test_group", NULL };
+static char* AD_GROUP_MSSFU30NAME[] = { "test_mod_group", NULL };
 static char* AD_GROUP_MSDS_AZAPPLICATIONDATA[] = { "AppData", NULL };
 static char* AD_GROUP_MSDS_AZLASTIMPORTEDBIZRULEPATH[] = { "/path/to/biz/rule", NULL };
 static char* AD_GROUP_MSDS_AZBIZRULELANGUAGE[] = { "PowerShell", NULL };
 static char* AD_GROUP_MSDS_AZBIZRULE[] = { "<biz_rule_script>", NULL };
 static char* AD_GROUP_MSDS_AZGENERICDATA[] = { "GenericDataValue", NULL };
 static char* AD_GROUP_MANAGEDBY[] = { "CN=Administrator,CN=Users,dc=domain,dc=alt", NULL };
-static char* AD_GROUP_MAIL[] = { "testgroup@example.com", NULL };
-static char* AD_GROUP_DESKTOPPROFILE[] = { "\\\\server\\profiles\\TestGroup", NULL };
+static char* AD_GROUP_MAIL[] = { "test_mod_group@domain.alt", NULL };
+static char* AD_GROUP_DESKTOPPROFILE[] = { "\\\\server\\profiles\\test_mod_group", NULL };
 static char* AD_GROUP_ADMINCOUNT[] = { "1", NULL };
-static char* AD_GROUP_SAM_ACCOUNT_NAME[] = { "test_group", NULL };
+static char* AD_GROUP_SAM_ACCOUNT_NAME[] = { "test_mod_group", NULL };
 
 static LDAPAttribute_t AD_GROUP_ATTRIBUTES[] =
 {
