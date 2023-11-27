@@ -19,6 +19,7 @@
 ***********************************************************************************************************************/
 
 #include "connection_state_machine.h"
+#include "directory.h"
 
 #define number_of_elements(x)  (sizeof(x) / sizeof((x)[0]))
 
@@ -117,8 +118,22 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
         break;
 
     case LDAP_CONNECTION_STATE_BOUND:
+        if (ctx->ctx->directory_type == LDAP_TYPE_UNINITIALIZED)
+        {
+            rc = directory_get_type(ctx->ctx);
+
+            csm_set_state(ctx, rc == RETURN_CODE_SUCCESS
+                          ? LDAP_CONNECTION_STATE_DETECT_DIRECTORY
+                          : LDAP_CONNECTION_STATE_ERROR);
+        }
+        else
+        {
+            csm_set_state(ctx, LDAP_CONNECTION_STATE_RUN);
+        }
+        break;
+
+    case LDAP_CONNECTION_STATE_DETECT_DIRECTORY:
         csm_set_state(ctx, LDAP_CONNECTION_STATE_RUN);
-        // TODO: Send signal that we connected.
         break;
 
     case LDAP_CONNECTION_STATE_RUN:

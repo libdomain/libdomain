@@ -132,6 +132,11 @@ enum OperationReturnCode directory_parse_result(int rc, LDAPMessage *message, st
             message = ldap_next_message(connection->ldap, message);
         }
 
+        if (connection->directory_type == LDAP_TYPE_UNINITIALIZED)
+        {
+            connection->directory_type = LDAP_TYPE_UNKNOWN;
+        }
+
         return RETURN_CODE_SUCCESS;
     }
         break;

@@ -25,10 +25,11 @@
 
 enum LdapDirectoryType
 {
-    LDAP_TYPE_UNKNOWN          = 0,
-    LDAP_TYPE_ACTIVE_DIRECTORY = 1,
-    LDAP_TYPE_OPENLDAP         = 2,
-    LDAP_TYPE_FREE_IPA         = 3
+    LDAP_TYPE_UNINITIALIZED    = -1,
+    LDAP_TYPE_UNKNOWN          =  0,
+    LDAP_TYPE_ACTIVE_DIRECTORY =  1,
+    LDAP_TYPE_OPENLDAP         =  2,
+    LDAP_TYPE_FREE_IPA         =  3
 };
 
 enum OperationReturnCode directory_get_type(struct ldap_connection_ctx_t *connection);

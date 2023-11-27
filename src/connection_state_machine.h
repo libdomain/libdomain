@@ -29,8 +29,9 @@ enum LdapConnectionState
     LDAP_CONNECTION_STATE_TRANSPORT_READY  = 3,
     LDAP_CONNECTION_STATE_BIND_IN_PROGRESS = 4,
     LDAP_CONNECTION_STATE_BOUND            = 5,
-    LDAP_CONNECTION_STATE_RUN              = 6,
-    LDAP_CONNECTION_STATE_ERROR            = 7,
+    LDAP_CONNECTION_STATE_DETECT_DIRECTORY = 6,
+    LDAP_CONNECTION_STATE_RUN              = 7,
+    LDAP_CONNECTION_STATE_ERROR            = 8,
 };
 
 typedef struct state_machine_ctx_t
