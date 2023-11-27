@@ -19,6 +19,8 @@ char* LDAP_DIRECTORY_ATTRS[] = { LDAP_ALL_USER_ATTRIBUTES, NULL };
 
 const int CONNECTION_UPDATE_INTERVAL = 1000;
 
+static int current_directory_type = LDAP_TYPE_UNKNOWN;
+
 typedef struct context_t
 {
     struct ldap_global_context_t global_ctx;
@@ -135,6 +137,10 @@ Ensure(Cgreen, get_diretory_type_test) {
 
     int rc = RETURN_CODE_FAILURE;
 
+    char *directory_envvar = "DIRECTORY_TYPE";
+    char *directory = get_environment_variable(ctx->global_ctx.talloc_ctx, directory_envvar);
+    current_directory_type = get_current_directory_type(directory);
+
     int debug_level = LDAP_DEBUG_ANY;
     ldap_set_option(ctx->connection_ctx.ldap, LDAP_OPT_DEBUG_LEVEL, &debug_level);
 
@@ -147,7 +153,18 @@ Ensure(Cgreen, get_diretory_type_test) {
 
     verto_run(ctx->connection_ctx.base);
 
-    assert_that(ctx->connection_ctx.directory_type, is_equal_to(LDAP_TYPE_OPENLDAP));
+    switch (current_directory_type)
+    {
+    case LDAP_TYPE_OPENLDAP:
+        assert_that(ctx->connection_ctx.directory_type, is_equal_to(LDAP_TYPE_OPENLDAP));
+        break;
+    case LDAP_TYPE_ACTIVE_DIRECTORY:
+        assert_that(ctx->connection_ctx.directory_type, is_equal_to(LDAP_TYPE_ACTIVE_DIRECTORY));
+        break;
+    default:
+        fail_test("Unknown directory type, please check environment variables!\n");
+        exit(EXIT_FAILURE);
+    }
 
     assert_that(ctx->connection_ctx.ldap_defaults, is_not_null);
 
