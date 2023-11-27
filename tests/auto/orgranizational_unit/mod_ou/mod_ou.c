@@ -26,7 +26,7 @@ static LDAPAttribute_t OPENLDAP_OU_ATTRIBUTES[] =
 };
 static const int OPENLDAP_OU_ATTRIBUTES_SIZE = number_of_elements(OPENLDAP_OU_ATTRIBUTES);
 
-static char* AD_OU_L[] = { "City", NULL };
+static char* AD_OU_L[] = { "City22", NULL };
 
 static LDAPAttribute_t AD_OU_ATTRIBUTES[] =
 {
