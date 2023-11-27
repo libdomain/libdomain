@@ -209,8 +209,10 @@ enum OperationReturnCode ld_block_user(LDHandle *handle, const char *name, const
     switch (handle->connection_ctx->directory_type) {
     case LDAP_TYPE_OPENLDAP:
         attrs = create_lockout_time_attributes_openldap(talloc_ctx, "000001010000Z");
+        break;
     case LDAP_TYPE_ACTIVE_DIRECTORY:
         attrs = create_lockout_time_attributes_ad(talloc_ctx, "514");
+        break;
     case LDAP_TYPE_FREE_IPA:
          info("Unblocking users for free ipa is not implemented!\n");
     default:
@@ -218,7 +220,7 @@ enum OperationReturnCode ld_block_user(LDHandle *handle, const char *name, const
         break;
     }
 
-    int rc = ld_mod_entry_attrs(handle, name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn", attrs, LDAP_MOD_DELETE);
+    int rc = ld_mod_entry_attrs(handle, name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn", attrs, LDAP_MOD_REPLACE);
 
     talloc_free(talloc_ctx);
 
@@ -229,12 +231,16 @@ enum OperationReturnCode ld_unblock_user(LDHandle *handle, const char *name, con
 {
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
-    LDAPAttribute_t** attrs;
+    int mod_op = LDAP_MOD_REPLACE;
+    LDAPAttribute_t** attrs = NULL;
     switch (handle->connection_ctx->directory_type) {
     case LDAP_TYPE_OPENLDAP:
+        mod_op = LDAP_MOD_DELETE;
         attrs = create_lockout_time_attributes_openldap(talloc_ctx, NULL);
+        break;
     case LDAP_TYPE_ACTIVE_DIRECTORY:
         attrs = create_lockout_time_attributes_ad(talloc_ctx, "512");
+        break;
     case LDAP_TYPE_FREE_IPA:
          info("Unblocking users for free ipa is not implemented!\n");
     default:
@@ -242,7 +248,7 @@ enum OperationReturnCode ld_unblock_user(LDHandle *handle, const char *name, con
         break;
     }
 
-    int rc = ld_mod_entry_attrs(handle, name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn", attrs, LDAP_MOD_DELETE);
+    int rc = ld_mod_entry_attrs(handle, name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn", attrs, mod_op);
 
     talloc_free(talloc_ctx);
 
