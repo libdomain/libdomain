@@ -131,6 +131,7 @@ static enum OperationReturnCode group_member_modify(LDHandle *handle, const char
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
     LDAPMod **attrs = talloc_array(talloc_ctx, LDAPMod*, 2);
+    attrs[0] = talloc_zero(talloc_ctx, LDAPMod);
     attrs[0]->mod_op = mod_operation;
     attrs[0]->mod_type = talloc_strndup(talloc_ctx, member, strlen(member));
     attrs[0]->mod_values = talloc_array(talloc_ctx, char*, 2);
