@@ -54,7 +54,7 @@ const char* create_user_parent(TALLOC_CTX *talloc_ctx, LDHandle *handle)
     return talloc_asprintf(talloc_ctx, "%s,%s", ou_users, handle ? handle->global_config->base_dn : "");
 }
 
-static LDAPAttribute_t** create_lockout_time_attributes(TALLOC_CTX* ctx, const char* value)
+static LDAPAttribute_t** create_lockout_time_attributes_openldap(TALLOC_CTX* ctx, const char* value)
 {
     LDAPAttribute_t** attrs;
 
@@ -68,6 +68,22 @@ static LDAPAttribute_t** create_lockout_time_attributes(TALLOC_CTX* ctx, const c
 
     return attrs;
 }
+
+static LDAPAttribute_t** create_lockout_time_attributes_ad(TALLOC_CTX* ctx, const char* value)
+{
+    LDAPAttribute_t** attrs;
+
+    attrs = talloc_array(ctx, LDAPAttribute_t*, 2);
+    attrs[0] = talloc(ctx, LDAPAttribute_t);
+    attrs[0]->values = talloc_array(ctx, char*, 2);
+    attrs[0]->name = talloc_strdup(ctx, "userAccountControl");
+    attrs[0]->values[0] = value ? talloc_strdup(ctx, value) : NULL;
+    attrs[0]->values[1] = NULL;
+    attrs[1] = NULL;
+
+    return attrs;
+}
+
 
 /**
  * @brief ld_add_user     Creates user.
@@ -189,16 +205,20 @@ enum OperationReturnCode ld_block_user(LDHandle *handle, const char *name, const
 {
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
-    const char* datetime = "000001010000Z";
-
-    if (!datetime)
-    {
+    LDAPAttribute_t** attrs;
+    switch (handle->connection_ctx->directory_type) {
+    case LDAP_TYPE_OPENLDAP:
+        attrs = create_lockout_time_attributes_openldap(talloc_ctx, "000001010000Z");
+    case LDAP_TYPE_ACTIVE_DIRECTORY:
+        attrs = create_lockout_time_attributes_ad(talloc_ctx, "514");
+    case LDAP_TYPE_FREE_IPA:
+         info("Unblocking users for free ipa is not implemented!\n");
+    default:
         return RETURN_CODE_FAILURE;
+        break;
     }
 
-    LDAPAttribute_t** attrs = create_lockout_time_attributes(talloc_ctx, datetime);
-
-    int rc = ld_mod_entry_attrs(handle, name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn", attrs, LDAP_MOD_ADD);
+    int rc = ld_mod_entry_attrs(handle, name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn", attrs, LDAP_MOD_DELETE);
 
     talloc_free(talloc_ctx);
 
@@ -209,7 +229,18 @@ enum OperationReturnCode ld_unblock_user(LDHandle *handle, const char *name, con
 {
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
-    LDAPAttribute_t** attrs = create_lockout_time_attributes(talloc_ctx, NULL);
+    LDAPAttribute_t** attrs;
+    switch (handle->connection_ctx->directory_type) {
+    case LDAP_TYPE_OPENLDAP:
+        attrs = create_lockout_time_attributes_openldap(talloc_ctx, NULL);
+    case LDAP_TYPE_ACTIVE_DIRECTORY:
+        attrs = create_lockout_time_attributes_ad(talloc_ctx, "512");
+    case LDAP_TYPE_FREE_IPA:
+         info("Unblocking users for free ipa is not implemented!\n");
+    default:
+        return RETURN_CODE_FAILURE;
+        break;
+    }
 
     int rc = ld_mod_entry_attrs(handle, name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn", attrs, LDAP_MOD_DELETE);
 
