@@ -100,10 +100,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
 
     if (connection->state_machine->state == LDAP_CONNECTION_STATE_RUN)
     {
-        verto_del(ev);
-
-        int rc = ld_mod_group(connection->handle, "test_mod_group", "ou=groups,dc=domain,dc=alt",
-                              fill_group_attributes(talloc_ctx));        
+        verto_del(ev);  
 
         current_testcases_t current_testcases = get_current_testcases(current_directory_type);
         for (int test_index = 0; test_index < current_testcases.number_of_testcases; test_index++)
