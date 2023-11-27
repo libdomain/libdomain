@@ -17,6 +17,8 @@ AfterEach(Cgreen) {}
 
 const int CONNECTION_UPDATE_INTERVAL = 1000;
 
+static int current_directory_type = LDAP_TYPE_UNKNOWN;
+
 LDAPAttribute_t** attrs;
 
 static LDAPAttribute_t** fill_user_attributes2(TALLOC_CTX* ctx)
@@ -56,7 +58,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
 
         TALLOC_CTX* talloc_ctx = talloc_new(NULL);
 
-        int rc = ld_mod_user(connection->handle, "test_mod_user", "ou=users,dc=domain,dc=alt",
+        int rc = ld_mod_user(connection->handle, "test_mod_user", NULL,
                              fill_user_attributes2(talloc_ctx));
         assert_that(rc,is_equal_to(RETURN_CODE_SUCCESS));
 
@@ -73,41 +75,9 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     }
 }
 
-static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void* connection)
-{
-    (void)(unused_a);
-
-    assert_that(rc, is_not_equal_to(LDAP_SUCCESS));
-
-    verto_break(((ldap_connection_ctx_t*)connection)->base);
-
-    fail_test("User modification was not successful\n");
-
-    return RETURN_CODE_SUCCESS;
-}
-
 Ensure(Cgreen, user_mod_test)
 {
-    TALLOC_CTX* talloc_ctx = talloc_new(NULL);
-
-    char *envvar = "LDAP_SERVER";
-    char *server = get_environment_variable(talloc_ctx, envvar);
-
-    config_t *config = ld_create_config(server, 0, LDAP_VERSION3, "dc=domain,dc=alt",
-                                        "admin", "password", true, false, true, false, CONNECTION_UPDATE_INTERVAL,
-                                        "", "", "");
-    LDHandle *handle = NULL;
-    ld_init(&handle, config);
-
-    ld_install_default_handlers(handle);
-    ld_install_handler(handle, connection_on_timeout, CONNECTION_UPDATE_INTERVAL);
-    ld_install_error_handler(handle, connection_on_error);
-
-    ld_exec(handle);
-
-    ld_free(handle);
-
-    talloc_free(talloc_ctx);
+    start_test(connection_on_timeout, CONNECTION_UPDATE_INTERVAL, &current_directory_type);
 }
 
 int main(int argc, char **argv) {
