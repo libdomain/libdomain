@@ -122,11 +122,11 @@ static enum OperationReturnCode group_member_modify(LDHandle *handle, const char
     const char *this_user_dn = NULL;
     const char *member = "member";
 
-    check_handle(handle, "ld_group_add_user");
+    check_handle(handle, "group_member_modify");
 
-    check_string(group_dn, this_group_dn, "ld_group_add_user");
+    check_string(group_dn, this_group_dn, "group_member_modify");
 
-    check_string(user_dn, this_user_dn, "ld_group_add_user");
+    check_string(user_dn, this_user_dn, "group_member_modify");
 
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
