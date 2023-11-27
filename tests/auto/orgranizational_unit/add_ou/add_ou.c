@@ -31,7 +31,7 @@ static LDAPAttribute_t OPENLDAP_OU_ATTRIBUTES[] =
 static const int OPENLDAP_OU_ATTRIBUTES_SIZE = number_of_elements(OPENLDAP_OU_ATTRIBUTES);
 
 static char* AD_OU_OBJECTCLASS[] = { "top", "organizationalUnit", NULL };
-static char* AD_OU_OU[] = { "TestOU", NULL };
+static char* AD_OU_OU[] = { "test_ou_addition", NULL };
 static char* AD_OU_X121ADDRESS[] = { "123456", NULL };
 static char* AD_OU_USERPASSWORD[] = { "{SSHA}encrypted_password", NULL };
 static char* AD_OU_UPNSUFFIXES[] = { "example.com", NULL };
@@ -41,25 +41,19 @@ static char* AD_OU_TELETEXTERMINALIDENTIFIER[] = { "TTI123", NULL };
 static char* AD_OU_TELEPHONENUMBER[] = { "+1 123-456-7890", NULL };
 static char* AD_OU_STREET[] = { "123 Main St", NULL };
 static char* AD_OU_ST[] = { "State", NULL };
-static char* AD_OU_SEEALSO[] = { "cn=John Doe,ou=Users,dx=domain,dc=alt", NULL };
+static char* AD_OU_SEEALSO[] = { "cn=Users,dc=domain,dc=alt", NULL };
 static char* AD_OU_SEARCHGUID[] = { "(objectClass=user)", NULL };
 static char* AD_OU_REGISTEREDADDRESS[] = { "456 Business St", NULL };
-static char* AD_OU_PREFERREDELIVERYMETHOD[] = { "email", NULL };
 static char* AD_OU_POSTALCODE[] = { "12345", NULL };
 static char* AD_OU_POSTALADDRESS[] = { "P.O. Box 789", NULL };
 static char* AD_OU_POSTOFFICEBOX[] = { "789", NULL };
 static char* AD_OU_PHYSICALDELIVERYOFFICENAME[] = { "Office123", NULL };
-static char* AD_OU_MSCOMUSERPARTITIONSETLINK[] = { "cn=PartitionLink,ou=Partitions,dx=domain,dc=alt", NULL };
-static char* AD_OU_MANAGEDBY[] = { "cn=Manager,ou=Users,dx=domain,dc=alt", NULL };
+static char* AD_OU_MANAGEDBY[] = { "cn=Administrator,cn=Users,dc=domain,dc=alt", NULL };
 static char* AD_OU_THUMBNAILLOGO[] = { "/path/to/logo.jpg", NULL };
 static char* AD_OU_L[] = { "City", NULL };
-static char* AD_OU_INTERNATIONALISDNNUMBER[] = { "+1 987-654-3210", NULL };
 static char* AD_OU_GPOPTIONS[] = { "1", NULL };
-static char* AD_OU_GPLINK[] = { "[LDAP://cn={GUID},cn=policies,cn=system,dx=domain,dc=alt;1]", NULL };
 static char* AD_OU_FACSIMILETELEPHONENUMBER[] = { "+1 987-654-3211", NULL };
 static char* AD_OU_DESTINATIONINDICATOR[] = { "Indicator123", NULL };
-static char* AD_OU_DESKTOPPROFILE[] = { "cn=Profile,ou=Profiles,dx=domain,dc=alt", NULL };
-static char* AD_OU_DEFAULTGROUP[] = { "cn=Users,ou=Groups,dx=domain,dc=alt", NULL };
 static char* AD_OU_COUNTRYCODE[] = { "1", NULL };
 static char* AD_OU_C[] = { "USA", NULL };
 static char* AD_OU_BUSINESSCATEGORY[] = { "Technology", NULL };
@@ -80,22 +74,16 @@ static LDAPAttribute_t AD_OU_ATTRIBUTES[] =
    { .name = "seeAlso", .values = AD_OU_SEEALSO },
    { .name = "searchGuide", .values = AD_OU_SEARCHGUID },
    { .name = "registeredAddress", .values = AD_OU_REGISTEREDADDRESS },
-   { .name = "preferredDeliveryMethod", .values = AD_OU_PREFERREDELIVERYMETHOD },
    { .name = "postalCode", .values = AD_OU_POSTALCODE },
    { .name = "postalAddress", .values = AD_OU_POSTALADDRESS },
    { .name = "postOfficeBox", .values = AD_OU_POSTOFFICEBOX },
    { .name = "physicalDeliveryOfficeName", .values = AD_OU_PHYSICALDELIVERYOFFICENAME },
-   { .name = "msComUserPartitionSetLink", .values = AD_OU_MSCOMUSERPARTITIONSETLINK },
    { .name = "managedBy", .values = AD_OU_MANAGEDBY },
    { .name = "thumbnailLogo", .values = AD_OU_THUMBNAILLOGO },
    { .name = "l", .values = AD_OU_L },
-   { .name = "internationalISDNumber", .values = AD_OU_INTERNATIONALISDNNUMBER },
    { .name = "gPOptions", .values = AD_OU_GPOPTIONS },
-   { .name = "gPLink", .values = AD_OU_GPLINK },
    { .name = "facsimileTelephoneNumber", .values = AD_OU_FACSIMILETELEPHONENUMBER },
    { .name = "destinationIndicator", .values = AD_OU_DESTINATIONINDICATOR },
-   { .name = "desktopProfile", .values = AD_OU_DESKTOPPROFILE },
-   { .name = "defaultGroup", .values = AD_OU_DEFAULTGROUP },
    { .name = "countryCode", .values = AD_OU_COUNTRYCODE },
    { .name = "c", .values = AD_OU_C },
    { .name = "businessCategory", .values = AD_OU_BUSINESSCATEGORY }
@@ -123,7 +111,7 @@ static testcase_t OPENLDAP_TESTCASES[] =
 {
     {
         "Addition of OpenLDAP OU testcase",
-        "test_ou_addition",
+        "test_ou_creation",
         "dc=domain,dc=alt",
         OPENLDAP_OU_ATTRIBUTES_SIZE,
         RETURN_CODE_SUCCESS,
@@ -137,7 +125,7 @@ static testcase_t AD_TESTCASES[] =
 {
     {
         "Addition of AD OU testcase",
-        "TestOU",
+        "test_ou_addition",
         "dc=domain,dc=alt",
         AD_OU_ATTRIBUTES_SIZE,
         RETURN_CODE_SUCCESS,
