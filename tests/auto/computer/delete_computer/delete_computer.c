@@ -49,7 +49,7 @@ static testcase_t AD_TESTCASES[] =
     {
         "Delete existing computer AD",
         "test_delete_computer",
-        "dc=domain,dc=alt",
+        "cn=computers,dc=domain,dc=alt",
         RETURN_CODE_SUCCESS
     }
 };
