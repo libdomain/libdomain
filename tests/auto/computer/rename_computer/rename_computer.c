@@ -52,7 +52,7 @@ static testcase_t AD_TESTCASES[] =
         "Rename existing computer AD",
         "test_rename_computer",
         "computer2",
-        "dc=domain,dc=alt",
+        "cn=computers,dc=domain,dc=alt",
         RETURN_CODE_SUCCESS
     }
 };
