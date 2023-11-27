@@ -48,75 +48,37 @@ static LDAPAttribute_t OPENLDAP_GROUP_ATTRIBUTES[] =
 };
 static const int OPENLDAP_GROUP_ATTRIBUTES_SIZE = number_of_elements(OPENLDAP_GROUP_ATTRIBUTES);
 
-static char* AD_GROUP_OBJECTCLASS[] = { "top", "group", "posixGroup", NULL };
+static char* AD_GROUP_OBJECTCLASS[] = { "top", "group", NULL };
 static char* AD_GROUP_CN[] = { "test_group", NULL };
-static char* AD_GROUP_GOVERNSID[] = { "1.2.840.113556.1.5.8", NULL };
-static char* AD_GROUP_OBJECTCLASSCATEGORY[] = { "1", NULL };
-static char* AD_GROUP_RDNATTID[] = { "cn", NULL };
-static char* AD_GROUP_SUBCLASSOF[] = { "top", NULL };
-static char* AD_GROUP_AUXILIARYCLASS[] = { "posixGroup", NULL };
-static char* AD_GROUP_GROUPTYPE[] = { "2147483648", NULL };
-static char* AD_GROUP_MSSFU30NAME[] = { "TestGroupSFU", NULL };
-static char* AD_GROUP_MSSFU30NISDOMAIN[] = { "exampleNisDomain", NULL };
-static char* AD_GROUP_MSSFU30POSIXMEMBER[] = { "posixUser1", "posixUser2", NULL };
-static char* AD_GROUP_MSDS_AZAPPLICATIONDATA[] = { "AppData1", "AppData2", NULL };
+static char* AD_GROUP_INSTANCE_TYPE[] = { "4", NULL };
+static char* AD_GROUP_MSSFU30NAME[] = { "test_group", NULL };
+static char* AD_GROUP_MSDS_AZAPPLICATIONDATA[] = { "AppData", NULL };
 static char* AD_GROUP_MSDS_AZLASTIMPORTEDBIZRULEPATH[] = { "/path/to/biz/rule", NULL };
 static char* AD_GROUP_MSDS_AZBIZRULELANGUAGE[] = { "PowerShell", NULL };
 static char* AD_GROUP_MSDS_AZBIZRULE[] = { "<biz_rule_script>", NULL };
 static char* AD_GROUP_MSDS_AZGENERICDATA[] = { "GenericDataValue", NULL };
-static char* AD_GROUP_MSDS_AZOBJECTGUID[] = { "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee", NULL };
-static char* AD_GROUP_PRIMARYGROUPTOKEN[] = { "12345", NULL };
-static char* AD_GROUP_OPERATORCOUNT[] = { "2", NULL };
-static char* AD_GROUP_NTGROUPMEMBERS[] = { "CN=User1,CN=Users,DC=example,DC=com", NULL };
-static char* AD_GROUP_NONSECURITYMEMBER[] = { "CN=User2,CN=Users,DC=example,DC=com", NULL };
-static char* AD_GROUP_MSDS_NONMEMBERS[] = { "CN=User3,CN=Users,DC=example,DC=com", NULL };
-static char* AD_GROUP_MSDS_AZLDAPQUERY[] = { "(objectClass=user)", NULL };
-static char* AD_GROUP_MEMBER[] = { "CN=User4,CN=Users,DC=example,DC=com", NULL };
-static char* AD_GROUP_MANAGEDBY[] = { "CN=Manager,CN=Users,DC=example,DC=com", NULL };
-static char* AD_GROUP_GROUPMEMBERSHIPSAM[] = { "GroupSAM", NULL };
-static char* AD_GROUP_GROUPATTRIBUTES[] = { "Attribute1", "Attribute2", NULL };
+static char* AD_GROUP_MANAGEDBY[] = { "CN=Administrator,CN=Users,dc=domain,dc=alt", NULL };
 static char* AD_GROUP_MAIL[] = { "testgroup@example.com", NULL };
 static char* AD_GROUP_DESKTOPPROFILE[] = { "\\\\server\\profiles\\TestGroup", NULL };
-static char* AD_GROUP_CONTROLACCESSRIGHTS[] = { "Read", "Write", NULL };
 static char* AD_GROUP_ADMINCOUNT[] = { "1", NULL };
-static char* AD_GROUP_MSDS_PRIMARYCOMPUTER[] = { "CN=Computer1,CN=Computers,DC=example,DC=com", NULL };
-static char* AD_GROUP_MSDS_PREFERREDDATALOCATION[] = { "C:\\Data\\Groups\\TestGroup", NULL };
+static char* AD_GROUP_SAM_ACCOUNT_NAME[] = { "test_group", NULL };
 
 static LDAPAttribute_t AD_GROUP_ATTRIBUTES[] =
 {
     { .name = "objectClass", .values = AD_GROUP_OBJECTCLASS },
     { .name = "cn", .values = AD_GROUP_CN },
-    { .name = "governsID", .values = AD_GROUP_GOVERNSID },
-    { .name = "objectClassCategory", .values = AD_GROUP_OBJECTCLASSCATEGORY },
-    { .name = "rdnAttID", .values = AD_GROUP_RDNATTID },
-    { .name = "subClassOf", .values = AD_GROUP_SUBCLASSOF },
-    { .name = "auxiliaryClass", .values = AD_GROUP_AUXILIARYCLASS },
-    { .name = "groupType", .values = AD_GROUP_GROUPTYPE },
     { .name = "msSFU30Name", .values = AD_GROUP_MSSFU30NAME },
-    { .name = "msSFU30NisDomain", .values = AD_GROUP_MSSFU30NISDOMAIN },
-    { .name = "msSFU30PosixMember", .values = AD_GROUP_MSSFU30POSIXMEMBER },
+    { .name = "instanceType", .values = AD_GROUP_INSTANCE_TYPE },
     { .name = "msDS-AzApplicationData", .values = AD_GROUP_MSDS_AZAPPLICATIONDATA },
     { .name = "msDS-AzLastImportedBizRulePath", .values = AD_GROUP_MSDS_AZLASTIMPORTEDBIZRULEPATH },
     { .name = "msDS-AzBizRuleLanguage", .values = AD_GROUP_MSDS_AZBIZRULELANGUAGE },
     { .name = "msDS-AzBizRule", .values = AD_GROUP_MSDS_AZBIZRULE },
     { .name = "msDS-AzGenericData", .values = AD_GROUP_MSDS_AZGENERICDATA },
-    { .name = "msDS-AzObjectGuid", .values = AD_GROUP_MSDS_AZOBJECTGUID },
-    { .name = "primaryGroupToken", .values = AD_GROUP_PRIMARYGROUPTOKEN },
-    { .name = "operatorCount", .values = AD_GROUP_OPERATORCOUNT },
-    { .name = "ntGroupMembers", .values = AD_GROUP_NTGROUPMEMBERS },
-    { .name = "nonSecurityMember", .values = AD_GROUP_NONSECURITYMEMBER },
-    { .name = "msDS-NonMembers", .values = AD_GROUP_MSDS_NONMEMBERS },
-    { .name = "msDS-AzLDAPQuery", .values = AD_GROUP_MSDS_AZLDAPQUERY },
-    { .name = "member", .values = AD_GROUP_MEMBER },
     { .name = "managedBy", .values = AD_GROUP_MANAGEDBY },
-    { .name = "groupMembershipSAM", .values = AD_GROUP_GROUPMEMBERSHIPSAM },
-    { .name = "groupAttributes", .values = AD_GROUP_GROUPATTRIBUTES },
     { .name = "mail", .values = AD_GROUP_MAIL },
     { .name = "desktopProfile", .values = AD_GROUP_DESKTOPPROFILE },
-    { .name = "controlAccessRights", .values = AD_GROUP_CONTROLACCESSRIGHTS },
     { .name = "adminCount", .values = AD_GROUP_ADMINCOUNT },
-    { .name = "msDS-PrimaryComputer", .values = AD_GROUP_MSDS_PRIMARYCOMPUTER },
-    { .name = "msDS-PreferredDataLocation", .values = AD_GROUP_MSDS_PREFERREDDATALOCATION }
+    { .name = "sAMAccountName", .values = AD_GROUP_SAM_ACCOUNT_NAME }
 };
 
 static const int AD_GROUP_ATTRIBUTES_SIZE = number_of_elements(AD_GROUP_ATTRIBUTES);
@@ -139,7 +101,7 @@ static testcase_t AD_TESTCASES[] =
 {
     {
         "Addition of valid AD group testcase",
-        "dc=domain,dc=alt",
+        "cn=users,dc=domain,dc=alt",
         "test_group",
         AD_GROUP_ATTRIBUTES_SIZE,
         RETURN_CODE_SUCCESS,
@@ -206,6 +168,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
                                   testcase.entry_cn,
                                   fill_user_attributes(talloc_ctx, testcase.attributes, testcase.number_of_attributes),
                                   testcase.entry_parent);
+            assert_that(rc,is_equal_to(testcase.desired_test_result));
             test_status(testcase);
 
             talloc_free(talloc_ctx);
