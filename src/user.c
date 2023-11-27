@@ -2,6 +2,7 @@
 
 #include "group.h"
 #include "common.h"
+#include "directory.h"
 #include "domain_p.h"
 #include "entry.h"
 
@@ -39,7 +40,18 @@ enum UserAttributeIndex
 
 const char* create_user_parent(TALLOC_CTX *talloc_ctx, LDHandle *handle)
 {
-    return talloc_asprintf(talloc_ctx, "%s,%s", "ou=users", handle ? handle->global_config->base_dn : "");
+    char* ou_users = NULL;
+    switch (handle->connection_ctx->directory_type)
+    {
+    case LDAP_TYPE_ACTIVE_DIRECTORY:
+        ou_users = "cn=users";
+        break;
+    default:
+        ou_users = "ou=users";
+        break;
+    }
+
+    return talloc_asprintf(talloc_ctx, "%s,%s", ou_users, handle ? handle->global_config->base_dn : "");
 }
 
 static LDAPAttribute_t** create_lockout_time_attributes(TALLOC_CTX* ctx, const char* value)
