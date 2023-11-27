@@ -111,7 +111,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
             testcase_t testcase = current_testcases.testcases[test_index];
 
             enum OperationReturnCode rc = ld_rename_ou(connection->handle, testcase.old_entry_cn,
-                                                       testcase.old_entry_cn, testcase.parent_dn);
+                                                       testcase.new_entry_cn, testcase.parent_dn);
             assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
             test_status(testcase);
         }
