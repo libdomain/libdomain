@@ -35,8 +35,6 @@ static LDAPAttribute_t OPENLDAP_GROUP_ATTRIBUTES[] =
 static const int OPENLDAP_GROUP_ATTRIBUTES_SIZE = number_of_elements(OPENLDAP_GROUP_ATTRIBUTES);
 
 static char* AD_GROUP_OBJECTCLASS[] = { "top", "group", NULL };
-static char* AD_GROUP_CN[] = { "test_mod_group", NULL };
-static char* AD_GROUP_INSTANCE_TYPE[] = { "4", NULL };
 static char* AD_GROUP_MSSFU30NAME[] = { "test_group", NULL };
 static char* AD_GROUP_MSDS_AZAPPLICATIONDATA[] = { "AppData", NULL };
 static char* AD_GROUP_MSDS_AZLASTIMPORTEDBIZRULEPATH[] = { "/path/to/biz/rule", NULL };
@@ -52,9 +50,7 @@ static char* AD_GROUP_SAM_ACCOUNT_NAME[] = { "test_group", NULL };
 static LDAPAttribute_t AD_GROUP_ATTRIBUTES[] =
 {
     { .name = "objectClass", .values = AD_GROUP_OBJECTCLASS },
-    { .name = "cn", .values = AD_GROUP_CN },
     { .name = "msSFU30Name", .values = AD_GROUP_MSSFU30NAME },
-    { .name = "instanceType", .values = AD_GROUP_INSTANCE_TYPE },
     { .name = "msDS-AzApplicationData", .values = AD_GROUP_MSDS_AZAPPLICATIONDATA },
     { .name = "msDS-AzLastImportedBizRulePath", .values = AD_GROUP_MSDS_AZLASTIMPORTEDBIZRULEPATH },
     { .name = "msDS-AzBizRuleLanguage", .values = AD_GROUP_MSDS_AZBIZRULELANGUAGE },
