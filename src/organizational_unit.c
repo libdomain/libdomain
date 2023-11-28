@@ -42,36 +42,25 @@ enum OUAttributeIndex
  * @brief ld_add_ou       Creates the OU.
  * @param handle          Pointer to libdomain session handle.
  * @param name            Name of the OU.
- * @param description     Description of the OU.
+ * @param ou_attrs        Attributes of the OU.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
  */
 enum OperationReturnCode ld_add_ou(LDHandle *handle,
                                    const char *name,
-                                   const char *description,
+                                   LDAPAttribute_t** ou_attrs,
                                    const char *parent)
 {
     const char *dn = handle ? handle->global_config->base_dn : NULL;
     enum OperationReturnCode rc = RETURN_CODE_FAILURE;
-
-    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
-
-    LDAPAttribute_t **attrs  = assign_default_attribute_values(talloc_ctx,
-                                                               LDAP_OU_ATTRIBUTES,
-                                                               LDAP_OU_ATTRIBUTES_SIZE);
-
-    check_and_assign_attribute(attrs, name, OU, talloc_ctx);
-    check_and_assign_attribute(attrs, description, DESCRIPTION, talloc_ctx);
 
     if (parent && strlen(parent) > 0)
     {
         dn = parent;
     }
 
-    rc = ld_add_entry(handle, name, dn, "ou", attrs);
-
-    talloc_free(talloc_ctx);
+    rc = ld_add_entry(handle, name, dn, "ou", ou_attrs);
 
     return rc;
 }

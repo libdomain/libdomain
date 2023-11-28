@@ -1,5 +1,6 @@
 #include <cgreen/cgreen.h>
 
+#include <directory.h>
 #include <domain.h>
 #include <attribute.h>
 #include <talloc.h>
@@ -17,15 +18,81 @@ AfterEach(Cgreen) {}
 
 const int CONNECTION_UPDATE_INTERVAL = 1000;
 
+#define number_of_elements(x)  (sizeof(x) / sizeof((x)[0]))
+
+typedef struct testcase_s
+{
+    char* name;
+    char* entry_dn;
+    char* entry_attr;
+    char* entry_value;
+    int desired_test_result;
+} testcase_t;
+
+typedef struct current_testcases_s
+{
+    int number_of_testcases;
+    testcase_t* testcases;
+} current_testcases_t;
+
+static testcase_t OPENLDAP_TESTCASES[] =
+{
+    {
+        "Remove attribute OpenLDAP",
+        "cn=test_mod_computer,ou=equipment",
+        "seeAlso",
+        "dc=domain,dc=alt",
+        RETURN_CODE_SUCCESS,
+    }
+};
+
+static const int NUMBER_OF_OPENLDAP_TESTCASES = number_of_elements(OPENLDAP_TESTCASES);
+
+static testcase_t AD_TESTCASES[] =
+{
+    {
+        "Remove attribute AD",
+        "cn=test_mod_group,cn=users",
+        "adminCount",
+        "1",
+        RETURN_CODE_SUCCESS
+    }
+};
+
+static const int NUMBER_OF_AD_TESTCASES = number_of_elements(AD_TESTCASES);
+
+static int current_directory_type = LDAP_TYPE_UNKNOWN;
+
+static current_testcases_t get_current_testcases(int directory_type)
+{
+    current_testcases_t result = { .testcases = NULL, .number_of_testcases = 0 };
+
+    switch (directory_type)
+    {
+    case LDAP_TYPE_ACTIVE_DIRECTORY:
+        result.testcases = AD_TESTCASES;
+        result.number_of_testcases = NUMBER_OF_AD_TESTCASES;
+        break;
+    case LDAP_TYPE_OPENLDAP:
+        result.testcases = OPENLDAP_TESTCASES;
+        result.number_of_testcases = NUMBER_OF_OPENLDAP_TESTCASES;
+    default:
+        break;
+    }
+
+    return result;
+}
+
+
 LDAPAttribute_t** attrs;
 
-static LDAPAttribute_t** fill_attributes_to_remove(TALLOC_CTX* ctx)
+static LDAPAttribute_t** fill_attributes_to_remove(TALLOC_CTX* ctx, char* name, char* value)
 {
     attrs = talloc_array(ctx, LDAPAttribute_t*, 2);
     attrs[0] = talloc(ctx, LDAPAttribute_t);
     attrs[0]->values = talloc_array(ctx, char*, 2);
-    attrs[0]->name = talloc_strdup(ctx, "seeAlso");
-    attrs[0]->values[0] = talloc_strdup(ctx, "dc=domain,dc=alt");
+    attrs[0]->name = talloc_strdup(ctx, name);
+    attrs[0]->values[0] = talloc_strdup(ctx, value);
     attrs[0]->values[1] = NULL;
     attrs[1] = NULL;
 
@@ -54,14 +121,23 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     {
         verto_del(ev);
 
-        TALLOC_CTX* talloc_ctx = talloc_new(NULL);
+        current_testcases_t current_testcases = get_current_testcases(current_directory_type);
+        for (int test_index = 0; test_index < current_testcases.number_of_testcases; test_index++)
+        {
+            testcase_t testcase = current_testcases.testcases[test_index];
 
-        enum OperationReturnCode rc = ld_del_attributes(connection->handle,
-                                                        "cn=test_mod_computer,ou=equipment",
-                                                        fill_attributes_to_remove(talloc_ctx));
-        assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
+            TALLOC_CTX* talloc_ctx = talloc_new(NULL);
 
-        talloc_free(talloc_ctx);
+            enum OperationReturnCode rc = ld_del_attributes(connection->handle,
+                                                            testcase.entry_dn,
+                                                            fill_attributes_to_remove(talloc_ctx,
+                                                                                      testcase.entry_attr,
+                                                                                      testcase.entry_value));
+            assert_that(rc, is_equal_to(testcase.desired_test_result));
+            test_status(testcase);
+
+            talloc_free(talloc_ctx);
+        }
 
         ld_install_handler(connection->handle, connection_on_add_message, CONNECTION_UPDATE_INTERVAL);
     }
@@ -74,41 +150,9 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     }
 }
 
-static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void* connection)
-{
-    (void)(unused_a);
-
-    assert_that(rc, is_not_equal_to(LDAP_SUCCESS));
-
-    verto_break(((ldap_connection_ctx_t*)connection)->base);
-
-    fail_test("User addition was not successful\n");
-
-    return RETURN_CODE_SUCCESS;
-}
-
 Ensure(Cgreen, attribute_remove_test)
 {
-    TALLOC_CTX* talloc_ctx = talloc_new(NULL);
-
-    char *envvar = "LDAP_SERVER";
-    char *server = get_environment_variable(talloc_ctx, envvar);
-
-    config_t *config = ld_create_config(server, 0, LDAP_VERSION3, "dc=domain,dc=alt",
-                                        "admin", "password", true, false, true, false, CONNECTION_UPDATE_INTERVAL,
-                                        "", "", "");
-    LDHandle *handle = NULL;
-    ld_init(&handle, config);
-
-    ld_install_default_handlers(handle);
-    ld_install_handler(handle, connection_on_timeout, CONNECTION_UPDATE_INTERVAL);
-    ld_install_error_handler(handle, connection_on_error);
-
-    ld_exec(handle);
-
-    ld_free(handle);
-
-    talloc_free(talloc_ctx);
+    start_test(connection_on_timeout, CONNECTION_UPDATE_INTERVAL, &current_directory_type);
 }
 
 int main(int argc, char **argv) {

@@ -241,7 +241,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
         connection->bind_type = BIND_TYPE_SIMPLE;
     }
 
-    connection->directory_type = LDAP_TYPE_UNKNOWN;
+    connection->directory_type = LDAP_TYPE_UNINITIALIZED;
 
     connection->callqueue = request_queue_new(global_ctx->talloc_ctx, MAX_REQUESTS);
 

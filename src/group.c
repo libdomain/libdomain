@@ -20,6 +20,7 @@
 
 #include "group.h"
 #include "common.h"
+#include "directory.h"
 #include "domain_p.h"
 #include "entry.h"
 
@@ -45,45 +46,27 @@ enum GroupAttributeIndex
 /**
  * @brief ld_add_group     Creates the group.
  * @param[in] handle           Pointer to libdomain session handle.
- * @param[in] name             Name of the group.
- * @param[in] description      Description.
- * @param[in] display_name     Display name of the group.
- * @param[in] group_category   Category of the group.
- * @param[in] group_scope      Scope of the group.
- * @param[in] home_page        Home page of the group.
+ * @param[in] name             Name of a group.
+ * @param[in] attributes       List of group attributes depends on directory type.
  * @param[in] parent           Parent container that holds the group.
- * @param[in] sam_account_name Name of the groups security account.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
  */
 enum OperationReturnCode ld_add_group(LDHandle *handle,
-                                      const char *name,
-                                      const char *description,
-                                      int gid,
+                                      const char* name,
+                                      LDAPAttribute_t** attributes,
                                       const char* parent)
 {
     const char *dn = handle ? handle->global_config->base_dn : NULL;
     enum OperationReturnCode rc = RETURN_CODE_FAILURE;
-
-    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
-
-    LDAPAttribute_t **group_attrs  = assign_default_attribute_values(talloc_ctx,
-                                                                     LDAP_GROUP_ATTRIBUTES,
-                                                                     LDAP_GROUP_ATTRIBUTES_SIZE);
-
-    check_and_assign_attribute(group_attrs, name, CN, talloc_ctx);
-    check_and_assign_attribute(group_attrs, description, DESCRIPTION, talloc_ctx);
-    check_and_assign_attribute(group_attrs, talloc_asprintf(talloc_ctx, "%d", gid), GID_NUMBER, talloc_ctx);
 
     if (parent && strlen(parent) > 0)
     {
         dn = parent;
     }
 
-    rc = ld_add_entry(handle, name, dn, "cn", group_attrs);
-
-    talloc_free(talloc_ctx);
+    rc = ld_add_entry(handle, name, dn, "cn", attributes);
 
     return rc;
 }
@@ -138,17 +121,32 @@ static enum OperationReturnCode group_member_modify(LDHandle *handle, const char
 {
     const char *this_group_dn = NULL;
     const char *this_user_dn = NULL;
-    const char *member = "member";
+    const char *member;
 
-    check_handle(handle, "ld_group_add_user");
+    switch (handle->connection_ctx->directory_type)
+    {
+    case LDAP_TYPE_OPENLDAP:
+        member = "memberuid";
+        break;
+    case LDAP_TYPE_ACTIVE_DIRECTORY:
+        member = "member";
+        break;
+    case LDAP_TYPE_FREE_IPA:
+        info("User addition or deletion from group is not implemented in free ipa.\n");
+    default:
+        return RETURN_CODE_FAILURE;
+    }
 
-    check_string(group_dn, this_group_dn, "ld_group_add_user");
+    check_handle(handle, "group_member_modify");
 
-    check_string(user_dn, this_user_dn, "ld_group_add_user");
+    check_string(group_dn, this_group_dn, "group_member_modify");
+
+    check_string(user_dn, this_user_dn, "group_member_modify");
 
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
 
     LDAPMod **attrs = talloc_array(talloc_ctx, LDAPMod*, 2);
+    attrs[0] = talloc_zero(talloc_ctx, LDAPMod);
     attrs[0]->mod_op = mod_operation;
     attrs[0]->mod_type = talloc_strndup(talloc_ctx, member, strlen(member));
     attrs[0]->mod_values = talloc_array(talloc_ctx, char*, 2);

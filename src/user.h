@@ -26,11 +26,7 @@
 
 enum OperationReturnCode ld_add_user(LDHandle *handle,
                                      const char *name,
-                                     int uid,
-                                     int gid,
-                                     const char *home_directory,
-                                     const char *login_shell,
-                                     const char *password,
+                                     LDAPAttribute_t **user_attrs,
                                      const char *parent);
 enum OperationReturnCode ld_del_user(LDHandle *handle, const char *name, const char *parent);
 enum OperationReturnCode ld_mod_user(LDHandle *handle,

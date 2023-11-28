@@ -123,3 +123,33 @@ void start_test(verto_callback *update_callback, const int update_interval, int*
 
     talloc_free(talloc_ctx);
 }
+
+LDAPAttribute_t** fill_user_attributes(TALLOC_CTX* ctx, LDAPAttribute_t* attrs, int size)
+{
+    LDAPAttribute_t** copy_attrs = talloc_array(ctx, LDAPAttribute_t*, size + 1);
+    for (int i = 0; i < size; ++i)
+    {
+        copy_attrs[i] = talloc(ctx, LDAPAttribute_t);
+        copy_attrs[i]->name = talloc_strdup(ctx, attrs[i].name);
+
+        int value_count = 0;
+
+        while (attrs[i].values[value_count] != NULL)
+        {
+            value_count++;
+        }
+
+        copy_attrs[i]->values = talloc_array(ctx, char*, value_count + 1);
+
+        for (int j = 0; j < value_count; ++j)
+        {
+            copy_attrs[i]->values[j] = talloc_strdup(ctx, attrs[i].values[j]);
+        }
+
+        copy_attrs[i]->values[value_count] = NULL;
+    }
+
+    copy_attrs[size] = NULL;
+
+    return copy_attrs;
+}

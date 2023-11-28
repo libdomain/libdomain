@@ -60,13 +60,7 @@ static const char* create_computer_parent(TALLOC_CTX *talloc_ctx, LDHandle *hand
  * @brief ld_add_computer            Creates new computer
  * @param[in] handle                 LibDomain handle
  * @param[in] name                   name of the computer
- * @param[in] description            Description of the computer.
- * @param[in] serial_number          Serial number of the computer.
- * @param[in] see_also               See also entry for the computer.
- * @param[in] organization_name      Organization this computer belongs to.
- * @param[in] locality_name          Locality which this computer resides in.
- * @param[in] owner                  Owner of this computer.
- * @param[in] organization_unit_name Organizational unit this computer belongs to.
+ * @param[in] attrs                  Attributes of the computer
  * @param[in] parent                 Parent container of the computer.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
@@ -74,32 +68,11 @@ static const char* create_computer_parent(TALLOC_CTX *talloc_ctx, LDHandle *hand
  */
 enum OperationReturnCode ld_add_computer(LDHandle *handle,
                                          const char *name,
-                                         const char *description,
-                                         const char *serial_number,
-                                         const char *see_also,
-                                         const char *organization_name,
-                                         const char *locality_name,
-                                         const char *owner,
-                                         const char *organization_unit_name,
+                                         LDAPAttribute_t** attrs,
                                          const char *parent)
 {
     const char *dn = handle ? handle->global_config->base_dn : NULL;
     enum OperationReturnCode rc = RETURN_CODE_FAILURE;
-
-    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
-
-    LDAPAttribute_t **attrs  = assign_default_attribute_values(talloc_ctx,
-                                                               LDAP_COMPUTER_ATTRIBUTES,
-                                                               LDAP_COMPUTER_ATTRIBUTES_SIZE);
-
-    check_and_assign_attribute(attrs, name, CN, talloc_ctx);
-    check_and_assign_attribute(attrs, description, DESCRIPTION, talloc_ctx);
-    check_and_assign_attribute(attrs, serial_number, SERIAL_NUMBER, talloc_ctx);
-    check_and_assign_attribute(attrs, see_also, SEE_ALSO, talloc_ctx);
-    check_and_assign_attribute(attrs, organization_name, ORGANIZATION_NAME, talloc_ctx);
-    check_and_assign_attribute(attrs, locality_name, LOCALITY_NAME, talloc_ctx);
-    check_and_assign_attribute(attrs, owner, OWNER, talloc_ctx);
-    check_and_assign_attribute(attrs, organization_unit_name, ORGANIZATION_UNIT_NAME, talloc_ctx);
 
     if (parent && strlen(parent) > 0)
     {
@@ -107,8 +80,6 @@ enum OperationReturnCode ld_add_computer(LDHandle *handle,
     }
 
     rc = ld_add_entry(handle, name, dn, "cn", attrs);
-
-    talloc_free(talloc_ctx);
 
     return rc;
 }

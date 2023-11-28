@@ -1,5 +1,6 @@
 #include <cgreen/cgreen.h>
 
+#include <directory.h>
 #include <domain.h>
 #include <organizational_unit.h>
 #include <talloc.h>
@@ -15,21 +16,91 @@ Describe(Cgreen);
 BeforeEach(Cgreen) {}
 AfterEach(Cgreen) {}
 
+#define number_of_elements(x)  (sizeof(x) / sizeof((x)[0]))
+
+static char* OPENLDAP_OU_DESCRIPTION[] = { "description modified", NULL };
+
+static LDAPAttribute_t OPENLDAP_OU_ATTRIBUTES[] =
+{
+    { .name = "description", .values = OPENLDAP_OU_DESCRIPTION }
+};
+static const int OPENLDAP_OU_ATTRIBUTES_SIZE = number_of_elements(OPENLDAP_OU_ATTRIBUTES);
+
+static char* AD_OU_L[] = { "City22", NULL };
+
+static LDAPAttribute_t AD_OU_ATTRIBUTES[] =
+{
+   { .name = "l", .values = AD_OU_L }
+};
+
+const static int AD_OU_ATTRIBUTES_SIZE = number_of_elements(AD_OU_ATTRIBUTES);
+
+typedef struct testcase_s
+{
+    char* name;
+    char* entry_cn;
+    char* entry_parent;
+    int number_of_attributes;
+    int desired_test_result;
+    LDAPAttribute_t* attributes;
+} testcase_t;
+
+typedef struct current_testcases_s
+{
+    int number_of_testcases;
+    testcase_t* testcases;
+} current_testcases_t;
+
+static testcase_t OPENLDAP_TESTCASES[] =
+{
+    {
+        "Fill testcase description",
+        "test_mod_ou",
+        "dc=domain,dc=alt",
+        OPENLDAP_OU_ATTRIBUTES_SIZE,
+        RETURN_CODE_SUCCESS,
+        OPENLDAP_OU_ATTRIBUTES
+    }
+};
+
+static const int NUMBER_OF_OPENLDAP_TESTCASES = number_of_elements(OPENLDAP_TESTCASES);
+
+static testcase_t AD_TESTCASES[] =
+{
+    {
+        "Fill testcase description",
+        "test_mod_ou",
+        "dc=domain,dc=alt",
+        AD_OU_ATTRIBUTES_SIZE,
+        RETURN_CODE_SUCCESS,
+        AD_OU_ATTRIBUTES
+    }
+};
+
+static const int NUMBER_OF_AD_TESTCASES = number_of_elements(AD_TESTCASES);
+
+static int current_directory_type = LDAP_TYPE_UNKNOWN;
+
 const int CONNECTION_UPDATE_INTERVAL = 1000;
 
-LDAPAttribute_t** attrs;
-
-static LDAPAttribute_t** fill_ou_attributes(TALLOC_CTX* ctx)
+static current_testcases_t get_current_testcases(int directory_type)
 {
-    attrs = talloc_array(ctx, LDAPAttribute_t*, 2);
-    attrs[0] = talloc(ctx, LDAPAttribute_t);
-    attrs[0]->values = talloc_array(ctx, char*, 2);
-    attrs[0]->name = talloc_strdup(ctx, "description");
-    attrs[0]->values[0] = talloc_strdup(ctx, "Description_modification");
-    attrs[0]->values[1] = NULL;
-    attrs[1] = NULL;
+    current_testcases_t result = { .testcases = NULL, .number_of_testcases = 0 };
 
-    return attrs;
+    switch (directory_type)
+    {
+    case LDAP_TYPE_ACTIVE_DIRECTORY:
+        result.testcases = AD_TESTCASES;
+        result.number_of_testcases = NUMBER_OF_AD_TESTCASES;
+        break;
+    case LDAP_TYPE_OPENLDAP:
+        result.testcases = OPENLDAP_TESTCASES;
+        result.number_of_testcases = NUMBER_OF_OPENLDAP_TESTCASES;
+    default:
+        break;
+    }
+
+    return result;
 }
 
 static void connection_on_add_message(verto_ctx *ctx, verto_ev *ev)
@@ -54,12 +125,21 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     {
         verto_del(ev);
 
-        TALLOC_CTX* talloc_ctx = talloc_new(NULL);
+        current_testcases_t current_testcases = get_current_testcases(current_directory_type);
+        for (int test_index = 0; test_index < current_testcases.number_of_testcases; test_index++)
+        {
+            testcase_t testcase = current_testcases.testcases[test_index];
 
-        int rc = ld_mod_ou(connection->handle, "test_mod_ou", "dc=domain,dc=alt", fill_ou_attributes(talloc_ctx));
-        assert_that(rc,is_equal_to(RETURN_CODE_SUCCESS));
+            TALLOC_CTX* talloc_ctx = talloc_new(NULL);
 
-        talloc_free(talloc_ctx);
+            int rc = ld_mod_ou(connection->handle, testcase.entry_cn, testcase.entry_parent,
+                               fill_user_attributes(talloc_ctx, testcase.attributes, testcase.number_of_attributes));
+            assert_that(rc,is_equal_to(testcase.desired_test_result));
+
+            test_status(testcase);
+
+            talloc_free(talloc_ctx);
+        }
 
         ld_install_handler(connection->handle, connection_on_add_message, CONNECTION_UPDATE_INTERVAL);
     }
@@ -72,41 +152,9 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     }
 }
 
-static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void* connection)
-{
-    (void)(unused_a);
-
-    assert_that(rc, is_not_equal_to(LDAP_SUCCESS));
-
-    verto_break(((ldap_connection_ctx_t*)connection)->base);
-
-    fail_test("OU modification was not successful\n");
-
-    return RETURN_CODE_SUCCESS;
-}
-
 Ensure(Cgreen, ou_mod_test)
 {
-    TALLOC_CTX* talloc_ctx = talloc_new(NULL);
-
-    char *envvar = "LDAP_SERVER";
-    char *server = get_environment_variable(talloc_ctx, envvar);
-
-    config_t *config = ld_create_config(server, 0, LDAP_VERSION3, "dc=domain,dc=alt",
-                                        "admin", "password", true, false, true, false, CONNECTION_UPDATE_INTERVAL,
-                                        "", "", "");
-    LDHandle *handle = NULL;
-    ld_init(&handle, config);
-
-    ld_install_default_handlers(handle);
-    ld_install_handler(handle, connection_on_timeout, CONNECTION_UPDATE_INTERVAL);
-    ld_install_error_handler(handle, connection_on_error);
-
-    ld_exec(handle);
-
-    ld_free(handle);
-
-    talloc_free(talloc_ctx);
+    start_test(connection_on_timeout, CONNECTION_UPDATE_INTERVAL, &current_directory_type);
 }
 
 int main(int argc, char **argv) {
