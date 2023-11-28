@@ -20,6 +20,7 @@
 
 #include "group.h"
 #include "common.h"
+#include "directory.h"
 #include "domain_p.h"
 #include "entry.h"
 
@@ -120,7 +121,21 @@ static enum OperationReturnCode group_member_modify(LDHandle *handle, const char
 {
     const char *this_group_dn = NULL;
     const char *this_user_dn = NULL;
-    const char *member = "member";
+    const char *member;
+
+    switch (handle->connection_ctx->directory_type)
+    {
+    case LDAP_TYPE_OPENLDAP:
+        member = "memberuid";
+        break;
+    case LDAP_TYPE_ACTIVE_DIRECTORY:
+        member = "member";
+        break;
+    case LDAP_TYPE_FREE_IPA:
+        info("User addition or deletion from group is not implemented in free ipa.\n");
+    default:
+        return RETURN_CODE_FAILURE;
+    }
 
     check_handle(handle, "group_member_modify");
 
