@@ -79,9 +79,12 @@ Ensure(Cgreen, connection_configure_with_sasl_test) {
     ctx->config.sasl_options->sasl_secprops = "maxssf=56";
     ctx->config.sasl_options->sasl_flags = LDAP_SASL_QUIET;
 
-    connection_configure(&ctx->global_ctx, &ctx->connection_ctx, &ctx->config);
+    enum OperationReturnCode rc = connection_configure(&ctx->global_ctx, &ctx->connection_ctx, &ctx->config);
+    assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
+    info("connection_configure - %s\n", rc == RETURN_CODE_SUCCESS ? "successful" : "failure");
 
     assert_that(ctx->connection_ctx.ldap_defaults, is_not_null);
+    info("ldap_defaults - is %s\n", ctx->connection_ctx.ldap_defaults != NULL ? " is not null" : "is null");
 
     talloc_free(ctx->config.sasl_options);
 
