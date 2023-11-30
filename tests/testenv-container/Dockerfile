@@ -36,6 +36,7 @@ RUN apt-get update \
     libverto-libevent-devel \
     libtalloc-devel \
     libsasl2-devel \
+    libconfig-devel \
     cgreen \
     krb5-kinit \
     cyrus-sasl2 \
