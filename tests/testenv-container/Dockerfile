@@ -36,6 +36,7 @@ RUN apt-get update \
     libverto-libevent-devel \
     libtalloc-devel \
     libsasl2-devel \
+    libconfig-devel \
     cgreen \
     krb5-kinit \
     cyrus-sasl2 \
@@ -60,6 +61,8 @@ COPY make-test.sh /make-test.sh
 COPY resolv.conf /resolv.conf
 
 COPY krb5.conf /krb5.conf
+
+COPY config.ini /etc/config.ini
 
 # Code file to execute when the docker container starts up (`make-test.sh`)
 ENTRYPOINT ["/make-test.sh"]

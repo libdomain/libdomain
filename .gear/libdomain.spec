@@ -16,6 +16,7 @@ BuildRequires: gcc gcc-c++
 
 BuildRequires: libldap-devel libverto-devel libverto-libev-devel libverto-glib-devel libverto-libevent-devel
 BuildRequires: libtalloc-devel libsasl2-devel
+BuildRequires: libconfig-devel
 BuildRequires: cgreen
 
 BuildRequires: doxygen

@@ -92,7 +92,7 @@ void start_test(verto_callback *update_callback, const int update_interval, int*
     char *directory = get_environment_variable(talloc_ctx, directory_envvar);
     (*current_directory_type) = get_current_directory_type(directory);
 
-    config_t *config = NULL;
+    ld_config_t *config = NULL;
     switch ((*current_directory_type))
     {
     case LDAP_TYPE_OPENLDAP:

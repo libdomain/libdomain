@@ -23,3 +23,4 @@ add_subdirectory(reconnect)
 add_subdirectory(attributes)
 
 add_subdirectory(request_queue)
+add_subdirectory(config_file)

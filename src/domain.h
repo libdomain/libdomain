@@ -21,6 +21,7 @@
 #ifndef LIB_DOMAIN_H
 #define LIB_DOMAIN_H
 
+#include <talloc.h>
 #include <stdbool.h>
 #include <verto.h>
 
@@ -32,7 +33,7 @@ typedef struct ldhandle LDHandle;
 /**
  * @brief config_t
  */
-typedef struct config_s config_t;
+typedef struct ld_config_s ld_config_t;
 
 typedef struct LDAPAttribute_s
 {
@@ -42,7 +43,9 @@ typedef struct LDAPAttribute_s
 
 typedef enum OperationReturnCode (*error_callback_fn)(int, void *, void *);
 
-config_t *ld_create_config(char *host,
+ld_config_t *ld_load_config(TALLOC_CTX *ctx, const char *filename);
+
+ld_config_t *ld_create_config(char *host,
                            int port,
                            int protocol_version,
                            char *base_dn,
@@ -57,7 +60,7 @@ config_t *ld_create_config(char *host,
                            char *certfile,
                            char *keyfile);
 
-void ld_init(LDHandle **handle, const config_t *config);
+void ld_init(LDHandle **handle, const ld_config_t *config);
 void ld_install_default_handlers(LDHandle *handle);
 void ld_install_handler(LDHandle *handle, verto_callback *callback, time_t interval);
 void ld_install_error_handler(LDHandle *handle, error_callback_fn callback);

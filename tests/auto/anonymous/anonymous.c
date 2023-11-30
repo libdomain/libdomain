@@ -75,7 +75,7 @@ Ensure(Cgreen, anonymous_connection_test)
     char *envvar = "LDAP_SERVER";
     char *server = get_environment_variable(talloc_ctx, envvar);
 
-    config_t *config = ld_create_config(server, 0, LDAP_VERSION3, "",
+    ld_config_t *config = ld_create_config(server, 0, LDAP_VERSION3, "",
                                         NULL, NULL, true, false, true, false, CONNECTION_UPDATE_INTERVAL,
                                         "", "", "");
     LDHandle *handle = NULL;

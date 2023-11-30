@@ -8,10 +8,10 @@ pkg_check_modules(Libconfig REQUIRED IMPORTED_TARGET libconfig)
 
 include_directories(${CGREEN_INCLUDE_DIRS})
 
-set(TEST_NAME mod_user)
+set(TEST_NAME config_file)
 
 set(SOURCES
-    mod_user.c
+    config_file.c
 )
 
 add_libdomain_test(${TEST_NAME} ${SOURCES})

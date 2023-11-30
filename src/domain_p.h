@@ -24,7 +24,7 @@
 #include <stdbool.h>
 #include <talloc.h>
 
-typedef struct config_s
+typedef struct ld_config_s
 {
     char *host;
     int protocol_version;
@@ -43,7 +43,7 @@ typedef struct config_s
     char *cacertfile;
     char *certfile;
     char *keyfile;
-} config_t;
+} ld_config_t;
 
 typedef struct ldhandle
 {
@@ -51,7 +51,7 @@ typedef struct ldhandle
     struct ldap_global_context_t *global_ctx;
     struct ldap_connection_ctx_t *connection_ctx;
     struct ldap_connection_config_t *config_ctx;
-    config_t *global_config;
+    ld_config_t *global_config;
 } LDHandle;
 
 #define check_handle(handle, function_name) \

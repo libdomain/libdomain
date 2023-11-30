@@ -35,6 +35,7 @@ RUN apt-get update \
     libverto-libevent-devel \
     libtalloc-devel \
     libsasl2-devel \
+    libconfig-devel \
     cgreen \
     && export CURRENT_PWD=`pwd` \
     && groupadd --gid $GROUP_ID builder2 \

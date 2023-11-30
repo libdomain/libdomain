@@ -20,6 +20,7 @@ find_package(Ldap REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(Talloc REQUIRED IMPORTED_TARGET talloc)
 pkg_check_modules(Libverto REQUIRED IMPORTED_TARGET libverto)
+pkg_check_modules(Libconfig REQUIRED IMPORTED_TARGET libconfig)
 
 set(PROJECT_SOURCES
     attribute.c
@@ -53,7 +54,7 @@ set(PROJECT_SOURCES
 )
 
 add_libdomain_library(domain SHARED ${PROJECT_SOURCES})
-target_link_libraries(domain PUBLIC PkgConfig::Talloc PkgConfig::Libverto Ldap::Ldap)
+target_link_libraries(domain PUBLIC PkgConfig::Talloc PkgConfig::Libverto PkgConfig::Libconfig Ldap::Ldap)
 set_target_properties(domain PROPERTIES
     INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}
 )
