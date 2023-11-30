@@ -29,7 +29,148 @@
 
 #include <talloc.h>
 
+#include <libconfig.h>
+
 static const int CONNECTION_UPDATE_INTERVAL = 1000;
+
+#define get_config_required_string(name, out) \
+    if (config_lookup_string(&cfg, name, &out)) \
+    { \
+        info("%s: %s\n\n", name, out); \
+    } \
+    else \
+    { \
+        error("No '%s' setting in configuration file.\n", name); \
+        config_destroy(&cfg); \
+        return NULL; \
+    } \
+
+#define get_config_optional_setting(name, out, setting_function, specifier) \
+    if ((setting_function)(&cfg, name, &out)) \
+    { \
+        info("%s: " specifier "\n\n", name, out); \
+    } \
+    else \
+    { \
+        info("No '%s' setting in configuration file.\n", name); \
+    } \
+
+#define get_config_optional_string(name, out) \
+    get_config_optional_setting(name, out, config_lookup_string, "%s")
+
+#define get_config_optional_int(name, out) \
+    get_config_optional_setting(name, out, config_lookup_int, "%d")
+
+#define get_config_optional_bool(name, out) \
+    if (config_lookup_bool(&cfg, name, (int*)&out)) \
+    { \
+        info("%s: %s\n\n", name, out ? "true" : "false"); \
+    } \
+    else \
+    { \
+        info("No '%s' setting in configuration file.\n", name); \
+    } \
+
+ld_config_t *ld_load_config(TALLOC_CTX* ctx, const char *filename)
+{
+    ld_config_t *result = talloc(ctx, ld_config_t);
+
+    if (!result)
+    {
+        error("Unable to allocate memory for config_t");
+        return NULL;
+    }
+
+    config_t cfg;
+    const char *host = NULL;
+    const char *empty_string = "";
+    int port = 0;
+
+    config_init(&cfg);
+
+    /* Read the file. If there is an error, report it and return NULL. */
+    if (!config_read_file(&cfg, filename))
+    {
+        error("%s:%d - %s\n", config_error_file(&cfg), config_error_line(&cfg), config_error_text(&cfg));
+        config_destroy(&cfg);
+        return NULL;
+    }
+
+    get_config_required_string("host", host);
+    get_config_optional_int("port", port);
+
+    if (port > 0)
+    {
+        result->host = talloc_asprintf(ctx, "%s:%d", host, port);
+    }
+    else
+    {
+        result->host = talloc_strndup(ctx, host, strlen(host));
+    }
+
+    int protocol_version = LDAP_VERSION3;
+
+    get_config_optional_int("protocol_version", protocol_version);
+
+    result->protocol_version = protocol_version;
+
+    const char* base_dn = NULL;
+    const char* username = NULL;
+    const char* password = NULL;
+
+    get_config_required_string("base_dn", base_dn);
+    get_config_optional_string("username", username);
+    get_config_optional_string("password", password);
+
+    result->base_dn  = base_dn
+            ? talloc_strndup(ctx, base_dn, strlen(base_dn))
+            : talloc_strndup(ctx, empty_string, strlen(empty_string));
+    result->username = username ? talloc_strndup(ctx, username, strlen(username)) : NULL;
+    result->password = password ? talloc_strndup(ctx, password, strlen(password)) : NULL;
+
+    int simple_bind = false;
+    int use_tls = false;
+    int use_sasl = false;
+    int use_anon = false;
+
+    get_config_optional_bool("simple_bind", simple_bind);
+    get_config_optional_bool("use_tls", use_tls);
+    get_config_optional_bool("use_sasl", use_sasl);
+    get_config_optional_bool("use_anon", use_anon);
+
+    result->simple_bind = simple_bind;
+    result->use_tls     = use_tls;
+    result->use_sasl    = use_sasl;
+    result->use_anon    = use_anon;
+
+    int timeout = 0;
+
+    get_config_optional_int("timeout", timeout);
+
+    result->timeout = timeout;
+
+    const char *cacertfile = NULL;
+    const char *certfile = NULL;
+    const char *keyfile = NULL;
+
+    get_config_optional_string("ca_cert_file", cacertfile);
+    get_config_optional_string("cert_file", certfile);
+    get_config_optional_string("key_file", keyfile);
+
+    result->cacertfile = cacertfile
+            ? talloc_strndup(ctx, cacertfile, strlen(cacertfile))
+            : talloc_strndup(ctx, empty_string, strlen(empty_string));
+    result->certfile = certfile
+            ? talloc_strndup(ctx, certfile, strlen(certfile))
+            : talloc_strndup(ctx, empty_string, strlen(empty_string));
+    result->keyfile = keyfile
+            ? talloc_strndup(ctx, keyfile, strlen(keyfile))
+            : talloc_strndup(ctx, empty_string, strlen(empty_string));
+
+    config_destroy(&cfg);
+
+    return result;
+}
 
 /**
  * @brief ld_create_config     Fills fields of configuration structure.
@@ -51,22 +192,22 @@ static const int CONNECTION_UPDATE_INTERVAL = 1000;
  *        - NULL      on failure.
  *        - config_t* on success.
  */
-config_t *ld_create_config(char *host,
-                           int port,
-                           int protocol_version,
-                           char* base_dn,
-                           char* username,
-                           char* password,
-                           bool simple_bind,
-                           bool use_tls,
-                           bool use_sasl,
-                           bool use_anon,
-                           int timeout,
-                           char *cacertfile,
-                           char *certfile,
-                           char *keyfile)
+ld_config_t *ld_create_config(char *host,
+                              int port,
+                              int protocol_version,
+                              char* base_dn,
+                              char* username,
+                              char* password,
+                              bool simple_bind,
+                              bool use_tls,
+                              bool use_sasl,
+                              bool use_anon,
+                              int timeout,
+                              char *cacertfile,
+                              char *certfile,
+                              char *keyfile)
 {
-    config_t *result = malloc(sizeof(config_t));
+    ld_config_t *result = malloc(sizeof(ld_config_t));
 
     if (!result)
     {
@@ -108,7 +249,7 @@ config_t *ld_create_config(char *host,
  * @param[out] handle Pointer to libdomain session handle.
  * @param[in]  config Configuration of the connections.
  */
-void ld_init(LDHandle** handle, const config_t* config)
+void ld_init(LDHandle** handle, const ld_config_t* config)
 {
     *handle = malloc(sizeof(LDHandle));
 
@@ -126,7 +267,7 @@ void ld_init(LDHandle** handle, const config_t* config)
 
     (*handle)->talloc_ctx = talloc_new(NULL);
 
-    (*handle)->global_config = talloc_memdup((*handle)->talloc_ctx, config, sizeof (config_t));
+    (*handle)->global_config = talloc_memdup((*handle)->talloc_ctx, config, sizeof (ld_config_t));
 
     (*handle)->global_ctx = talloc_zero((*handle)->talloc_ctx, ldap_global_context_t);
     (*handle)->connection_ctx = talloc_zero((*handle)->talloc_ctx, ldap_connection_ctx_t);
