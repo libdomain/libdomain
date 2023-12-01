@@ -42,6 +42,8 @@ set(PROJECT_SOURCES
     entry.h
     group.c
     group.h
+    ldap_syntaxes.c
+    ldap_syntaxes.h
     organizational_unit.c
     organizational_unit.h
     request_queue.h
