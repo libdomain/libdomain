@@ -12,6 +12,7 @@ set(TEST_NAME ldap_syntaxes)
 
 set(SOURCES
     ia5string.c
+    integer.c
     ldap_syntax_tests.c
     ldap_syntax_tests.h
 )

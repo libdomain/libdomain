@@ -32,8 +32,12 @@ bool validate_boolean(const char *value)
 
 bool validate_integer(const char *value)
 {
-    (void)(value);
-    return false;
+    if (!value || strlen(value) == 0)
+    {
+        return false;
+    }
+
+    return is_integer(value, strlen(value));
 }
 
 bool validate_octet_string(const char *value)

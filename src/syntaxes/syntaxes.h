@@ -25,5 +25,6 @@
 #include <stdlib.h>
 
 bool is_ia5string(const char *const in, const size_t len);
+bool is_integer(const char *const in, const size_t len);
 
 #endif//LIB_DOMAIN_SYNTAXES_H
