@@ -78,3 +78,5 @@ compile_commands.json
 # Build directory
 build/
 
+# Generated files
+src/syntaxes/*.c
