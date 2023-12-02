@@ -14,6 +14,7 @@ add_subdirectory(connection_state_machine)
 add_subdirectory(search)
 
 add_subdirectory(schema)
+add_subdirectory(ldap_syntaxes)
 
 add_subdirectory(anonymous)
 add_subdirectory(tls)

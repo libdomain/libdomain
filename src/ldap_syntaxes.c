@@ -20,6 +20,10 @@
 
 #include "ldap_syntaxes.h"
 
+#include <string.h>
+
+#include "syntaxes/syntaxes.h"
+
 bool validate_boolean(const char *value)
 {
     (void)(value);
@@ -51,6 +55,94 @@ bool validate_numeric_string(const char *value)
 }
 
 bool validate_printable_string(const char *value)
+{
+    (void)(value);
+    return false;
+}
+
+bool validate_case_ignore_string(const char *value)
+{
+    (void)(value);
+    return false;
+}
+
+bool validate_ia5_string(const char *value)
+{
+    if (!value)
+    {
+        return false;
+    }
+
+    return is_ia5string(value, strlen(value));
+}
+
+bool validate_utc_time(const char *value)
+{
+    (void)(value);
+    return false;
+}
+
+bool validate_generalized_time(const char *value)
+{
+    (void)(value);
+    return false;
+}
+
+bool validate_case_sensitive_string(const char *value)
+{
+    (void)(value);
+    return false;
+}
+
+bool validate_directory_string(const char* value)
+{
+    (void)(value);
+    return false;
+}
+
+bool validate_large_integer(const char* value)
+{
+    (void)(value);
+    return false;
+}
+
+bool validate_object_security_descriptor(const char* value)
+{
+    (void)(value);
+    return false;
+}
+
+bool validate_dn(const char* value)
+{
+    (void)(value);
+    return false;
+}
+
+bool validate_dn_with_octet_string(const char* value)
+{
+    (void)(value);
+    return false;
+}
+
+bool validate_or_name(const char* value)
+{
+    (void)(value);
+    return false;
+}
+
+bool validate_presentation_address(const char* value)
+{
+    (void)(value);
+    return false;
+}
+
+bool validate_access_point(const char* value)
+{
+    (void)(value);
+    return false;
+}
+
+bool validate_dn_with_string(const char* value)
 {
     (void)(value);
     return false;
