@@ -24,6 +24,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+bool is_boolean(const char *const in, const size_t len);
 bool is_ia5string(const char *const in, const size_t len);
 bool is_integer(const char *const in, const size_t len);
 

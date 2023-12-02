@@ -3,6 +3,7 @@ set(RL_EXECUTABLE
 )
 
 set(RL_FILES
+    boolean.rl
     ia5string.rl
     integer.rl
 )
@@ -32,6 +33,8 @@ set(SYNTAX_LIBRARY_SOURCES
     syntaxes.h
 )
 
+
+add_custom_target(rl_files ALL SOURCES ${RL_FILES})
 add_custom_target(generate_all_files ALL DEPENDS ${OUT_FILES})
 
 add_library(syntax SHARED ${SYNTAX_LIBRARY_SOURCES} ${OUT_FILES})

@@ -26,8 +26,12 @@
 
 bool validate_boolean(const char *value)
 {
-    (void)(value);
-    return false;
+    if (!value || strlen(value) == 0)
+    {
+        return false;
+    }
+
+    return is_boolean(value, strlen(value));
 }
 
 bool validate_integer(const char *value)

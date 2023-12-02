@@ -11,6 +11,7 @@ include_directories(${CGREEN_INCLUDE_DIRS})
 set(TEST_NAME ldap_syntaxes)
 
 set(SOURCES
+    boolean.c
     ia5string.c
     integer.c
     ldap_syntax_tests.c

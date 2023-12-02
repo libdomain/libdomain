@@ -4,6 +4,9 @@
 #include <cgreen/cgreen.h>
 
 TestSuite*
+boolean_test_suite();
+
+TestSuite*
 ia5string_test_suite();
 
 TestSuite*
