@@ -22,7 +22,7 @@ endforeach()
 
 set(RL_FLAGS
     -C
-    -T0
+    -G2
 )
 
 set(SYNTAX_LIBRARY_SOURCES
