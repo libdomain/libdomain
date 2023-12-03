@@ -25,7 +25,15 @@
 #include <stdlib.h>
 
 bool is_boolean(const char *const in, const size_t len);
+bool is_directory_string(const char *const in, const size_t len);
+bool is_dn(const char *const in, const size_t len);
+bool is_generalized_time(const char *const in, const size_t len);
 bool is_ia5string(const char *const in, const size_t len);
 bool is_integer(const char *const in, const size_t len);
+bool is_numeric_string(const char *const in, const size_t len);
+bool is_octet_string(const char *const in, const size_t len);
+bool is_oid(const char *const in, const size_t len);
+bool is_printable_string(const char *const in, const size_t len);
+bool is_utc_time(const char *const in, const size_t len);
 
 #endif//LIB_DOMAIN_SYNTAXES_H

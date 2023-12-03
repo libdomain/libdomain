@@ -12,10 +12,19 @@ set(TEST_NAME ldap_syntaxes)
 
 set(SOURCES
     boolean.c
+    directory_string.c
+    dn.c
+    generalized_time.c
     ia5string.c
     integer.c
+    large_integer.c
     ldap_syntax_tests.c
     ldap_syntax_tests.h
+    numeric_string.c
+    octet_string.c
+    oid.c
+    printable_string.c
+    utc_time.c
 )
 
 add_libdomain_test(${TEST_NAME} "${SOURCES}")

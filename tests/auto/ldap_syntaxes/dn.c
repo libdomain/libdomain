@@ -12,27 +12,26 @@ typedef struct testcase_s
 
 static const testcase_t VALID_VALUES[] =
 {
-    { "Integer - Positive Test #1: Minimum integer value", "-2147483648" },
-    { "Integer - Positive Test #2: Maximum integer value", "2147483647" },
-    { "Integer - Positive Test #3: Zero", "0" },
-    { "Integer - Positive Test #4: Random integer value", "123456789" },
+    { "Distinguished name - Positive Test #1: Basic", "UID=jsmith,DC=example,DC=net" },
+    { "Distinguished name - Positive Test #2: Plus and dot", "OU=Sales+CN=J. Smith,DC=example,DC=net" },
+    { "Distinguished name - Positive Test #3: Special characters", "CN=John Smith\\, III,DC=example,DC=net" },
+    { "Distinguished name - Positive Test #4: Slash", "CN=Before\0dAfter,DC=example,DC=net" },
+    { "Distinguished name - Positive Test #4: OID", "1.3.6.1.4.1.1466.0=#04024869,DC=example,DC=com" },
+    { "Distinguished name - Positive Test #4: CN only", "CN=Lu\\C4\\8Di\\C4\\87" },
 };
 static const int NUMBER_OF_VALID_VALUES = number_of_elements(VALID_VALUES);
 
 static const testcase_t INVALID_VALUES[] =
 {
-    { "Integer - Negative Test #1: NULL value", NULL },
-    { "Integer - Negative Test #2: Empty string", "" },
-    { "Integer - Negative Test #3: Unsigned integer max", "4294967295" },
-    { "Integer - Negative Test #4: Below minimum integer value", "-2147483649" },
-    { "Integer - Negative Test #4: Leading zero", "0214748364" },
+    { "Distinguished name - Negative Test #1: NULL value", NULL },
+    { "Distinguished name - Negative Test #2: Empty string", "" }
 };
 static const int NUMBER_OF_INVALID_VALUES = number_of_elements(INVALID_VALUES);
 
-Ensure(validate_integer_returns_true_on_valid_values) {
+Ensure(validate_dn_returns_true_on_valid_values) {
     for (int i = 0; i < NUMBER_OF_VALID_VALUES; ++i)
     {
-        bool rc = validate_integer(VALID_VALUES[i].value);
+        bool rc = validate_dn(VALID_VALUES[i].value);
 
         if (rc != true)
         {
@@ -47,10 +46,10 @@ Ensure(validate_integer_returns_true_on_valid_values) {
     }
 }
 
-Ensure(validate_integer_returns_false_on_invalid_values) {
+Ensure(validate_dn_returns_false_on_invalid_values) {
     for (int i = 0; i < NUMBER_OF_INVALID_VALUES; ++i)
     {
-        bool rc = validate_integer(INVALID_VALUES[i].value);
+        bool rc = validate_dn(INVALID_VALUES[i].value);
 
         if (rc != false)
         {
@@ -65,10 +64,10 @@ Ensure(validate_integer_returns_false_on_invalid_values) {
     }
 }
 
-TestSuite* integer_test_suite()
+TestSuite* dn_test_suite()
 {
     TestSuite *suite = create_test_suite();
-    add_test(suite, validate_integer_returns_true_on_valid_values);
-    add_test(suite, validate_integer_returns_false_on_invalid_values);
+    add_test(suite, validate_dn_returns_true_on_valid_values);
+    add_test(suite, validate_dn_returns_false_on_invalid_values);
     return suite;
 }

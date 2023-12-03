@@ -2,17 +2,13 @@ set(RL_EXECUTABLE
     ragel
 )
 
-set(RL_FILES
-    boolean.rl
-    ia5string.rl
-    integer.rl
-)
+file(GLOB RL_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.rl")
 
 foreach(FILE ${RL_FILES})
     string(REGEX REPLACE "[.]rl" ".c" SOURCE ${FILE})
 
     add_custom_command(
-        OUTPUT  "${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE}"
+        OUTPUT  "${SOURCE}"
         COMMAND ${RL_EXECUTABLE} ${RL_FLAGS} ${FILE}
         DEPENDS ${FILE}
         COMMENT "Running ${RL_EXECUTABLE} ${RL_FLAGS} ${FILE}"
@@ -21,7 +17,7 @@ foreach(FILE ${RL_FILES})
         VERBATIM
     )
 
-    list(APPEND OUT_FILES "${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE}")
+    list(APPEND OUT_FILES "${SOURCE}")
 endforeach()
 
 set(RL_FLAGS
@@ -32,7 +28,6 @@ set(RL_FLAGS
 set(SYNTAX_LIBRARY_SOURCES
     syntaxes.h
 )
-
 
 add_custom_target(rl_files ALL SOURCES ${RL_FILES})
 add_custom_target(generate_all_files ALL DEPENDS ${OUT_FILES})
