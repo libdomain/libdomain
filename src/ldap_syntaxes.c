@@ -43,7 +43,7 @@ bool validate_integer(const char *value)
         return false;
     }
 
-    char buffer[sizeof("-2147483648")];
+    char buffer[sizeof("-2147483648")] = {0};
     char* end = NULL;
 
     if (strlen(value) >= sizeof(buffer))
@@ -181,7 +181,7 @@ bool validate_large_integer(const char* value)
         return false;
     }
 
-    char buffer[sizeof("-9223372036854775808")];
+    char buffer[sizeof("-9223372036854775808")] = {0};
     char* end = NULL;
 
     if (strlen(value) >= sizeof(buffer))

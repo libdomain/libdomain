@@ -13,8 +13,9 @@ typedef struct testcase_s
 static const testcase_t VALID_VALUES[] =
 {
     { "Large integer - Positive Test #1: Minimum large integer value", "-9223372036854775808" },
-    { "Large integer - Positive Test #2: Zero", "0" },
-    { "Large integer - Positive Test #3: Random large integer value", "123456789" },
+    { "Large integer - Positive Test #2: Maximum large integer value", "9223372036854775807" },
+    { "Large integer - Positive Test #3: Zero", "0" },
+    { "Large integer - Positive Test #4: Random large integer value", "123456789" },
 };
 static const int NUMBER_OF_VALID_VALUES = number_of_elements(VALID_VALUES);
 
