@@ -32,5 +32,6 @@ set(SYNTAX_LIBRARY_SOURCES
 add_custom_target(rl_files ALL SOURCES ${RL_FILES})
 add_custom_target(generate_all_files ALL DEPENDS ${OUT_FILES})
 
-add_library(syntax SHARED ${SYNTAX_LIBRARY_SOURCES} ${OUT_FILES})
+add_library(syntax STATIC ${SYNTAX_LIBRARY_SOURCES} ${OUT_FILES})
+set_property(TARGET syntax PROPERTY POSITION_INDEPENDENT_CODE ON)
 add_dependencies(syntax generate_all_files)
