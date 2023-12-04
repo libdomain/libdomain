@@ -22,6 +22,7 @@
 #include "entry_p.h"
 #include "connection.h"
 #include "domain.h"
+#include "domain_p.h"
 
 /**
  * @brief add This function wraps ldap_add_ext function associating it with connection.
@@ -113,32 +114,35 @@ enum OperationReturnCode add_on_read(int rc, LDAPMessage *message, struct ldap_c
     return RETURN_CODE_FAILURE;
 }
 
-static enum OperationReturnCode print_search_callback(struct ldap_connection_ctx_t *connection, LDAPMessage * message)
+static enum OperationReturnCode print_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries)
 {
-    const char *attribute   = NULL;
-    struct berval **values  = NULL;
-    BerElement *ber_element = NULL;
-
-    while (message)
+    int entry_index = 0;
+    while (entries[entry_index] != NULL)
     {
-        char* dn = ldap_get_dn(connection->ldap, message);
-        fprintf(stderr, "Search result - entry dn: %s\n", dn);
-        ldap_memfree(dn);
+        ld_entry_t* entry = entries[entry_index];
 
-        attribute = ldap_first_attribute(connection->ldap, message, &ber_element);
-        while (attribute != NULL)
+        fprintf(stderr, "Search result - entry dn: %s\n", ld_entry_get_dn(entry));
+
+        int attribute_index = 0;
+        LDAPAttribute_t** attributes = ld_entry_get_attributes(entry);
+        while(attributes[attribute_index] != NULL)
         {
-            values = ldap_get_values_len(connection->ldap, message, attribute);
-            for(int index = 0; index < ldap_count_values_len(values); index++)
-            {
-                printf("%s: %s\n", attribute, values[index]->bv_val);
-            }
-            ldap_value_free_len(values);
-            attribute = ldap_next_attribute(connection->ldap, message, ber_element);
-        };
-        ber_free(ber_element, 0);
+            LDAPAttribute_t* attribute = attributes[attribute_index];
 
-        message = ldap_next_message(connection->ldap, message);
+            int value_index = 0;
+            char** values = attribute->values;
+            while (values[value_index] != NULL)
+            {
+                printf("%s: %s\n", attribute->name, values[value_index]);
+                value_index++;
+            }
+
+            attribute_index++;
+        }
+
+        talloc_free(entry);
+
+        entry_index++;
     }
 
     return RETURN_CODE_SUCCESS;
@@ -257,6 +261,11 @@ void connection_remove_search_request(struct ldap_connection_ctx_t *connection, 
  */
 enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection)
 {
+    char *attribute   = NULL;
+    struct berval **values  = NULL;
+    BerElement *ber_element = NULL;
+    int values_count = 0;
+
     int error_code = 0;
     char *diagnostic_message = NULL;
 
@@ -274,7 +283,83 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
                     return RETURN_CODE_FAILURE;
                 }
 
-                int rc = connection->search_requests[i].on_search_operation(connection, message);
+                const int INITIAL_ARRAY_SIZE = 256;
+
+                info("Handle %d\n", connection->handle);
+
+                ld_entry_t** entries = talloc_array(connection->handle->talloc_ctx, ld_entry_t*, INITIAL_ARRAY_SIZE);
+
+                if (!entries)
+                {
+                    error("search_on_read - out of memory during allocation of entries!\n");
+
+                    return RETURN_CODE_FAILURE;
+                }
+
+                int entry_index = 0;
+
+                while (message)
+                {
+                    int entries_size = talloc_array_length(entries);
+
+                    if (entry_index + 2 >= entries_size)
+                    {
+                        entries = talloc_realloc(connection->handle->talloc_ctx, NULL, ld_entry_t*, entries_size * 2);
+
+                        if (!entries)
+                        {
+                            error("search_on_read - out of memory during allocation of entries!\n");
+
+                            return RETURN_CODE_FAILURE;
+                        }
+                    }
+
+                    char* dn = ldap_get_dn(connection->ldap, message);
+                    ld_entry_t* ld_entry = ld_entry_new(connection->handle->talloc_ctx, dn);
+                    ldap_memfree(dn);
+
+                    if (!ld_entry)
+                    {
+                        error("search_on_read - out of memory - unable to create new entry!\n");
+
+                        return RETURN_CODE_FAILURE;
+                    }
+
+                    entries[entry_index] = ld_entry;
+
+                    attribute = ldap_first_attribute(connection->ldap, message, &ber_element);
+                    while (attribute != NULL)
+                    {
+                        LDAPAttribute_t* ld_attribute = talloc_zero(connection->handle->talloc_ctx, LDAPAttribute_t);
+                        ld_attribute->name = talloc_strdup(connection->handle->talloc_ctx, attribute);
+
+                        values = ldap_get_values_len(connection->ldap, message, attribute);
+                        values_count = ldap_count_values_len(values);
+
+                        ld_attribute->values = talloc_array(connection->handle->talloc_ctx, char*, values_count + 1);
+
+                        for(int values_index = 0; values_index < values_count; values_index++)
+                        {
+                            ld_attribute->values[values_index] = talloc_strdup(connection->handle->talloc_ctx, values[values_index]->bv_val);
+                        }
+                        ld_attribute->values[values_count] = NULL;
+                        ldap_value_free_len(values);
+
+                        ld_entry_add_attribute(ld_entry, ld_attribute);
+
+                        ldap_memfree(attribute);
+                        attribute = ldap_next_attribute(connection->ldap, message, ber_element);
+                    };
+                    ber_free(ber_element, 0);
+
+                    message = ldap_next_message(connection->ldap, message);
+
+                    entry_index++;
+                }
+
+                entries[entry_index] = NULL;
+
+                int rc = connection->search_requests[i].on_search_operation(connection, entries);
 
                 connection_remove_search_request(connection, i);
 
@@ -656,7 +741,7 @@ static int ld_entry_destructor(TALLOC_CTX *ctx)
  *        - Valid pointer to ld_entry_t.
  *        - NULL on error.
  */
-ld_entry_t* ld_entry_new(TALLOC_CTX *ctx)
+ld_entry_t* ld_entry_new(TALLOC_CTX *ctx, const char* dn)
 {
     if (!ctx)
     {
@@ -670,6 +755,17 @@ ld_entry_t* ld_entry_new(TALLOC_CTX *ctx)
     if (!result)
     {
         error("ld_entry_new - out of memory - unable to create entry!\n");
+
+        return NULL;
+    }
+
+    result->dn = talloc_strdup(result, dn);
+
+    if (!result->dn)
+    {
+        talloc_free(result);
+
+        error("ld_entry_new - out of memory - unable to copy dn!\n");
 
         return NULL;
     }
@@ -744,4 +840,88 @@ LDAPAttribute_t *ld_entry_get_attribute(ld_entry_t* entry, const char *name_or_o
     }
 
     return (LDAPAttribute_t *)g_hash_table_lookup(entry->attributes, name_or_oid);
+}
+
+/**
+ * @brief ld_entry_get_dn Get entry's dn;
+ * @param[in] entry       Entry to use.
+ * @return
+ *        - NULL - on error.
+ *        - DN on success.
+ */
+const char *ld_entry_get_dn(ld_entry_t *entry)
+{
+    if (!entry || !entry->dn)
+    {
+        error("ld_entry_add_attribute - entry is NULL!\n");
+
+        return NULL;
+    }
+
+    return talloc_strdup(entry, entry->dn);
+}
+
+static void append_attribute(gpointer key, gpointer value, gpointer userdata)
+{
+    if (!value)
+    {
+        return;
+    }
+
+    LDAPAttribute_t *attribute = userdata;
+
+    attribute->name = key;
+
+    char** values = ((LDAPAttribute_t*)value)->values;
+
+    if (!values)
+    {
+        attribute->values = NULL;
+        return;
+    }
+
+    int index = 0;
+    while(values[index] != NULL)
+    {
+        index++;
+    }
+
+    attribute->values = talloc_array(userdata, char*, index + 1);
+
+    int value_index = 0;
+    while(values[value_index] != NULL)
+    {
+        attribute->values[value_index] = talloc_strdup(userdata, values[value_index]);
+        value_index++;
+    }
+
+    attribute->values[index] = NULL;
+}
+
+LDAPAttribute_t **ld_entry_get_attributes(ld_entry_t *entry)
+{
+    if (!entry || !entry->attributes)
+    {
+        error("ld_entry_add_attribute - entry is NULL!\n");
+
+        return NULL;
+    }
+
+    int attributes_size = g_hash_table_size(entry->attributes);
+
+    LDAPAttribute_t ** result = talloc_array(entry, LDAPAttribute_t*, attributes_size + 1);
+
+    GHashTableIter iter;
+    gpointer key = NULL, value = NULL;
+
+    int index = 0;
+    g_hash_table_iter_init(&iter, entry->attributes);
+    while (g_hash_table_iter_next(&iter, &key, &value)) {
+        result[index] = talloc_zero(result, LDAPAttribute_t);
+        append_attribute(key, value, result[index]);
+        index++;
+    }
+    result[attributes_size] = NULL;
+
+    return result;
 }

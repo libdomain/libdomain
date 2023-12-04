@@ -87,21 +87,21 @@ static void connection_on_search_message(verto_ctx *ctx, verto_ev *ev)
     }
 }
 
-static enum OperationReturnCode middle_search_callback(struct ldap_connection_ctx_t *connection, LDAPMessage * message)
+static enum OperationReturnCode middle_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries)
 {
     info("Empty search callback has been called!\n");
 
     return RETURN_CODE_SUCCESS;
 }
 
-static enum OperationReturnCode begin_search_callback(struct ldap_connection_ctx_t *connection, LDAPMessage * message)
+static enum OperationReturnCode begin_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries)
 {
     info("Begin search callback has been called!\n");
 
     return RETURN_CODE_SUCCESS;
 }
 
-static enum OperationReturnCode end_search_callback(struct ldap_connection_ctx_t *connection, LDAPMessage * message)
+static enum OperationReturnCode end_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries)
 {
     info("End search callback has been called!\n");
 

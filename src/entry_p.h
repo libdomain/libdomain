@@ -24,6 +24,7 @@
 
 typedef struct ld_entry_s
 {
+    char* dn;
     GHashTable *attributes;
 } ld_entry_t;
 

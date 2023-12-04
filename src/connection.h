@@ -101,7 +101,7 @@ struct ldap_connection_ctx_t;
 typedef struct ld_entry_s ld_entry_t;
 
 typedef enum OperationReturnCode (*operation_callback_fn)(int, LDAPMessage *, struct ldap_connection_ctx_t *);
-typedef enum OperationReturnCode (*search_callback_fn)(struct ldap_connection_ctx_t *connection, LDAPMessage * message);
+typedef enum OperationReturnCode (*search_callback_fn)(struct ldap_connection_ctx_t *connection, ld_entry_t** entries);
 
 typedef struct ldhandle LDHandle;
 
