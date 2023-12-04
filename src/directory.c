@@ -104,7 +104,7 @@ bool directory_process_attribute(const char* attribute_name, struct ldap_connect
  */
 enum OperationReturnCode directory_parse_result(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection)
 {
-    const char *attribute   = NULL;
+    char *attribute   = NULL;
     BerElement *ber_element = NULL;
 
     int error_code = 0;
@@ -122,9 +122,10 @@ enum OperationReturnCode directory_parse_result(int rc, LDAPMessage *message, st
             {
                 if (directory_process_attribute(attribute, connection))
                 {
+                    ldap_memfree(attribute);
                     break;
                 }
-
+                ldap_memfree(attribute);
                 attribute = ldap_next_attribute(connection->ldap, message, ber_element);
             };
             ber_free(ber_element, 0);
