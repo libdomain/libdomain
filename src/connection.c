@@ -618,6 +618,25 @@ void connection_on_write(verto_ctx *ctx, verto_ev *ev)
 enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connection)
 {
     assert(connection);
+
+    if (connection->ldap_defaults)
+    {
+        if (connection->ldap_defaults->authcid)
+        {
+            ldap_memfree(connection->ldap_defaults->authcid);
+        }
+
+        if (connection->ldap_defaults->authzid)
+        {
+            ldap_memfree(connection->ldap_defaults->authzid);
+        }
+
+        if (connection->ldap_defaults->realm)
+        {
+            ldap_memfree(connection->ldap_defaults->realm);
+        }
+    }
+
     talloc_free(connection->ldap_defaults);
 
     if (connection->read_event)
