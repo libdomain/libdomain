@@ -34,7 +34,8 @@ enum OperationReturnCode search(struct ldap_connection_ctx_t *connection,
                                 int scope,
                                 const char *filter,
                                 char **attrs,
-                                bool attrsonly);
+                                bool attrsonly,
+                                search_callback_fn search_callback);
 enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection);
 
 enum OperationReturnCode modify(struct ldap_connection_ctx_t *connection, const char *dn, LDAPMod **attrs);

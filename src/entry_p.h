@@ -27,4 +27,6 @@ typedef struct ld_entry_s
     GHashTable *attributes;
 } ld_entry_t;
 
+void connection_remove_search_request(struct ldap_connection_ctx_t *connection, int index);
+
 #endif //LIBDOMAIN_ENTRY_PRIVATE_H

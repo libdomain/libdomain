@@ -113,6 +113,37 @@ enum OperationReturnCode add_on_read(int rc, LDAPMessage *message, struct ldap_c
     return RETURN_CODE_FAILURE;
 }
 
+static enum OperationReturnCode print_search_callback(struct ldap_connection_ctx_t *connection, LDAPMessage * message)
+{
+    const char *attribute   = NULL;
+    struct berval **values  = NULL;
+    BerElement *ber_element = NULL;
+
+    while (message)
+    {
+        char* dn = ldap_get_dn(connection->ldap, message);
+        fprintf(stderr, "Search result - entry dn: %s\n", dn);
+        ldap_memfree(dn);
+
+        attribute = ldap_first_attribute(connection->ldap, message, &ber_element);
+        while (attribute != NULL)
+        {
+            values = ldap_get_values_len(connection->ldap, message, attribute);
+            for(int index = 0; index < ldap_count_values_len(values); index++)
+            {
+                printf("%s: %s\n", attribute, values[index]->bv_val);
+            }
+            ldap_value_free_len(values);
+            attribute = ldap_next_attribute(connection->ldap, message, ber_element);
+        };
+        ber_free(ber_element, 0);
+
+        message = ldap_next_message(connection->ldap, message);
+    }
+
+    return RETURN_CODE_SUCCESS;
+}
+
 /**
  * @brief search         Function wraps ldap search operation associating it with connection.
  * @param[in] connection Connection to work with.
@@ -144,8 +175,13 @@ enum OperationReturnCode add_on_read(int rc, LDAPMessage *message, struct ldap_c
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
  */
-enum OperationReturnCode  search(struct ldap_connection_ctx_t* connection, const char *base_dn, int scope,
-                                 const char *filter, char **attrs, bool attrsonly)
+enum OperationReturnCode search(struct ldap_connection_ctx_t *connection,
+                                const char *base_dn,
+                                int scope,
+                                const char *filter,
+                                char **attrs,
+                                bool attrsonly,
+                                search_callback_fn search_callback)
 {
     int msgid = 0;
     int rc = ldap_search_ext(connection->ldap,
@@ -171,7 +207,43 @@ enum OperationReturnCode  search(struct ldap_connection_ctx_t* connection, const
     ++connection->n_read_requests;
     request_queue_push(connection->callqueue, &request->node);
 
+    if (connection->n_search_requests + 1 >= MAX_REQUESTS)
+    {
+        error("Maximum amount of search requests exceeded for connection %d.\n", connection);
+
+        return RETURN_CODE_FAILURE;
+    }
+
+    struct ldap_search_request_t* search_request = &connection->search_requests[connection->n_search_requests];
+    search_request->msgid = msgid;
+    search_request->on_search_operation = search_callback ? search_callback : print_search_callback;
+    ++connection->n_search_requests;
+
     return RETURN_CODE_SUCCESS;
+}
+
+/**
+ * @brief remove_search_request Removes search request from connection by index.
+ * @param[in] connection        Connection to remove request from.
+ * @param[in] index             Index to remove.
+ */
+void connection_remove_search_request(struct ldap_connection_ctx_t *connection, int index)
+{
+    if (index == connection->n_read_requests - 1)
+    {
+        --connection->n_search_requests;
+        memset(&connection->search_requests[index], 0, sizeof(struct ldap_search_request_t));
+    }
+    else
+    {
+        int request_index = index;
+        while (request_index < connection->n_search_requests - 1)
+        {
+            connection->search_requests[request_index] = connection->search_requests[request_index + 1];
+            ++request_index;
+        }
+        memset(&connection->search_requests[--connection->n_search_requests], 0, sizeof(struct ldap_search_request_t));
+    }
 }
 
 /**
@@ -185,10 +257,6 @@ enum OperationReturnCode  search(struct ldap_connection_ctx_t* connection, const
  */
 enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection)
 {
-    const char *attribute   = NULL;
-    struct berval **values  = NULL;
-    BerElement *ber_element = NULL;
-
     int error_code = 0;
     char *diagnostic_message = NULL;
 
@@ -197,29 +265,22 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
     case LDAP_RES_SEARCH_ENTRY:
     case LDAP_RES_SEARCH_RESULT:
     {
-        while (message)
+        for (int i = 0; i < connection->n_search_requests; ++i)
         {
-            char* dn = ldap_get_dn(connection->ldap, message);
-            fprintf(stderr, "Search result - entry dn: %s\n", dn);
-            ldap_memfree(dn);
-
-            attribute = ldap_first_attribute(connection->ldap, message, &ber_element);
-            while (attribute != NULL)
+            if (connection->search_requests[i].msgid == ldap_msgid(message))
             {
-                values = ldap_get_values_len(connection->ldap, message, attribute);
-                for(int index = 0; index < ldap_count_values_len(values); index++)
+                if (!connection->search_requests[i].on_search_operation)
                 {
-                    printf("%s: %s\n", attribute, values[index]->bv_val);
+                    return RETURN_CODE_FAILURE;
                 }
-                ldap_value_free_len(values);
-                attribute = ldap_next_attribute(connection->ldap, message, ber_element);
-            };
-            ber_free(ber_element, 0);
 
-            message = ldap_next_message(connection->ldap, message);
+                int rc = connection->search_requests[i].on_search_operation(connection, message);
+
+                connection_remove_search_request(connection, i);
+
+                return rc;
+            }
         }
-
-        return RETURN_CODE_SUCCESS;
     }
         break;
     case LDAP_RES_SEARCH_REFERENCE:

@@ -41,7 +41,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     {
         verto_del(ev);
 
-        enum OperationReturnCode rc = search(connection, "", LDAP_SCOPE_BASE, NULL, LDAP_DIRECTORY_ATTRS, 0);
+        enum OperationReturnCode rc = search(connection, "", LDAP_SCOPE_BASE, NULL, LDAP_DIRECTORY_ATTRS, 0, NULL);
         assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
 
         ld_install_handler(connection->handle, connection_on_add_message, CONNECTION_UPDATE_INTERVAL);
