@@ -84,7 +84,7 @@ Ensure(Cgreen, connection_configure_with_sasl_test) {
     info("connection_configure - %s\n", rc == RETURN_CODE_SUCCESS ? "successful" : "failure");
 
     assert_that(ctx->connection_ctx.ldap_defaults, is_not_null);
-    info("ldap_defaults - is %s\n", ctx->connection_ctx.ldap_defaults != NULL ? " is not null" : "is null");
+    info("ldap_defaults - %s\n", ctx->connection_ctx.ldap_defaults != NULL ? " is not null" : "is null");
 
     talloc_free(ctx->config.sasl_options);
 
