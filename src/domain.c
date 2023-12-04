@@ -231,6 +231,8 @@ ld_config_t *ld_create_config(TALLOC_CTX* talloc_ctx,
         result->host = talloc_asprintf(talloc_ctx, "%s", host);
     }
 
+    const char *empty_string = "";
+
     result->protocol_version = protocol_version;
 
     result->base_dn  = talloc_strndup(talloc_ctx, base_dn, strlen(base_dn));
@@ -244,9 +246,15 @@ ld_config_t *ld_create_config(TALLOC_CTX* talloc_ctx,
 
     result->timeout = timeout;
 
-    result->cacertfile = talloc_strndup(talloc_ctx, cacertfile, strlen(cacertfile));
-    result->certfile   = talloc_strndup(talloc_ctx, certfile, strlen(certfile));
-    result->keyfile    = talloc_strndup(talloc_ctx, keyfile, strlen(keyfile));
+    result->cacertfile = cacertfile
+            ? talloc_strndup(talloc_ctx, cacertfile, strlen(cacertfile))
+            : talloc_strndup(talloc_ctx, empty_string, strlen(empty_string));
+    result->certfile = certfile
+            ? talloc_strndup(talloc_ctx, certfile, strlen(certfile))
+            : talloc_strndup(talloc_ctx, empty_string, strlen(empty_string));
+    result->keyfile = keyfile
+            ? talloc_strndup(talloc_ctx, keyfile, strlen(keyfile))
+            : talloc_strndup(talloc_ctx, empty_string, strlen(empty_string));
 
     return result;
 }
