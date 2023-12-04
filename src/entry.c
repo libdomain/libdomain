@@ -19,7 +19,9 @@
 ***********************************************************************************************************************/
 
 #include "entry.h"
+#include "entry_p.h"
 #include "connection.h"
+#include "domain.h"
 
 /**
  * @brief add This function wraps ldap_add_ext function associating it with connection.
@@ -574,4 +576,111 @@ enum OperationReturnCode rename_on_read(int rc, LDAPMessage *message, ldap_conne
     }
 
     return RETURN_CODE_FAILURE;
+}
+
+static int ld_entry_destructor(TALLOC_CTX *ctx)
+{
+    ld_entry_t *entry = NULL;
+    entry = talloc_get_type_abort(ctx, ld_entry_t);
+
+    g_hash_table_destroy(entry->attributes);
+
+    return 0;
+}
+
+/**
+ * @brief ld_entry_new Creates new ld_entry_t;
+ * @param[in] ctx      Talloc ctx to use.
+ * @return
+ *        - Valid pointer to ld_entry_t.
+ *        - NULL on error.
+ */
+ld_entry_t* ld_entry_new(TALLOC_CTX *ctx)
+{
+    if (!ctx)
+    {
+        error("ld_entry_new - invalid talloc_ctx!\n");
+
+        return NULL;
+    }
+
+    ld_entry_t* result = talloc_zero(ctx, ld_entry_t);
+
+    if (!result)
+    {
+        error("ld_entry_new - out of memory - unable to create entry!\n");
+
+        return NULL;
+    }
+
+    result->attributes = g_hash_table_new(g_str_hash, g_str_equal);
+
+    if (!result->attributes)
+    {
+        talloc_free(result);
+
+        error("ld_entry_new - out of memory - unable to create attributes!\n");
+
+        return NULL;
+    }
+
+    talloc_set_destructor((void*)result, ld_entry_destructor);
+
+    return result;
+}
+
+/**
+ * @brief ld_entry_add_attribute Adds attribute to entry.
+ * @param[in] entry              Entry to use.
+ * @param[in] attr               Attribute to add.
+ * @return
+ *        - RETURN_CODE_FAILURE - on error.
+ *        - RETURN_CODE_SUCCESS - when attribute was added successduly.
+ */
+enum OperationReturnCode ld_entry_add_attribute(ld_entry_t* entry, const LDAPAttribute_t *attr)
+{
+    if (!entry || !entry->attributes)
+    {
+        error("ld_entry_add_attribute - entry is NULL!\n");
+
+        return RETURN_CODE_FAILURE;
+    }
+
+    if (!attr)
+    {
+        error("ld_entry_add_attribute - attribute is NULL!\n");
+
+        return RETURN_CODE_FAILURE;
+    }
+
+    if (!attr->name)
+    {
+        error("ld_entry_add_attribute - invalid attribute name!\n");
+
+        return RETURN_CODE_FAILURE;
+    }
+
+    return g_hash_table_insert(entry->attributes, attr->name, (LDAPAttribute_t *)attr)
+            ? RETURN_CODE_SUCCESS
+            : RETURN_CODE_FAILURE;
+}
+
+/**
+ * @brief ld_entry_get_attribute Gets attribute from entry.
+ * @param[in] entry              Entry to use.
+ * @param[in] name_or_oid        Name of attribute.
+ * @return
+ *        - NULL - if attribute not found.
+ *        - Pointer to LDAPAttribute_t if attribute was found.
+ */
+LDAPAttribute_t *ld_entry_get_attribute(ld_entry_t* entry, const char *name_or_oid)
+{
+    if (!entry || !entry->attributes)
+    {
+        error("ld_entry_add_attribute - entry is NULL!\n");
+
+        return NULL;
+    }
+
+    return (LDAPAttribute_t *)g_hash_table_lookup(entry->attributes, name_or_oid);
 }

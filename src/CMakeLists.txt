@@ -18,6 +18,7 @@ endmacro(add_libdomain_library)
 find_package(Ldap REQUIRED)
 
 find_package(PkgConfig REQUIRED)
+pkg_check_modules(Glib20 REQUIRED IMPORTED_TARGET glib-2.0)
 pkg_check_modules(Talloc REQUIRED IMPORTED_TARGET talloc)
 pkg_check_modules(Libverto REQUIRED IMPORTED_TARGET libverto)
 pkg_check_modules(Libconfig REQUIRED IMPORTED_TARGET libconfig)
@@ -40,6 +41,7 @@ set(PROJECT_SOURCES
     domain.c
     entry.c
     entry.h
+    entry_p.h
     group.c
     group.h
     ldap_syntaxes.c
@@ -58,7 +60,7 @@ set(PROJECT_SOURCES
 add_subdirectory(syntaxes)
 
 add_libdomain_library(domain SHARED ${PROJECT_SOURCES})
-target_link_libraries(domain PUBLIC PkgConfig::Talloc PkgConfig::Libverto PkgConfig::Libconfig Ldap::Ldap)
+target_link_libraries(domain PUBLIC PkgConfig::Glib20 PkgConfig::Talloc PkgConfig::Libverto PkgConfig::Libconfig Ldap::Ldap)
 target_link_libraries(domain PRIVATE syntax)
 set_target_properties(domain PROPERTIES
     INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}

@@ -21,6 +21,10 @@
 #define LIBDOMAIN_ENTRY_H
 
 #include "connection.h"
+
+typedef struct LDAPAttribute_s LDAPAttribute_t;
+typedef struct ld_entry_s ld_entry_t;
+
 enum OperationReturnCode add(struct ldap_connection_ctx_t *connection, const char *dn, LDAPMod **attrs);
 enum OperationReturnCode add_on_read(int rc, LDAPMessage *message, ldap_connection_ctx_t *connection);
 
@@ -45,5 +49,9 @@ enum OperationReturnCode rename_on_read(int rc, LDAPMessage *message, ldap_conne
 
 enum OperationReturnCode whoami(struct ldap_connection_ctx_t *connection);
 enum OperationReturnCode whoami_on_read(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection);
+
+ld_entry_t *ld_entry_new(TALLOC_CTX* ctx);
+enum OperationReturnCode ld_entry_add_attribute(ld_entry_t *entry, const LDAPAttribute_t* attr);
+LDAPAttribute_t *ld_entry_get_attribute(ld_entry_t *entry, const char* name_or_oid);
 
 #endif //LIBDOMAIN_ENTRY_H
