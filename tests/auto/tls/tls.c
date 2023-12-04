@@ -3,6 +3,7 @@
 #include <connection.h>
 #include <connection_state_machine.h>
 #include <entry.h>
+#include <domain_p.h>
 #include <talloc.h>
 
 #include <test_common.h>
@@ -54,6 +55,8 @@ static struct context_t* create_context()
     assert_that(ctx->global_ctx.talloc_ctx, is_non_null);
 
     memset(&ctx->connection_ctx, 0, sizeof(ldap_connection_ctx_t));
+    ctx->connection_ctx.handle = talloc(ctx->global_ctx.talloc_ctx, LDHandle);
+    ctx->connection_ctx.handle->talloc_ctx = ctx->global_ctx.talloc_ctx;
 
     char *envvar = "LDAPS_SERVER";
     char *server = get_environment_variable(ctx->global_ctx.talloc_ctx, envvar);
