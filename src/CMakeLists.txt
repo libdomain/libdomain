@@ -42,6 +42,8 @@ set(PROJECT_SOURCES
     entry.h
     group.c
     group.h
+    ldap_syntaxes.c
+    ldap_syntaxes.h
     organizational_unit.c
     organizational_unit.h
     request_queue.h
@@ -53,8 +55,11 @@ set(PROJECT_SOURCES
     user.h
 )
 
+add_subdirectory(syntaxes)
+
 add_libdomain_library(domain SHARED ${PROJECT_SOURCES})
 target_link_libraries(domain PUBLIC PkgConfig::Talloc PkgConfig::Libverto PkgConfig::Libconfig Ldap::Ldap)
+target_link_libraries(domain PRIVATE syntax)
 set_target_properties(domain PROPERTIES
     INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}
 )

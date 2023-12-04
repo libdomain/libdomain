@@ -37,6 +37,7 @@ RUN apt-get update \
     libsasl2-devel \
     libconfig-devel \
     cgreen \
+    ragel \
     && export CURRENT_PWD=`pwd` \
     && groupadd --gid $GROUP_ID builder2 \
     && useradd --uid $USER_ID --gid $GROUP_ID -ms /bin/bash builder2 \

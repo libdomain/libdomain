@@ -41,6 +41,7 @@ RUN apt-get update \
     krb5-kinit \
     cyrus-sasl2 \
     libsasl2-plugin-gssapi \
+    ragel \
     && export CURRENT_PWD=`pwd` \
     && groupadd builder2 \
     && useradd --uid $USER_ID --gid builder2 -ms /bin/bash builder2 \

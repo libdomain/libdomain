@@ -18,6 +18,7 @@ BuildRequires: libldap-devel libverto-devel libverto-libev-devel libverto-glib-d
 BuildRequires: libtalloc-devel libsasl2-devel
 BuildRequires: libconfig-devel
 BuildRequires: cgreen
+BuildRequires: ragel
 
 BuildRequires: doxygen
 
