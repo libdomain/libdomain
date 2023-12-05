@@ -192,7 +192,8 @@ ld_config_t *ld_load_config(TALLOC_CTX* ctx, const char *filename)
  *        - NULL      on failure.
  *        - config_t* on success.
  */
-ld_config_t *ld_create_config(char *host,
+ld_config_t *ld_create_config(TALLOC_CTX* talloc_ctx,
+                              char *host,
                               int port,
                               int protocol_version,
                               char* base_dn,
@@ -207,7 +208,13 @@ ld_config_t *ld_create_config(char *host,
                               char *certfile,
                               char *keyfile)
 {
-    ld_config_t *result = malloc(sizeof(ld_config_t));
+    if (!talloc_ctx)
+    {
+        error("ld_create_config - Invalid talloc context!\n");
+        return NULL;
+    }
+
+    ld_config_t *result = talloc_zero(talloc_ctx, ld_config_t);
 
     if (!result)
     {
@@ -217,18 +224,20 @@ ld_config_t *ld_create_config(char *host,
 
     if (port > 0)
     {
-        result->host = talloc_asprintf(NULL, "%s:%d", host, port);
+        result->host = talloc_asprintf(talloc_ctx, "%s:%d", host, port);
     }
     else
     {
-        result->host = talloc_asprintf(NULL, "%s", host);
+        result->host = talloc_asprintf(talloc_ctx, "%s", host);
     }
+
+    const char *empty_string = "";
 
     result->protocol_version = protocol_version;
 
-    result->base_dn  = strndup(base_dn, strlen(base_dn));
-    result->username = username ? strndup(username, strlen(username)) : NULL;
-    result->password = password ? strndup(password, strlen(password)) : NULL;
+    result->base_dn  = talloc_strndup(talloc_ctx, base_dn, strlen(base_dn));
+    result->username = username ? talloc_strndup(talloc_ctx, username, strlen(username)) : NULL;
+    result->password = password ? talloc_strndup(talloc_ctx, password, strlen(password)) : NULL;
 
     result->simple_bind = simple_bind;
     result->use_tls     = use_tls;
@@ -237,9 +246,15 @@ ld_config_t *ld_create_config(char *host,
 
     result->timeout = timeout;
 
-    result->cacertfile = strndup(cacertfile, strlen(cacertfile));
-    result->certfile   = strndup(certfile, strlen(certfile));
-    result->keyfile    = strndup(keyfile, strlen(keyfile));
+    result->cacertfile = cacertfile
+            ? talloc_strndup(talloc_ctx, cacertfile, strlen(cacertfile))
+            : talloc_strndup(talloc_ctx, empty_string, strlen(empty_string));
+    result->certfile = certfile
+            ? talloc_strndup(talloc_ctx, certfile, strlen(certfile))
+            : talloc_strndup(talloc_ctx, empty_string, strlen(empty_string));
+    result->keyfile = keyfile
+            ? talloc_strndup(talloc_ctx, keyfile, strlen(keyfile))
+            : talloc_strndup(talloc_ctx, empty_string, strlen(empty_string));
 
     return result;
 }

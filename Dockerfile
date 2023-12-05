@@ -36,6 +36,7 @@ RUN apt-get update \
     libtalloc-devel \
     libsasl2-devel \
     libconfig-devel \
+    glib2-devel \
     cgreen \
     ragel \
     && export CURRENT_PWD=`pwd` \

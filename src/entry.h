@@ -21,6 +21,10 @@
 #define LIBDOMAIN_ENTRY_H
 
 #include "connection.h"
+
+typedef struct LDAPAttribute_s LDAPAttribute_t;
+typedef struct ld_entry_s ld_entry_t;
+
 enum OperationReturnCode add(struct ldap_connection_ctx_t *connection, const char *dn, LDAPMod **attrs);
 enum OperationReturnCode add_on_read(int rc, LDAPMessage *message, ldap_connection_ctx_t *connection);
 
@@ -30,7 +34,8 @@ enum OperationReturnCode search(struct ldap_connection_ctx_t *connection,
                                 int scope,
                                 const char *filter,
                                 char **attrs,
-                                bool attrsonly);
+                                bool attrsonly,
+                                search_callback_fn search_callback);
 enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection);
 
 enum OperationReturnCode modify(struct ldap_connection_ctx_t *connection, const char *dn, LDAPMod **attrs);
@@ -45,5 +50,11 @@ enum OperationReturnCode rename_on_read(int rc, LDAPMessage *message, ldap_conne
 
 enum OperationReturnCode whoami(struct ldap_connection_ctx_t *connection);
 enum OperationReturnCode whoami_on_read(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection);
+
+ld_entry_t *ld_entry_new(TALLOC_CTX* ctx, const char *dn);
+const char *ld_entry_get_dn(ld_entry_t *entry);
+enum OperationReturnCode ld_entry_add_attribute(ld_entry_t *entry, const LDAPAttribute_t* attr);
+LDAPAttribute_t *ld_entry_get_attribute(ld_entry_t *entry, const char* name_or_oid);
+LDAPAttribute_t **ld_entry_get_attributes(ld_entry_t *entry);
 
 #endif //LIBDOMAIN_ENTRY_H

@@ -97,7 +97,7 @@ const char* ldap_option2string(int option)
             error_exit; \
     } \
 
-void requests_init(struct ldap_request_t* requests, int size)
+void ldap_requests_init(struct ldap_request_t* requests, int size)
 {
     for (int i = 0; i < size; ++i)
     {
@@ -105,6 +105,15 @@ void requests_init(struct ldap_request_t* requests, int size)
         requests[i].on_read_operation = NULL;
         requests[i].on_write_operation = NULL;
         memset(&requests[i].node, 0, sizeof(struct Queue_Node_s));
+    }
+}
+
+void search_requests_init(struct ldap_search_request_t* requests, int size)
+{
+    for (int i = 0; i < size; ++i)
+    {
+        requests[i].msgid = -1;
+        requests[i].on_search_operation = NULL;
     }
 }
 
@@ -248,8 +257,12 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
     connection->n_read_requests = 0;
     connection->n_write_requests = 0;
 
-    requests_init(connection->read_requests, MAX_REQUESTS);
-    requests_init(connection->write_requests, MAX_REQUESTS);
+    connection->n_search_requests = 0;
+
+    ldap_requests_init(connection->read_requests, MAX_REQUESTS);
+    ldap_requests_init(connection->write_requests, MAX_REQUESTS);
+
+    search_requests_init(connection->search_requests, MAX_REQUESTS);
 
     connection->base = verto_default(NULL, VERTO_EV_TYPE_NONE);
     if (!connection->base)
@@ -605,6 +618,25 @@ void connection_on_write(verto_ctx *ctx, verto_ev *ev)
 enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connection)
 {
     assert(connection);
+
+    if (connection->ldap_defaults)
+    {
+        if (connection->ldap_defaults->authcid)
+        {
+            ldap_memfree(connection->ldap_defaults->authcid);
+        }
+
+        if (connection->ldap_defaults->authzid)
+        {
+            ldap_memfree(connection->ldap_defaults->authzid);
+        }
+
+        if (connection->ldap_defaults->realm)
+        {
+            ldap_memfree(connection->ldap_defaults->realm);
+        }
+    }
+
     talloc_free(connection->ldap_defaults);
 
     if (connection->read_event)

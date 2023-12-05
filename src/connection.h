@@ -98,9 +98,18 @@ typedef struct ldap_connection_config_t
 
 struct ldap_connection_ctx_t;
 
+typedef struct ld_entry_s ld_entry_t;
+
 typedef enum OperationReturnCode (*operation_callback_fn)(int, LDAPMessage *, struct ldap_connection_ctx_t *);
+typedef enum OperationReturnCode (*search_callback_fn)(struct ldap_connection_ctx_t *connection, ld_entry_t** entries);
 
 typedef struct ldhandle LDHandle;
+
+typedef struct ldap_search_request_t
+{
+    int msgid;
+    search_callback_fn on_search_operation;
+} ldap_search_request_t;
 
 typedef struct ldap_request_t
 {
@@ -110,7 +119,6 @@ typedef struct ldap_request_t
     operation_callback_fn on_write_operation;
 
     struct Queue_Node_s node;
-
 } ldap_request_t;
 
 typedef struct ldap_connection_ctx_t
@@ -144,8 +152,12 @@ typedef struct ldap_connection_ctx_t
     struct ldap_request_t read_requests[MAX_REQUESTS];
     struct ldap_request_t write_requests[MAX_REQUESTS];
 
+    struct ldap_search_request_t search_requests[MAX_REQUESTS];
+
     int n_read_requests;
     int n_write_requests;
+
+    int n_search_requests;
 
     struct state_machine_ctx_t *state_machine;
 

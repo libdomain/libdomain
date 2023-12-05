@@ -45,20 +45,21 @@ typedef enum OperationReturnCode (*error_callback_fn)(int, void *, void *);
 
 ld_config_t *ld_load_config(TALLOC_CTX *ctx, const char *filename);
 
-ld_config_t *ld_create_config(char *host,
-                           int port,
-                           int protocol_version,
-                           char *base_dn,
-                           char *username,
-                           char *password,
-                           bool simple_bind,
-                           bool use_tls,
-                           bool use_sasl,
-                           bool use_anon,
-                           int timeout,
-                           char *cacertfile,
-                           char *certfile,
-                           char *keyfile);
+ld_config_t *ld_create_config(TALLOC_CTX* talloc_ctx,
+                              char *host,
+                              int port,
+                              int protocol_version,
+                              char *base_dn,
+                              char *username,
+                              char *password,
+                              bool simple_bind,
+                              bool use_tls,
+                              bool use_sasl,
+                              bool use_anon,
+                              int timeout,
+                              char *cacertfile,
+                              char *certfile,
+                              char *keyfile);
 
 void ld_init(LDHandle **handle, const ld_config_t *config);
 void ld_install_default_handlers(LDHandle *handle);
