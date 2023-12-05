@@ -14,7 +14,7 @@ BuildRequires: rpm-macros-cmake
 BuildRequires: cmake-modules
 BuildRequires: gcc gcc-c++
 
-BuildRequires: libldap-devel libverto-devel libverto-libev-devel libverto-glib-devel libverto-libevent-devel
+BuildRequires: libldap-devel libverto-devel libverto-libev-devel libverto-glib-devel libverto-libevent-devel glib2-devel
 BuildRequires: libtalloc-devel libsasl2-devel
 BuildRequires: libconfig-devel
 BuildRequires: cgreen
