@@ -912,7 +912,7 @@ static void fill_attribute(gpointer key, gpointer value, gpointer userdata)
  *        - NULL terminated array of attributes on success.
  *        - NULL on error.
  * @see talloc_free();
- * It is requred to call talloc_free() uppon completing work with
+ * It is required to call talloc_free() upon completing work with
  * attributes.
  */
 LDAPAttribute_t **ld_entry_get_attributes(ld_entry_t *entry)
