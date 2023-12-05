@@ -1,4 +1,5 @@
 add_subdirectory(entry)
+add_subdirectory(entry_utils)
 
 add_subdirectory(directory)
 

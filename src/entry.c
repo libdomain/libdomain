@@ -750,6 +750,13 @@ ld_entry_t* ld_entry_new(TALLOC_CTX *ctx, const char* dn)
         return NULL;
     }
 
+    if (!dn)
+    {
+        error("ld_entry_new - invalid dn!\n");
+
+        return NULL;
+    }
+
     ld_entry_t* result = talloc_zero(ctx, ld_entry_t);
 
     if (!result)
@@ -834,7 +841,7 @@ LDAPAttribute_t *ld_entry_get_attribute(ld_entry_t* entry, const char *name_or_o
 {
     if (!entry || !entry->attributes)
     {
-        error("ld_entry_add_attribute - entry is NULL!\n");
+        error("ld_entry_get_attribute - entry is NULL!\n");
 
         return NULL;
     }
@@ -861,7 +868,7 @@ const char *ld_entry_get_dn(ld_entry_t *entry)
     return talloc_strdup(entry, entry->dn);
 }
 
-static void append_attribute(gpointer key, gpointer value, gpointer userdata)
+static void fill_attribute(gpointer key, gpointer value, gpointer userdata)
 {
     if (!value)
     {
@@ -898,6 +905,16 @@ static void append_attribute(gpointer key, gpointer value, gpointer userdata)
     attribute->values[index] = NULL;
 }
 
+/**
+ * @brief ld_entry_get_attributes Get all attributes.
+ * @param[in] entry               Entry to get attributes from.
+ * @return
+ *        - NULL terminated array of attributes on success.
+ *        - NULL on error.
+ * @see talloc_free();
+ * It is requred to call talloc_free() uppon completing work with
+ * attributes.
+ */
 LDAPAttribute_t **ld_entry_get_attributes(ld_entry_t *entry)
 {
     if (!entry || !entry->attributes)
@@ -918,7 +935,7 @@ LDAPAttribute_t **ld_entry_get_attributes(ld_entry_t *entry)
     g_hash_table_iter_init(&iter, entry->attributes);
     while (g_hash_table_iter_next(&iter, &key, &value)) {
         result[index] = talloc_zero(result, LDAPAttribute_t);
-        append_attribute(key, value, result[index]);
+        fill_attribute(key, value, result[index]);
         index++;
     }
     result[attributes_size] = NULL;
