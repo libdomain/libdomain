@@ -25,14 +25,11 @@ static void connection_on_message(verto_ctx *ctx, verto_ev *ev)
 
     csm_next_state(connection->state_machine);
 
-    if (connection->state_machine->state == LDAP_CONNECTION_STATE_ERROR)
+    if (connection->state_machine->state == LDAP_CONNECTION_STATE_RUN)
     {
-        if (connection->n_reconnect_attempts > 0)
-        {
-            info("Reconnect attempt test success!\n");
+        info("Reconnect attempt test success!\n");
 
-            verto_break(ctx);
-        }
+        verto_break(ctx);
     }
 
     if (++callcount > 10)
