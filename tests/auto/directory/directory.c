@@ -55,24 +55,6 @@ static struct context_t* create_context()
 
 static void destroy_context(struct context_t* ctx)
 {
-    if (ctx->connection_ctx.ldap_defaults)
-    {
-        if (ctx->connection_ctx.ldap_defaults->authcid)
-        {
-            ldap_memfree(ctx->connection_ctx.ldap_defaults->authcid);
-        }
-
-        if (ctx->connection_ctx.ldap_defaults->authzid)
-        {
-            ldap_memfree(ctx->connection_ctx.ldap_defaults->authzid);
-        }
-
-        if (ctx->connection_ctx.ldap_defaults->realm)
-        {
-            ldap_memfree(ctx->connection_ctx.ldap_defaults->realm);
-        }
-    }
-
     connection_close(&ctx->connection_ctx);
     talloc_free(ctx->global_ctx.talloc_ctx);
     free(ctx);
