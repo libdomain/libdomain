@@ -41,7 +41,7 @@ typedef struct current_testcases_s
     testcase_t* testcases;
 } current_testcases_t;
 
-static attribute_value_pair_t LDAP_TEST_USER_ATTRIBUTES[] =
+static attribute_value_pair_t OPENLDAP_TEST_USER_ATTRIBUTES_TEST_1[] =
 {
     { "objectClass", { "top", "account", "posixAccount", "shadowAccount" , NULL } },
     { "cn", { "test_user_addition", NULL, NULL, NULL, NULL } },
@@ -56,22 +56,46 @@ static attribute_value_pair_t LDAP_TEST_USER_ATTRIBUTES[] =
     { "shadowMax", { "0", NULL, NULL, NULL, NULL } },
     { "shadowWarning", { "0", NULL, NULL, NULL, NULL } }
 };
-static const int USER_ATTRIBUTES_SIZE = number_of_elements(LDAP_TEST_USER_ATTRIBUTES);
+static const int OPENLDAP_USER_ATTRIBUTES_SIZE_TEST_1 = number_of_elements(OPENLDAP_TEST_USER_ATTRIBUTES_TEST_1);
+
+static attribute_value_pair_t OPENLDAP_TEST_USER_ATTRIBUTES_TEST_2[] =
+{
+    { "objectClass", { "top", "account", "posixAccount", "shadowAccount" , NULL } },
+    { "cn", { "Иван Иванов", NULL, NULL, NULL, NULL } },
+    { "uid", { "Иван Иванов", NULL, NULL, NULL, NULL } },
+    { "uidNumber", { "0", NULL, NULL, NULL, NULL } },
+    { "gidNumber", { "0", NULL, NULL, NULL, NULL } },
+    { "homeDirectory", { "/home/test_user_addition_2", NULL, NULL, NULL, NULL } },
+    { "loginShell", { "/bin/bash", NULL, NULL, NULL, NULL } },
+    { "gecos", { "test_user_addition_2", NULL, NULL, NULL, NULL } },
+    { "userPassword", { "{crypt}x", NULL, NULL, NULL, NULL } },
+    { "shadowLastChange", { "0", NULL, NULL, NULL, NULL } },
+    { "shadowMax", { "0", NULL, NULL, NULL, NULL } },
+    { "shadowWarning", { "0", NULL, NULL, NULL, NULL } }
+};
+static const int OPENLDAP_USER_ATTRIBUTES_SIZE_TEST_2 = number_of_elements(OPENLDAP_TEST_USER_ATTRIBUTES_TEST_2);
 
 static testcase_t OPENLDAP_TESTCASES[] =
 {
     {
-        "Addition of valid entry testcase",
+        "Addition of valid user testcase",
         "test_user_addition",
-        USER_ATTRIBUTES_SIZE,
+        OPENLDAP_USER_ATTRIBUTES_SIZE_TEST_1,
         RETURN_CODE_SUCCESS,
-        LDAP_TEST_USER_ATTRIBUTES
+        OPENLDAP_TEST_USER_ATTRIBUTES_TEST_1
+    },
+    {
+        "Addition of valid user with Russian name testcase",
+        "Иван Иванов",
+        OPENLDAP_USER_ATTRIBUTES_SIZE_TEST_2,
+        RETURN_CODE_SUCCESS,
+        OPENLDAP_TEST_USER_ATTRIBUTES_TEST_2
     }
 };
 
 static const int NUMBER_OF_OPENLDAP_TESTCASES = number_of_elements(OPENLDAP_TESTCASES);
 
-static attribute_value_pair_t LDAP_TEST_USER_ATTRIBUTES_AD[] =
+static attribute_value_pair_t LDAP_TEST_USER_ATTRIBUTES_AD_TEST_1[] =
 {
     { "objectClass", { "top", "person", "organizationalPerson", "user", NULL } },
     { "objectCategory", { "CN=Person,CN=Schema,CN=Configuration,DC=domain,DC=alt", NULL, NULL, NULL, NULL } },
@@ -98,16 +122,52 @@ static attribute_value_pair_t LDAP_TEST_USER_ATTRIBUTES_AD[] =
     { "unixHomeDirectory", { "/home/test_user_addition", NULL, NULL, NULL, NULL } },
     { "loginShell", { "/bin/bash", NULL, NULL, NULL, NULL } }
 };
-static const int USER_ATTRIBUTES_AD_SIZE = number_of_elements(LDAP_TEST_USER_ATTRIBUTES_AD);
+static const int USER_ATTRIBUTES_AD_SIZE_TEST_1 = number_of_elements(LDAP_TEST_USER_ATTRIBUTES_AD_TEST_1);
+
+static attribute_value_pair_t LDAP_TEST_USER_ATTRIBUTES_AD_TEST_2[] =
+{
+    { "objectClass", { "top", "person", "organizationalPerson", "user", NULL } },
+    { "objectCategory", { "CN=Person,CN=Schema,CN=Configuration,DC=domain,DC=alt", NULL, NULL, NULL, NULL } },
+    { "codePage", { "0", NULL, NULL, NULL, NULL } },
+    { "countryCode", { "0", NULL, NULL, NULL, NULL } },
+    { "distinguishedName", { "CN=Иван Иванов,CN=Users,DC=domain,DC=alt", NULL, NULL, NULL, NULL } },
+    { "cn", { "Иван Иванов", NULL, NULL, NULL, NULL } },
+    { "sn", { "Иван Иванов", NULL, NULL, NULL, NULL } },
+    { "givenName", { "Иван Иванов", NULL, NULL, NULL, NULL } },
+    { "displayName", { "Иван Иванов", NULL, NULL, NULL, NULL } },
+    { "name", { "Иван Иванов", NULL, NULL, NULL, NULL } },
+    { "telephoneNumber", { "+7(999) 999-99-99", NULL, NULL, NULL, NULL } },
+    { "instanceType", { "4", NULL, NULL, NULL, NULL } },
+    { "userAccountControl", { "512", NULL, NULL, NULL, NULL } },
+    { "accountExpires", { "0", NULL, NULL, NULL, NULL } },
+    { "uidNumber", { "500", NULL, NULL, NULL, NULL } },
+    { "gidNumber", { "500", NULL, NULL, NULL, NULL } },
+    { "sAMAccountName", { "test_user_addition_2", NULL, NULL, NULL, NULL } },
+    { "userPrincipalName", { "test_user_addition_2@domain.alt", NULL, NULL, NULL, NULL } },
+    { "altSecurityIdentities", { "Kerberos:test_user_addition_2@DOMAIN.ALT", NULL, NULL, NULL, NULL } },
+    { "mail", { "test_user_addition_2@domain.alt", NULL, NULL, NULL, NULL } },
+    { "homeDirectory", { "/home/test_user_addition_2", NULL, NULL, NULL, NULL } },
+    { "homeDrive", { "A:", NULL, NULL, NULL, NULL } },
+    { "unixHomeDirectory", { "/home/test_user_addition_2", NULL, NULL, NULL, NULL } },
+    { "loginShell", { "/bin/bash", NULL, NULL, NULL, NULL } }
+};
+static const int USER_ATTRIBUTES_AD_SIZE_TEST_2 = number_of_elements(LDAP_TEST_USER_ATTRIBUTES_AD_TEST_2);
 
 static testcase_t AD_TESTCASES[] =
 {
     {
         "Addition of valid entry testcase",
         "test_user_addition",
-        USER_ATTRIBUTES_AD_SIZE,
+        USER_ATTRIBUTES_AD_SIZE_TEST_1,
         RETURN_CODE_SUCCESS,
-        LDAP_TEST_USER_ATTRIBUTES_AD
+        LDAP_TEST_USER_ATTRIBUTES_AD_TEST_1
+    },
+    {
+        "Addition of valid user with Russian name testcase",
+        "Иван Иванов",
+        USER_ATTRIBUTES_AD_SIZE_TEST_2,
+        RETURN_CODE_SUCCESS,
+        LDAP_TEST_USER_ATTRIBUTES_AD_TEST_2
     }
 };
 

@@ -159,6 +159,8 @@ typedef struct ldap_connection_ctx_t
 
     int n_search_requests;
 
+    int n_reconnect_attempts;
+
     struct state_machine_ctx_t *state_machine;
 
     struct ldap_sasl_defaults_t *ldap_defaults;

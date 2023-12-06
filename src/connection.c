@@ -259,6 +259,8 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
     connection->n_search_requests = 0;
 
+    connection->n_reconnect_attempts = 0;
+
     ldap_requests_init(connection->read_requests, MAX_REQUESTS);
     ldap_requests_init(connection->write_requests, MAX_REQUESTS);
 
@@ -663,9 +665,11 @@ enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connecti
         verto_del(connection->write_event);
     }
 
-    verto_free(connection->base);
     if (connection->state_machine->state != LDAP_CONNECTION_STATE_ERROR)
     {
+        // TODO: Check if there is better way to clean verto context on error.
+        verto_free(connection->base);
+
         ldap_unbind_ext(connection->ldap, NULL, NULL);
     }
     return RETURN_CODE_SUCCESS;
