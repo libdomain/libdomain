@@ -371,6 +371,14 @@ enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *conn
                             connection->ldap_params->serverctrls,
                             connection->ldap_params->clientctrls,
                             &msgid);
+
+    if (rc == LDAP_X_CONNECTING)
+    {
+        info("Continuing connection to LDAP server.\n");
+
+        return RETURN_CODE_REPEAT_LAST_OPERATION;
+    }
+
     if (rc != LDAP_SUCCESS)
     {
         // TODO: Verify that we need to perform abandon operation here.
@@ -490,6 +498,13 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
                                     &connection->rmech,
                                     &msgid);
     ldap_msgfree(bind_message);
+
+    if (rc == LDAP_X_CONNECTING)
+    {
+        info("Continuing connection to LDAP server.\n");
+
+        return RETURN_CODE_REPEAT_LAST_OPERATION;
+    }
 
     if (rc != LDAP_SUCCESS && rc != LDAP_SASL_BIND_IN_PROGRESS)
     {

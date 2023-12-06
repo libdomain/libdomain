@@ -109,10 +109,23 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
             rc = connection_sasl_bind(ctx->ctx);
         }
 
-        csm_set_state(ctx, rc == RETURN_CODE_SUCCESS ? LDAP_CONNECTION_STATE_DETECT_DIRECTORY
-                                                     :  rc == RETURN_CODE_OPERATION_IN_PROGRESS
-                                                        ? LDAP_CONNECTION_STATE_BIND_IN_PROGRESS
-                                                        : LDAP_CONNECTION_STATE_ERROR);
+        enum LdapConnectionState next_state = LDAP_CONNECTION_STATE_ERROR;
+        switch (rc)
+        {
+        case RETURN_CODE_SUCCESS:
+            next_state = LDAP_CONNECTION_STATE_DETECT_DIRECTORY;
+            break;
+        case RETURN_CODE_OPERATION_IN_PROGRESS:
+            next_state = LDAP_CONNECTION_STATE_BIND_IN_PROGRESS;
+            break;
+        case RETURN_CODE_REPEAT_LAST_OPERATION:
+            next_state = LDAP_CONNECTION_STATE_TRANSPORT_READY;
+            break;
+        default:
+            break;
+        }
+
+        csm_set_state(ctx, next_state);
         return rc;
 
     case LDAP_CONNECTION_STATE_BIND_IN_PROGRESS:
