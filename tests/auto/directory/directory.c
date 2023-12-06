@@ -118,10 +118,14 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
 Ensure(Cgreen, get_diretory_type_test) {
     struct context_t* ctx = create_context();
 
+    char *directory_envvar = "DIRECTORY_TYPE";
+    char *directory = get_environment_variable(ctx->global_ctx.talloc_ctx, directory_envvar);
+    current_directory_type = get_current_directory_type(directory);
+
     ctx->config.use_sasl = true;
 
     ctx->config.sasl_options = talloc(ctx->global_ctx.talloc_ctx, struct ldap_sasl_options_t);
-    ctx->config.sasl_options->mechanism = "GSSAPI";
+    ctx->config.sasl_options->mechanism = current_directory_type == LDAP_TYPE_ACTIVE_DIRECTORY ? "GSSAPI" : LDAP_SASL_SIMPLE;
     ctx->config.sasl_options->passwd = NULL;
 
     ctx->config.sasl_options->sasl_nocanon = true;
@@ -136,10 +140,6 @@ Ensure(Cgreen, get_diretory_type_test) {
     ctx->connection_ctx.ldap_params->serverctrls = NULL;
 
     int rc = RETURN_CODE_FAILURE;
-
-    char *directory_envvar = "DIRECTORY_TYPE";
-    char *directory = get_environment_variable(ctx->global_ctx.talloc_ctx, directory_envvar);
-    current_directory_type = get_current_directory_type(directory);
 
     int debug_level = LDAP_DEBUG_ANY;
     ldap_set_option(ctx->connection_ctx.ldap, LDAP_OPT_DEBUG_LEVEL, &debug_level);
