@@ -292,7 +292,8 @@ enum OperationReturnCode schema_load_active_directory(struct ldap_connection_ctx
            LDAP_SCOPE_SUB,
            "(objectClass=attributeSchema)",
            NULL,
-           false);
+           false,
+           NULL);
 
     if (rc != RETURN_CODE_SUCCESS)
     {
@@ -306,7 +307,8 @@ enum OperationReturnCode schema_load_active_directory(struct ldap_connection_ctx
            LDAP_SCOPE_SUB,
            "(objectClass=classSchema)",
            NULL,
-           false);
+           false,
+           NULL);
 
     if (rc != RETURN_CODE_SUCCESS)
     {
