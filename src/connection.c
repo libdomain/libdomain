@@ -665,9 +665,11 @@ enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connecti
         verto_del(connection->write_event);
     }
 
-    verto_free(connection->base);
     if (connection->state_machine->state != LDAP_CONNECTION_STATE_ERROR)
     {
+        // TODO: Check if there is better way to clean verto context on error.
+        verto_free(connection->base);
+
         ldap_unbind_ext(connection->ldap, NULL, NULL);
     }
     return RETURN_CODE_SUCCESS;

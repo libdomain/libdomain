@@ -20,6 +20,8 @@
 
 #include "connection_state_machine.h"
 #include "directory.h"
+#include "domain.h"
+#include "domain_p.h"
 
 #define number_of_elements(x)  (sizeof(x) / sizeof((x)[0]))
 
@@ -41,6 +43,8 @@ const csm_state_value_t state_strings[] =
     { LDAP_CONNECTION_STATE_ERROR, "LDAP_CONNECTION_STATE_ERROR" },
 };
 const int state_strings_size = number_of_elements(state_strings);
+
+static const int MAX_RECONNECT_ATTEMPTS = 10;
 
 const char* csm_state2str(int state)
 {
@@ -152,10 +156,19 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
 
     case LDAP_CONNECTION_STATE_RUN:
         // TODO: Await signals to either close or transition to error state.
+        ctx->ctx->n_reconnect_attempts = 0;
         break;
 
     case LDAP_CONNECTION_STATE_ERROR:
+        connection_close(ctx->ctx);
 
+        if (ctx->ctx->n_reconnect_attempts < MAX_RECONNECT_ATTEMPTS)
+        {
+            connection_configure(ctx->ctx->handle->global_ctx, ctx->ctx, ctx->ctx->config);
+
+            ++ctx->ctx->n_reconnect_attempts;
+            csm_set_state(ctx, LDAP_CONNECTION_STATE_INIT);
+        }
         break;
     default:
         error("Unknown state code: %d\n", ctx->state);
