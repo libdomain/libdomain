@@ -259,6 +259,8 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
     connection->n_search_requests = 0;
 
+    connection->n_reconnect_attempts = 0;
+
     ldap_requests_init(connection->read_requests, MAX_REQUESTS);
     ldap_requests_init(connection->write_requests, MAX_REQUESTS);
 
