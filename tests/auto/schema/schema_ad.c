@@ -70,7 +70,7 @@ Ensure(load_ad_schema_test)
     char *envvar = "LDAP_SERVER";
     char *server = get_environment_variable(talloc_ctx, envvar);
 
-    config_t *config = ld_create_config(server, 0, LDAP_VERSION3, "dc=domain,dc=alt",
+    ld_config_t *config = ld_create_config(talloc_ctx, server, 0, LDAP_VERSION3, "dc=domain,dc=alt",
                                         "admin", "password", false, false, true, false, CONNECTION_UPDATE_INTERVAL,
                                         "", "", "");
     LDHandle *handle = NULL;
