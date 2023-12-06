@@ -29,6 +29,7 @@ enum OperationReturnCode
     RETURN_CODE_FAILURE               = 2,
     RETURN_CODE_MISSING_ATTRIBUTE     = 3,
     RETURN_CODE_OPERATION_IN_PROGRESS = 4,
+    RETURN_CODE_REPEAT_LAST_OPERATION = 5,
 };
 
 typedef struct ldap_global_context_t
