@@ -127,7 +127,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
 
 Ensure(Cgreen, computer_delete_test)
 {
-    start_test(connection_on_timeout, CONNECTION_UPDATE_INTERVAL, &current_directory_type);
+    start_test(connection_on_timeout, CONNECTION_UPDATE_INTERVAL, &current_directory_type, false);
 }
 
 int main(int argc, char **argv) {
