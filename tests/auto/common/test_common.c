@@ -141,7 +141,7 @@ void start_test(verto_callback *update_callback, const int update_interval, int*
         break;
     case LDAP_TYPE_ACTIVE_DIRECTORY:
         config = ld_create_config(talloc_ctx, server, 0, LDAP_VERSION3, "dc=domain,dc=alt",
-                                            "admin", "password145Qw!", use_tls , use_tls, !use_tls, false, update_interval,
+                                            "admin", "password145Qw!", false , use_tls, true, false, update_interval,
                                             ca_cert, cert, key);
         break;
     default:
