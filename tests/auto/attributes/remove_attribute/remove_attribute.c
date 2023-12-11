@@ -52,9 +52,9 @@ static testcase_t AD_TESTCASES[] =
 {
     {
         "Remove attribute AD",
-        "cn=test_mod_group,cn=users",
-        "adminCount",
-        "1",
+        "cn=test_mod_c,cn=computers",
+        "description",
+        NULL,
         RETURN_CODE_SUCCESS
     }
 };
