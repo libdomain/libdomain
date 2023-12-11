@@ -66,16 +66,16 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     {
         verto_del(ev);
 
-        search(connection, "cn=test_search_user,ou=users,dc=domain,dc=alt", LDAP_SCOPE_SUBTREE,
+        search(connection, "dc=domain,dc=alt", LDAP_SCOPE_SUBTREE,
                "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, begin_search_callback);
 
-        search(connection, "cn=test_search_user,ou=users,dc=domain,dc=alt", LDAP_SCOPE_SUBTREE,
+        search(connection, "dc=domain,dc=alt", LDAP_SCOPE_SUBTREE,
                "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, NULL);
 
-        search(connection, "cn=test_search_user,ou=users,dc=domain,dc=alt", LDAP_SCOPE_SUBTREE,
+        search(connection, "dc=domain,dc=alt", LDAP_SCOPE_SUBTREE,
                "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, middle_search_callback);
 
-        search(connection, "cn=test_search_user,ou=users,dc=domain,dc=alt", LDAP_SCOPE_SUBTREE,
+        search(connection, "dc=domain,dc=alt", LDAP_SCOPE_SUBTREE,
                "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, end_search_callback);
 
         verto_add_timeout(ctx, VERTO_EV_FLAG_PERSIST, connection_on_search_message, CONNECTION_UPDATE_INTERVAL);
