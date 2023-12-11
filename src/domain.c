@@ -314,6 +314,13 @@ void ld_init(LDHandle** handle, const ld_config_t* config)
 
     }
 
+    if (config->use_tls)
+    {
+        (*handle)->config_ctx->tls_ca_cert_file = talloc_strdup((*handle)->global_ctx->talloc_ctx, config->cacertfile);
+        (*handle)->config_ctx->tls_cert_file = talloc_strdup((*handle)->global_ctx->talloc_ctx, config->certfile);
+        (*handle)->config_ctx->tls_key_file = talloc_strdup((*handle)->global_ctx->talloc_ctx, config->keyfile);
+    }
+
     (*handle)->connection_ctx->ldap_params = talloc((*handle)->global_ctx->talloc_ctx, struct ldap_sasl_params_t);
     (*handle)->connection_ctx->ldap_params->dn = talloc_asprintf((*handle)->global_ctx->talloc_ctx,
                                                                  "cn=%s,%s",config->username, config->base_dn);

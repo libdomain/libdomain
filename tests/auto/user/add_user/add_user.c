@@ -109,10 +109,10 @@ static attribute_value_pair_t LDAP_TEST_USER_ATTRIBUTES_AD_TEST_1[] =
     { "name", { "test_user_addition", NULL, NULL, NULL, NULL } },
     { "telephoneNumber", { "+7(999) 999-99-99", NULL, NULL, NULL, NULL } },
     { "instanceType", { "4", NULL, NULL, NULL, NULL } },
-    { "userAccountControl", { "512", NULL, NULL, NULL, NULL } },
+    { "userAccountControl", { "544", NULL, NULL, NULL, NULL } },
     { "accountExpires", { "0", NULL, NULL, NULL, NULL } },
-    { "uidNumber", { "500", NULL, NULL, NULL, NULL } },
-    { "gidNumber", { "500", NULL, NULL, NULL, NULL } },
+    { "uidNumber", { "501", NULL, NULL, NULL, NULL } },
+    { "gidNumber", { "501", NULL, NULL, NULL, NULL } },
     { "sAMAccountName", { "test_user_addition", NULL, NULL, NULL, NULL } },
     { "userPrincipalName", { "test_user_addition@domain.alt", NULL, NULL, NULL, NULL } },
     { "altSecurityIdentities", { "Kerberos:test_user_addition@DOMAIN.ALT", NULL, NULL, NULL, NULL } },
@@ -138,10 +138,10 @@ static attribute_value_pair_t LDAP_TEST_USER_ATTRIBUTES_AD_TEST_2[] =
     { "name", { "Иван Иванов", NULL, NULL, NULL, NULL } },
     { "telephoneNumber", { "+7(999) 999-99-99", NULL, NULL, NULL, NULL } },
     { "instanceType", { "4", NULL, NULL, NULL, NULL } },
-    { "userAccountControl", { "512", NULL, NULL, NULL, NULL } },
+    { "userAccountControl", { "544", NULL, NULL, NULL, NULL } },
     { "accountExpires", { "0", NULL, NULL, NULL, NULL } },
-    { "uidNumber", { "500", NULL, NULL, NULL, NULL } },
-    { "gidNumber", { "500", NULL, NULL, NULL, NULL } },
+    { "uidNumber", { "502", NULL, NULL, NULL, NULL } },
+    { "gidNumber", { "502", NULL, NULL, NULL, NULL } },
     { "sAMAccountName", { "test_user_addition_2", NULL, NULL, NULL, NULL } },
     { "userPrincipalName", { "test_user_addition_2@domain.alt", NULL, NULL, NULL, NULL } },
     { "altSecurityIdentities", { "Kerberos:test_user_addition_2@DOMAIN.ALT", NULL, NULL, NULL, NULL } },
@@ -274,7 +274,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
 
 Ensure(Cgreen, user_add_test)
 {
-    start_test(connection_on_timeout, CONNECTION_UPDATE_INTERVAL, &current_directory_type);
+    start_test(connection_on_timeout, CONNECTION_UPDATE_INTERVAL, &current_directory_type, false);
 }
 
 int main(int argc, char **argv) {

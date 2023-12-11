@@ -37,6 +37,25 @@ char *get_environment_variable(TALLOC_CTX *talloc_ctx, const char *envvar)
     return value;
 }
 
+static char *get_optional_environment_variable(TALLOC_CTX *talloc_ctx, const char *envvar)
+{
+    char *value = talloc_array(talloc_ctx, char, BUFFER_SIZE);
+
+    if (!getenv(envvar))
+    {
+        return NULL;
+    }
+
+    int cx = snprintf(value, BUFFER_SIZE, "%s", getenv(envvar));
+
+    if (cx < 0 || cx >= BUFFER_SIZE)
+    {
+        return NULL;
+    }
+
+    return value;
+}
+
 /**
  * @brief get_current_directory_type Gets current directory type.
  * @param[in] directory_type String with directory name.
@@ -81,29 +100,49 @@ static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void
     return RETURN_CODE_SUCCESS;
 }
 
-void start_test(verto_callback *update_callback, const int update_interval, int* current_directory_type)
+void start_test(verto_callback *update_callback, const int update_interval, int* current_directory_type, bool use_tls)
 {
     TALLOC_CTX* talloc_ctx = talloc_new(NULL);
-
-    char *server_envvar = "LDAP_SERVER";
-    char *server = get_environment_variable(talloc_ctx, server_envvar);
 
     char *directory_envvar = "DIRECTORY_TYPE";
     char *directory = get_environment_variable(talloc_ctx, directory_envvar);
     (*current_directory_type) = get_current_directory_type(directory);
+
+    char *server = "";
+    char *ca_cert = "";
+    char *cert = "";
+    char *key = "";
+
+    if (use_tls)
+    {
+        char *envvar = "LDAPS_SERVER";
+        server = get_environment_variable(talloc_ctx, envvar);
+
+        const char *ca_cert_var = "LDAP_CA_CERT";
+        ca_cert = get_environment_variable(talloc_ctx, ca_cert_var);
+        const char *cert_var = "LDAP_CERT";
+        cert = get_optional_environment_variable(talloc_ctx, cert_var);
+        const char *key_var = "LDAP_KEY";
+        key = get_optional_environment_variable(talloc_ctx, key_var);
+    }
+    else
+    {
+        char *server_envvar = "LDAP_SERVER";
+        server = get_environment_variable(talloc_ctx, server_envvar);
+    }
 
     ld_config_t *config = NULL;
     switch ((*current_directory_type))
     {
     case LDAP_TYPE_OPENLDAP:
         config = ld_create_config(talloc_ctx, server, 0, LDAP_VERSION3, "dc=domain,dc=alt",
-                                            "admin", "password", true, false, true, false, update_interval,
-                                            "", "", "");
+                                            "admin", "password", true, use_tls, true, false, update_interval,
+                                            ca_cert, cert, key);
         break;
     case LDAP_TYPE_ACTIVE_DIRECTORY:
         config = ld_create_config(talloc_ctx, server, 0, LDAP_VERSION3, "dc=domain,dc=alt",
-                                            "admin", "password145Qw!", false, false, false, false, update_interval,
-                                            "", "", "");
+                                            "admin", "password145Qw!", false , use_tls, true, false, update_interval,
+                                            ca_cert, cert, key);
         break;
     default:
         fail_test("Unknown directory type, please check environment variables!\n");

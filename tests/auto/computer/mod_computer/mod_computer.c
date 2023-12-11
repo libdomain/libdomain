@@ -46,7 +46,7 @@ static const int OPENLDAP_COMPUTER_ATTRIBUTES_SIZE = number_of_elements(OPENLDAP
 
 static char* AD_COMPUTER_OBJECT_CLASS[] = { "top", "person", "organizationalPerson", "user", "computer", NULL };
 static char* AD_COMPUTER_DESCRIPTION[] = { "Test computer modification success", NULL };
-static char* AD_COMPUTER_SAM_ACCOUNT_NAME[] = { "test_mod_computer", NULL };
+static char* AD_COMPUTER_SAM_ACCOUNT_NAME[] = { "test_mod_c", NULL };
 static char* AD_COMPUTER_MS_SFU30_ALIASES[] = { "TestAlias1", "TestAlias2", NULL };
 static char* AD_COMPUTER_MS_SFU30_NIS_DOMAIN[] = { "TestNisDomain", NULL };
 static char* AD_COMPUTER_NIS_MAP_NAME[] = { "TestNisMapName", NULL };
@@ -130,7 +130,7 @@ static testcase_t AD_TESTCASES[] =
 {
     {
         "Test existing computer modification AD",
-        "test_mod_computer",
+        "test_mod_c",
         "cn=computers,dc=domain,dc=alt",
         AD_COMPUTER_ATTRIBUTES_SIZE,
         RETURN_CODE_SUCCESS,
@@ -214,7 +214,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
 
 Ensure(Cgreen, computer_mod_test)
 {
-    start_test(connection_on_timeout, CONNECTION_UPDATE_INTERVAL, &current_directory_type);
+    start_test(connection_on_timeout, CONNECTION_UPDATE_INTERVAL, &current_directory_type, false);
 }
 
 int main(int argc, char **argv) {

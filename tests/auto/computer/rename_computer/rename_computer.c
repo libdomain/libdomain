@@ -50,7 +50,7 @@ static testcase_t AD_TESTCASES[] =
 {
     {
         "Rename existing computer AD",
-        "test_rename_computer",
+        "test_rename_c",
         "computer2",
         "cn=computers,dc=domain,dc=alt",
         RETURN_CODE_SUCCESS
@@ -132,7 +132,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
 
 Ensure(Cgreen, computer_rename_test)
 {
-    start_test(connection_on_timeout, CONNECTION_UPDATE_INTERVAL, &current_directory_type);
+    start_test(connection_on_timeout, CONNECTION_UPDATE_INTERVAL, &current_directory_type, false);
 }
 
 int main(int argc, char **argv) {
