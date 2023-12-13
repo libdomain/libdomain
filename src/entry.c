@@ -482,14 +482,14 @@ enum OperationReturnCode modify_on_read(int rc, LDAPMessage *message, struct lda
 }
 
 /**
- * @brief delete Function wraps ldap_delete_ext.
+ * @brief ld_delete Function wraps ldap_delete_ext.
  * @param[in] connection Connection to work with.
  * @param[in] dn         The name of the entry to delete.  If NULL, a zero length DN is sent to the server.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
  */
-enum OperationReturnCode delete(struct ldap_connection_ctx_t* connection, const char *dn)
+enum OperationReturnCode ld_delete(struct ldap_connection_ctx_t* connection, const char *dn)
 {
     int msgid = 0;
     int rc = ldap_delete_ext(connection->ldap,

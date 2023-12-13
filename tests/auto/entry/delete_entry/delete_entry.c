@@ -104,7 +104,7 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
         {
             testcase_t testcase = current_testcases.testcases[test_index];
 
-            enum OperationReturnCode rc = delete(connection, testcase.entry_dn);
+            enum OperationReturnCode rc = ld_delete(connection, testcase.entry_dn);
 
             assert_that(rc, is_equal_to(testcase.desired_test_result));
             test_status(testcase);
