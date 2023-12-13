@@ -13,6 +13,9 @@ jobs:
     - name: Create clean documentation branch
       run:  git checkout -b documentation
 
+    - name: Perform update before install
+      run:  sudo apt-get update
+
     - name: Install doxygen
       run:  sudo apt-get install doxygen
 
