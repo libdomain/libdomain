@@ -547,7 +547,7 @@ enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const 
 
     const char* dn = talloc_asprintf(talloc_ctx,"%s=%s,%s", prefix, entry_name, entry_parent);
 
-    rc = delete(handle->connection_ctx, dn);
+    rc = ld_delete(handle->connection_ctx, dn);
 
     talloc_free(talloc_ctx);
 
