@@ -72,22 +72,7 @@ static const int NUMBER_OF_OPENLDAP_TESTCASES = number_of_elements(OPENLDAP_TEST
 
 static attribute_value_pair_t LDAP_TEST_USER_ATTRIBUTES_AD[] =
 {
-    { "objectClass", { "top", "person", "organizationalPerson", "user", NULL } },
-    { "objectCategory", { "CN=Person,CN=Schema,CN=Configuration,DC=domain,DC=alt", NULL, NULL, NULL, NULL } },
-    { "codePage", { "0", NULL, NULL, NULL, NULL } },
-    { "countryCode", { "0", NULL, NULL, NULL, NULL } },
-    { "sn", { "adam", NULL, NULL, NULL, NULL } },
-    { "givenName", { "adam2", NULL, NULL, NULL, NULL } },
-    { "displayName", { "adam2", NULL, NULL, NULL, NULL } },
-    { "telephoneNumber", { "+7(999) 999-99-99", NULL, NULL, NULL, NULL } },
-    { "accountExpires", { "0", NULL, NULL, NULL, NULL } },
-    { "userPrincipalName", { "adam2@domain.alt", NULL, NULL, NULL, NULL } },
-    { "altSecurityIdentities", { "Kerberos:adam@DOMAIN.ALT", NULL, NULL, NULL, NULL } },
-    { "mail", { "adam2@domain.alt", NULL, NULL, NULL, NULL } },
-    { "homeDirectory", { "/home/adam2", NULL, NULL, NULL, NULL } },
-    { "homeDrive", { "A:", NULL, NULL, NULL, NULL } },
     { "unixHomeDirectory", { "/home/adam2", NULL, NULL, NULL, NULL } },
-    { "loginShell", { "/bin/bash", NULL, NULL, NULL, NULL } }
 };
 static const int USER_ATTRIBUTES_AD_SIZE = number_of_elements(LDAP_TEST_USER_ATTRIBUTES_AD);
 

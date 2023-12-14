@@ -48,7 +48,7 @@ static char* AD_OU_POSTALCODE[] = { "12345", NULL };
 static char* AD_OU_POSTALADDRESS[] = { "P.O. Box 789", NULL };
 static char* AD_OU_POSTOFFICEBOX[] = { "789", NULL };
 static char* AD_OU_PHYSICALDELIVERYOFFICENAME[] = { "Office123", NULL };
-static char* AD_OU_MANAGEDBY[] = { "cn=Administrator,cn=Users,dc=domain,dc=alt", NULL };
+static char* AD_OU_MANAGEDBY[] = { "cn=Manager,cn=Users,dc=domain,dc=alt", NULL };
 static char* AD_OU_THUMBNAILLOGO[] = { "/path/to/logo.jpg", NULL };
 static char* AD_OU_L[] = { "City", NULL };
 static char* AD_OU_GPOPTIONS[] = { "1", NULL };

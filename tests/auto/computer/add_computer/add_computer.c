@@ -50,7 +50,7 @@ static char* AD_COMPUTER_MS_SFU30_ALIASES[] = { "TestAlias1", "TestAlias2", NULL
 static char* AD_COMPUTER_MS_SFU30_NIS_DOMAIN[] = { "TestNisDomain", NULL };
 static char* AD_COMPUTER_NIS_MAP_NAME[] = { "TestNisMapName", NULL };
 static char* AD_COMPUTER_MS_SFU30_NAME[] = { "TestSFUName", NULL };
-static char* AD_COMPUTER_MANAGED_BY[] = { "cn=Administrator,cn=Users,dc=domain,dc=alt", NULL };
+static char* AD_COMPUTER_MANAGED_BY[] = { "cn=Manager,cn=Users,dc=domain,dc=alt", NULL };
 static char* AD_COMPUTER_LOCATION[] = { "Room101", NULL };
 static char* AD_COMPUTER_DNS_HOST_NAME[] = { "test_computer_add.domain.alt", NULL };
 static char* AD_COMPUTER_OPERATING_SYSTEM_VERSION[] = { "Windows 10", NULL };
