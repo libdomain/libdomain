@@ -7,6 +7,7 @@ New-ADUser -Name "test mod" -GivenName "test" -Surname "mod" -UserPrincipalName 
 New-ADUser -Name "test rename" -GivenName "test" -Surname "rename" -UserPrincipalName "test.user.rename@domain.alt" -SamAccountName "test_rename_user" -Enabled $true -AccountPassword (ConvertTo-SecureString -AsPlainText "secretPWD123!" -Force) -PassThru
 New-ADUser -Name "test search" -GivenName "test" -Surname "search" -UserPrincipalName "test.user.search@domain.alt" -SamAccountName "test_search_user" -Enabled $true -AccountPassword (ConvertTo-SecureString -AsPlainText "secretPWD123!" -Force) -PassThru
 New-ADUser -Name "test block" -GivenName "test" -Surname "block" -UserPrincipalName "test.user.block@domain.alt" -SamAccountName "test_block_user" -Enabled $true -AccountPassword (ConvertTo-SecureString -AsPlainText "secretPWD123!" -Force) -PassThru
+New-ADUser -Name "Manager" -GivenName "Manager" -Surname "Manager" -UserPrincipalName "Manager@domain.alt" -SamAccountName "Manager" -Enabled $true -AccountPassword (ConvertTo-SecureString -AsPlainText "secretPWD123!" -Force) -PassThru
 
 # Create OUs
 New-ADOrganizationalUnit -Name "test_delete_ou" -Description "Test OU delete" -PassThru

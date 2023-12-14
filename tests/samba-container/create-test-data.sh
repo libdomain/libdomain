@@ -7,6 +7,7 @@ samba-tool user create test_mod_user secretPWD123! --given-name=test --surname=m
 samba-tool user create test_rename_user secretPWD123! --given-name=test --surname=rename --mail-address=test.user.rename@domain.alt --login-shell=/bin/bash -k yes
 samba-tool user create test_search_user secretPWD123! --given-name=test --surname=search --mail-address=test.user.search@domain.alt --login-shell=/bin/bash -k yes
 samba-tool user create test_block_user secretPWD123! --given-name=test --surname=block --mail-address=test.user.block@domain.alt --login-shell=/bin/bash -k yes
+samba-tool user create Manager secretPWD123! --mail-address=Manager@domain.alt --login-shell=/bin/bash -k yes
 
 samba-tool ou create "ou=test_delete_ou,dc=domain,dc=alt" --description="Test OU delete" -k yes
 samba-tool ou create "ou=test_rename_ou,dc=domain,dc=alt" --description="Test OU rename" -k yes
