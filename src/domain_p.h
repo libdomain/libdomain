@@ -26,32 +26,32 @@
 
 typedef struct ld_config_s
 {
-    char *host;
-    int protocol_version;
+    char *host;                            //!< LDAP server to connect to.
+    int protocol_version;                  //!< LDAP protocol version we require from server.
 
-    char *base_dn;
-    char *username;
-    char *password;
+    char *base_dn;                         //!< Base dn to bind with.
+    char *username;                        //!< Name of the user we connect as. Can be NULL.
+    char *password;                        //!< Password for the said user. Can be NULL.
 
-    bool simple_bind;
-    bool use_tls;
-    bool use_sasl;
-    bool use_anon;
+    bool simple_bind;                      //!< We can use two type of bind simple and interactive. Use true for simple and false otherwise.
+    bool use_tls;                          //!< If we need to establish a TLS or SSL connection.
+    bool use_sasl;                         //!< If we use SASL protocol.
+    bool use_anon;                         //!< If we are going to perform "anonymous bind".
 
-    int timeout;
+    int timeout;                           //!< Operation timeout. Once we reach specified limit current operation fails.
 
-    char *cacertfile;
-    char *certfile;
-    char *keyfile;
+    char *cacertfile;                      //!< Defines the complete path to a CA certificate, which is utilized for validating the server's presented certificate.
+    char *certfile;                        //!< Client certificate file path.
+    char *keyfile;                         //!< Private key file associated with client certificate.
 } ld_config_t;
 
 typedef struct ldhandle
 {
-    TALLOC_CTX *talloc_ctx;
-    struct ldap_global_context_t *global_ctx;
-    struct ldap_connection_ctx_t *connection_ctx;
-    struct ldap_connection_config_t *config_ctx;
-    ld_config_t *global_config;
+    TALLOC_CTX *talloc_ctx;                            //!< Talloc context we use during the allocation when working with the library.
+    struct ldap_global_context_t *global_ctx;          //!< Global context of the library.
+    struct ldap_connection_ctx_t *connection_ctx;      //!< Connection context.
+    struct ldap_connection_config_t *config_ctx;       //!< Connection configuration.
+    ld_config_t *global_config;                        //!< Global configuration of the library.
 } LDHandle;
 
 #define check_handle(handle, function_name) \
@@ -80,16 +80,6 @@ typedef struct ldhandle
         attrs[index]->values[1] = NULL; \
     }
 
-#define MAX_ATTRIBUTES 5
-
-typedef struct attribute_value_pair_s
-{
-    char *name;
-    char *value[MAX_ATTRIBUTES];
-} attribute_value_pair_t;
-
-#define number_of_elements(x) (sizeof(x) / sizeof((x)[0]))
-
 enum OperationReturnCode ld_add_entry(
     LDHandle *handle, const char *name, const char *parent, const char *prefix, LDAPAttribute_t **entry_attrs);
 enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const char *parent, const char *prefix);
@@ -102,9 +92,5 @@ enum OperationReturnCode ld_mod_entry_attrs(
         int opcode);
 
 typedef struct LDAPAttribute_s LDAPAttribute_t;
-
-LDAPAttribute_t **assign_default_attribute_values(TALLOC_CTX *talloc_ctx,
-                                                  attribute_value_pair_t default_attrs[],
-                                                  int size);
 
 #endif //LIB_DOMAIN_PRIVATE_H

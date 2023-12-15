@@ -26,6 +26,22 @@
 
 #include "syntaxes/syntaxes.h"
 
+/*!
+ * \brief validate_boolean Validates array if indeed boolean value.
+ *
+ * The function validate_boolean takes in a string and checks if it
+ * matches the format of a boolean value as defined by RFC 4517.
+ * The function returns True if the input string is either "TRUE" or "FALSE",
+ * otherwise it returns False.
+ * From RFC 4517 :
+ *   Boolean = "TRUE" / "FALSE"
+ *
+ * \param[in] value            NULL terminated array of char to verify.
+ * \return
+ *        - false - on error.
+ *        - true - on success.
+ * \sa [RFC4517](https://www.rfc-editor.org/rfc/rfc4517.txt)
+ */
 bool validate_boolean(const char *value)
 {
     if (!value || strlen(value) == 0)
@@ -36,6 +52,27 @@ bool validate_boolean(const char *value)
     return is_boolean(value, strlen(value));
 }
 
+/*!
+ * \brief validate_integer Validates array if indeed integer value.
+ *
+ * The function validate_integer takes in a string and checks if it
+ * matches the format of a integer value as defined by RFC 4517.
+ * The function returns True if the input string is integer value,
+ * otherwise it returns False.
+ * From RFC 4517 :
+ *   Integer = ( HYPHEN LDIGIT *DIGIT ) | number
+ * From RFC 4512 :
+ *   number  = DIGIT | ( LDIGIT 1*DIGIT )
+ *   DIGIT   = %x30 | LDIGIT       ; "0"-"9"
+ *   LDIGIT  = %x31-39             ; "1"-"9"
+ *   HYPHEN  = %x2D                ; hyphen ("-")
+ *
+ * \param[in] value            NULL terminated array of char to verify.
+ * \return
+ *        - false - on error.
+ *        - true - on success.
+ * \sa [RFC4517](https://www.rfc-editor.org/rfc/rfc4517.txt)
+ */
 bool validate_integer(const char *value)
 {
     if (!value || strlen(value) == 0)
@@ -74,6 +111,22 @@ bool validate_integer(const char *value)
     return false;
 }
 
+/*!
+ * \brief validate_octet_string Validates array if indeed integer value.
+ *
+ * The function validate_octet_string takes in a string and checks if it
+ * matches the format of a octet string value as defined by RFC 4517.
+ * The function returns True if the input string is octet string value,
+ * otherwise it returns False.
+ * From RFC 4517 :
+ *   OctetString = *OCTET
+ *   OCTET       = %x00-FF ; Any octet (8-bit data unit)
+ *
+ * \return
+ *        - false - on error.
+ *        - true - on success.
+ * \sa [RFC4517](https://www.rfc-editor.org/rfc/rfc4517.txt)
+ */
 bool validate_octet_string(const char *value)
 {
     if (!value || strlen(value) == 0)
@@ -84,6 +137,22 @@ bool validate_octet_string(const char *value)
     return is_octet_string(value, strlen(value));
 }
 
+/*!
+ * \brief validate_oid Validates array if indeed integer value.
+ *
+ * The function validate_oid takes in a string and checks if it
+ * matches the format of a OID value as defined by RFC 4517.
+ * The function returns True if the input string is OID value,
+ * otherwise it returns False.
+ * From RFC 4517 :
+ *   OctetString = *OCTET
+ *   OCTET       = %x00-FF ; Any octet (8-bit data unit)
+ *
+ * \return
+ *        - false - on error.
+ *        - true - on success.
+ * \sa [RFC4517](https://www.rfc-editor.org/rfc/rfc4517.txt)
+ */
 bool validate_oid(const char *value)
 {
     if (!value || strlen(value) == 0)
@@ -174,6 +243,27 @@ bool validate_directory_string(const char* value)
     return is_directory_string(value, strlen(value));
 }
 
+/*!
+ * \brief validate_large_integer Validates array if indeed int64 value.
+ *
+ * The function validate_large_integer takes in a string and checks if it
+ * matches the format of a large integer value as defined by RFC 4517.
+ * The function returns True if the input string is large integer value,
+ * otherwise it returns False.
+ * From RFC 4517 :
+ *   Integer = ( HYPHEN LDIGIT *DIGIT ) | number
+ * From RFC 4512 :
+ *   number  = DIGIT | ( LDIGIT 1*DIGIT )
+ *   DIGIT   = %x30 | LDIGIT       ; "0"-"9"
+ *   LDIGIT  = %x31-39             ; "1"-"9"
+ *   HYPHEN  = %x2D                ; hyphen ("-")
+ *
+ * \param[in] value            NULL terminated array of char to verify.
+ * \return
+ *        - false - on error.
+ *        - true - on success.
+ * \sa [RFC4517](https://www.rfc-editor.org/rfc/rfc4517.txt)
+ */
 bool validate_large_integer(const char* value)
 {
     if (!value || strlen(value) == 0)

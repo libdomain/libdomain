@@ -31,18 +31,22 @@
 typedef struct ldhandle LDHandle;
 
 /**
- * @brief config_t
+ * @brief config_t Structure that holds configuration that will be used during connection.
  */
 typedef struct ld_config_s ld_config_t;
 
+/**
+ * @brief LDAPAttribute_t Structure represents LDAP attribute.
+ */
 typedef struct LDAPAttribute_s
 {
-    char *name;
-    char **values;
+    char *name;                                //!< Name of the attribute.
+    char **values;                             //!< NULL terminated array of attribute values.
 } LDAPAttribute_t;
 
-typedef enum OperationReturnCode (*error_callback_fn)(int, void *, void *);
-
+typedef enum OperationReturnCode (*error_callback_fn)(int, void *, void *);  //!< Type defines error callback.
+                                                                             //!< This callback will be fired when connection
+                                                                             //!< goes to LDAP_CONNECTION_STATE_ERROR state.
 ld_config_t *ld_load_config(TALLOC_CTX *ctx, const char *filename);
 
 ld_config_t *ld_create_config(TALLOC_CTX* talloc_ctx,

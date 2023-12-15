@@ -32,68 +32,68 @@
 
 enum BindType
 {
-    BIND_TYPE_INTERACTIVE = 1,
-    BIND_TYPE_SIMPLE      = 2,
+    BIND_TYPE_INTERACTIVE = 1,          //!< We are going to perform interactive bind.
+    BIND_TYPE_SIMPLE      = 2,          //!< We are going to perform simple bind.
 };
 
 typedef struct ldap_sasl_options_t
 {
-    char *mechanism;
+    char *mechanism;                   //!< Sasl mechanism to use.
 
-    const char *passwd;
+    const char *passwd;                //!< User password.
 
-    bool sasl_nocanon;
-    short sasl_flags;
-    char *sasl_secprops;
+    bool sasl_nocanon;                 //!< Do not use reverse DNS queries.
+    short sasl_flags;                  //!<
+    char *sasl_secprops;               //!<
 } ldap_sasl_options_t;
 
 typedef struct ldap_sasl_defaults_t
 {
-    short flags;
-    char *mechanism;
+    short flags;                      //!<
+    char *mechanism;                  //!<
 
-    char *realm;
-    char *authcid;
-    char *authzid;
+    char *realm;                      //!<
+    char *authcid;                    //!<
+    char *authzid;                    //!<
 
-    char *passwd;
+    char *passwd;                     //!<
 } ldap_sasl_defaults_t;
 
 typedef struct ldap_sasl_params_t
 {
-    char *dn;
-    struct berval *passwd;
-    LDAPControl **serverctrls;
-    LDAPControl **clientctrls;
+    char *dn;                         //!<
+    struct berval *passwd;            //!<
+    LDAPControl **serverctrls;        //!<
+    LDAPControl **clientctrls;        //!<
 } ldap_sasl_params_t;
 
 typedef struct ldap_connection_config_t
 {
-    const char *server;
-    int port;
+    const char *server;                         //!<
+    int port;                                   //!<
 
-    int protocol_verion;
+    int protocol_verion;                        //!<
 
-    bool chase_referrals;
-    bool use_start_tls;
-    bool use_sasl;
+    bool chase_referrals;                       //!<
+    bool use_start_tls;                         //!<
+    bool use_sasl;                              //!<
 
-    int bind_type;
+    int bind_type;                              //!<
 
-    struct ldap_sasl_options_t *sasl_options;
+    struct ldap_sasl_options_t *sasl_options;   //!<
 
-    int ssl_mode;
-    const char *tls_ca_cert_file;
-    const char *tls_ca_cert_path;
+    int ssl_mode;                               //!<
+    const char *tls_ca_cert_file;               //!<
+    const char *tls_ca_cert_path;               //!<
 
-    const char *tls_cert_file;
-    const char *tls_key_file;
+    const char *tls_cert_file;                  //!<
+    const char *tls_key_file;                   //!<
 
-    bool *tls_require_cert;
-    int tls_min_protocol_version;
+    bool *tls_require_cert;                     //!<
+    int tls_min_protocol_version;               //!<
 
-    int search_timelimit;
-    int network_timeout;
+    int search_timelimit;                       //!<
+    int network_timeout;                        //!<
 } ldap_connection_config_t;
 
 struct ldap_connection_ctx_t;
@@ -107,66 +107,66 @@ typedef struct ldhandle LDHandle;
 
 typedef struct ldap_search_request_t
 {
-    int msgid;
-    search_callback_fn on_search_operation;
+    int msgid;                               //!<
+    search_callback_fn on_search_operation;  //!<
 } ldap_search_request_t;
 
 typedef struct ldap_request_t
 {
-    int msgid;
+    int msgid;                                //!<
 
-    operation_callback_fn on_read_operation;
-    operation_callback_fn on_write_operation;
+    operation_callback_fn on_read_operation;  //!<
+    operation_callback_fn on_write_operation; //!<
 
-    struct Queue_Node_s node;
+    struct Queue_Node_s node;                 //!<
 } ldap_request_t;
 
 typedef struct ldap_connection_ctx_t
 {
-    LDHandle *handle;
+    LDHandle *handle;                                           //!<
 
-    LDAP *ldap;
+    LDAP *ldap;                                                 //!<
 
-    struct ldap_connection_ctx_t *next;
-    struct ldap_connection_ctx_t *prev;
+    struct ldap_connection_ctx_t *next;                         //!<
+    struct ldap_connection_ctx_t *prev;                         //!<
 
-    int fd;
+    int fd;                                                     //!<
 
-    bool handlers_installed;
+    bool handlers_installed;                                    //!<
 
-    struct verto_ctx *base;
+    struct verto_ctx *base;                                     //!<
 
-    struct verto_ev *read_event;
-    struct verto_ev *write_event;
+    struct verto_ev *read_event;                                //!<
+    struct verto_ev *write_event;                               //!<
 
-    operation_callback_fn on_error_operation;
+    operation_callback_fn on_error_operation;                   //!<
 
-    int bind_type;
-    int directory_type;
-    int msgid;
+    int bind_type;                                              //!<
+    int directory_type;                                         //!<
+    int msgid;                                                  //!<
 
-    const char *rmech;
+    const char *rmech;                                          //!<
 
-    struct request_queue* callqueue;
+    struct request_queue* callqueue;                            //!<
 
-    struct ldap_request_t read_requests[MAX_REQUESTS];
-    struct ldap_request_t write_requests[MAX_REQUESTS];
+    struct ldap_request_t read_requests[MAX_REQUESTS];          //!<
+    struct ldap_request_t write_requests[MAX_REQUESTS];         //!<
 
-    struct ldap_search_request_t search_requests[MAX_REQUESTS];
+    struct ldap_search_request_t search_requests[MAX_REQUESTS]; //!<
 
-    int n_read_requests;
-    int n_write_requests;
+    int n_read_requests;                                        //!<
+    int n_write_requests;                                       //!<
 
-    int n_search_requests;
+    int n_search_requests;                                      //!<
 
-    int n_reconnect_attempts;
+    int n_reconnect_attempts;                                   //!<
 
-    struct state_machine_ctx_t *state_machine;
+    struct state_machine_ctx_t *state_machine;                  //!<
 
-    struct ldap_sasl_defaults_t *ldap_defaults;
-    struct ldap_sasl_params_t *ldap_params;
+    struct ldap_sasl_defaults_t *ldap_defaults;                 //!<
+    struct ldap_sasl_params_t *ldap_params;                     //!<
 
-    struct ldap_connection_config_t* config;
+    struct ldap_connection_config_t* config;                    //!<
 } ldap_connection_ctx_t;
 
 enum OperationReturnCode connection_configure(struct ldap_global_context_t *global_ctx,

@@ -630,44 +630,6 @@ enum OperationReturnCode ld_rename_entry(LDHandle *handle, const char *old_name,
     return rc;
 }
 
-LDAPAttribute_t **assign_default_attribute_values(TALLOC_CTX *talloc_ctx,
-                                                  attribute_value_pair_t default_attrs[],
-                                                  int size)
-{
-    LDAPAttribute_t **entry_attrs  = talloc_array(talloc_ctx, LDAPAttribute_t*, size + 1);
-
-    for (int i = 0; i < size; ++i)
-    {
-        entry_attrs[i] = talloc(talloc_ctx, LDAPAttribute_t);
-        entry_attrs[i]->name = default_attrs[i].name;
-
-        if (default_attrs[i].value[0] != NULL)
-        {
-            int attribute_count = 0;
-            while (default_attrs[i].value[attribute_count] != NULL) {
-                ++attribute_count;
-            }
-
-            entry_attrs[i]->values = talloc_array(talloc_ctx, char*, attribute_count + 1);
-
-            for (int j = 0; j < attribute_count; ++j)
-            {
-                entry_attrs[i]->values[j] = talloc_strdup(talloc_ctx, default_attrs[i].value[j]);
-            }
-            entry_attrs[i]->values[attribute_count] = NULL;
-        }
-        else
-        {
-            entry_attrs[i]->values = talloc_array(talloc_ctx, char*, 2);
-            entry_attrs[i]->values[0] = talloc_strdup(talloc_ctx, "");
-            entry_attrs[i]->values[1] = NULL;
-        }
-    }
-    entry_attrs[size] = NULL;
-
-    return entry_attrs;
-}
-
 /**
  * @brief ld_install_error_handler Allows us to install custom error handle for our application.
  * @param[in] handle   Pointer to libdomain session handle.

@@ -25,17 +25,22 @@
 
 enum OperationReturnCode
 {
-    RETURN_CODE_SUCCESS               = 1,
-    RETURN_CODE_FAILURE               = 2,
-    RETURN_CODE_MISSING_ATTRIBUTE     = 3,
-    RETURN_CODE_OPERATION_IN_PROGRESS = 4,
-    RETURN_CODE_REPEAT_LAST_OPERATION = 5,
+    RETURN_CODE_SUCCESS               = 1,          //!< Operation was successful.
+    RETURN_CODE_FAILURE               = 2,          //!< Operation ended up in error state.
+    RETURN_CODE_MISSING_ATTRIBUTE     = 3,          //!< Required attribute for LDAP entry was not provided.
+    RETURN_CODE_OPERATION_IN_PROGRESS = 4,          //!< Current operation is in progress.
+    RETURN_CODE_REPEAT_LAST_OPERATION = 5,          //!< Last function call must be repeated.
 };
 
+/*!
+ * @brief ldap_global_context_t - One of the contexts associated with LDHandle.
+ * @see LDHandle
+ */
 typedef struct ldap_global_context_t
 {
-    LDAP *global_ldap;
-    TALLOC_CTX *talloc_ctx;
+    LDAP *global_ldap;                              //!< Global ldap context for sharing between connections.
+    TALLOC_CTX *talloc_ctx;                         //!< Pointer to valid TALLOC_CTX. We use this internally
+                                                    //!< when we working with ldap entries.
 } ldap_global_context_t;
 
 void error(const char *format, ...);

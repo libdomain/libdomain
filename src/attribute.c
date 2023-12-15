@@ -29,11 +29,29 @@ static const char* create_attribute_parent(LDHandle *handle)
     return handle ? handle->global_config->base_dn : "";
 }
 
+/**
+ * @brief ld_add_attributes Adds list of attributes to ldap entry.
+ * @param[in] handle        Pointer to libdomain session handle.
+ * @param[in] cn            Entry's LDAP common name.
+ * @param[in] attrs         Pointer to NULL terminated array of attributes.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_add_attributes(LDHandle *handle, const char *cn, struct LDAPAttribute_s **attrs)
 {
     return ld_mod_entry_attrs(handle, cn, create_attribute_parent(handle), "", attrs, LDAP_MOD_ADD);
 }
 
+/**
+ * @brief ld_del_attributes Deletes list of attributes from ldap entry.
+ * @param[in] handle        Pointer to libdomain session handle.
+ * @param[in] cn            Entry's LDAP common name.
+ * @param[in] attrs         Pointer to NULL terminated array of attributes.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_del_attributes(LDHandle *handle, const char *cn, struct LDAPAttribute_s **attrs)
 {
     return ld_mod_entry_attrs(handle, cn, create_attribute_parent(handle), "", attrs, LDAP_MOD_DELETE);

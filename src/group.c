@@ -26,15 +26,6 @@
 
 #include <string.h>
 
-static attribute_value_pair_t LDAP_GROUP_ATTRIBUTES[] =
-{
-    { "objectClass", { "top", "posixGroup", NULL, NULL, NULL } },
-    { "cn", { NULL, NULL, NULL, NULL, NULL } },
-    { "description", { NULL, NULL, NULL, NULL, NULL } },
-    { "gidNumber", { NULL, NULL, NULL, NULL, NULL } }
-};
-static const int LDAP_GROUP_ATTRIBUTES_SIZE = number_of_elements(LDAP_GROUP_ATTRIBUTES);
-
 enum GroupAttributeIndex
 {
     OBJECT_CLASS = 0,

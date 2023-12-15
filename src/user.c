@@ -9,23 +9,6 @@
 #include <string.h>
 #include <time.h>
 
-static attribute_value_pair_t LDAP_USER_ATTRIBUTES[] =
-{
-    { "objectClass", { "top", "account", "posixAccount", "shadowAccount", NULL } },
-    { "cn", { NULL, NULL, NULL, NULL, NULL } },
-    { "uid", { NULL, NULL, NULL, NULL, NULL } },
-    { "uidNumber", { NULL, NULL, NULL, NULL, NULL } },
-    { "gidNumber", { NULL, NULL, NULL, NULL, NULL } },
-    { "homeDirectory", { NULL, NULL, NULL, NULL, NULL } },
-    { "loginShell", { NULL, NULL, NULL, NULL, NULL } },
-    { "gecos", { NULL, NULL, NULL, NULL, NULL } },
-    { "userPassword", { NULL, NULL, NULL, NULL, NULL } },
-    { "shadowLastChange", { "0", NULL, NULL, NULL, NULL } },
-    { "shadowMax", { "0", NULL, NULL, NULL, NULL } },
-    { "shadowWarning", { "0", NULL, NULL, NULL, NULL } }
-};
-static const int USER_ATTRIBUTES_SIZE = number_of_elements(LDAP_USER_ATTRIBUTES);
-
 enum UserAttributeIndex
 {
     CN             = 1,
@@ -38,7 +21,7 @@ enum UserAttributeIndex
     USER_PASSWORD  = 8,
 };
 
-const char* create_user_parent(TALLOC_CTX *talloc_ctx, LDHandle *handle)
+static const char* create_user_parent(TALLOC_CTX *talloc_ctx, LDHandle *handle)
 {
     char* ou_users = NULL;
     switch (handle->connection_ctx->directory_type)
@@ -87,9 +70,9 @@ static LDAPAttribute_t** create_lockout_time_attributes_ad(TALLOC_CTX* ctx, cons
 
 /**
  * @brief ld_add_user     Creates user.
- * @param handle          Pointer to libdomain session handle.
- * @param name            Name of the user.
- * @param user_attrs      Attributes of a user.
+ * @param[in] handle          Pointer to libdomain session handle.
+ * @param[in] name            Name of the user.
+ * @param[in] user_attrs      Attributes of a user.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
@@ -119,9 +102,9 @@ enum OperationReturnCode ld_add_user(LDHandle *handle, const char *name, LDAPAtt
 
 /**
  * @brief ld_del_user Deletes user.
- * @param handle      Pointer to libdomain session handle.
- * @param name        Name of the user.
- * @param parent      Container that holds the user.
+ * @param[in] handle      Pointer to libdomain session handle.
+ * @param[in] name        Name of the user.
+ * @param[in] parent      Container that holds the user.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
@@ -179,6 +162,15 @@ enum OperationReturnCode ld_rename_user(LDHandle *handle, const char *old_name, 
     return rc;
 }
 
+/*!
+ * \brief ld_unblock_user Blocks user based on the type of directory service which we are connected to.
+ * \param[in] handle Pointer to libdomain session handle.
+ * \param[in] name   Name of the user to block.
+ * \param[in] parent Parent dn of the user. Can be NULL than default parent will be selected.
+ * \return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_block_user(LDHandle *handle, const char *name, const char *parent)
 {
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);
@@ -205,6 +197,15 @@ enum OperationReturnCode ld_block_user(LDHandle *handle, const char *name, const
     return rc;
 }
 
+/*!
+ * \brief ld_unblock_user Unblocks user based on the type of directory service which we are connected to.
+ * \param[in] handle Pointer to libdomain session handle.
+ * \param[in] name   Name of the user to unblock.
+ * \param[in] parent Parent dn of the user. Can be NULL than default parent will be selected.
+ * \return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode ld_unblock_user(LDHandle *handle, const char *name, const char *parent)
 {
     TALLOC_CTX *talloc_ctx = talloc_new(NULL);

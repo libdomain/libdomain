@@ -24,20 +24,6 @@
 #include "domain_p.h"
 #include "entry.h"
 
-static attribute_value_pair_t LDAP_COMPUTER_ATTRIBUTES[] =
-{
-    { "objectClass", { "top", "device", NULL, NULL, NULL } },
-    { "cn", { NULL, NULL, NULL, NULL, NULL } },
-    { "description", { NULL, NULL, NULL, NULL, NULL } },
-    { "serialnumber", { NULL, NULL, NULL, NULL, NULL } },
-    { "seeAlso", { NULL, NULL, NULL, NULL, NULL } },
-    { "o", { NULL, NULL, NULL, NULL, NULL } },
-    { "l", { NULL, NULL, NULL, NULL, NULL } },
-    { "owner", { NULL, NULL, NULL, NULL, NULL } },
-    { "ou", { NULL, NULL, NULL, NULL, NULL } },
-};
-static const int LDAP_COMPUTER_ATTRIBUTES_SIZE = number_of_elements(LDAP_COMPUTER_ATTRIBUTES);
-
 enum ComputerAttributeIndex
 {
     OBJECT_CLASS           = 0,
