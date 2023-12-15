@@ -127,7 +127,3 @@ Contributions are welcome! If you encounter any issues or have suggestions for i
 ## License
 
 This project is licensed under the [GPLv2](LICENSE.md).
-
----
-
-Make sure to replace placeholder values such as `your_username` with the appropriate details for your library. Feel free to adjust the template based on your specific requirements.
