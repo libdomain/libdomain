@@ -32,7 +32,7 @@
 
 enum BindType
 {
-    BIND_TYPE_INTERACTIVE = 1,          //!< We are going to perfom interactive bind.
+    BIND_TYPE_INTERACTIVE = 1,          //!< We are going to perform interactive bind.
     BIND_TYPE_SIMPLE      = 2,          //!< We are going to perform simple bind.
 };
 
