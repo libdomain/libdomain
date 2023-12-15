@@ -133,7 +133,7 @@ static enum OperationReturnCode print_search_callback(struct ldap_connection_ctx
             char** values = attribute->values;
             while (values[value_index] != NULL)
             {
-                printf("%s: %s\n", attribute->name, values[value_index]);
+                fprintf(stderr, "%s: %s\n", attribute->name, values[value_index]);
                 value_index++;
             }
 

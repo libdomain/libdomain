@@ -66,16 +66,40 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     {
         verto_del(ev);
 
-        search(connection, "dc=domain,dc=alt", LDAP_SCOPE_SUBTREE,
+        char* search_base = "dc=domain,dc=alt";
+
+        switch (current_directory_type)
+        {
+        case LDAP_TYPE_OPENLDAP:
+            search_base = "dc=domain,dc=alt";
+            break;
+        case LDAP_TYPE_ACTIVE_DIRECTORY:
+            search_base = "cn=users,dc=domain,dc=alt";
+            break;
+        case LDAP_TYPE_FREE_IPA:
+            verto_break(ctx);
+
+            fail_test("Support of Free IPA currently is not implemented!\n");
+
+            return;
+        default:
+            verto_break(ctx);
+
+            fail_test("Unknown directory type - not implemented!\n");
+
+            return;
+        }
+
+        search(connection, search_base, LDAP_SCOPE_SUBTREE,
                "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, begin_search_callback);
 
-        search(connection, "dc=domain,dc=alt", LDAP_SCOPE_SUBTREE,
+        search(connection, search_base, LDAP_SCOPE_SUBTREE,
                "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, NULL);
 
-        search(connection, "dc=domain,dc=alt", LDAP_SCOPE_SUBTREE,
+        search(connection, search_base, LDAP_SCOPE_SUBTREE,
                "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, middle_search_callback);
 
-        search(connection, "dc=domain,dc=alt", LDAP_SCOPE_SUBTREE,
+        search(connection, search_base, LDAP_SCOPE_SUBTREE,
                "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, end_search_callback);
 
         verto_add_timeout(ctx, VERTO_EV_FLAG_PERSIST, connection_on_search_message, CONNECTION_UPDATE_INTERVAL);
