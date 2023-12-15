@@ -63,7 +63,7 @@ const option_value_t option_strings[] =
 };
 const int option_strings_size = number_of_elements(option_strings);
 
-const char* ldap_option2string(int option)
+static const char* ldap_option2string(int option)
 {
     for (int i = 0; i < option_strings_size; ++i)
     {
@@ -97,7 +97,7 @@ const char* ldap_option2string(int option)
             error_exit; \
     } \
 
-void ldap_requests_init(struct ldap_request_t* requests, int size)
+static void ldap_requests_init(struct ldap_request_t* requests, int size)
 {
     for (int i = 0; i < size; ++i)
     {
@@ -108,7 +108,7 @@ void ldap_requests_init(struct ldap_request_t* requests, int size)
     }
 }
 
-void search_requests_init(struct ldap_search_request_t* requests, int size)
+static void search_requests_init(struct ldap_search_request_t* requests, int size)
 {
     for (int i = 0; i < size; ++i)
     {

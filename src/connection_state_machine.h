@@ -24,20 +24,23 @@
 
 enum LdapConnectionState
 {
-    LDAP_CONNECTION_STATE_INIT             = 1,
-    LDAP_CONNECTION_STATE_TLS_NEGOTIATION  = 2,
-    LDAP_CONNECTION_STATE_TRANSPORT_READY  = 3,
-    LDAP_CONNECTION_STATE_BIND_IN_PROGRESS = 4,
-    LDAP_CONNECTION_STATE_BOUND            = 5,
-    LDAP_CONNECTION_STATE_DETECT_DIRECTORY = 6,
-    LDAP_CONNECTION_STATE_RUN              = 7,
-    LDAP_CONNECTION_STATE_ERROR            = 8,
+    LDAP_CONNECTION_STATE_INIT             = 1, //!< Initial state of the LDAP connection.
+    LDAP_CONNECTION_STATE_TLS_NEGOTIATION  = 2, //!< The connection is in the process of negotiating TLS encryption.
+    LDAP_CONNECTION_STATE_TRANSPORT_READY  = 3, //!< The underlying transport layer is ready for communication.
+    LDAP_CONNECTION_STATE_BIND_IN_PROGRESS = 4, //!< The connection is in the process of binding.
+    LDAP_CONNECTION_STATE_BOUND            = 5, //!< The connection has successfully performed LDAP bound.
+    LDAP_CONNECTION_STATE_DETECT_DIRECTORY = 6, //!< The connection is in the process of detecting type of the LDAP directory service.
+    LDAP_CONNECTION_STATE_RUN              = 7, //!< The LDAP connection is active and ready for operations.
+    LDAP_CONNECTION_STATE_ERROR            = 8, //!< The LDAP connection is in an error state.
 };
 
+/*!
+ * @brief state_machine_ctx_t - Struct represents connection state machine.
+ */
 typedef struct state_machine_ctx_t
 {
-    enum LdapConnectionState state;
-    struct ldap_connection_ctx_t *ctx;
+    enum LdapConnectionState state;             //!< State of the connection.
+    struct ldap_connection_ctx_t *ctx;          //!< Connection context.
 } state_machine_ctx_t;
 
 enum OperationReturnCode csm_init(struct state_machine_ctx_t *ctx, struct ldap_connection_ctx_t *connection);

@@ -22,10 +22,13 @@
 
 #include <glib-2.0/glib.h>
 
+/*!
+ * @brief ld_entry_t - Structure holds LDAP entry information.
+ */
 typedef struct ld_entry_s
 {
-    char* dn;
-    GHashTable *attributes;
+    char* dn;                            //!< Distinguished name of the LDAP entry.
+    GHashTable *attributes;              //!< Hash table with entry's attributes.
 } ld_entry_t;
 
 void connection_remove_search_request(struct ldap_connection_ctx_t *connection, int index);

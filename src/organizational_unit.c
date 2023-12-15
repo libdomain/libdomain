@@ -23,14 +23,6 @@
 #include "domain_p.h"
 #include "entry.h"
 
-static attribute_value_pair_t LDAP_OU_ATTRIBUTES[] =
-{
-    { "objectClass", { "top", "organizationalUnit", NULL, NULL, NULL } },
-    { "ou", { NULL, NULL, NULL, NULL, NULL } },
-    { "description", { NULL, NULL, NULL, NULL, NULL } },
-};
-static const int LDAP_OU_ATTRIBUTES_SIZE = number_of_elements(LDAP_OU_ATTRIBUTES);
-
 enum OUAttributeIndex
 {
     OBJECT_CLASS = 0,
@@ -40,9 +32,9 @@ enum OUAttributeIndex
 
 /**
  * @brief ld_add_ou       Creates the OU.
- * @param handle          Pointer to libdomain session handle.
- * @param name            Name of the OU.
- * @param ou_attrs        Attributes of the OU.
+ * @param[in] handle          Pointer to libdomain session handle.
+ * @param[in] name            Name of the OU.
+ * @param[in] ou_attrs        Attributes of the OU.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
@@ -67,9 +59,9 @@ enum OperationReturnCode ld_add_ou(LDHandle *handle,
 
 /**
  * @brief ld_del_ou   Deletes the OU.
- * @param handle      Pointer to libdomain session handle.
- * @param name        Name of the OU.
- * @param parent      Parent container that holds the OU.
+ * @param[in] handle      Pointer to libdomain session handle.
+ * @param[in] name        Name of the OU.
+ * @param[in] parent      Parent container that holds the OU.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
@@ -81,10 +73,10 @@ enum OperationReturnCode ld_del_ou(LDHandle *handle, const char *name, const cha
 
 /**
  * @brief ld_mod_ou    Modifies the OU.
- * @param handle       Pointer to libdomain session handle.
- * @param name         Name of the OU.
- * @param parent       Parent container that holds the OU.
- * @param ou_attrs     List of the attributes to modify.
+ * @param[in] handle       Pointer to libdomain session handle.
+ * @param[in] name         Name of the OU.
+ * @param[in] parent       Parent container that holds the OU.
+ * @param[in] ou_attrs     List of the attributes to modify.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
@@ -96,10 +88,10 @@ enum OperationReturnCode ld_mod_ou(LDHandle *handle, const char *name, const cha
 
 /**
  * @brief ld_rename_ou Renames the OU.
- * @param handle       Pointer to libdomain session handle.
- * @param old_name     Old name of the OU.
- * @param new_name     New name of the OU.
- * @param parent       Parent container that holds the OU.
+ * @param[in] handle       Pointer to libdomain session handle.
+ * @param[in] old_name     Old name of the OU.
+ * @param[in] new_name     New name of the OU.
+ * @param[in] parent       Parent container that holds the OU.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.

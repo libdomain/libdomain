@@ -27,17 +27,20 @@
 
 typedef struct request_queue request_queue;
 
+/*!
+ * @brief Queue_Node_s - A queue node.
+ */
 struct Queue_Node_s
 {
-    struct Queue_Node_s* prev;
+    struct Queue_Node_s* prev;                 //!< Pointer to previous node in queue.
 };
 
 enum RequestQueueErrorCode
 {
-    OPERATION_SUCCESS                 = 0,
-    OPERATION_ERROR_FULL              = 1,
-    OPERATION_ERROR_INVALID_PARAMETER = 2,
-    OPERATION_ERROR_FAULT             = 3,
+    OPERATION_SUCCESS                 = 0,     //!< Queue operation was successful.
+    OPERATION_ERROR_FULL              = 1,     //!< Underlying storage is full and we were unable to add node to queue.
+    OPERATION_ERROR_INVALID_PARAMETER = 2,     //!< Invalid parameter were passed to a function.
+    OPERATION_ERROR_FAULT             = 3,     //!< Queue internal logic error.
 };
 
 request_queue*

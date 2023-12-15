@@ -117,10 +117,12 @@ ldap_schema_attribute_types(const ldap_schema_t* schema)
 }
 
 /*!
- * \brief ldap_schema_append_attributetype
- * \param schema
- * \param attributetype
+ * \brief ldap_schema_append_attributetype Appends attribute type to the list of schema's attribute types.
+ * \param[in] schema                       Schema to work with.
+ * \param[in] attributetype                Attribute type to add.
  * \return
+ *        - false - on error.
+ *        - true - on success.
  */
 bool
 ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType *attributetype)
@@ -165,10 +167,12 @@ ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType
 }
 
 /*!
- * \brief ldap_schema_append_objectclass
- * \param schema
- * \param objectclass
+ * \brief ldap_schema_append_objectclass Appends object class to the list of schema's object classes.
+ * \param[in] schema                     Current schema we working with.
+ * \param[in] objectclass                Object class we want to add to schema.
  * \return
+ *        - false - on error.
+ *        - true - on success.
  */
 bool
 ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *objectclass)
