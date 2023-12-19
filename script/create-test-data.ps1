@@ -10,7 +10,7 @@ New-ADUser -Name "test block" -GivenName "test" -Surname "block" -UserPrincipalN
 New-ADUser -Name "Manager" -GivenName "Manager" -Surname "Manager" -UserPrincipalName "Manager@domain.alt" -SamAccountName "Manager" -Enabled $true -AccountPassword (ConvertTo-SecureString -AsPlainText "secretPWD123!" -Force) -PassThru
 
 # Create OUs
-New-ADOrganizationalUnit -Name "test_delete_ou" -Description "Test OU delete" -PassThru
+New-ADOrganizationalUnit -Name "test_delete_ou" -Description "Test OU delete" -ProtectedFromAccidentalDeletion $false -PassThru
 New-ADOrganizationalUnit -Name "test_rename_ou" -Description "Test OU rename" -PassThru
 New-ADOrganizationalUnit -Name "test_mod_ou" -Description "Test OU mod" -PassThru
 
