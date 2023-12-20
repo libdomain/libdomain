@@ -80,7 +80,7 @@ static const char* ldap_option2string(int option)
     rc = ldap_set_option(ldap, option, value); \
     if (rc != LDAP_OPT_SUCCESS) \
     { \
-        error("Unable to set ldap option %s - %s\n", ldap_option2string(option), ldap_err2string(rc)); \
+        ld_error("Unable to set ldap option %s - %s\n", ldap_option2string(option), ldap_err2string(rc)); \
         goto \
             error_exit; \
     } \
@@ -92,7 +92,7 @@ static const char* ldap_option2string(int option)
     rc = ldap_get_option(ldap, option, value); \
     if (rc != LDAP_OPT_SUCCESS) \
     { \
-        error("Unable to get ldap option %s - %s\n", ldap_option2string(option), ldap_err2string(rc)); \
+        ld_error("Unable to get ldap option %s - %s\n", ldap_option2string(option), ldap_err2string(rc)); \
         goto \
             error_exit; \
     } \
@@ -168,7 +168,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
     if (rc != LDAP_SUCCESS)
     {
-        error("Error initializing LDAP: %s\n", ldap_err2string(rc));
+        ld_error("Error initializing LDAP: %s\n", ldap_err2string(rc));
         goto
           error_exit;
     }
@@ -269,7 +269,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
     connection->base = verto_default(NULL, VERTO_EV_TYPE_NONE);
     if (!connection->base)
     {
-        error("Unable to create event base!");
+        ld_error("Unable to create event base!");
         goto
           error_exit;
     }
@@ -298,7 +298,7 @@ enum OperationReturnCode connection_install_handlers(struct ldap_connection_ctx_
 
     if (fd < 0)
     {
-        error("Failed to get valid descriptor");
+        ld_error("Failed to get valid descriptor");
         goto
             error_exit;
     }
@@ -332,14 +332,14 @@ enum OperationReturnCode connection_start_tls(struct ldap_connection_ctx_t *conn
     if (rc != LDAP_SUCCESS)
     {
         // TODO: Verify that we need to perform abandon operation here.
-        error("Unable to perform ldap_start_tls - error: %s", ldap_err2string(rc));
+        ld_error("Unable to perform ldap_start_tls - error: %s", ldap_err2string(rc));
         ldap_unbind_ext_s(connection->ldap, NULL, NULL);
         return RETURN_CODE_FAILURE;
     }
 
     if (!connection->handlers_installed && connection_install_handlers(connection) != RETURN_CODE_SUCCESS)
     {
-        error("Unable to install event handlers.");
+        ld_error("Unable to install event handlers.");
         ldap_unbind_ext_s(connection->ldap, NULL, NULL);
         return RETURN_CODE_FAILURE;
     }
@@ -376,7 +376,7 @@ enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *conn
 
     if (rc == LDAP_X_CONNECTING)
     {
-        info("Continuing connection to LDAP server.\n");
+        ld_info("Continuing connection to LDAP server.\n");
 
         return RETURN_CODE_REPEAT_LAST_OPERATION;
     }
@@ -384,14 +384,14 @@ enum OperationReturnCode connection_sasl_bind(struct ldap_connection_ctx_t *conn
     if (rc != LDAP_SUCCESS)
     {
         // TODO: Verify that we need to perform abandon operation here.
-        error("Unable to perform ldap_sasl_bind - error: %s", ldap_err2string(rc));
+        ld_error("Unable to perform ldap_sasl_bind - error: %s", ldap_err2string(rc));
         ldap_unbind_ext_s(connection->ldap, NULL, NULL);
         return RETURN_CODE_FAILURE;
     }
 
     if (!connection->handlers_installed && connection_install_handlers(connection) != RETURN_CODE_SUCCESS)
     {
-        error("Unable to install event handlers.");
+        ld_error("Unable to install event handlers.");
         ldap_unbind_ext_s(connection->ldap, NULL, NULL);
         return RETURN_CODE_FAILURE;
     }
@@ -503,7 +503,7 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
 
     if (rc == LDAP_X_CONNECTING)
     {
-        info("Continuing connection to LDAP server.\n");
+        ld_info("Continuing connection to LDAP server.\n");
 
         return RETURN_CODE_REPEAT_LAST_OPERATION;
     }
@@ -514,7 +514,7 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
         get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
         get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
         error_exit:
-            error("Unable to perform ldap_sasl_interactive_bind - op code: %d - code: %d %s\n", rc, error_code, diagnostic_message);
+            ld_error("Unable to perform ldap_sasl_interactive_bind - op code: %d - code: %d %s\n", rc, error_code, diagnostic_message);
             ldap_memfree(diagnostic_message);
             ldap_unbind_ext_s(connection->ldap, NULL, NULL);
             return RETURN_CODE_FAILURE;
@@ -522,7 +522,7 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
 
     if (!connection->handlers_installed && connection_install_handlers(connection) != RETURN_CODE_SUCCESS)
     {
-        error("Unable to install event handlers.\n");
+        ld_error("Unable to install event handlers.\n");
         ldap_unbind_ext_s(connection->ldap, NULL, NULL);
         return RETURN_CODE_FAILURE;
     }
@@ -570,7 +570,7 @@ void connection_on_read(verto_ctx *ctx, verto_ev *ev)
     {
         struct ldap_request_t* request = container_of(top, struct ldap_request_t, node);
 
-        info("Processing message #%d\n", request->msgid);
+        ld_info("Processing message #%d\n", request->msgid);
 
         rc = ldap_result(connection->ldap, request->msgid, LDAP_MSG_ALL, &timeout, &result_message);
         switch (rc)
@@ -578,13 +578,13 @@ void connection_on_read(verto_ctx *ctx, verto_ev *ev)
         case LDAP_RES_ANY:
             get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
             get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-            error("Error - ldap_result failed - code: %d %s %s\n", error_code, ldap_err2string(error_code), diagnostic_message);
+            ld_error("Error - ldap_result failed - code: %d %s %s\n", error_code, ldap_err2string(error_code), diagnostic_message);
             ldap_memfree(diagnostic_message);
             ldap_msgfree(result_message);
             connection_optional_transition_on_error(connection);
             break;
         case LDAP_RES_UNSOLICITED:
-            warning("Warning - Pending message with id %d!\n", request->msgid);
+            ld_warning("Warning - Pending message with id %d!\n", request->msgid);
             ldap_msgfree(result_message);
 
             pending_requests[n_pending_requests] = *request;
@@ -695,10 +695,10 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
     switch (rc)
     {
     case LDAP_RES_BIND:
-        info("Message - connection_bind_on_read - message success!\n");
+        ld_info("Message - connection_bind_on_read - message success!\n");
         if (connection->bind_type == BIND_TYPE_INTERACTIVE)
         {
-            info("Current bind message id: %i \n", connection->msgid);
+            ld_info("Current bind message id: %i \n", connection->msgid);
             rc = ldap_sasl_interactive_bind(connection->ldap,
                                             NULL,
                                             connection->ldap_defaults->mechanism,
@@ -710,12 +710,12 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
                                             message,
                                             &connection->rmech,
                                             &connection->msgid);
-            info("Operation result: %s!\n", ldap_err2string(rc));
+            ld_info("Operation result: %s!\n", ldap_err2string(rc));
         }
 
         if (rc == LDAP_SASL_BIND_IN_PROGRESS)
         {
-            info("Bind in progress - request send: %d !\n", connection->msgid);
+            ld_info("Bind in progress - request send: %d !\n", connection->msgid);
             struct ldap_request_t* request = &connection->read_requests[connection->n_read_requests];
             request->msgid = connection->msgid;
             request->on_read_operation = connection_bind_on_read;
@@ -724,7 +724,7 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
         }
         else if (rc == LDAP_SUCCESS)
         {
-            info("Message - connection_bind_on_read - bind success!\n");
+            ld_info("Message - connection_bind_on_read - bind success!\n");
             csm_set_state(connection->state_machine, LDAP_CONNECTION_STATE_BOUND);
             return RETURN_CODE_SUCCESS;
         }
@@ -732,7 +732,7 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
         {
             get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
             get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-            error("Error - ldap_result failed - op code: %d - code: %d %s\n", rc, error_code, diagnostic_message);
+            ld_error("Error - ldap_result failed - op code: %d - code: %d %s\n", rc, error_code, diagnostic_message);
             ldap_memfree(diagnostic_message);
             if (error_code != LDAP_SUCCESS)
             {
@@ -777,14 +777,14 @@ enum OperationReturnCode connection_start_tls_on_read(int rc, LDAPMessage * mess
         }
         else
         {
-            info("connection_start_tls_on_read - SSL/TLS handler was already installed.\n");
+            ld_info("connection_start_tls_on_read - SSL/TLS handler was already installed.\n");
         }
 
         if (tls_rc != LDAP_SUCCESS && tls_rc != LDAP_LOCAL_ERROR)
         {
             get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
             get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-            error("Error - ldap_install_tls failed - op code: %d %s - code: %d %s\n", tls_rc, ldap_err2string(tls_rc),
+            ld_error("Error - ldap_install_tls failed - op code: %d %s - code: %d %s\n", tls_rc, ldap_err2string(tls_rc),
                   error_code, diagnostic_message);
             ldap_memfree(diagnostic_message);
 

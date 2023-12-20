@@ -35,7 +35,7 @@ ldap_schema_new(TALLOC_CTX *ctx)
 {
     if (!ctx)
     {
-        error("NULL talloc context.\n");
+        ld_error("NULL talloc context.\n");
 
         return NULL;
     }
@@ -44,7 +44,7 @@ ldap_schema_new(TALLOC_CTX *ctx)
 
     if (!result)
     {
-        error("Unable to allocate ldap_schema_t.\n");
+        ld_error("Unable to allocate ldap_schema_t.\n");
 
         return NULL;
     }
@@ -53,7 +53,7 @@ ldap_schema_new(TALLOC_CTX *ctx)
 
     if (!result->attribute_types)
     {
-        error("Unable allocate attribute types in schema: %d ", result);
+        ld_error("Unable allocate attribute types in schema: %d ", result);
 
         return NULL;
     }
@@ -65,7 +65,7 @@ ldap_schema_new(TALLOC_CTX *ctx)
 
     if (!result->object_classes)
     {
-        error("Unable allocate object classes in schema: %d ", result);
+        ld_error("Unable allocate object classes in schema: %d ", result);
 
         return NULL;
     }
@@ -88,7 +88,7 @@ ldap_schema_object_classes(const ldap_schema_t *schema)
 {
     if (!schema)
     {
-        error("Schema is NULL.\n");
+        ld_error("Schema is NULL.\n");
 
         return NULL;
     }
@@ -108,7 +108,7 @@ ldap_schema_attribute_types(const ldap_schema_t* schema)
 {
     if (!schema)
     {
-        error("Schema is NULL.\n");
+        ld_error("Schema is NULL.\n");
 
         return NULL;
     }
@@ -131,12 +131,12 @@ ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType
     {
         if (!schema)
         {
-            error("Attempt to pass NULL schema parameter.\n");
+            ld_error("Attempt to pass NULL schema parameter.\n");
         }
 
         if (!attributetype)
         {
-            error("Attempt to pass NULL attribute type parameter. \n");
+            ld_error("Attempt to pass NULL attribute type parameter. \n");
         }
 
         return false;
@@ -152,7 +152,7 @@ ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType
                                                         required_capacity);
         if (!attributes)
         {
-            error("Unable to increase capacity in schema %d, to value of %d. \n", schema, required_capacity);
+            ld_error("Unable to increase capacity in schema %d, to value of %d. \n", schema, required_capacity);
             return false;
         }
 
@@ -181,12 +181,12 @@ ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *ob
     {
         if (!schema)
         {
-            error("Attempt to pass NULL schema parameter.\n");
+            ld_error("Attempt to pass NULL schema parameter.\n");
         }
 
         if (!objectclass)
         {
-            error("Attempt to pass NULL object class parameter. \n");
+            ld_error("Attempt to pass NULL object class parameter. \n");
         }
 
         return false;
@@ -202,7 +202,7 @@ ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *ob
                                                    required_capacity);
         if (!classes)
         {
-            error("Unable to increase capacity in schema %d, to value of %d. \n", schema, required_capacity);
+            ld_error("Unable to increase capacity in schema %d, to value of %d. \n", schema, required_capacity);
             return false;
         }
 

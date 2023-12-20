@@ -1,5 +1,6 @@
 #include <cgreen/cgreen.h>
 
+#include <common.h>
 #include <directory.h>
 #include <domain.h>
 #include <entry.h>

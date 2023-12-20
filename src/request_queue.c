@@ -41,7 +41,7 @@ request_queue *request_queue_new(TALLOC_CTX *ctx, unsigned int capacity)
     request_queue* result = talloc_zero(ctx, struct request_queue);
     if (!result)
     {
-        error("Unable to allocate request_queue.\n");
+        ld_error("Unable to allocate request_queue.\n");
 
         return NULL;
     }
@@ -67,12 +67,12 @@ enum RequestQueueErrorCode request_queue_push(request_queue *queue, struct Queue
     {
         if (!queue)
         {
-            error("Attempt to pass parameter node %d with NULL queue pointer\n", node);
+            ld_error("Attempt to pass parameter node %d with NULL queue pointer\n", node);
         }
 
         if (!node)
         {
-            error("Attempt to pass NULL node parameter to queue: %d\n", queue);
+            ld_error("Attempt to pass NULL node parameter to queue: %d\n", queue);
         }
 
         return OPERATION_ERROR_INVALID_PARAMETER;
@@ -80,7 +80,7 @@ enum RequestQueueErrorCode request_queue_push(request_queue *queue, struct Queue
 
     if (queue->size >= queue->capacity)
     {
-        error("Queue overflow %d\n", queue);
+        ld_error("Queue overflow %d\n", queue);
 
         return OPERATION_ERROR_FULL;
     }
@@ -96,7 +96,7 @@ enum RequestQueueErrorCode request_queue_push(request_queue *queue, struct Queue
     {
         if (!queue->tail)
         {
-            error("Queue does not contain valid tail pointer %d\n", queue);
+            ld_error("Queue does not contain valid tail pointer %d\n", queue);
 
             return OPERATION_ERROR_FAULT;
         }
@@ -121,21 +121,21 @@ struct Queue_Node_s *request_queue_pop(request_queue *queue)
 {
     if (!queue)
     {
-        error("Queue pointer is NULL\n");
+        ld_error("Queue pointer is NULL\n");
 
         return NULL;
     }
 
     if (queue->size <= 0)
     {
-        error("Unable to get element from empty queue %d\n", queue);
+        ld_error("Unable to get element from empty queue %d\n", queue);
 
         return NULL;
     }
 
     if (!queue->head)
     {
-        error("Invalid head pointer in queue %d\n", queue);
+        ld_error("Invalid head pointer in queue %d\n", queue);
 
         return NULL;
     }
@@ -159,14 +159,14 @@ struct Queue_Node_s *request_queue_peek(request_queue *queue)
 {
     if (!queue)
     {
-        error("Queue pointer is NULL\n");
+        ld_error("Queue pointer is NULL\n");
 
         return NULL;
     }
 
     if (!queue->head)
     {
-        error("Invalid head pointer in queue %d\n", queue);
+        ld_error("Invalid head pointer in queue %d\n", queue);
 
         return NULL;
     }
@@ -185,7 +185,7 @@ bool request_queue_empty(request_queue *queue)
 {
     if (!queue)
     {
-        error("Queue pointer is NULL\n");
+        ld_error("Queue pointer is NULL\n");
 
         return true;
     }
@@ -210,12 +210,12 @@ enum RequestQueueErrorCode request_queue_move(request_queue *from, request_queue
     {
         if (!from)
         {
-            error("From queue pointer is NULL\n");
+            ld_error("From queue pointer is NULL\n");
         }
 
         if (!to)
         {
-            error("To queue pointer is NULL\n");
+            ld_error("To queue pointer is NULL\n");
         }
 
         return OPERATION_ERROR_INVALID_PARAMETER;
@@ -225,14 +225,14 @@ enum RequestQueueErrorCode request_queue_move(request_queue *from, request_queue
     {
         if (!to->tail && to->size > 0)
         {
-            error("Queue does not contain valid tail pointer %d\n", to);
+            ld_error("Queue does not contain valid tail pointer %d\n", to);
 
             return OPERATION_ERROR_FAULT;
         }
 
         if ((to->size + from->size) > to->capacity)
         {
-            error("Unable add requests to queue %d due to insufficient capacity of receiving queue\n", to);
+            ld_error("Unable add requests to queue %d due to insufficient capacity of receiving queue\n", to);
 
             return OPERATION_ERROR_FULL;
         }
@@ -256,7 +256,7 @@ enum RequestQueueErrorCode request_queue_move(request_queue *from, request_queue
     }
     else
     {
-        error("From queue malformed: from %d -> head %d, tail %d, size %d; to %d\n",
+        ld_error("From queue malformed: from %d -> head %d, tail %d, size %d; to %d\n",
               from, from->head, from->tail, from->size, to);
 
         return OPERATION_ERROR_FAULT;

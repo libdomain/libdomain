@@ -81,10 +81,10 @@ Ensure(Cgreen, connection_configure_with_sasl_test) {
 
     enum OperationReturnCode rc = connection_configure(&ctx->global_ctx, &ctx->connection_ctx, &ctx->config);
     assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
-    info("connection_configure - %s\n", rc == RETURN_CODE_SUCCESS ? "successful" : "failure");
+    ld_info("connection_configure - %s\n", rc == RETURN_CODE_SUCCESS ? "successful" : "failure");
 
     assert_that(ctx->connection_ctx.ldap_defaults, is_not_null);
-    info("ldap_defaults - %s\n", ctx->connection_ctx.ldap_defaults != NULL ? " is not null" : "is null");
+    ld_info("ldap_defaults - %s\n", ctx->connection_ctx.ldap_defaults != NULL ? " is not null" : "is null");
 
     talloc_free(ctx->config.sasl_options);
 

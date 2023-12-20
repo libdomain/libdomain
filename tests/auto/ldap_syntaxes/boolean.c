@@ -32,7 +32,7 @@ Ensure(validate_boolean_returns_true_on_valid_values) {
 
         if (rc != true)
         {
-            error("validate_boolean_returns_true_on_valid_values - failed case %s.\n", VALID_VALUES[i]);
+            ld_error("validate_boolean_returns_true_on_valid_values - failed case %s.\n", VALID_VALUES[i]);
         }
 
         assert_that(rc, is_true);
@@ -46,7 +46,7 @@ Ensure(validate_boolean_returns_false_on_invalid_values) {
 
         if (rc != false)
         {
-            error("validate_boolean_returns_false_on_invalid_values - failed case %s.\n", INVALID_VALUES[i]);
+            ld_error("validate_boolean_returns_false_on_invalid_values - failed case %s.\n", INVALID_VALUES[i]);
         }
 
         assert_that(rc, is_false);

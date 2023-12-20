@@ -46,7 +46,7 @@ enum OperationReturnCode directory_get_type(struct ldap_connection_ctx_t *connec
                     &msgid);
     if (rc != LDAP_SUCCESS)
     {
-        error("Unable to create directory type request: %s\n", ldap_err2string(rc));
+        ld_error("Unable to create directory type request: %s\n", ldap_err2string(rc));
         return RETURN_CODE_FAILURE;
     }
 
@@ -76,7 +76,7 @@ bool directory_process_attribute(const char* attribute_name, struct ldap_connect
     {
         connection->directory_type = LDAP_TYPE_ACTIVE_DIRECTORY;
 
-        info("Directory type is Active Directory\n");
+        ld_info("Directory type is Active Directory\n");
 
         return true;
     }
@@ -85,7 +85,7 @@ bool directory_process_attribute(const char* attribute_name, struct ldap_connect
     {
         connection->directory_type = LDAP_TYPE_OPENLDAP;
 
-        info("Directory type is OpenLDAP\n");
+        ld_info("Directory type is OpenLDAP\n");
 
         return true;
     }
@@ -142,13 +142,13 @@ enum OperationReturnCode directory_parse_result(int rc, LDAPMessage *message, st
     }
         break;
     case LDAP_RES_SEARCH_REFERENCE:
-        info("Received search referral but not following it!");
+        ld_info("Received search referral but not following it!");
         return RETURN_CODE_SUCCESS;
     default:
     {
         ldap_get_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
         ldap_get_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-        error("ldap_result failed: %s\n", diagnostic_message);
+        ld_error("ldap_result failed: %s\n", diagnostic_message);
         ldap_memfree(diagnostic_message);
     }
         break;
