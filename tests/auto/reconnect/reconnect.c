@@ -27,7 +27,7 @@ static void connection_on_message(verto_ctx *ctx, verto_ev *ev)
 
     if (connection->state_machine->state == LDAP_CONNECTION_STATE_RUN)
     {
-        info("Reconnect attempt test success!\n");
+        ld_info("Reconnect attempt test success!\n");
 
         verto_break(ctx);
     }

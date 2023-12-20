@@ -36,11 +36,11 @@ static const int CONNECTION_UPDATE_INTERVAL = 1000;
 #define get_config_required_string(name, out) \
     if (config_lookup_string(&cfg, name, &out)) \
     { \
-        info("%s: %s\n\n", name, out); \
+        ld_info("%s: %s\n\n", name, out); \
     } \
     else \
     { \
-        error("No '%s' setting in configuration file.\n", name); \
+        ld_error("No '%s' setting in configuration file.\n", name); \
         config_destroy(&cfg); \
         return NULL; \
     } \
@@ -48,11 +48,11 @@ static const int CONNECTION_UPDATE_INTERVAL = 1000;
 #define get_config_optional_setting(name, out, setting_function, specifier) \
     if ((setting_function)(&cfg, name, &out)) \
     { \
-        info("%s: " specifier "\n\n", name, out); \
+        ld_info("%s: " specifier "\n\n", name, out); \
     } \
     else \
     { \
-        info("No '%s' setting in configuration file.\n", name); \
+        ld_info("No '%s' setting in configuration file.\n", name); \
     } \
 
 #define get_config_optional_string(name, out) \
@@ -64,11 +64,11 @@ static const int CONNECTION_UPDATE_INTERVAL = 1000;
 #define get_config_optional_bool(name, out) \
     if (config_lookup_bool(&cfg, name, (int*)&out)) \
     { \
-        info("%s: %s\n\n", name, out ? "true" : "false"); \
+        ld_info("%s: %s\n\n", name, out ? "true" : "false"); \
     } \
     else \
     { \
-        info("No '%s' setting in configuration file.\n", name); \
+        ld_info("No '%s' setting in configuration file.\n", name); \
     } \
 
 ld_config_t *ld_load_config(TALLOC_CTX* ctx, const char *filename)
@@ -77,7 +77,7 @@ ld_config_t *ld_load_config(TALLOC_CTX* ctx, const char *filename)
 
     if (!result)
     {
-        error("Unable to allocate memory for config_t");
+        ld_error("Unable to allocate memory for config_t");
         return NULL;
     }
 
@@ -91,7 +91,7 @@ ld_config_t *ld_load_config(TALLOC_CTX* ctx, const char *filename)
     /* Read the file. If there is an error, report it and return NULL. */
     if (!config_read_file(&cfg, filename))
     {
-        error("%s:%d - %s\n", config_error_file(&cfg), config_error_line(&cfg), config_error_text(&cfg));
+        ld_error("%s:%d - %s\n", config_error_file(&cfg), config_error_line(&cfg), config_error_text(&cfg));
         config_destroy(&cfg);
         return NULL;
     }
@@ -210,7 +210,7 @@ ld_config_t *ld_create_config(TALLOC_CTX* talloc_ctx,
 {
     if (!talloc_ctx)
     {
-        error("ld_create_config - Invalid talloc context!\n");
+        ld_error("ld_create_config - Invalid talloc context!\n");
         return NULL;
     }
 
@@ -218,7 +218,7 @@ ld_config_t *ld_create_config(TALLOC_CTX* talloc_ctx,
 
     if (!result)
     {
-        error("Unable to allocate memory for config_t");
+        ld_error("Unable to allocate memory for config_t");
         return NULL;
     }
 
@@ -270,13 +270,13 @@ void ld_init(LDHandle** handle, const ld_config_t* config)
 
     if (!*handle)
     {
-        error("Unable to allocate memory for ldhandle");
+        ld_error("Unable to allocate memory for ldhandle");
         return;
     }
 
     if (!config)
     {
-        error("Config is invalid!");
+        ld_error("Config is invalid!");
         return;
     }
 
@@ -335,7 +335,7 @@ void ld_init(LDHandle** handle, const ld_config_t* config)
 
     if (rc != RETURN_CODE_SUCCESS)
     {
-        error("Unable to configure connection");
+        ld_error("Unable to configure connection");
         return;
     }
 
@@ -367,7 +367,7 @@ void ld_install_default_handlers(LDHandle* handle)
 {
     if (!handle)
     {
-        error("Invalid handle was provided - ld_install_default_handlers\n");
+        ld_error("Invalid handle was provided - ld_install_default_handlers\n");
         return;
     }
 
@@ -384,7 +384,7 @@ void ld_install_handler(LDHandle* handle, verto_callback *callback, time_t inter
 {
     if (!handle)
     {
-        error("Invalid handle was provided - ld_install_handler\n");
+        ld_error("Invalid handle was provided - ld_install_handler\n");
         return;
     }
 
@@ -401,7 +401,7 @@ void ld_exec(LDHandle* handle)
 {
     if (!handle)
     {
-        error("Invalid handle was provided - ld_exec\n");
+        ld_error("Invalid handle was provided - ld_exec\n");
         return;
     }
 
@@ -416,7 +416,7 @@ void ld_exec_once(LDHandle* handle)
 {
     if (!handle)
     {
-        error("Invalid handle was provided - ld_exec_once\n");
+        ld_error("Invalid handle was provided - ld_exec_once\n");
         return;
     }
 
@@ -432,7 +432,7 @@ void ld_free(LDHandle* handle)
 {
     if (!handle)
     {
-        error("Invalid handle was provided - ld_free");
+        ld_error("Invalid handle was provided - ld_free");
         return;
     }
 
@@ -639,13 +639,13 @@ void ld_install_error_handler(LDHandle *handle, error_callback_fn callback)
 {
     if (!handle)
     {
-        error("Invalid handle - ld_install_error_handler\n");
+        ld_error("Invalid handle - ld_install_error_handler\n");
         return;
     }
 
     if (!callback)
     {
-        error("Invalid callback - ld_install_error_handler\n");
+        ld_error("Invalid callback - ld_install_error_handler\n");
         return;
     }
 

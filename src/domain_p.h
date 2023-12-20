@@ -57,14 +57,14 @@ typedef struct ldhandle
 #define check_handle(handle, function_name) \
     if (!handle) \
     { \
-        error("Handle is null - %s \n", function_name); \
+        ld_error("Handle is null - %s \n", function_name); \
         return RETURN_CODE_FAILURE; \
     }
 
 #define check_string(input, output, function_name) \
     if (!input || strlen(input) == 0) \
     { \
-        error("Empty string in function - %s \n", function_name); \
+        ld_error("Empty string in function - %s \n", function_name); \
         return RETURN_CODE_FAILURE; \
     } \
     else \

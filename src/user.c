@@ -184,7 +184,7 @@ enum OperationReturnCode ld_block_user(LDHandle *handle, const char *name, const
         attrs = create_lockout_time_attributes_ad(talloc_ctx, "514");
         break;
     case LDAP_TYPE_FREE_IPA:
-         info("Unblocking users for free ipa is not implemented!\n");
+         ld_info("Unblocking users for free ipa is not implemented!\n");
     default:
         return RETURN_CODE_FAILURE;
         break;
@@ -221,7 +221,7 @@ enum OperationReturnCode ld_unblock_user(LDHandle *handle, const char *name, con
         attrs = create_lockout_time_attributes_ad(talloc_ctx, "512");
         break;
     case LDAP_TYPE_FREE_IPA:
-         info("Unblocking users for free ipa is not implemented!\n");
+         ld_info("Unblocking users for free ipa is not implemented!\n");
     default:
         return RETURN_CODE_FAILURE;
         break;

@@ -43,7 +43,7 @@ enum OperationReturnCode add(struct ldap_connection_ctx_t* connection, const cha
     int rc = ldap_add_ext(connection->ldap, dn, attrs, NULL, NULL, &msgid);
     if (rc != LDAP_SUCCESS)
     {
-        error("Unable to add entry: %s\n", ldap_err2string(rc));
+        ld_error("Unable to add entry: %s\n", ldap_err2string(rc));
         return RETURN_CODE_FAILURE;
     }
 
@@ -77,7 +77,7 @@ enum OperationReturnCode add_on_read(int rc, LDAPMessage *message, struct ldap_c
         char *dn = NULL;
 
         ldap_parse_result(connection->ldap, message, &error_code, &dn, &diagnostic_message, NULL, NULL, false);
-        info("ldap_result: %s %s %d\n", diagnostic_message, ldap_err2string(error_code), error_code);
+        ld_info("ldap_result: %s %s %d\n", diagnostic_message, ldap_err2string(error_code), error_code);
         ldap_memfree(diagnostic_message);
         ldap_memfree(dn);
 
@@ -100,7 +100,7 @@ enum OperationReturnCode add_on_read(int rc, LDAPMessage *message, struct ldap_c
     {
         ldap_get_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
         ldap_get_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-        error("ldap_result failed: %s\n", diagnostic_message);
+        ld_error("ldap_result failed: %s\n", diagnostic_message);
         ldap_memfree(diagnostic_message);
     }
         break;
@@ -201,7 +201,7 @@ enum OperationReturnCode search(struct ldap_connection_ctx_t *connection,
                     &msgid);
     if (rc != LDAP_SUCCESS)
     {
-        error("Unable to create search request: %s\n", ldap_err2string(rc));
+        ld_error("Unable to create search request: %s\n", ldap_err2string(rc));
         return RETURN_CODE_FAILURE;
     }
 
@@ -213,7 +213,7 @@ enum OperationReturnCode search(struct ldap_connection_ctx_t *connection,
 
     if (connection->n_search_requests + 1 >= MAX_REQUESTS)
     {
-        error("Maximum amount of search requests exceeded for connection %d.\n", connection);
+        ld_error("Maximum amount of search requests exceeded for connection %d.\n", connection);
 
         return RETURN_CODE_FAILURE;
     }
@@ -285,13 +285,13 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
 
                 const int INITIAL_ARRAY_SIZE = 256;
 
-                info("Handle %d\n", connection->handle);
+                ld_info("Handle %d\n", connection->handle);
 
                 ld_entry_t** entries = talloc_array(connection->handle->talloc_ctx, ld_entry_t*, INITIAL_ARRAY_SIZE);
 
                 if (!entries)
                 {
-                    error("search_on_read - out of memory during allocation of entries!\n");
+                    ld_error("search_on_read - out of memory during allocation of entries!\n");
 
                     return RETURN_CODE_FAILURE;
                 }
@@ -308,7 +308,7 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
 
                         if (!entries)
                         {
-                            error("search_on_read - out of memory during allocation of entries!\n");
+                            ld_error("search_on_read - out of memory during allocation of entries!\n");
 
                             return RETURN_CODE_FAILURE;
                         }
@@ -320,7 +320,7 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
 
                     if (!ld_entry)
                     {
-                        error("search_on_read - out of memory - unable to create new entry!\n");
+                        ld_error("search_on_read - out of memory - unable to create new entry!\n");
 
                         return RETURN_CODE_FAILURE;
                     }
@@ -369,13 +369,13 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
     }
         break;
     case LDAP_RES_SEARCH_REFERENCE:
-        info("Received search referral but not following it!");
+        ld_info("Received search referral but not following it!");
         return RETURN_CODE_SUCCESS;
     default:
     {
         ldap_get_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
         ldap_get_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-        error("ldap_result failed: %s\n", diagnostic_message);
+        ld_error("ldap_result failed: %s\n", diagnostic_message);
         ldap_memfree(diagnostic_message);
     }
         break;
@@ -410,7 +410,7 @@ enum OperationReturnCode modify(struct ldap_connection_ctx_t* connection, const 
                              &msgid);
     if (rc != LDAP_SUCCESS)
     {
-        error("Unable to create modify request: %s\n", ldap_err2string(rc));
+        ld_error("Unable to create modify request: %s\n", ldap_err2string(rc));
         return RETURN_CODE_FAILURE;
     }
 
@@ -444,7 +444,7 @@ enum OperationReturnCode modify_on_read(int rc, LDAPMessage *message, struct lda
         char *dn = NULL;
 
         ldap_parse_result(connection->ldap, message, &error_code, &dn, &diagnostic_message, NULL, NULL, false);
-        info("ldap_result: %s %s %d\n", diagnostic_message, ldap_err2string(error_code), error_code);
+        ld_info("ldap_result: %s %s %d\n", diagnostic_message, ldap_err2string(error_code), error_code);
         ldap_memfree(diagnostic_message);
         ldap_memfree(dn);
 
@@ -467,7 +467,7 @@ enum OperationReturnCode modify_on_read(int rc, LDAPMessage *message, struct lda
     {
         ldap_get_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
         ldap_get_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-        error("ldap_result failed: %s\n", diagnostic_message);
+        ld_error("ldap_result failed: %s\n", diagnostic_message);
         ldap_memfree(diagnostic_message);
     }
         break;
@@ -499,7 +499,7 @@ enum OperationReturnCode ld_delete(struct ldap_connection_ctx_t* connection, con
                              &msgid);
     if (rc != LDAP_SUCCESS)
     {
-        error("Unable to create modify request: %s\n", ldap_err2string(rc));
+        ld_error("Unable to create modify request: %s\n", ldap_err2string(rc));
         return RETURN_CODE_FAILURE;
     }
 
@@ -533,7 +533,7 @@ enum OperationReturnCode delete_on_read(int rc, LDAPMessage *message, struct lda
         char *dn = NULL;
 
         ldap_parse_result(connection->ldap, message, &error_code, &dn, &diagnostic_message, NULL, NULL, false);
-        info("ldap_result: %s %s %d\n", diagnostic_message, ldap_err2string(error_code), error_code);
+        ld_info("ldap_result: %s %s %d\n", diagnostic_message, ldap_err2string(error_code), error_code);
         ldap_memfree(diagnostic_message);
         ldap_memfree(dn);
 
@@ -555,7 +555,7 @@ enum OperationReturnCode delete_on_read(int rc, LDAPMessage *message, struct lda
     {
         ldap_get_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
         ldap_get_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-        error("ldap_result failed: %s\n", diagnostic_message);
+        ld_error("ldap_result failed: %s\n", diagnostic_message);
         ldap_memfree(diagnostic_message);
     }
         break;
@@ -580,7 +580,7 @@ enum OperationReturnCode whoami(struct ldap_connection_ctx_t *connection)
 
     if (rc != LDAP_SUCCESS)
     {
-        error("Unable to create whoami request: %s\n", ldap_err2string(rc));
+        ld_error("Unable to create whoami request: %s\n", ldap_err2string(rc));
         return RETURN_CODE_FAILURE;
     }
 
@@ -619,7 +619,7 @@ enum OperationReturnCode whoami_on_read(int rc, LDAPMessage *message, struct lda
     {
         ldap_get_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
         ldap_get_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-        error("ldap_result failed: %s\n", diagnostic_message);
+        ld_error("ldap_result failed: %s\n", diagnostic_message);
         ldap_memfree(diagnostic_message);
     }
         break;
@@ -654,7 +654,7 @@ enum OperationReturnCode ld_rename(struct ldap_connection_ctx_t *connection, con
 
     if (rc != LDAP_SUCCESS)
     {
-        error("Unable to create whoami request: %s\n", ldap_err2string(rc));
+        ld_error("Unable to create whoami request: %s\n", ldap_err2string(rc));
         return RETURN_CODE_FAILURE;
     }
 
@@ -688,7 +688,7 @@ enum OperationReturnCode rename_on_read(int rc, LDAPMessage *message, ldap_conne
         char *dn = NULL;
 
         ldap_parse_result(connection->ldap, message, &error_code, &dn, &diagnostic_message, NULL, NULL, false);
-        info("ldap_result: %s %s %d\n", diagnostic_message, ldap_err2string(error_code), error_code);
+        ld_info("ldap_result: %s %s %d\n", diagnostic_message, ldap_err2string(error_code), error_code);
         ldap_memfree(diagnostic_message);
         ldap_memfree(dn);
 
@@ -710,7 +710,7 @@ enum OperationReturnCode rename_on_read(int rc, LDAPMessage *message, ldap_conne
     {
         ldap_get_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
         ldap_get_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
-        error("ldap_result failed: %s\n", diagnostic_message);
+        ld_error("ldap_result failed: %s\n", diagnostic_message);
         ldap_memfree(diagnostic_message);
     }
         break;
@@ -745,14 +745,14 @@ ld_entry_t* ld_entry_new(TALLOC_CTX *ctx, const char* dn)
 {
     if (!ctx)
     {
-        error("ld_entry_new - invalid talloc_ctx!\n");
+        ld_error("ld_entry_new - invalid talloc_ctx!\n");
 
         return NULL;
     }
 
     if (!dn)
     {
-        error("ld_entry_new - invalid dn!\n");
+        ld_error("ld_entry_new - invalid dn!\n");
 
         return NULL;
     }
@@ -761,7 +761,7 @@ ld_entry_t* ld_entry_new(TALLOC_CTX *ctx, const char* dn)
 
     if (!result)
     {
-        error("ld_entry_new - out of memory - unable to create entry!\n");
+        ld_error("ld_entry_new - out of memory - unable to create entry!\n");
 
         return NULL;
     }
@@ -772,7 +772,7 @@ ld_entry_t* ld_entry_new(TALLOC_CTX *ctx, const char* dn)
     {
         talloc_free(result);
 
-        error("ld_entry_new - out of memory - unable to copy dn!\n");
+        ld_error("ld_entry_new - out of memory - unable to copy dn!\n");
 
         return NULL;
     }
@@ -783,7 +783,7 @@ ld_entry_t* ld_entry_new(TALLOC_CTX *ctx, const char* dn)
     {
         talloc_free(result);
 
-        error("ld_entry_new - out of memory - unable to create attributes!\n");
+        ld_error("ld_entry_new - out of memory - unable to create attributes!\n");
 
         return NULL;
     }
@@ -805,21 +805,21 @@ enum OperationReturnCode ld_entry_add_attribute(ld_entry_t* entry, const LDAPAtt
 {
     if (!entry || !entry->attributes)
     {
-        error("ld_entry_add_attribute - entry is NULL!\n");
+        ld_error("ld_entry_add_attribute - entry is NULL!\n");
 
         return RETURN_CODE_FAILURE;
     }
 
     if (!attr)
     {
-        error("ld_entry_add_attribute - attribute is NULL!\n");
+        ld_error("ld_entry_add_attribute - attribute is NULL!\n");
 
         return RETURN_CODE_FAILURE;
     }
 
     if (!attr->name)
     {
-        error("ld_entry_add_attribute - invalid attribute name!\n");
+        ld_error("ld_entry_add_attribute - invalid attribute name!\n");
 
         return RETURN_CODE_FAILURE;
     }
@@ -841,7 +841,7 @@ LDAPAttribute_t *ld_entry_get_attribute(ld_entry_t* entry, const char *name_or_o
 {
     if (!entry || !entry->attributes)
     {
-        error("ld_entry_get_attribute - entry is NULL!\n");
+        ld_error("ld_entry_get_attribute - entry is NULL!\n");
 
         return NULL;
     }
@@ -860,7 +860,7 @@ const char *ld_entry_get_dn(ld_entry_t *entry)
 {
     if (!entry || !entry->dn)
     {
-        error("ld_entry_add_attribute - entry is NULL!\n");
+        ld_error("ld_entry_add_attribute - entry is NULL!\n");
 
         return NULL;
     }
@@ -919,7 +919,7 @@ LDAPAttribute_t **ld_entry_get_attributes(ld_entry_t *entry)
 {
     if (!entry || !entry->attributes)
     {
-        error("ld_entry_add_attribute - entry is NULL!\n");
+        ld_error("ld_entry_add_attribute - entry is NULL!\n");
 
         return NULL;
     }

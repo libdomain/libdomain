@@ -123,7 +123,7 @@ static enum OperationReturnCode group_member_modify(LDHandle *handle, const char
         member = "member";
         break;
     case LDAP_TYPE_FREE_IPA:
-        info("User addition or deletion from group is not implemented in free ipa.\n");
+        ld_info("User addition or deletion from group is not implemented in free ipa.\n");
     default:
         return RETURN_CODE_FAILURE;
     }

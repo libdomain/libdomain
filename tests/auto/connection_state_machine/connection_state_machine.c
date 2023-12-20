@@ -120,7 +120,7 @@ Ensure(Cgreen, connection_state_machine_next_state) {
         goto exit;
         break;
     default:
-        error("Error code %d\n", rc);
+        ld_error("Error code %d\n", rc);
         fail_test("Return code of csm_next_state is not one of passable parameters");
         return;
     }

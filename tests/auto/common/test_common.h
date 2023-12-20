@@ -1,13 +1,14 @@
 #ifndef TEST_COMMON_H
 #define TEST_COMMON_H
 
+#include <common.h>
 #include <stdbool.h>
 #include <domain.h>
 #include <talloc.h>
 #include <verto.h>
 
 #define test_status(x) \
-    info("Performing test: %s, status: %s.\n", x.name, x.desired_test_result == rc ? "PASSED" : "FAILED");
+    ld_info("Performing test: %s, status: %s.\n", x.name, x.desired_test_result == rc ? "PASSED" : "FAILED");
 
 char *get_environment_variable(TALLOC_CTX *talloc_ctx, const char *envvar);
 

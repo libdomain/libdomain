@@ -80,14 +80,14 @@ Ensure(Cgreen, connection_set_timeout_test) {
     if (network_timeout)
     {
         assert_that(ctx->config.network_timeout, is_equal_to(network_timeout->tv_usec));
-        info("LDAP_OPT_NETWORK_TIMEOUT - is %d\n", network_timeout->tv_usec);
+        ld_info("LDAP_OPT_NETWORK_TIMEOUT - is %d\n", network_timeout->tv_usec);
         ldap_memfree(network_timeout);
     }
     else
     {
         fail_test("Unable to get network timeout!\n");
     }
-    info("connection_set_timeout_test - %s\n", rc == RETURN_CODE_SUCCESS ? "successful" : "failure");
+    ld_info("connection_set_timeout_test - %s\n", rc == RETURN_CODE_SUCCESS ? "successful" : "failure");
 
     talloc_free(ctx->config.sasl_options);
 

@@ -31,11 +31,11 @@ Ensure(validate_octet_string_returns_true_on_valid_values) {
 
         if (rc != true)
         {
-            error("%s - Failed.\n", VALID_VALUES[i].name);
+            ld_error("%s - Failed.\n", VALID_VALUES[i].name);
         }
         else
         {
-            info("%s - Passed.\n", VALID_VALUES[i].name);
+            ld_info("%s - Passed.\n", VALID_VALUES[i].name);
         }
 
         assert_that(rc, is_true);
@@ -49,11 +49,11 @@ Ensure(validate_octet_string_returns_false_on_invalid_values) {
 
         if (rc != false)
         {
-            error("%s - Failed.\n", INVALID_VALUES[i].name);
+            ld_error("%s - Failed.\n", INVALID_VALUES[i].name);
         }
         else
         {
-            info("%s - Passed.\n", INVALID_VALUES[i].name);
+            ld_info("%s - Passed.\n", INVALID_VALUES[i].name);
         }
 
         assert_that(rc, is_false);

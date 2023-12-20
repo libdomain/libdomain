@@ -171,7 +171,7 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
         }
         break;
     default:
-        error("Unknown state code: %d\n", ctx->state);
+        ld_error("Unknown state code: %d\n", ctx->state);
         return RETURN_CODE_FAILURE;
     }
 
@@ -186,7 +186,7 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
  */
 enum OperationReturnCode csm_set_state(struct state_machine_ctx_t *ctx, enum LdapConnectionState state)
 {
-    info("Connection [%h] - transition from state: %s to state: %s\n", csm_state2str(ctx->state), csm_state2str(state));
+    ld_info("Connection [%h] - transition from state: %s to state: %s\n", csm_state2str(ctx->state), csm_state2str(state));
 
     ctx->state = state;
 

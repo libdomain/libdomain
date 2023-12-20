@@ -21,10 +21,10 @@
 #include "common.h"
 
 /**
- * @brief error Logs error to stderror.
+ * @brief ld_error Logs error to stderror.
  * @param format Format that used in printf function.
  */
-void error(const char *format, ...)
+void ld_error(const char *format, ...)
 {
     fprintf(stderr, "Error: ");
     va_list argptr;
@@ -34,10 +34,10 @@ void error(const char *format, ...)
 }
 
 /**
- * @brief error Logs warning to stderror.
+ * @brief ld_warning Logs warning to stderror.
  * @param format Format that used in printf function.
  */
-void warning(const char *format, ...)
+void ld_warning(const char *format, ...)
 {
     fprintf(stderr, "Warning: ");
     va_list argptr;
@@ -47,10 +47,10 @@ void warning(const char *format, ...)
 }
 
 /**
- * @brief error Logs information to stderror.
+ * @brief ld_info Logs information to stderror.
  * @param format Format that used in printf function.
  */
-void info(const char *format, ...)
+void ld_info(const char *format, ...)
 {
     fprintf(stderr, "Info: ");
     va_list argptr;
