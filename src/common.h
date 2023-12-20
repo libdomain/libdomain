@@ -43,8 +43,8 @@ typedef struct ldap_global_context_t
                                                     //!< when we working with ldap entries.
 } ldap_global_context_t;
 
-void error(const char *format, ...);
-void warning(const char *format, ...);
-void info(const char *format, ...);
+void ld_error(const char *format, ...);
+void ld_warning(const char *format, ...);
+void ld_info(const char *format, ...);
 
 #endif //LIBDOMAIN_COMMON_H
