@@ -52,10 +52,10 @@ cd libdomain && mkdir build && cd build && cmake .. && make -j `nproc`
 
 ```c
 // Replace these values with your LDAP server details
-const char *ldap_server = "ldap://example.com";
-const char *ldap_username = "your_username";
-const char *ldap_password = "your_password";
-const char *ldap_bind_dn = "dc=example,dc=com";
+char *ldap_server = "ldap://example.com";
+char *ldap_username = "your_username";
+char *ldap_password = "your_password";
+char *ldap_bind_dn = "dc=example,dc=com";
 
 // Initialize the LDAP connection
 const int update_interval = 1000;
