@@ -13,19 +13,24 @@ allowing you to focus on your application's logic.
 
 To use libdomain in your C project, follow these steps:
 
-1. Clone the repository:
+1. Install dependencies:
+```bash
+apt-get install git cmake make gcc boost-devel pam_ldap nss_ldap openldap-servers libldb-devel libldap-devel glib2-devel libxml2-devel libpcre-devel libverto-devel libconfig-devel ragel libsasl2-devel
+```
+
+2. Clone the repository:
 
 ```bash
 git clone https://github.com/libdomain/libdomain.git
 ```
 
-2. Build the library:
+3. Build the library:
 
 ```bash
 cd libdomain && mkdir build && cd build && cmake .. && make -j `nproc`
 ```
 
-3. Link libdomain with your project.
+4. Link libdomain with your project.
 
 ## Getting Started
 
@@ -47,10 +52,10 @@ cd libdomain && mkdir build && cd build && cmake .. && make -j `nproc`
 
 ```c
 // Replace these values with your LDAP server details
-const char *ldap_server = "ldap://example.com";
-const char *ldap_username = "your_username";
-const char *ldap_password = "your_password";
-const char *ldap_bind_dn = "dc=example,dc=com";
+char *ldap_server = "ldap://example.com";
+char *ldap_username = "your_username";
+char *ldap_password = "your_password";
+char *ldap_bind_dn = "dc=example,dc=com";
 
 // Initialize the LDAP connection
 const int update_interval = 1000;
