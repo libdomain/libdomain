@@ -16,6 +16,7 @@ set(SOURCES
     schema_attributetype.c
     schema_objectclass.c
     schema.c
+    schema_ad.c
 )
 
 add_libdomain_test(${TEST_NAME} "${SOURCES}")

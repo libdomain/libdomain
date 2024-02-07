@@ -17,5 +17,6 @@ int main(int argc, char **argv) {
     add_suite(suite, schema_new_test_suite());
     add_suite(suite, schema_attributetype_test_suite());
     add_suite(suite, schema_objectclass_test_suite());
+    add_suite(suite, schema_ad_test_suite());
     return run_test_suite(suite, create_text_reporter());
 }
