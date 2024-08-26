@@ -2,12 +2,12 @@
 
 #include <connection.h>
 #include <connection_state_machine.h>
+#include <directory.h>
 #include <entry.h>
 #include <entry_p.h>
-#include <directory.h>
-#include <talloc.h>
 #include <schema.h>
 #include <schema_p.h>
+#include <talloc.h>
 
 #include <ldap.h>
 #include <ldap_schema.h>

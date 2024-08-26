@@ -11,7 +11,7 @@ include_directories(${CGREEN_INCLUDE_DIRS})
 set(TEST_NAME openldap_schema)
 
 set(SOURCES
-    openldap_schema_search.c
+    openldap_schema.c
 )
 
 add_libdomain_test(${TEST_NAME} ${SOURCES})
