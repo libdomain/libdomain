@@ -16,6 +16,7 @@ add_subdirectory(search)
 
 add_subdirectory(schema)
 add_subdirectory(ldap_syntaxes)
+add_subdirectory(openldap_schema)
 
 add_subdirectory(anonymous)
 add_subdirectory(tls)
