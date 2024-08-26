@@ -101,7 +101,7 @@ struct ldap_connection_ctx_t;
 typedef struct ld_entry_s ld_entry_t;
 
 typedef enum OperationReturnCode (*operation_callback_fn)(int, LDAPMessage *, struct ldap_connection_ctx_t *);
-typedef enum OperationReturnCode (*search_callback_fn)(struct ldap_connection_ctx_t *connection, ld_entry_t** entries);
+typedef enum OperationReturnCode (*search_callback_fn)(struct ldap_connection_ctx_t *connection, ld_entry_t** entries, void* user_data);
 
 typedef struct ldhandle LDHandle;
 
@@ -109,6 +109,7 @@ typedef struct ldap_search_request_t
 {
     int msgid;                               //!<
     search_callback_fn on_search_operation;  //!<
+    void* user_data;                         //!<
 } ldap_search_request_t;
 
 typedef struct ldap_request_t

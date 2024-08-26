@@ -185,7 +185,8 @@ enum OperationReturnCode search(struct ldap_connection_ctx_t *connection,
                                 const char *filter,
                                 char **attrs,
                                 bool attrsonly,
-                                search_callback_fn search_callback)
+                                search_callback_fn search_callback,
+                                void* user_data)
 {
     int msgid = 0;
     int rc = ldap_search_ext(connection->ldap,
@@ -221,6 +222,7 @@ enum OperationReturnCode search(struct ldap_connection_ctx_t *connection,
     struct ldap_search_request_t* search_request = &connection->search_requests[connection->n_search_requests];
     search_request->msgid = msgid;
     search_request->on_search_operation = search_callback ? search_callback : print_search_callback;
+    search_request->user_data = user_data;
     ++connection->n_search_requests;
 
     return RETURN_CODE_SUCCESS;
@@ -359,7 +361,7 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
 
                 entries[entry_index] = NULL;
 
-                int rc = connection->search_requests[i].on_search_operation(connection, entries);
+                int rc = connection->search_requests[i].on_search_operation(connection, entries, connection->search_requests[i].user_data);
 
                 connection_remove_search_request(connection, i);
 

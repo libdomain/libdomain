@@ -31,7 +31,7 @@ static int current_directory_type = LDAP_TYPE_UNKNOWN;
 static ldap_schema_t* schema = NULL;
 static TALLOC_CTX* talloc_ctx = NULL;
 
-static enum OperationReturnCode ldapobjectclass_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries)
+static enum OperationReturnCode ldapobjectclass_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries, void* user_data)
 {
     if (entries != NULL && entries[0] != NULL)
     {
@@ -71,7 +71,7 @@ static enum OperationReturnCode ldapobjectclass_search_callback(struct ldap_conn
                     if (!ldap_schema_append_objectclass(schema, object_class))
                     {
                         printf("Error: unable to add class to the schema!\n");
-                    }
+                    }                    // printf("Attribute_type: %s\n", attribute_type->at_names[0]);
                 }
                 current_value = current_attribute->values[++value_index];
             }
@@ -84,7 +84,7 @@ static enum OperationReturnCode ldapobjectclass_search_callback(struct ldap_conn
     return RETURN_CODE_SUCCESS;
 }
 
-static enum OperationReturnCode ldapattributetype_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries)
+static enum OperationReturnCode ldapattributetype_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries, void* user_data)
 {
     if (entries != NULL && entries[0] != NULL)
     {
@@ -185,9 +185,9 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
         schema = ldap_schema_new(talloc_ctx);
 
         search(connection, search_base, LDAP_SCOPE_BASE,
-               "(objectclass=subschema)", LDAP_DIRECTORY_ATTRS, 0, &ldapattributetype_search_callback);
+               "(objectclass=subschema)", LDAP_DIRECTORY_ATTRS, 0, &ldapattributetype_search_callback, NULL);
         search(connection, search_base, LDAP_SCOPE_BASE,
-               "(objectclass=subschema)", LDAP_DIRECTORY_OBJECTCLASSES, 0, &ldapobjectclass_search_callback);
+               "(objectclass=subschema)", LDAP_DIRECTORY_OBJECTCLASSES, 0, &ldapobjectclass_search_callback, NULL);
 
         verto_add_timeout(ctx, VERTO_EV_FLAG_PERSIST, connection_on_search_message, CONNECTION_UPDATE_INTERVAL);
     }

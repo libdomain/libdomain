@@ -33,21 +33,21 @@ static void connection_on_search_message(verto_ctx *ctx, verto_ev *ev)
     }
 }
 
-static enum OperationReturnCode middle_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries)
+static enum OperationReturnCode middle_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries, void* user_data)
 {
     ld_info("Empty search callback has been called!\n");
 
     return RETURN_CODE_SUCCESS;
 }
 
-static enum OperationReturnCode begin_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries)
+static enum OperationReturnCode begin_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries, void* user_data)
 {
     ld_info("Begin search callback has been called!\n");
 
     return RETURN_CODE_SUCCESS;
 }
 
-static enum OperationReturnCode end_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries)
+static enum OperationReturnCode end_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries, void* user_data)
 {
     ld_info("End search callback has been called!\n");
 
@@ -91,16 +91,16 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
         }
 
         search(connection, search_base, LDAP_SCOPE_SUBTREE,
-               "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, begin_search_callback);
+               "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, begin_search_callback, NULL);
 
         search(connection, search_base, LDAP_SCOPE_SUBTREE,
-               "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, NULL);
+               "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, NULL, NULL);
 
         search(connection, search_base, LDAP_SCOPE_SUBTREE,
-               "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, middle_search_callback);
+               "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, middle_search_callback, NULL);
 
         search(connection, search_base, LDAP_SCOPE_SUBTREE,
-               "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, end_search_callback);
+               "(objectClass=*)", LDAP_DIRECTORY_ATTRS, 0, end_search_callback, NULL);
 
         verto_add_timeout(ctx, VERTO_EV_FLAG_PERSIST, connection_on_search_message, CONNECTION_UPDATE_INTERVAL);
     }

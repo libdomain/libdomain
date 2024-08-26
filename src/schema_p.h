@@ -22,6 +22,7 @@
 #define LIB_DOMAIN_SCHEMA_PRIVATE_H
 
 #include "common.h"
+#include "connection.h"
 
 #include <stdbool.h>
 
@@ -43,5 +44,8 @@ struct ldap_schema_t
     int attribute_types_size;                        //!<  Current amount of attribute types in queue.
     int attribute_types_capacity;                    //!< Maximum allowed amount of attribute types in queue.
 };
+
+enum OperationReturnCode schema_load_openldap(struct ldap_connection_ctx_t* connection,
+                                              struct ldap_schema_t* schema);
 
 #endif//LIB_DOMAIN_SCHEMA_PRIVATE_H
