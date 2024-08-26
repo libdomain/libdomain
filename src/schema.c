@@ -49,7 +49,7 @@ ldap_schema_new(TALLOC_CTX *ctx)
         return NULL;
     }
 
-    result->attribute_types = talloc_array(ctx, LDAPAttributeType*, 1024);
+    result->attribute_types = talloc_zero_array(ctx, LDAPAttributeType*, 1024);
 
     if (!result->attribute_types)
     {
@@ -61,7 +61,7 @@ ldap_schema_new(TALLOC_CTX *ctx)
     result->attribute_types_capacity = 1024;
     result->attribute_types_size = 0;
 
-    result->object_classes = talloc_array(ctx, LDAPObjectClass*, 1024);
+    result->object_classes = talloc_zero_array(ctx, LDAPObjectClass*, 1024);
 
     if (!result->object_classes)
     {
@@ -142,7 +142,7 @@ ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType
         return false;
     }
 
-    if (schema->attribute_types_size >= schema->attribute_types_capacity)
+    if (schema->attribute_types_size >= schema->attribute_types_capacity - 1)
     {
         int required_capacity = schema->attribute_types_capacity * 2;
         TALLOC_CTX* ctx = talloc_parent(schema);
@@ -162,6 +162,8 @@ ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType
     schema->attribute_types[schema->attribute_types_size] = attributetype;
 
     ++schema->attribute_types_size;
+
+    schema->attribute_types[schema->attribute_types_size] = NULL;
 
     return true;
 }
@@ -192,7 +194,7 @@ ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *ob
         return false;
     }
 
-    if (schema->object_classes_size >= schema->object_classes_capacity)
+    if (schema->object_classes_size >= schema->object_classes_capacity - 1)
     {
         int required_capacity = schema->object_classes_capacity * 2;
         TALLOC_CTX* ctx = talloc_parent(schema);
@@ -212,6 +214,8 @@ ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *ob
     schema->object_classes[schema->object_classes_size] = objectclass;
 
     ++schema->object_classes_size;
+
+    schema->object_classes[schema->object_classes_size] = NULL;
 
     return true;
 }

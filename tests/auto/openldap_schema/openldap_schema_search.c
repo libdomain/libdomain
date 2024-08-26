@@ -6,6 +6,8 @@
 #include <entry_p.h>
 #include <directory.h>
 #include <talloc.h>
+#include <schema.h>
+#include <schema_p.h>
 
 #include <ldap.h>
 #include <ldap_schema.h>
@@ -20,17 +22,20 @@ BeforeEach(Cgreen) {}
 AfterEach(Cgreen) {}
 
 char* LDAP_DIRECTORY_ATTRS[] = { "attributetypes", NULL };
-
+char* LDAP_DIRECTORY_OBJECTCLASSES[] = { "objectclasses", NULL };
+ 
 const int CONNECTION_UPDATE_INTERVAL = 1000;
 
 static int current_directory_type = LDAP_TYPE_UNKNOWN;
 
-static enum OperationReturnCode middle_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries)
+static ldap_schema_t* schema = NULL;
+static TALLOC_CTX* talloc_ctx = NULL;
+
+static enum OperationReturnCode ldapobjectclass_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries)
 {
     if (entries != NULL && entries[0] != NULL)
     {
         ld_entry_t* current_entry = entries[0];
-        printf("%s\n", current_entry->dn);
         LDAPAttribute_t** attributes = ld_entry_get_attributes(current_entry);
         
         if (attributes == NULL)
@@ -53,17 +58,72 @@ static enum OperationReturnCode middle_search_callback(struct ldap_connection_ct
             char* current_value = current_attribute->values[value_index];
             while (current_value != NULL)
             {
-                // printf("Value: %s\n", current_value);
                 int error_code = 0;
-                char* error_message = NULL;
-                LDAPAttributeType* attribute_type = ldap_str2attributetype(current_value, &error_code, &error_message, LDAP_SCHEMA_ALLOW_ALL);
-                if (!attribute_type)
+                const char* error_message = NULL;
+                LDAPObjectClass* object_class = ldap_str2objectclass(current_value, &error_code, &error_message, LDAP_SCHEMA_ALLOW_ALL);
+
+                if (!object_class)
                 {
-                    printf("Error: %d %s", error_code, error_message);
+                    printf("Error: %d %s\n", error_code, error_message);
                 }
                 else
                 {
-                    printf("Attribute_type: %s\n", attribute_type->at_names[0]);
+                    if (!ldap_schema_append_objectclass(schema, object_class))
+                    {
+                        printf("Error: unable to add class to the schema!\n");
+                    }
+                }
+                current_value = current_attribute->values[++value_index];
+            }
+            current_attribute = attributes[++index];
+        }
+        
+    }
+    ld_info("Empty search callback has been called!\n");
+
+    return RETURN_CODE_SUCCESS;
+}
+
+static enum OperationReturnCode ldapattributetype_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries)
+{
+    if (entries != NULL && entries[0] != NULL)
+    {
+        ld_entry_t* current_entry = entries[0];
+        LDAPAttribute_t** attributes = ld_entry_get_attributes(current_entry);
+        
+        if (attributes == NULL)
+        {
+            return RETURN_CODE_SUCCESS;
+        }
+
+        int index = 0;
+        LDAPAttribute_t* current_attribute = attributes[index];
+        while (current_attribute != NULL)
+        {
+            printf("Attribute: %s\n", current_attribute->name);
+
+            if (current_attribute->values == NULL)
+            {
+                continue;
+            }
+
+            int value_index = 0;
+            char* current_value = current_attribute->values[value_index];
+            while (current_value != NULL)
+            {
+                int error_code = 0;
+                const char* error_message = NULL;
+                LDAPAttributeType* attribute_type = ldap_str2attributetype(current_value, &error_code, &error_message, LDAP_SCHEMA_ALLOW_ALL);
+                if (!attribute_type)
+                {
+                    printf("Error: %d %s\n", error_code, error_message);
+                }
+                else
+                {
+                    if (!ldap_schema_append_attributetype(schema, attribute_type))
+                    {
+                        printf("Error: unable to add class to the schema!\n");
+                    }
                 }
                 current_value = current_attribute->values[++value_index];
             }
@@ -85,6 +145,24 @@ static void connection_on_search_message(verto_ctx *ctx, verto_ev *ev)
     if (++callcount > 10)
     {
         verto_break(ctx);
+
+        int index = 0;
+        LDAPObjectClass* current_class = ldap_schema_object_classes(schema)[index];
+        while (current_class != NULL)
+        {
+            printf("Object class: %s\n", current_class->oc_names[0]);
+            current_class = ldap_schema_object_classes(schema)[++index];
+        }
+
+        index = 0;
+        LDAPAttributeType* current_attrribute = ldap_schema_attribute_types(schema)[index];
+        while (current_attrribute)
+        {
+            printf("Attribute type: %s\n", current_attrribute->at_names[0]);
+            current_attrribute = ldap_schema_attribute_types(schema)[++index];
+        }
+
+        talloc_free(talloc_ctx);
     }
 }
 
@@ -102,8 +180,14 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
 
         char* search_base = "cn=subschema";
 
+        talloc_ctx = talloc_new(NULL);
+
+        schema = ldap_schema_new(talloc_ctx);
+
         search(connection, search_base, LDAP_SCOPE_BASE,
-               "(objectclass=subschema)", LDAP_DIRECTORY_ATTRS, 0, &middle_search_callback);
+               "(objectclass=subschema)", LDAP_DIRECTORY_ATTRS, 0, &ldapattributetype_search_callback);
+        search(connection, search_base, LDAP_SCOPE_BASE,
+               "(objectclass=subschema)", LDAP_DIRECTORY_OBJECTCLASSES, 0, &ldapobjectclass_search_callback);
 
         verto_add_timeout(ctx, VERTO_EV_FLAG_PERSIST, connection_on_search_message, CONNECTION_UPDATE_INTERVAL);
     }
