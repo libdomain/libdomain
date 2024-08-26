@@ -340,10 +340,10 @@ enum OperationReturnCode
 schema_load_openldap(struct ldap_connection_ctx_t* connection, struct ldap_schema_t* schema)
 {
     int rc = RETURN_CODE_SUCCESS;
-    const char* empty_search_base = "";
+    const char* search_base = "cn=subschema";
 
     rc = search(connection,
-                empty_search_base,
+                search_base,
                 LDAP_SCOPE_BASE,
                 "(objectclass=subschema)",
                 LDAP_ATTRIBUTE_TYPES,
@@ -359,7 +359,7 @@ schema_load_openldap(struct ldap_connection_ctx_t* connection, struct ldap_schem
     }
 
     rc = search(connection,
-                empty_search_base,
+                search_base,
                 LDAP_SCOPE_BASE,
                 "(objectclass=subschema)",
                 LDAP_OBJECT_CLASSES,
