@@ -22,16 +22,11 @@
 #include "schema_p.h"
 
 #include "common.h"
-#include "domain.h"
-#include "entry.h"
 
 #include <talloc.h>
 
 #include <ldap.h>
 #include <ldap_schema.h>
-
-char* LDAP_ATTRIBUTE_TYPES[] = { "attributetypes", NULL };
-char* LDAP_OBJECT_CLASSES[] = { "objectclasses", NULL };
 
 /*!
  * \brief ldap_schema_new Allocates ldap_schema_t and checks it for validity.
