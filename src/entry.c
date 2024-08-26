@@ -114,7 +114,7 @@ enum OperationReturnCode add_on_read(int rc, LDAPMessage *message, struct ldap_c
     return RETURN_CODE_FAILURE;
 }
 
-static enum OperationReturnCode print_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries)
+static enum OperationReturnCode print_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries, void* user_data)
 {
     int entry_index = 0;
     while (entries[entry_index] != NULL)
