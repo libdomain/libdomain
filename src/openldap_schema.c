@@ -41,7 +41,7 @@ ldap_schema_callback_common(struct ldap_connection_ctx_t *connection, ld_entry_t
     if (entries != NULL && entries[0] != NULL)
     {
         ld_entry_t* current_entry = entries[0];
-        LDAPAttribute_t** attributes = ld_entry_get_attributes(current_entry);
+        LDAPAttribute_t** attributes = ld_entry_get_attributes(current_entry); // TODO: Check memory leak
 
         if (attributes == NULL)
         {
@@ -52,8 +52,6 @@ ldap_schema_callback_common(struct ldap_connection_ctx_t *connection, ld_entry_t
         LDAPAttribute_t* current_attribute = attributes[index];
         while (current_attribute != NULL)
         {
-            printf("Attribute: %s\n", current_attribute->name);
-
             if (current_attribute->values == NULL)
             {
                 continue;
