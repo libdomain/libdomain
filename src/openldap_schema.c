@@ -63,7 +63,10 @@ ldap_schema_callback_common(struct ldap_connection_ctx_t *connection, ld_entry_t
             char* current_value = current_attribute->values[value_index];
             while (current_value != NULL)
             {
-                callback(current_value, user_data);
+                if (callback(current_value, user_data) == RETURN_CODE_FAILURE)
+                {
+                    return RETURN_CODE_FAILURE;
+                }
 
                 current_value = current_attribute->values[++value_index];
             }
