@@ -32,6 +32,7 @@ enum LdapConnectionState
     LDAP_CONNECTION_STATE_DETECT_DIRECTORY = 6, //!< The connection is in the process of detecting type of the LDAP directory service.
     LDAP_CONNECTION_STATE_RUN              = 7, //!< The LDAP connection is active and ready for operations.
     LDAP_CONNECTION_STATE_ERROR            = 8, //!< The LDAP connection is in an error state.
+    LDAP_CONNECTION_STATE_LOAD_SCHEMA      = 9, //!< The LDAP connection is in the process of loading schema.
 };
 
 /*!

@@ -22,6 +22,7 @@
 #include "directory.h"
 #include "domain.h"
 #include "domain_p.h"
+#include "schema.h"
 
 #define number_of_elements(x)  (sizeof(x) / sizeof((x)[0]))
 
@@ -150,7 +151,7 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
         }
         else
         {
-            csm_set_state(ctx, LDAP_CONNECTION_STATE_RUN);
+            csm_set_state(ctx, LDAP_CONNECTION_STATE_LOAD_SCHEMA);
         }
         break;
 
@@ -170,6 +171,12 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
             csm_set_state(ctx, LDAP_CONNECTION_STATE_INIT);
         }
         break;
+
+    case LDAP_CONNECTION_STATE_LOAD_SCHEMA:
+        rc = ldap_schema_load(ctx->ctx, ctx->ctx->schema);
+        csm_set_state(ctx, LDAP_CONNECTION_STATE_RUN);
+        break;
+
     default:
         ld_error("Unknown state code: %d\n", ctx->state);
         return RETURN_CODE_FAILURE;
