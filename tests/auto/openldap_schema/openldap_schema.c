@@ -20,9 +20,6 @@ const int BUFFER_SIZE = 80;
 Describe(Cgreen);
 BeforeEach(Cgreen) {}
 AfterEach(Cgreen) {}
-
-char* LDAP_DIRECTORY_ATTRS[] = { "attributetypes", NULL };
-char* LDAP_DIRECTORY_OBJECTCLASSES[] = { "objectclasses", NULL };
  
 const int CONNECTION_UPDATE_INTERVAL = 1000;
 
