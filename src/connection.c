@@ -22,6 +22,8 @@
 #include "connection_state_machine.h"
 #include "directory.h"
 
+#include "schema.h"
+
 #include "request_queue.h"
 
 #include <assert.h>
@@ -251,6 +253,8 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
     }
 
     connection->directory_type = LDAP_TYPE_UNINITIALIZED;
+
+    connection->schema = ldap_schema_new(global_ctx->talloc_ctx);
 
     connection->callqueue = request_queue_new(global_ctx->talloc_ctx, MAX_REQUESTS);
 

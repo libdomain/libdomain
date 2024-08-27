@@ -36,6 +36,8 @@ enum BindType
     BIND_TYPE_SIMPLE      = 2,          //!< We are going to perform simple bind.
 };
 
+typedef struct ldap_schema_t ldap_schema_t;
+
 typedef struct ldap_sasl_options_t
 {
     char *mechanism;                   //!< Sasl mechanism to use.
@@ -145,6 +147,8 @@ typedef struct ldap_connection_ctx_t
     int bind_type;                                              //!<
     int directory_type;                                         //!<
     int msgid;                                                  //!<
+
+    ldap_schema_t* schema;
 
     const char *rmech;                                          //!<
 
