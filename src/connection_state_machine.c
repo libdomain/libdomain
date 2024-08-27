@@ -42,6 +42,7 @@ const csm_state_value_t state_strings[] =
     { LDAP_CONNECTION_STATE_DETECT_DIRECTORY, "LDAP_CONNECTION_STATE_DETECT_DIRECTORY" },
     { LDAP_CONNECTION_STATE_RUN, "LDAP_CONNECTION_STATE_RUN" },
     { LDAP_CONNECTION_STATE_ERROR, "LDAP_CONNECTION_STATE_ERROR" },
+    { LDAP_CONNECTION_STATE_LOAD_SCHEMA, "LDAP_CONNECTION_STATE_LOAD_SCHEMA" },
 };
 const int state_strings_size = number_of_elements(state_strings);
 
@@ -155,6 +156,11 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
         }
         break;
 
+    case LDAP_CONNECTION_STATE_LOAD_SCHEMA:
+        rc = ldap_schema_load(ctx->ctx, ctx->ctx->schema);
+        csm_set_state(ctx, LDAP_CONNECTION_STATE_RUN);
+        break;
+
     case LDAP_CONNECTION_STATE_RUN:
         // TODO: Await signals to either close or transition to error state.
         ctx->ctx->n_reconnect_attempts = 0;
@@ -170,11 +176,6 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
             ++ctx->ctx->n_reconnect_attempts;
             csm_set_state(ctx, LDAP_CONNECTION_STATE_INIT);
         }
-        break;
-
-    case LDAP_CONNECTION_STATE_LOAD_SCHEMA:
-        rc = ldap_schema_load(ctx->ctx, ctx->ctx->schema);
-        csm_set_state(ctx, LDAP_CONNECTION_STATE_RUN);
         break;
 
     default:
