@@ -158,7 +158,9 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
 
     case LDAP_CONNECTION_STATE_LOAD_SCHEMA:
         rc = ldap_schema_load(ctx->ctx);
-        csm_set_state(ctx, LDAP_CONNECTION_STATE_RUN);
+        csm_set_state(ctx, rc == RETURN_CODE_SUCCESS
+                       ? LDAP_CONNECTION_STATE_RUN
+                       : LDAP_CONNECTION_STATE_ERROR);
         break;
 
     case LDAP_CONNECTION_STATE_RUN:
