@@ -87,7 +87,7 @@ Ensure(Cgreen, connection_state_machine_next_state) {
     ctx->config.sasl_options->passwd = "password";
 
     ctx->config.sasl_options->sasl_nocanon = true;
-    ctx->config.sasl_options->sasl_secprops = "maxssf=56";
+    ctx->config.sasl_options->sasl_secprops = "minssf=56,maxssf=56";
     ctx->config.sasl_options->sasl_flags = LDAP_SASL_QUIET;
     ctx->connection_ctx.ldap_params = talloc(ctx->global_ctx.talloc_ctx, struct ldap_sasl_params_t);
     ctx->connection_ctx.ldap_params->dn = "cn=admin,dc=domain,dc=alt";

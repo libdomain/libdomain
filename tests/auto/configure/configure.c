@@ -76,7 +76,7 @@ Ensure(Cgreen, connection_configure_with_sasl_test) {
     ctx->config.sasl_options->passwd = NULL;
 
     ctx->config.sasl_options->sasl_nocanon = true;
-    ctx->config.sasl_options->sasl_secprops = "maxssf=56";
+    ctx->config.sasl_options->sasl_secprops = "minssf=56,maxssf=56";
     ctx->config.sasl_options->sasl_flags = LDAP_SASL_QUIET;
 
     enum OperationReturnCode rc = connection_configure(&ctx->global_ctx, &ctx->connection_ctx, &ctx->config);

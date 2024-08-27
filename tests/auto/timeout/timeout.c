@@ -63,7 +63,7 @@ Ensure(Cgreen, connection_set_timeout_test) {
     ctx->config.sasl_options->passwd = NULL;
 
     ctx->config.sasl_options->sasl_nocanon = true;
-    ctx->config.sasl_options->sasl_secprops = "maxssf=56";
+    ctx->config.sasl_options->sasl_secprops = "minssf=56,maxssf=56";
     ctx->config.sasl_options->sasl_flags = LDAP_SASL_QUIET;
 
     ctx->config.network_timeout = 1000;
