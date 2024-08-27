@@ -16,7 +16,7 @@ rm /etc/samba/smb.conf
 samba-tool domain provision\
  --server-role=dc\
  --use-rfc2307\
- --dns-backend=BIND9_DLZ\
+ --dns-backend=SAMBA_INTERNAL\
  --realm=DOMAIN.ALT\
  --domain=DOMAIN\
  --adminpass=password145Qw!\
