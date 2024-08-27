@@ -44,6 +44,6 @@ ldap_schema_attribute_types(const ldap_schema_t *schema);
 bool ldap_schema_append_objectclass(ldap_schema_t* schema, LDAPObjectClass *objectclass);
 
 enum OperationReturnCode
-ldap_schema_load(struct ldap_connection_ctx_t* connection, struct ldap_schema_t* schema);
+ldap_schema_load(struct ldap_connection_ctx_t* connection);
 
 #endif//LIB_DOMAIN_SCHEMA_H
