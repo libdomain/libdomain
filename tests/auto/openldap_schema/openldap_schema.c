@@ -70,13 +70,14 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     {
         verto_del(ev);
 
-        char* search_base = "cn=subschema";
-
         talloc_ctx = talloc_new(NULL);
 
         schema = ldap_schema_new(talloc_ctx);
 
-        schema_load_openldap(connection, schema);
+        if (schema_load_openldap(connection, schema) != RETURN_CODE_SUCCESS)
+        {
+            fail_test("Error schema_load_openldap failed\n");
+        }
 
         verto_add_timeout(ctx, VERTO_EV_FLAG_PERSIST, connection_on_search_message, CONNECTION_UPDATE_INTERVAL);
     }
