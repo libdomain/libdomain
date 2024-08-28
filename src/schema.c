@@ -280,7 +280,7 @@ enum OperationReturnCode schema_load_active_directory(struct ldap_connection_ctx
 
     if (!talloc_ctx)
     {
-        error("schema_load_active_directory - unable to allocate memory.\n");
+        ld_error("schema_load_active_directory - unable to allocate memory.\n");
 
         return RETURN_CODE_FAILURE;
     }
@@ -297,7 +297,7 @@ enum OperationReturnCode schema_load_active_directory(struct ldap_connection_ctx
 
     if (rc != RETURN_CODE_SUCCESS)
     {
-        error("schema_load_active_directory - unable to search attributes.\n");
+        ld_error("schema_load_active_directory - unable to search attributes.\n");
 
         return RETURN_CODE_FAILURE;
     }
@@ -312,7 +312,7 @@ enum OperationReturnCode schema_load_active_directory(struct ldap_connection_ctx
 
     if (rc != RETURN_CODE_SUCCESS)
     {
-        error("schema_load_active_directory - unable to search object classes.\n");
+        ld_error("schema_load_active_directory - unable to search object classes.\n");
 
         return RETURN_CODE_FAILURE;
     }
