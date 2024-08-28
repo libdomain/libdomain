@@ -16,19 +16,13 @@ rm /etc/samba/smb.conf
 samba-tool domain provision\
  --server-role=dc\
  --use-rfc2307\
- --dns-backend=BIND9_DLZ\
+ --dns-backend=SAMBA_INTERNAL\
  --realm=DOMAIN.ALT\
  --domain=DOMAIN\
  --adminpass=password145Qw!\
  --host-ip=`hostname -i`
 
 control bind-chroot disabled
-
-grep -q KRB5RCACHETYPE /etc/sysconfig/bind || echo 'KRB5RCACHETYPE="none"' >> /etc/sysconfig/bind
-
-grep -q 'bind-dns' /etc/bind/named.conf || echo 'include "/var/lib/samba/bind-dns/named.conf";' >> /etc/bind/named.conf
-
-mv /options.conf /etc/bind/options.conf
 
 mv /krb5.conf /etc/krb5.conf
 

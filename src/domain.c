@@ -309,7 +309,7 @@ void ld_init(LDHandle** handle, const ld_config_t* config)
         (*handle)->config_ctx->sasl_options->passwd = talloc_strdup((*handle)->global_ctx->talloc_ctx, config->password);
 
         (*handle)->config_ctx->sasl_options->sasl_nocanon = true;
-        (*handle)->config_ctx->sasl_options->sasl_secprops = "maxssf=56";
+        (*handle)->config_ctx->sasl_options->sasl_secprops = "minssf=56";
         (*handle)->config_ctx->sasl_options->sasl_flags = LDAP_SASL_QUIET;
 
     }
