@@ -227,6 +227,13 @@ ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *ob
     return true;
 }
 
+/**
+ * @brief ldap_schema_load  Loads the schema from the connection depending on the type of directory.
+ * @param[in] connection    Connection to work with.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode
 ldap_schema_load(struct ldap_connection_ctx_t* connection)
 {

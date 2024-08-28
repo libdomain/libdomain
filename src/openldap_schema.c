@@ -35,6 +35,16 @@ char* LDAP_OBJECT_CLASSES[] = { "objectclasses", NULL };
 
 typedef enum OperationReturnCode (*op_fn)(char *attribute_value, void* user_data);
 
+/**
+ * @brief ldap_schema_callback_common   This callback processes LDAP attributes from entries with a callback parameter.
+ * @param[in] connection                Connection to work with.
+ * @param[in] entries                   Entries to work with.
+ * @param[in] callback                  Callback for processing attribute values.
+ * @param[in] user_data                 An output parameter for returning data from callback.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 static enum OperationReturnCode
 ldap_schema_callback_common(struct ldap_connection_ctx_t *connection, ld_entry_t** entries, op_fn callback, void* user_data)
 {
@@ -76,6 +86,14 @@ ldap_schema_callback_common(struct ldap_connection_ctx_t *connection, ld_entry_t
     return RETURN_CODE_SUCCESS;
 }
 
+/**
+ * @brief attribute_type_callback   This callback appends LDAP attribute type to schema.
+ * @param[in] attribute_value       Attribute value to work with.
+ * @param[in] user_data                 An output parameter for returning data (schema in this case) from callback.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 static enum OperationReturnCode attribute_type_callback(char *attribute_value, void* user_data)
 {
     ldap_schema_t* schema = user_data;
@@ -100,6 +118,14 @@ static enum OperationReturnCode attribute_type_callback(char *attribute_value, v
     return RETURN_CODE_SUCCESS;
 }
 
+/**
+ * @brief object_class_callback     This callback appends LDAP object class to schema.
+ * @param[in] attribute_value       Attribute value to work with.
+ * @param[in] user_data             An output parameter for returning data (schema in this case) from callback.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 static enum OperationReturnCode object_class_callback(char *attribute_value, void* user_data)
 {
     ldap_schema_t* schema = user_data;
@@ -125,18 +151,44 @@ static enum OperationReturnCode object_class_callback(char *attribute_value, voi
     return RETURN_CODE_SUCCESS;
 }
 
+/**
+ * @brief object_class_callback     This callback wraps ldap_schema_callback_common for attribute type appending to schema.
+ * @param[in] connection            Connection to work with.
+ * @param[in] entries               Entries to work with.
+ * @param[in] user_data             An output parameter for returning data (schema in this case) from callback.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 static enum OperationReturnCode
 ldap_schema_attribute_types_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries, void* user_data)
 {
     return ldap_schema_callback_common(connection, entries, &attribute_type_callback, user_data);
 }
 
+/**
+ * @brief object_class_callback     This callback wraps ldap_schema_callback_common for object class appending to schema.
+ * @param[in] connection            Connection to work with.
+ * @param[in] entries               Entries to work with.
+ * @param[in] user_data             An output parameter for returning data (schema in this case) from callback.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 static enum OperationReturnCode
 ldap_schema_object_classes_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries, void* user_data)
 {
     return ldap_schema_callback_common(connection, entries, &object_class_callback, user_data);
 }
 
+/**
+ * @brief ldap_schema_load  Loads the schema of OpenLDAP directory type from the connection.
+ * @param[in] connection    Connection to work with.
+ * @param[in] schema        Schema for loading data from connection.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
 enum OperationReturnCode
 schema_load_openldap(struct ldap_connection_ctx_t* connection, struct ldap_schema_t* schema)
 {
