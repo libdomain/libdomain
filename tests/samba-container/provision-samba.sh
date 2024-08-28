@@ -24,12 +24,6 @@ samba-tool domain provision\
 
 control bind-chroot disabled
 
-grep -q KRB5RCACHETYPE /etc/sysconfig/bind || echo 'KRB5RCACHETYPE="none"' >> /etc/sysconfig/bind
-
-grep -q 'bind-dns' /etc/bind/named.conf || echo 'include "/var/lib/samba/bind-dns/named.conf";' >> /etc/bind/named.conf
-
-mv /options.conf /etc/bind/options.conf
-
 mv /krb5.conf /etc/krb5.conf
 
 cat /resolv.conf > /etc/resolv.conf
