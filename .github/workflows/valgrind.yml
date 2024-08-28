@@ -1,0 +1,66 @@
+name: Valgrind
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        description: "OS"
+        type: string
+        required: true
+      architecture:
+        description: "OS Architecture"
+        type: string
+        required: true
+      environment:
+        description: "Test Environment"
+        type: string
+        required: true
+
+  workflow_dispatch:
+    inputs:
+      os:
+        description: "OS"
+        type: choice
+        options:
+          - alt:sisyphus
+          - alt:p10
+          - alt:p9
+        required: false
+        default: "alt:sisyphus"
+      architecture:
+        description: "OS Architecture"
+        type: choice
+        options:
+          - i386
+          - amd64
+        required: false
+        default: "amd64"
+      environment:
+        description: "Test Environment"
+        type: choice
+        options:
+          - openldap
+          - samba
+        required: false
+        default: "openldap"
+
+jobs:
+  valgrind:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install valgrind and development dependencies
+      run: |
+        sudo apt-get update -y
+        sudo apt-get install -y cmake libc6-dev valgrind
+    - name: Build
+      run: |
+        gcc --version
+        mkdir build
+        cd build
+        cmake ..
+        make -j `nproc`
+    - name: Test under valgrind
+      run: |
+        cd build
+        valgrind -q --error-exitcode=99 --leak-check=full ./test

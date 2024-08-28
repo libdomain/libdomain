@@ -26,6 +26,9 @@ jobs:
       architecture: ${{ matrix.architecture }}
     secrets: inherit
 
+  valgrind:
+    uses: ./.github/workflows/valgrind.yml
+
   test:
     strategy:
       matrix:
