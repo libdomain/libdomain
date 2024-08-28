@@ -111,7 +111,7 @@ Ensure(Cgreen, get_diretory_type_test) {
     ctx->config.sasl_options->passwd = NULL;
 
     ctx->config.sasl_options->sasl_nocanon = true;
-    ctx->config.sasl_options->sasl_secprops = "minssf=56,maxssf=56";
+    ctx->config.sasl_options->sasl_secprops = "minssf=56";
     ctx->config.sasl_options->sasl_flags = LDAP_SASL_QUIET;
     ctx->connection_ctx.ldap_params = talloc(ctx->global_ctx.talloc_ctx, struct ldap_sasl_params_t);
     ctx->connection_ctx.ldap_params->dn = NULL;
