@@ -12,7 +12,7 @@ on:
         type: string
         required: true
       environment:
-        description: "Test Environment"
+        description: "Valgrind Environment"
         type: string
         required: true
 
@@ -36,7 +36,7 @@ on:
         required: false
         default: "amd64"
       environment:
-        description: "Test Environment"
+        description: "Valgrind Environment"
         type: choice
         options:
           - openldap
@@ -47,20 +47,35 @@ on:
 jobs:
   valgrind:
     runs-on: ubuntu-latest
+    name: build
+
     steps:
+    - name: Checkout
     - uses: actions/checkout@v3
-    - name: Install valgrind and development dependencies
-      run: |
-        sudo apt-get update -y
-        sudo apt-get install -y cmake libc6-dev valgrind
-    - name: Build
-      run: |
-        gcc --version
-        mkdir build
-        cd build
-        cmake -DLIBDOMAIN_BUILD_TESTS:BOOL=ON -DCMAKE_BUILD_TYPE=Debug ..
-        make -j `nproc`
-    - name: Test under valgrind
-      run: |
-        cd build/tests/auto
-        # TODO: valgrind -q --error-exitcode=99 --leak-check=full ./something
+      
+    - run: mkdir -p /tmp/certs
+
+    - run: export SCRIPT_PATH=`pwd` && cd /tmp/certs && bash "${SCRIPT_PATH}/script/generate_cert.sh" `pwd` && docker volume create --driver local --opt type=none --opt device=`pwd` --opt o=bind cert-volume
+
+    - run: docker volume create --driver local --opt type=none --opt device=`pwd` --opt o=bind data-volume
+
+    - run: cd tests && docker compose -f docker-compose.valgrind.${{ inputs.environment }}.yml -f docker-compose.yml build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) --build-arg DISTR=${{ inputs.os }} --build-arg ARCH=${{ inputs.architecture }}
+
+    - run: cd tests && docker compose -f docker-compose.valgrind.${{ inputs.environment }}.yml -f docker-compose.yml up --abort-on-container-exit --attach-dependencies
+
+
+    # - name: Install valgrind and development dependencies
+    #   run: |
+    #     sudo apt-get update -y
+    #     sudo apt-get install -y cmake libc6-dev valgrind
+    #   run: |
+    #     gcc --version
+    #     mkdir build
+    #     cd build
+    #     cmake -DLIBDOMAIN_BUILD_TESTS:BOOL=ON -DCMAKE_BUILD_TYPE=Debug ..
+    #     make -j `nproc`
+    # - name: Test under valgrind
+    #   run: |
+    #     cd build/tests/auto
+    #     # TODO: valgrind -q --error-exitcode=99 --leak-check=full ./something
+    #     # TODO: docker-compose !!!

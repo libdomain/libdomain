@@ -6,6 +6,8 @@ FROM $DISTR
 ARG USER_ID
 ARG GROUP_ID
 
+ARG PIPELINE_TYPE
+
 RUN apt-get update \
     && apt-get install -y git \
     gear \
@@ -43,6 +45,7 @@ RUN apt-get update \
     libsasl2-plugin-gssapi \
     glib2-devel \
     ragel \
+    valgrind \
     && export CURRENT_PWD=`pwd` \
     && groupadd builder2 \
     && useradd --uid $USER_ID --gid builder2 -ms /bin/bash builder2 \
