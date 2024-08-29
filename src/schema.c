@@ -244,7 +244,7 @@ ldap_schema_load(struct ldap_connection_ctx_t* connection)
 
     case LDAP_TYPE_ACTIVE_DIRECTORY:
         // TODO: move call `schema_load_active_directory` function
-        return RETURN_CODE_FAILURE;
+        return RETURN_CODE_SUCCESS;
 
     case LDAP_TYPE_FREE_IPA:
         // TODO: move call `schema_load_free_ipa` function
