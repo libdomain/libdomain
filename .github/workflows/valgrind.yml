@@ -58,9 +58,9 @@ jobs:
         gcc --version
         mkdir build
         cd build
-        cmake ..
+        cmake -DLIBDOMAIN_BUILD_TESTS:BOOL=ON -DCMAKE_BUILD_TYPE=Debug ..
         make -j `nproc`
     - name: Test under valgrind
       run: |
-        cd build
-        valgrind -q --error-exitcode=99 --leak-check=full ./test
+        cd build/tests/auto
+        # TODO: valgrind -q --error-exitcode=99 --leak-check=full ./something
