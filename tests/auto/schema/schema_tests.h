@@ -13,6 +13,6 @@ TestSuite*
 schema_objectclass_test_suite();
 
 TestSuite*
-schema_ad_test_suite();
+schema_active_directory_test_suite();
 
 #endif//SCHEMA_TESTS_H

@@ -11,6 +11,7 @@ include_directories(${CGREEN_INCLUDE_DIRS})
 set(TEST_NAME schema)
 
 set(SOURCES
+    schema_ad.c
     schema_tests.h
     schema_new.c
     schema_attributetype.c

@@ -1,11 +1,16 @@
 #include <cgreen/cgreen.h>
 
-#include <domain.h>
-#include <domain_p.h>
+#include <connection.h>
+#include <connection_state_machine.h>
+#include <directory.h>
+#include <entry.h>
+#include <entry_p.h>
+#include <schema.h>
 #include <schema_p.h>
 #include <talloc.h>
 
-#include <connection_state_machine.h>
+#include <ldap.h>
+#include <ldap_schema.h>
 
 #include <test_common.h>
 
@@ -14,7 +19,12 @@ const int BUFFER_SIZE = 80;
 
 const int CONNECTION_UPDATE_INTERVAL = 1000;
 
-static void connection_on_add_message(verto_ctx *ctx, verto_ev *ev)
+static int current_directory_type = LDAP_TYPE_UNKNOWN;
+
+static ldap_schema_t* schema = NULL;
+static TALLOC_CTX* talloc_ctx = NULL;
+
+static void connection_on_search_message(verto_ctx *ctx, verto_ev *ev)
 {
     (void)(ev);
 
@@ -23,6 +33,24 @@ static void connection_on_add_message(verto_ctx *ctx, verto_ev *ev)
     if (++callcount > 10)
     {
         verto_break(ctx);
+
+        int index = 0;
+        LDAPObjectClass* current_class = ldap_schema_object_classes(schema)[index];
+        while (current_class != NULL)
+        {
+            printf("Object class: %s\n", current_class->oc_names[0]);
+            current_class = ldap_schema_object_classes(schema)[++index];
+        }
+
+        index = 0;
+        LDAPAttributeType* current_attrribute = ldap_schema_attribute_types(schema)[index];
+        while (current_attrribute)
+        {
+            printf("Attribute type: %s\n", current_attrribute->at_names[0]);
+            current_attrribute = ldap_schema_attribute_types(schema)[++index];
+        }
+
+        talloc_free(talloc_ctx);
     }
 }
 
@@ -32,14 +60,22 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
 
     struct ldap_connection_ctx_t* connection = verto_get_private(ev);
 
+    csm_next_state(connection->state_machine);
+
     if (connection->state_machine->state == LDAP_CONNECTION_STATE_RUN)
     {
         verto_del(ev);
 
-        enum OperationReturnCode rc = schema_load_active_directory(connection, NULL, "dc=domain,dc=alt");
-        assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
+        talloc_ctx = talloc_new(NULL);
 
-        ld_install_handler(connection->handle, connection_on_add_message, CONNECTION_UPDATE_INTERVAL);
+        schema = ldap_schema_new(talloc_ctx);
+
+        if (schema_load_active_directory(connection, schema, "") != RETURN_CODE_SUCCESS)
+        {
+            fail_test("Error schema_load_openldap failed\n");
+        }
+
+        verto_add_timeout(ctx, VERTO_EV_FLAG_PERSIST, connection_on_search_message, CONNECTION_UPDATE_INTERVAL);
     }
 
     if (connection->state_machine->state == LDAP_CONNECTION_STATE_ERROR)
@@ -50,50 +86,14 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     }
 }
 
-static enum OperationReturnCode connection_on_error(int rc, void* unused_a, void* connection)
-{
-    (void)(unused_a);
-
-    assert_that(rc, is_not_equal_to(LDAP_SUCCESS));
-
-    verto_break(((ldap_connection_ctx_t*)connection)->base);
-
-    fail_test("User addition was not successful\n");
-
-    return RETURN_CODE_SUCCESS;
-}
-
-Ensure(load_ad_schema_test)
-{
-    TALLOC_CTX* talloc_ctx = talloc_new(NULL);
-
-    char *envvar = "LDAP_SERVER";
-    char *server = get_environment_variable(talloc_ctx, envvar);
-
-    ld_config_t *config = ld_create_config(talloc_ctx, server, 0, LDAP_VERSION3, "dc=domain,dc=alt",
-                                        "admin", "password", false, false, true, false, CONNECTION_UPDATE_INTERVAL,
-                                        "", "", "");
-    LDHandle *handle = NULL;
-    ld_init(&handle, config);
-
-    int debug_level = 0;
-    ldap_set_option((*handle).connection_ctx->ldap, LDAP_OPT_DEBUG_LEVEL, &debug_level);
-
-    ld_install_default_handlers(handle);
-    ld_install_handler(handle, connection_on_timeout, CONNECTION_UPDATE_INTERVAL);
-    ld_install_error_handler(handle, connection_on_error);
-
-    ld_exec(handle);
-
-    ld_free(handle);
-
-    talloc_free(talloc_ctx);
+Ensure(schema_active_directory_test) {
+    start_test(connection_on_timeout, CONNECTION_UPDATE_INTERVAL, &current_directory_type, false);
 }
 
 TestSuite*
-schema_ad_test_suite()
+schema_active_directory_test_suite()
 {
     TestSuite *suite = create_test_suite();
-    add_test(suite, load_ad_schema_test);
+    add_test(suite, schema_active_directory_test);
     return suite;
 }
