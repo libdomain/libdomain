@@ -70,4 +70,4 @@ COPY krb5.conf /krb5.conf
 COPY config.ini /etc/config.ini
 
 # Code file to execute when the docker container starts up (`make-test.sh`)
-ENTRYPOINT ["/make-test.sh"]
+ENTRYPOINT [PIPELINE_TYPE=$PIPELINE_TYPE /make-test.sh]
