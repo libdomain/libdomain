@@ -257,3 +257,16 @@ ldap_schema_load(struct ldap_connection_ctx_t* connection)
 
     return RETURN_CODE_SUCCESS;
 }
+
+bool
+ldap_schema_ready(struct ldap_connection_ctx_t* connection)
+{
+    switch (connection->directory_type)
+    {
+    case LDAP_TYPE_OPENLDAP:
+        return connection->schema->attribute_types_size > 0
+                && connection->schema->object_classes_size > 0;
+    default:
+        return true;
+    }
+}
