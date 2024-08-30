@@ -66,9 +66,24 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
 
     csm_next_state(connection->state_machine);
 
+
     if (connection->state_machine->state == LDAP_CONNECTION_STATE_RUN)
     {
         verto_del(ev);
+
+        switch (current_directory_type)
+        {
+        case LDAP_TYPE_OPENLDAP:
+            break;
+        default:
+            verto_break(ctx);
+
+            ld_warning("Disable openldap schema test for non OpenLDAP directory servers!");
+
+            pass_test();
+
+            return;
+        }
 
         talloc_ctx = talloc_new(NULL);
 
