@@ -132,6 +132,14 @@ Ensure(Cgreen, connection_state_machine_next_state) {
     assert_that(csm->state, is_equal_to(LDAP_CONNECTION_STATE_DETECT_DIRECTORY));
     assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
 
+    rc = csm_next_state(csm);
+    assert_that(csm->state, is_equal_to(LDAP_CONNECTION_STATE_REQUEST_SCHEMA));
+    assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
+
+    rc = csm_next_state(csm);
+    assert_that(csm->state, is_equal_to(LDAP_CONNECTION_STATE_CHECK_SCHEMA));
+    assert_that(rc, is_equal_to(RETURN_CODE_SUCCESS));
+
 exit:
     destroy_context(ctx);
 }

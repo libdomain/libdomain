@@ -114,7 +114,16 @@ enum OperationReturnCode add_on_read(int rc, LDAPMessage *message, struct ldap_c
     return RETURN_CODE_FAILURE;
 }
 
-static enum OperationReturnCode print_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries)
+/**
+ * @brief print_search_callback This callback prints values of entries after a search.
+ * @param[in] connection        Connection to work with.
+ * @param[in] entries           Entries to work with.
+ * @param[in] user_data         An output parameter for returning data from callback.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
+static enum OperationReturnCode print_search_callback(struct ldap_connection_ctx_t *connection, ld_entry_t** entries, void* user_data)
 {
     int entry_index = 0;
     while (entries[entry_index] != NULL)
@@ -149,32 +158,34 @@ static enum OperationReturnCode print_search_callback(struct ldap_connection_ctx
 }
 
 /**
- * @brief search         Function wraps ldap search operation associating it with connection.
- * @param[in] connection Connection to work with.
- * @param[in] base_dn    The dn of the entry at which to start the search.
- *                       If NULL, a zero length DN is sent to the server.
- * @param[in] scope      One of LDAP_SCOPE_BASE (0x00), LDAP_SCOPE_ONELEVEL (0x01),
- *                       or LDAP_SCOPE_SUBTREE (0x02), indicating the scope of the search.
- * @param[in] filter     A character string as described in [13], representing the
- *                       search filter.  The value NULL can be passed to indicate
- *                       that the filter "(objectclass=*)" which matches all entries
- *                       is to be used.  Note that if the caller of the API is using
- *                       LDAPv2, only a subset of the filter functionality described
- *                       in [13] can be successfully used.
- * @param[in] attrs      A NULL-terminated array of strings indicating which attributes
- *                       to return for each matching entry. Passing NULL for
- *                       this parameter causes all available user attributes to be
- *                       retrieved.  The special constant string LDAP_NO_ATTRS
- *                       ("1.1") MAY be used as the only string in the array to
- *                       indicate that no attribute types are to be returned by the
- *                       server.  The special constant string LDAP_ALL_USER_ATTRS
- *                       ("*") can be used in the attrs array along with the names
- *                       of some operational attributes to indicate that all user
- *                       attributes plus the listed operational attributes are to be
- *                       returned.
- * @param[in] attrsonly  A boolean value that MUST be zero if both attribute types
- *                       and values are to be returned, and non-zero if only types
- *                       are wanted.
+ * @brief search                Function wraps ldap search operation associating it with connection.
+ * @param[in] connection        Connection to work with.
+ * @param[in] base_dn           The dn of the entry at which to start the search.
+ *                              If NULL, a zero length DN is sent to the server.
+ * @param[in] scope             One of LDAP_SCOPE_BASE (0x00), LDAP_SCOPE_ONELEVEL (0x01),
+ *                              or LDAP_SCOPE_SUBTREE (0x02), indicating the scope of the search.
+ * @param[in] filter            A character string as described in [13], representing the
+ *                              search filter.  The value NULL can be passed to indicate
+ *                              that the filter "(objectclass=*)" which matches all entries
+ *                              is to be used.  Note that if the caller of the API is using
+ *                              LDAPv2, only a subset of the filter functionality described
+ *                              in [13] can be successfully used.
+ * @param[in] attrs             A NULL-terminated array of strings indicating which attributes
+ *                              to return for each matching entry. Passing NULL for
+ *                              this parameter causes all available user attributes to be
+ *                              retrieved.  The special constant string LDAP_NO_ATTRS
+ *                              ("1.1") MAY be used as the only string in the array to
+ *                              indicate that no attribute types are to be returned by the
+ *                              server.  The special constant string LDAP_ALL_USER_ATTRS
+ *                              ("*") can be used in the attrs array along with the names
+ *                              of some operational attributes to indicate that all user
+ *                              attributes plus the listed operational attributes are to be
+ *                              returned.
+ * @param[in] attrsonly         A boolean value that MUST be zero if both attribute types
+ *                              and values are to be returned, and non-zero if only types
+ *                              are wanted.
+ * @param[in] search_callback   A callback function on search operation.
+ * @param[in] user_data         An output parameter for returning data after a search.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
@@ -185,7 +196,8 @@ enum OperationReturnCode search(struct ldap_connection_ctx_t *connection,
                                 const char *filter,
                                 char **attrs,
                                 bool attrsonly,
-                                search_callback_fn search_callback)
+                                search_callback_fn search_callback,
+                                void* user_data)
 {
     int msgid = 0;
     int rc = ldap_search_ext(connection->ldap,
@@ -221,6 +233,7 @@ enum OperationReturnCode search(struct ldap_connection_ctx_t *connection,
     struct ldap_search_request_t* search_request = &connection->search_requests[connection->n_search_requests];
     search_request->msgid = msgid;
     search_request->on_search_operation = search_callback ? search_callback : print_search_callback;
+    search_request->user_data = user_data;
     ++connection->n_search_requests;
 
     return RETURN_CODE_SUCCESS;
@@ -359,7 +372,7 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
 
                 entries[entry_index] = NULL;
 
-                int rc = connection->search_requests[i].on_search_operation(connection, entries);
+                int rc = connection->search_requests[i].on_search_operation(connection, entries, connection->search_requests[i].user_data);
 
                 connection_remove_search_request(connection, i);
 

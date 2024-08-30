@@ -1,8 +1,11 @@
 #include <cgreen/cgreen.h>
 
+#include <common.h>
 #include <connection.h>
 #include <connection_state_machine.h>
 #include <directory.h>
+#include <domain.h>
+#include <domain_p.h>
 #include <entry.h>
 #include <talloc.h>
 
@@ -120,6 +123,9 @@ Ensure(Cgreen, get_diretory_type_test) {
     ctx->connection_ctx.ldap_params->passwd->bv_val = NULL;
     ctx->connection_ctx.ldap_params->clientctrls = NULL;
     ctx->connection_ctx.ldap_params->serverctrls = NULL;
+
+    ctx->connection_ctx.handle = talloc(ctx->global_ctx.talloc_ctx, struct ldhandle);
+    ctx->connection_ctx.handle->talloc_ctx = ctx->global_ctx.talloc_ctx;
 
     int rc = RETURN_CODE_FAILURE;
 

@@ -21,7 +21,14 @@
 #include "schema.h"
 #include "schema_p.h"
 
+#include "common.h"
+
+#include "directory.h"
+
 #include <talloc.h>
+
+#include <ldap.h>
+#include <ldap_schema.h>
 
 /*!
  * \brief ldap_schema_new Allocates ldap_schema_t and checks it for validity.
@@ -49,7 +56,7 @@ ldap_schema_new(TALLOC_CTX *ctx)
         return NULL;
     }
 
-    result->attribute_types = talloc_array(ctx, LDAPAttributeType*, 1024);
+    result->attribute_types = talloc_zero_array(ctx, LDAPAttributeType*, 1024);
 
     if (!result->attribute_types)
     {
@@ -61,7 +68,7 @@ ldap_schema_new(TALLOC_CTX *ctx)
     result->attribute_types_capacity = 1024;
     result->attribute_types_size = 0;
 
-    result->object_classes = talloc_array(ctx, LDAPObjectClass*, 1024);
+    result->object_classes = talloc_zero_array(ctx, LDAPObjectClass*, 1024);
 
     if (!result->object_classes)
     {
@@ -142,7 +149,7 @@ ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType
         return false;
     }
 
-    if (schema->attribute_types_size >= schema->attribute_types_capacity)
+    if (schema->attribute_types_size >= schema->attribute_types_capacity - 1)
     {
         int required_capacity = schema->attribute_types_capacity * 2;
         TALLOC_CTX* ctx = talloc_parent(schema);
@@ -162,6 +169,8 @@ ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType
     schema->attribute_types[schema->attribute_types_size] = attributetype;
 
     ++schema->attribute_types_size;
+
+    schema->attribute_types[schema->attribute_types_size] = NULL;
 
     return true;
 }
@@ -192,7 +201,7 @@ ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *ob
         return false;
     }
 
-    if (schema->object_classes_size >= schema->object_classes_capacity)
+    if (schema->object_classes_size >= schema->object_classes_capacity - 1)
     {
         int required_capacity = schema->object_classes_capacity * 2;
         TALLOC_CTX* ctx = talloc_parent(schema);
@@ -213,5 +222,51 @@ ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *ob
 
     ++schema->object_classes_size;
 
+    schema->object_classes[schema->object_classes_size] = NULL;
+
     return true;
+}
+
+/**
+ * @brief ldap_schema_load  Loads the schema from the connection depending on the type of directory.
+ * @param[in] connection    Connection to work with.
+ * @return
+ *        - RETURN_CODE_SUCCESS on success.
+ *        - RETURN_CODE_FAILURE on failure.
+ */
+enum OperationReturnCode
+ldap_schema_load(struct ldap_connection_ctx_t* connection)
+{
+    switch (connection->directory_type)
+    {
+    case LDAP_TYPE_OPENLDAP:
+        return schema_load_openldap(connection, connection->schema);
+
+    case LDAP_TYPE_ACTIVE_DIRECTORY:
+        // TODO: move call `schema_load_active_directory` function
+        return RETURN_CODE_SUCCESS;
+
+    case LDAP_TYPE_FREE_IPA:
+        // TODO: move call `schema_load_free_ipa` function
+        return RETURN_CODE_FAILURE;
+
+    case LDAP_TYPE_UNKNOWN:
+        // TODO
+        return RETURN_CODE_SUCCESS;
+    }
+
+    return RETURN_CODE_SUCCESS;
+}
+
+bool
+ldap_schema_ready(struct ldap_connection_ctx_t* connection)
+{
+    switch (connection->directory_type)
+    {
+    case LDAP_TYPE_OPENLDAP:
+        return connection->schema->attribute_types_size > 0
+                && connection->schema->object_classes_size > 0;
+    default:
+        return true;
+    }
 }

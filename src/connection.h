@@ -36,6 +36,8 @@ enum BindType
     BIND_TYPE_SIMPLE      = 2,          //!< We are going to perform simple bind.
 };
 
+typedef struct ldap_schema_t ldap_schema_t;
+
 typedef struct ldap_sasl_options_t
 {
     char *mechanism;                   //!< Sasl mechanism to use.
@@ -101,7 +103,7 @@ struct ldap_connection_ctx_t;
 typedef struct ld_entry_s ld_entry_t;
 
 typedef enum OperationReturnCode (*operation_callback_fn)(int, LDAPMessage *, struct ldap_connection_ctx_t *);
-typedef enum OperationReturnCode (*search_callback_fn)(struct ldap_connection_ctx_t *connection, ld_entry_t** entries);
+typedef enum OperationReturnCode (*search_callback_fn)(struct ldap_connection_ctx_t *connection, ld_entry_t** entries, void* user_data);
 
 typedef struct ldhandle LDHandle;
 
@@ -109,6 +111,7 @@ typedef struct ldap_search_request_t
 {
     int msgid;                               //!<
     search_callback_fn on_search_operation;  //!<
+    void* user_data;                         //!<
 } ldap_search_request_t;
 
 typedef struct ldap_request_t
@@ -144,6 +147,8 @@ typedef struct ldap_connection_ctx_t
     int bind_type;                                              //!<
     int directory_type;                                         //!<
     int msgid;                                                  //!<
+
+    ldap_schema_t* schema;
 
     const char *rmech;                                          //!<
 
