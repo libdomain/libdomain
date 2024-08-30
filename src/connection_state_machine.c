@@ -42,7 +42,8 @@ const csm_state_value_t state_strings[] =
     { LDAP_CONNECTION_STATE_DETECT_DIRECTORY, "LDAP_CONNECTION_STATE_DETECT_DIRECTORY" },
     { LDAP_CONNECTION_STATE_RUN, "LDAP_CONNECTION_STATE_RUN" },
     { LDAP_CONNECTION_STATE_ERROR, "LDAP_CONNECTION_STATE_ERROR" },
-    { LDAP_CONNECTION_STATE_LOAD_SCHEMA, "LDAP_CONNECTION_STATE_LOAD_SCHEMA" },
+    { LDAP_CONNECTION_STATE_REQUEST_SCHEMA, "LDAP_CONNECTION_STATE_LOAD_SCHEMA" },
+    { LDAP_CONNECTION_STATE_CHECK_SCHEMA, "LDAP_CONNECTION_STATE_SCHEMA_READY" },
 };
 const int state_strings_size = number_of_elements(state_strings);
 
@@ -152,15 +153,22 @@ enum OperationReturnCode csm_next_state(struct state_machine_ctx_t *ctx)
         }
         else
         {
-            csm_set_state(ctx, LDAP_CONNECTION_STATE_LOAD_SCHEMA);
+            csm_set_state(ctx, LDAP_CONNECTION_STATE_REQUEST_SCHEMA);
         }
         break;
 
-    case LDAP_CONNECTION_STATE_LOAD_SCHEMA:
+    case LDAP_CONNECTION_STATE_REQUEST_SCHEMA:
         rc = ldap_schema_load(ctx->ctx);
         csm_set_state(ctx, rc == RETURN_CODE_SUCCESS
-                       ? LDAP_CONNECTION_STATE_RUN
+                       ? LDAP_CONNECTION_STATE_CHECK_SCHEMA
                        : LDAP_CONNECTION_STATE_ERROR);
+        break;
+
+    case LDAP_CONNECTION_STATE_CHECK_SCHEMA:
+        if (ldap_schema_ready(ctx->ctx))
+        {
+            csm_set_state(ctx, LDAP_CONNECTION_STATE_RUN);
+        }
         break;
 
     case LDAP_CONNECTION_STATE_RUN:
