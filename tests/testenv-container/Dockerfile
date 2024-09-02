@@ -6,10 +6,6 @@ FROM $DISTR
 ARG USER_ID
 ARG GROUP_ID
 
-ARG PIPELINE_TYPE = COMMON
-
-ENV TEST_TYPE = $PIPELINE_TYPE
-
 RUN apt-get update \
     && apt-get install -y git \
     gear \
