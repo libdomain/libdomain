@@ -45,6 +45,14 @@ struct ldap_schema_t
     int attribute_types_capacity;                    //!< Maximum allowed amount of attribute types in queue.
 };
 
+typedef enum OperationReturnCode (*op_fn)(char *attribute_value, void* user_data);
+
+enum OperationReturnCode
+ldap_schema_read_entry(ld_entry_t* entry, op_fn callback, void* user_data);
+
+enum OperationReturnCode
+ldap_schema_callback_common(struct ldap_connection_ctx_t *connection, ld_entry_t** entries, op_fn callback, void* user_data);
+
 enum OperationReturnCode schema_load_openldap(struct ldap_connection_ctx_t* connection,
                                               struct ldap_schema_t* schema);
 
