@@ -43,6 +43,7 @@ RUN apt-get update \
     libsasl2-plugin-gssapi \
     glib2-devel \
     ragel \
+    valgrind \
     && export CURRENT_PWD=`pwd` \
     && groupadd builder2 \
     && useradd --uid $USER_ID --gid builder2 -ms /bin/bash builder2 \
