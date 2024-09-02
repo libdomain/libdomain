@@ -24,6 +24,7 @@
 #include "common.h"
 
 #include "directory.h"
+#include "domain.h"
 #include "entry.h"
 
 #include <talloc.h>
