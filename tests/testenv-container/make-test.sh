@@ -10,12 +10,12 @@ chown -R builder2:builder2 /app/
 echo 'password145Qw!' | kinit administrator@DOMAIN.ALT || :
 cd /app/ && rm -rf $BUILD_DIR && mkdir $BUILD_DIR && cd $BUILD_DIR && pwd 
 
-if [[ "$PIPELINE_TYPE" == "MEMCHECK" ]]; then
+if [[ "$TEST_TYPE" == "MEMCHECK" ]]; then
   cmake -DLIBDOMAIN_BUILD_TESTS:BOOL=ON -DCMAKE_BUILD_TYPE=Debug -B . .. && \
-    make && \
-    ctest --overwrite MemoryCheckCommandOptions="-q --leak-check=full --error-exitcode=99" -T memcheck --verbose
+  make && \
+  ctest --overwrite MemoryCheckCommandOptions="-q --leak-check=full --error-exitcode=99" -T memcheck --verbose
 else
   cmake -DLIBDOMAIN_BUILD_TESTS:BOOL=ON -B . .. && \
-    make && \
-    ctest --verbose
+  make && \
+  ctest --verbose
 fi
