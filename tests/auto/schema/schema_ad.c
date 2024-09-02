@@ -66,13 +66,27 @@ static void connection_on_timeout(verto_ctx *ctx, verto_ev *ev)
     {
         verto_del(ev);
 
+        switch (current_directory_type)
+        {
+        case LDAP_TYPE_ACTIVE_DIRECTORY:
+            break;
+        default:
+            verto_break(ctx);
+
+            ld_warning("Disable active directory schema test for non Active Directory directory servers!");
+
+            pass_test();
+
+            return;
+        }
+
         talloc_ctx = talloc_new(NULL);
 
         schema = ldap_schema_new(talloc_ctx);
 
-        if (schema_load_active_directory(connection, schema, "") != RETURN_CODE_SUCCESS)
+        if (schema_load_active_directory(connection, schema, "cn=dc0") != RETURN_CODE_SUCCESS)
         {
-            fail_test("Error schema_load_openldap failed\n");
+            fail_test("Error schema_load_active_directory failed\n");
         }
 
         verto_add_timeout(ctx, VERTO_EV_FLAG_PERSIST, connection_on_search_message, CONNECTION_UPDATE_INTERVAL);
