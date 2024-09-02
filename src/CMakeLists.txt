@@ -54,6 +54,7 @@ set(PROJECT_SOURCES
     schema_p.h
     schema.c
     openldap_schema.c
+    ad_schema.c
     user.c
     user.h
 )
