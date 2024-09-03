@@ -56,29 +56,27 @@ ldap_schema_new(TALLOC_CTX *ctx)
         return NULL;
     }
 
-    result->attribute_types = talloc_zero_array(ctx, LDAPAttributeType*, 1024);
-
-    if (!result->attribute_types)
-    {
-        ld_error("Unable allocate attribute types in schema: %d ", result);
-
-        return NULL;
-    }
-
-    result->attribute_types_capacity = 1024;
-    result->attribute_types_size = 0;
-
-    result->object_classes = talloc_zero_array(ctx, LDAPObjectClass*, 1024);
+    result->object_classes = g_hash_table_new(g_str_hash, g_str_equal);
 
     if (!result->object_classes)
     {
-        ld_error("Unable allocate object classes in schema: %d ", result);
+        talloc_free(result);
+
+        ld_error("ldap_schema_new - out of memory - unable to create object classes in schema!\n");
 
         return NULL;
     }
 
-    result->object_classes_capacity = 1024;
-    result->object_classes_size = 0;
+    result->attribute_types = g_hash_table_new(g_str_hash, g_str_equal);
+
+    if (!result->attribute_types)
+    {
+        talloc_free(result);
+
+        ld_error("ldap_schema_new - out of memory - unable to create attribute types in schema!\n");
+
+        return NULL;
+    }
 
     return result;
 }
@@ -93,14 +91,29 @@ ldap_schema_new(TALLOC_CTX *ctx)
 LDAPObjectClass**
 ldap_schema_object_classes(const ldap_schema_t *schema)
 {
-    if (!schema)
+    if (!schema || !schema->object_classes)
     {
-        ld_error("Schema is NULL.\n");
+        ld_error("ldap_schema_object_classes - schema or object classes list is NULL!\n");
 
         return NULL;
     }
 
-    return schema->object_classes;
+    int result_size = g_hash_table_size(schema->object_classes);
+
+    LDAPObjectClass** result = talloc_array(schema, LDAPObjectClass*, result_size + 1);
+
+    GHashTableIter iter;
+    gpointer key = NULL, value = NULL;
+
+    int index = 0;
+    g_hash_table_iter_init(&iter, schema->object_classes);
+    while (g_hash_table_iter_next(&iter, &key, &value)) {
+        result[index] = value;
+        index++;
+    }
+    result[result_size] = NULL;
+
+    return result;
 }
 
 /*!
@@ -113,14 +126,53 @@ ldap_schema_object_classes(const ldap_schema_t *schema)
 LDAPAttributeType**
 ldap_schema_attribute_types(const ldap_schema_t* schema)
 {
-    if (!schema)
+    if (!schema || !schema->attribute_types)
     {
-        ld_error("Schema is NULL.\n");
+        ld_error("ldap_schema_attribute_types - schema or attribute types list is NULL!\n");
 
         return NULL;
     }
 
-    return schema->attribute_types;
+    int result_size = g_hash_table_size(schema->attribute_types);
+
+    LDAPAttributeType** result = talloc_array(schema, LDAPAttributeType*, result_size + 1);
+
+    GHashTableIter iter;
+    gpointer key = NULL, value = NULL;
+
+    int index = 0;
+    g_hash_table_iter_init(&iter, schema->attribute_types);
+    while (g_hash_table_iter_next(&iter, &key, &value)) {
+        result[index] = value;
+        index++;
+    }
+    result[result_size] = NULL;
+
+    return result;
+}
+
+LDAPObjectClass *ldap_schema_get_objectclass(const ldap_schema_t* schema, const char *name_or_oid)
+{
+    if (!schema || !schema->object_classes)
+    {
+        ld_error("ldap_schema_get_objectclass - schema or object classes list is NULL!\n");
+
+        return NULL;
+    }
+
+    return (LDAPObjectClass *)g_hash_table_lookup(schema->object_classes, name_or_oid);
+}
+
+LDAPAttributeType *ldap_schema_get_attributetype(const ldap_schema_t* schema, const char *name_or_oid)
+{
+    if (!schema || !schema->attribute_types)
+    {
+        ld_error("ldap_schema_get_attributetype - schema or attribute types list is NULL!\n");
+
+        return NULL;
+    }
+
+    return (LDAPAttributeType *)g_hash_table_lookup(schema->attribute_types, name_or_oid);
 }
 
 /*!
@@ -149,30 +201,7 @@ ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType
         return false;
     }
 
-    if (schema->attribute_types_size >= schema->attribute_types_capacity - 1)
-    {
-        int required_capacity = schema->attribute_types_capacity * 2;
-        TALLOC_CTX* ctx = talloc_parent(schema);
-        LDAPAttributeType** attributes = talloc_realloc(ctx,
-                                                        schema->attribute_types,
-                                                        LDAPAttributeType*,
-                                                        required_capacity);
-        if (!attributes)
-        {
-            ld_error("Unable to increase capacity in schema %d, to value of %d. \n", schema, required_capacity);
-            return false;
-        }
-
-        schema->attribute_types_capacity = required_capacity;
-    }
-
-    schema->attribute_types[schema->attribute_types_size] = attributetype;
-
-    ++schema->attribute_types_size;
-
-    schema->attribute_types[schema->attribute_types_size] = NULL;
-
-    return true;
+    return g_hash_table_insert(schema->attribute_types, attributetype->at_oid, attributetype);
 }
 
 /*!
@@ -201,30 +230,7 @@ ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *ob
         return false;
     }
 
-    if (schema->object_classes_size >= schema->object_classes_capacity - 1)
-    {
-        int required_capacity = schema->object_classes_capacity * 2;
-        TALLOC_CTX* ctx = talloc_parent(schema);
-        LDAPObjectClass** classes = talloc_realloc(ctx,
-                                                   schema->object_classes,
-                                                   LDAPObjectClass*,
-                                                   required_capacity);
-        if (!classes)
-        {
-            ld_error("Unable to increase capacity in schema %d, to value of %d. \n", schema, required_capacity);
-            return false;
-        }
-
-        schema->object_classes_capacity = required_capacity;
-    }
-
-    schema->object_classes[schema->object_classes_size] = objectclass;
-
-    ++schema->object_classes_size;
-
-    schema->object_classes[schema->object_classes_size] = NULL;
-
-    return true;
+    return g_hash_table_insert(schema->object_classes, objectclass->oc_oid, objectclass);
 }
 
 /**
@@ -264,8 +270,8 @@ ldap_schema_ready(struct ldap_connection_ctx_t* connection)
     switch (connection->directory_type)
     {
     case LDAP_TYPE_OPENLDAP:
-        return connection->schema->attribute_types_size > 0
-                && connection->schema->object_classes_size > 0;
+        return g_hash_table_size(connection->schema->object_classes) > 0
+                && g_hash_table_size(connection->schema->attribute_types) > 0;
     default:
         return true;
     }

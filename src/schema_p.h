@@ -26,6 +26,8 @@
 
 #include <stdbool.h>
 
+#include <glib-2.0/glib.h>
+
 #include <ldap.h>
 #include <ldap_schema.h>
 
@@ -34,15 +36,8 @@
  */
 struct ldap_schema_t
 {
-    LDAPObjectClass** object_classes;                //!< List of object classes.
-
-    LDAPAttributeType** attribute_types;             //!< List of attribute types.
-
-    int object_classes_size;                         //!< Current amount of object classes in queue.
-    int object_classes_capacity;                     //!< Maximum allowed amount of object classes in queue.
-
-    int attribute_types_size;                        //!<  Current amount of attribute types in queue.
-    int attribute_types_capacity;                    //!< Maximum allowed amount of attribute types in queue.
+    GHashTable *object_classes;                      //!< List of object classes.
+    GHashTable *attribute_types;                     //!< List of attribute types.
 };
 
 enum OperationReturnCode schema_load_openldap(struct ldap_connection_ctx_t* connection,
