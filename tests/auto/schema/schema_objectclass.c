@@ -30,7 +30,7 @@ Ensure(returns_true_on_successful_append_to_full_capacity_to_objectclasses) {
     TALLOC_CTX *ctx = talloc_new(NULL);
 
     struct ldap_schema_t *schema = ldap_schema_new(ctx);
-    schema->object_classes_capacity = 1;
+
     LDAPObjectClass *objectclass = talloc_zero(ctx, LDAPObjectClass);
 
     bool result = ldap_schema_append_objectclass(schema, objectclass);

@@ -30,7 +30,7 @@ Ensure(returns_true_on_successful_append_to_full_capacity_to_attributetypes) {
     TALLOC_CTX *ctx = talloc_new(NULL);
 
     struct ldap_schema_t *schema = ldap_schema_new(ctx);
-    schema->attribute_types_capacity = 1;
+
     LDAPAttributeType *attribute = talloc_zero(ctx, LDAPAttributeType);
 
     bool result = ldap_schema_append_attributetype(schema, attribute);
