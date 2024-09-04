@@ -102,6 +102,13 @@ ldap_schema_object_classes(const ldap_schema_t *schema)
 
     LDAPObjectClass** result = talloc_array(schema, LDAPObjectClass*, result_size + 1);
 
+    if (!result)
+    {
+        ld_error("ldap_schema_object_classes - talloc_array for LDAPObjectClass is returned NULL!\n");
+
+        return NULL;
+    }
+
     GHashTableIter iter;
     gpointer key = NULL, value = NULL;
 
@@ -136,6 +143,13 @@ ldap_schema_attribute_types(const ldap_schema_t* schema)
     int result_size = g_hash_table_size(schema->attribute_types);
 
     LDAPAttributeType** result = talloc_array(schema, LDAPAttributeType*, result_size + 1);
+
+    if (!result)
+    {
+        ld_error("ldap_schema_attribute_types - talloc_array for LDAPAttributeType is returned NULL!\n");
+
+        return NULL;
+    }
 
     GHashTableIter iter;
     gpointer key = NULL, value = NULL;
