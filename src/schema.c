@@ -178,7 +178,15 @@ LDAPObjectClass *ldap_schema_get_objectclass_by_oid(const ldap_schema_t* schema,
 {
     if (!schema || !schema->object_classes_by_oid)
     {
-        ld_error("ldap_schema_get_objectclass - schema or object classes list is NULL!\n");
+        if (!schema)
+        {
+            ld_error("ldap_schema_get_objectclass_by_oid - schema is NULL!\n");
+        }
+
+        if (!schema->object_classes_by_oid)
+        {
+            ld_error("ldap_schema_get_objectclass_by_oid - list of object classes is NULL!\n");
+        }
 
         return NULL;
     }
@@ -197,7 +205,15 @@ LDAPObjectClass *ldap_schema_get_objectclass_by_name(const ldap_schema_t* schema
 {
     if (!schema || !schema->object_classes_by_name)
     {
-        ld_error("ldap_schema_get_objectclass - schema or object classes list is NULL!\n");
+        if (!schema)
+        {
+            ld_error("ldap_schema_get_objectclass_by_name - schema is NULL!\n");
+        }
+
+        if (!schema->object_classes_by_name)
+        {
+            ld_error("ldap_schema_get_objectclass_by_name - list of object classes is NULL!\n");
+        }
 
         return NULL;
     }
@@ -216,7 +232,15 @@ LDAPAttributeType *ldap_schema_get_attributetype_by_oid(const ldap_schema_t* sch
 {
     if (!schema || !schema->attribute_types_by_oid)
     {
-        ld_error("ldap_schema_get_attributetype - schema or attribute types list is NULL!\n");
+        if (!schema)
+        {
+            ld_error("ldap_schema_get_attributetype_by_oid - schema is NULL!\n");
+        }
+
+        if (!schema->attribute_types_by_oid)
+        {
+            ld_error("ldap_schema_get_attributetype_by_oid - list of attribute types is NULL!\n");
+        }
 
         return NULL;
     }
@@ -235,7 +259,15 @@ LDAPAttributeType *ldap_schema_get_attributetype_by_name(const ldap_schema_t* sc
 {
     if (!schema || !schema->attribute_types_by_name)
     {
-        ld_error("ldap_schema_get_attributetype - schema or attribute types list is NULL!\n");
+        if (!schema)
+        {
+            ld_error("ldap_schema_get_attributetype_by_name - schema is NULL!\n");
+        }
+
+        if (!schema->attribute_types_by_name)
+        {
+            ld_error("ldap_schema_get_attributetype_by_name - list of attribute types is NULL!\n");
+        }
 
         return NULL;
     }
