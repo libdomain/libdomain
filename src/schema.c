@@ -56,17 +56,6 @@ ldap_schema_new(TALLOC_CTX *ctx)
         return NULL;
     }
 
-    result->object_classes = g_hash_table_new(g_str_hash, g_str_equal);
-
-    if (!result->object_classes)
-    {
-        talloc_free(result);
-
-        ld_error("ldap_schema_new - out of memory - unable to create object classes in schema!\n");
-
-        return NULL;
-    }
-
     result->attribute_types = g_hash_table_new(g_str_hash, g_str_equal);
 
     if (!result->attribute_types)
@@ -74,6 +63,17 @@ ldap_schema_new(TALLOC_CTX *ctx)
         talloc_free(result);
 
         ld_error("ldap_schema_new - out of memory - unable to create attribute types in schema!\n");
+
+        return NULL;
+    }
+
+    result->object_classes = g_hash_table_new(g_str_hash, g_str_equal);
+
+    if (!result->object_classes)
+    {
+        talloc_free(result);
+
+        ld_error("ldap_schema_new - out of memory - unable to create object classes in schema!\n");
 
         return NULL;
     }
