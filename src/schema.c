@@ -104,7 +104,7 @@ ldap_schema_object_classes(const ldap_schema_t *schema)
 
     if (!result)
     {
-        ld_error("ldap_schema_object_classes - talloc_array for LDAPObjectClass is returned NULL!\n");
+        ld_error("ldap_schema_object_classes - talloc_array for LDAPObjectClass returned NULL!\n");
 
         return NULL;
     }
@@ -146,7 +146,7 @@ ldap_schema_attribute_types(const ldap_schema_t* schema)
 
     if (!result)
     {
-        ld_error("ldap_schema_attribute_types - talloc_array for LDAPAttributeType is returned NULL!\n");
+        ld_error("ldap_schema_attribute_types - talloc_array for LDAPAttributeType returned NULL!\n");
 
         return NULL;
     }
