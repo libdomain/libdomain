@@ -167,6 +167,13 @@ ldap_schema_attribute_types(const ldap_schema_t* schema)
     return result;
 }
 
+/*!
+ * \brief ldap_schema_get_objectclass_by_oid    Returns a LDAPObjectClass struct by oid key.
+ * \param[in] schema                            Schema to work with.
+ * \return
+ *        - NULL if schema is NULL.
+ *        - Object class from schema.
+ */
 LDAPObjectClass *ldap_schema_get_objectclass_by_oid(const ldap_schema_t* schema, const char *oid)
 {
     if (!schema || !schema->object_classes_by_oid)
@@ -179,6 +186,13 @@ LDAPObjectClass *ldap_schema_get_objectclass_by_oid(const ldap_schema_t* schema,
     return (LDAPObjectClass *)g_hash_table_lookup(schema->object_classes_by_oid, oid);
 }
 
+/*!
+ * \brief ldap_schema_get_objectclass_by_name   Returns a LDAPObjectClass struct by name key.
+ * \param[in] schema                            Schema to work with.
+ * \return
+ *        - NULL if schema is NULL.
+ *        - Object class from schema.
+ */
 LDAPObjectClass *ldap_schema_get_objectclass_by_name(const ldap_schema_t* schema, const char *name)
 {
     if (!schema || !schema->object_classes_by_name)
@@ -191,6 +205,13 @@ LDAPObjectClass *ldap_schema_get_objectclass_by_name(const ldap_schema_t* schema
     return (LDAPObjectClass *)g_hash_table_lookup(schema->object_classes_by_name, name);
 }
 
+/*!
+* \brief ldap_schema_get_attributetype_by_oid  Returns a LDAPAttributeType struct by oid key.
+* \param[in] schema                            Schema to work with.
+* \return
+*        - NULL if schema is NULL.
+*        - Attribute type from schema.
+*/
 LDAPAttributeType *ldap_schema_get_attributetype_by_oid(const ldap_schema_t* schema, const char *oid)
 {
     if (!schema || !schema->attribute_types_by_oid)
@@ -203,6 +224,13 @@ LDAPAttributeType *ldap_schema_get_attributetype_by_oid(const ldap_schema_t* sch
     return (LDAPAttributeType *)g_hash_table_lookup(schema->attribute_types_by_oid, oid);
 }
 
+/*!
+* \brief ldap_schema_get_attributetype_by_name  Returns a LDAPAttributeType struct by name key.
+* \param[in] schema                             Schema to work with.
+* \return
+*        - NULL if schema is NULL.
+*        - Attribute type from schema.
+*/
 LDAPAttributeType *ldap_schema_get_attributetype_by_name(const ldap_schema_t* schema, const char *name)
 {
     if (!schema || !schema->attribute_types_by_name)
