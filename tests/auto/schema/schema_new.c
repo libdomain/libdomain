@@ -13,8 +13,10 @@ Ensure(returns_schema_on_successful_allocation) {
     struct ldap_schema_t *schema = ldap_schema_new(ctx);
 
     assert_that(schema, is_not_equal_to(NULL));
-    assert_that(schema->attribute_types, is_not_equal_to(NULL));
-    assert_that(schema->object_classes, is_not_equal_to(NULL));
+    assert_that(schema->attribute_types_by_oid, is_not_equal_to(NULL));
+    assert_that(schema->attribute_types_by_name, is_not_equal_to(NULL));
+    assert_that(schema->object_classes_by_oid, is_not_equal_to(NULL));
+    assert_that(schema->object_classes_by_name, is_not_equal_to(NULL));
 
     talloc_free(ctx);
 }

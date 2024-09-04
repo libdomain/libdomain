@@ -44,10 +44,16 @@ ldap_schema_attribute_types(const ldap_schema_t *schema);
 bool ldap_schema_append_objectclass(ldap_schema_t* schema, LDAPObjectClass *objectclass);
 
 LDAPAttributeType*
-ldap_schema_get_attributetype(const ldap_schema_t* schema, const char *name_or_oid);
+ldap_schema_get_attributetype_by_name(const ldap_schema_t* schema, const char *name);
+
+LDAPAttributeType*
+ldap_schema_get_attributetype_by_oid(const ldap_schema_t* schema, const char *oid);
 
 LDAPObjectClass*
-ldap_schema_get_objectclass(const ldap_schema_t* schema, const char *name_or_oid);
+ldap_schema_get_objectclass_by_name(const ldap_schema_t* schema, const char *name);
+
+LDAPObjectClass*
+ldap_schema_get_objectclass_by_oid(const ldap_schema_t* schema, const char *oid);
 
 enum OperationReturnCode
 ldap_schema_load(struct ldap_connection_ctx_t* connection);
