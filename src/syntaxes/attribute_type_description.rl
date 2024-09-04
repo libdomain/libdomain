@@ -13,7 +13,8 @@
     {
         if (symbol_start != p)
         {
-            result->at_oid = talloc_strndup(talloc_ctx, fpc, fpc - symbol_start);
+            result->at_oid = talloc_strndup(talloc_ctx, symbol_start, fpc - symbol_start);
+            printf("OID: %s\n", result->at_oid);
         }
         symbol_start = p;
     }
@@ -22,8 +23,10 @@
     {
         if (symbol_start != p)
         {
-            result->at_names = talloc_array(talloc_ctx, char*, 1);
-            result->at_names[0] = talloc_strndup(talloc_ctx, fpc, fpc - symbol_start);
+            result->at_names = talloc_realloc(talloc_ctx, result->at_names, char*, name_index + 1);
+            result->at_names[name_index] = talloc_strndup(talloc_ctx, symbol_start, fpc - symbol_start);
+            printf("NAME: %s\n", result->at_names[name_index]);
+            name_index++;
         }
         symbol_start = p;
     }
@@ -32,7 +35,8 @@
     {
         if (symbol_start != p)
         {
-            result->at_syntax_oid = talloc_strndup(talloc_ctx, fpc, fpc - symbol_start);
+            result->at_syntax_oid = talloc_strndup(talloc_ctx, symbol_start, fpc - symbol_start);
+            printf("SYNTAX: %s\n", result->at_syntax_oid);
         }
         symbol_start = p;
     }
@@ -40,11 +44,13 @@
     action single_value
     {
         result->at_single_value = 1;
+        printf("SINGLE-VALUE\n");
     }
 
     action no_user_modification
     {
         result->at_no_user_mod = 1;
+        printf("NO-USER-MODIFICATION\n");
     }
 
     DOT = ".";
@@ -57,7 +63,7 @@
     leadkeychar = ALPHA;
     keychar = ALPHA | DIGIT | HYPHEN;
     keystring = leadkeychar keychar*;
-    whsp = SPACE+;
+    whsp = SPACE*;
     number = DIGIT | ( LDIGIT DIGIT+ );
     numericoid = number ( DOT number )+;
     syntaxoid = SQUOTE %start ( numericoid | "OctetString"i ) %syntax_end SQUOTE;
@@ -68,12 +74,12 @@
     AttributeTypeDescription = "(" whsp %start numericoid %oid_end whsp
                                    ( "NAME"i qdescrs )?
                                    ( "SYNTAX"i whsp syntaxoid whsp )?
-                                   ( "SINGLE-VALUE"i whsp %single_value )?
-                                   ( "NO-USER-MODIFICATION"i whsp %no_user_modification )?
+                                   ( "SINGLE-VALUE"i %single_value whsp )?
+                                   ( "NO-USER-MODIFICATION"i %no_user_modification whsp )?
                                 whsp ")";
 
     # instantiate machine rules
-    main:= AttributeTypeDescription;
+    main:= "attributeTypes"i ":" whsp AttributeTypeDescription;
 
 }%%
 
@@ -85,8 +91,16 @@ LDAPAttributeType* parse_attribute_type_description(TALLOC_CTX *talloc_ctx, cons
     const char *const pe = in + len;
     int cs;
     const char *symbol_start = p;
+    int name_index = 0;
 
-    LDAPAttributeType* result = talloc(talloc_ctx, LDAPAttributeType);
+    if (!talloc_ctx || !in)
+    {
+        return NULL;
+    }
+
+    LDAPAttributeType* result = talloc_zero(talloc_ctx, LDAPAttributeType);
+
+    printf("%s\n", in);
 
     %%{
         write init;
