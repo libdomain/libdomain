@@ -14,7 +14,6 @@
         if (symbol_start != p)
         {
             result->at_oid = talloc_strndup(talloc_ctx, symbol_start, fpc - symbol_start);
-            printf("OID: %s\n", result->at_oid);
         }
         symbol_start = p;
     }
@@ -25,7 +24,6 @@
         {
             result->at_names = talloc_realloc(talloc_ctx, result->at_names, char*, name_index + 1);
             result->at_names[name_index] = talloc_strndup(talloc_ctx, symbol_start, fpc - symbol_start);
-            printf("NAME: %s\n", result->at_names[name_index]);
             name_index++;
         }
         symbol_start = p;
@@ -36,7 +34,6 @@
         if (symbol_start != p)
         {
             result->at_syntax_oid = talloc_strndup(talloc_ctx, symbol_start, fpc - symbol_start);
-            printf("SYNTAX: %s\n", result->at_syntax_oid);
         }
         symbol_start = p;
     }
@@ -44,13 +41,11 @@
     action single_value
     {
         result->at_single_value = 1;
-        printf("SINGLE-VALUE\n");
     }
 
     action no_user_modification
     {
         result->at_no_user_mod = 1;
-        printf("NO-USER-MODIFICATION\n");
     }
 
     DOT = ".";
@@ -87,20 +82,23 @@
 
 LDAPAttributeType* parse_attribute_type_description(TALLOC_CTX *talloc_ctx, const char *const in, const size_t len)
 {
-    const char *p = in;
-    const char *const pe = in + len;
-    int cs;
-    const char *symbol_start = p;
-    int name_index = 0;
-
     if (!talloc_ctx || !in)
     {
         return NULL;
     }
 
+    const char *p = in;
+    const char *const pe = in + len;
+    const char *symbol_start = p;
+    int cs = 0;
+    int name_index = 0;
+
     LDAPAttributeType* result = talloc_zero(talloc_ctx, LDAPAttributeType);
 
-    printf("%s\n", in);
+    if (!result)
+    {
+        return NULL;
+    }
 
     %%{
         write init;
