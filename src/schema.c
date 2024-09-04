@@ -286,9 +286,9 @@ LDAPAttributeType *ldap_schema_get_attributetype_by_name(const ldap_schema_t* sc
 bool
 ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType *attributetype)
 {
-    char *attributetype_name = ldap_attributetype2name(attributetype);
+    char** attributetype_names = attributetype->at_names;
 
-    if (!schema || !attributetype || !attributetype_name)
+    if (!schema || !attributetype || !attributetype_names)
     {
         if (!schema)
         {
@@ -300,16 +300,32 @@ ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType
             ld_error("Attempt to pass NULL attribute type parameter. \n");
         }
 
-        if (!attributetype_name)
+        if (!attributetype_names)
         {
-            ld_error("Attribute type name is NULL!\n");
+            ld_error("Attribute type names list is empty!\n");
         }
 
         return false;
     }
 
-    return g_hash_table_insert(schema->attribute_types_by_oid, attributetype->at_oid, attributetype)
-            && g_hash_table_insert(schema->attribute_types_by_name, attributetype_name, attributetype);
+    bool result = g_hash_table_insert(schema->attribute_types_by_oid, attributetype->at_oid, attributetype);
+
+    if (!result)
+    {
+        return false;
+    }
+
+    for (int i = 0; attributetype_names[i] != NULL; ++i)
+    {
+        result = result && g_hash_table_insert(schema->attribute_types_by_name, attributetype_names[i], attributetype);
+
+        if (!result)
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 /*!
@@ -323,9 +339,9 @@ ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType
 bool
 ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *objectclass)
 {
-    char *objectclass_name = ldap_objectclass2name(objectclass);
+    char** objectclass_names = objectclass->oc_names;
 
-    if (!schema || !objectclass || !objectclass_name)
+    if (!schema || !objectclass || !objectclass_names)
     {
         if (!schema)
         {
@@ -337,16 +353,32 @@ ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *ob
             ld_error("Attempt to pass NULL object class parameter. \n");
         }
 
-        if (!objectclass_name)
+        if (!objectclass_names)
         {
-            ld_error("Object class name is NULL!\n");
+            ld_error("Object class names list is empty!\n");
         }
 
         return false;
     }
 
-    return g_hash_table_insert(schema->object_classes_by_oid, objectclass->oc_oid, objectclass)
-            && g_hash_table_insert(schema->object_classes_by_name, objectclass_name, objectclass);
+    bool result = g_hash_table_insert(schema->attribute_types_by_oid, objectclass->oc_oid, objectclass);
+
+    if (!result)
+    {
+        return false;
+    }
+
+    for (int i = 0; objectclass_names[i] != NULL; ++i)
+    {
+        result = result && g_hash_table_insert(schema->attribute_types_by_name, objectclass_names[i], objectclass);
+
+        if (!result)
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 /**
