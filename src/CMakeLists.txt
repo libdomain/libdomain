@@ -48,6 +48,7 @@ set(PROJECT_SOURCES
     ldap_syntaxes.h
     organizational_unit.c
     organizational_unit.h
+    parsers.h
     request_queue.h
     request_queue.c
     schema.h
@@ -59,10 +60,12 @@ set(PROJECT_SOURCES
 )
 
 add_subdirectory(syntaxes)
+add_subdirectory(parsers)
 
 add_libdomain_library(domain SHARED ${PROJECT_SOURCES})
 target_link_libraries(domain PUBLIC PkgConfig::Glib20 PkgConfig::Talloc PkgConfig::Libverto PkgConfig::Libconfig Ldap::Ldap)
 target_link_libraries(domain PRIVATE syntax)
+target_link_libraries(domain PRIVATE parser)
 set_target_properties(domain PROPERTIES
     INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}
 )
