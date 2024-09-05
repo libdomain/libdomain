@@ -256,11 +256,11 @@ ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *ob
     char** objectclass_names = objectclass->oc_names;
     check_for_null_parameter(objectclass_names, "Object class names list is empty!\n");
 
-    bool result = g_hash_table_insert(schema->attribute_types_by_oid, objectclass->oc_oid, objectclass);
+    bool result = g_hash_table_insert(schema->object_classes_by_oid, objectclass->oc_oid, objectclass);
 
     for (int i = 0; objectclass_names[i] != NULL; ++i)
     {
-        result = g_hash_table_insert(schema->attribute_types_by_name, objectclass_names[i], objectclass);
+        result = g_hash_table_insert(schema->object_classes_by_name, objectclass_names[i], objectclass);
     }
 
     return result;
