@@ -80,3 +80,4 @@ build/
 
 # Generated files
 src/syntaxes/*.c
+src/parsers/*.c
