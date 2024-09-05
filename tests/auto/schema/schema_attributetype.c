@@ -17,6 +17,10 @@ Ensure(returns_true_on_successful_append_of_attribute) {
 
     struct ldap_schema_t *schema = ldap_schema_new(ctx);
     LDAPAttributeType* attribute = talloc_zero(ctx, LDAPAttributeType);
+    attribute->at_names = talloc_array(ctx, char*, 2);
+    attribute->at_names[0] = "test_attribute_name";
+    attribute->at_names[1] = NULL;
+    attribute->at_oid = "test_attribute_oid";
 
     bool result = ldap_schema_append_attributetype(schema, attribute);
 

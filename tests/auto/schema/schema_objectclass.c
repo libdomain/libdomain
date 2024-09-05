@@ -17,6 +17,10 @@ Ensure(returns_true_on_successful_append_of_objectclass) {
 
     struct ldap_schema_t *schema = ldap_schema_new(ctx);
     LDAPObjectClass *objectclass = talloc_zero(ctx, LDAPObjectClass);
+    objectclass->oc_names = talloc_array(ctx, char*, 2);
+    objectclass->oc_names[0] = "test_objectclass_name";
+    objectclass->oc_names[1] = NULL;
+    objectclass->oc_oid = "test_objectclass_oid";
 
     bool result = ldap_schema_append_objectclass(schema, objectclass);
 
