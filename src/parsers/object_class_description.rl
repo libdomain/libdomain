@@ -33,7 +33,7 @@
     {
         if (symbol_start != p)
         {
-            oids = talloc_realloc(talloc_ctx, result->oc_names, char*, oid_index + 1);
+            oids = talloc_realloc(talloc_ctx, oids, char*, oid_index + 1);
             oids[oid_index] = talloc_strndup(talloc_ctx, symbol_start, fpc - symbol_start);
             oid_index++;
         }
@@ -45,6 +45,7 @@
         if (oids)
         {
             result->oc_sup_oids = oids;
+            oid_index = 0;
             oids = NULL;
         }
     }
@@ -54,6 +55,7 @@
         if (oids)
         {
             result->oc_at_oids_must = oids;
+            oid_index = 0;
             oids = NULL;
         }
     }
@@ -63,6 +65,7 @@
         if (oids)
         {
             result->oc_at_oids_may = oids;
+            oid_index = 0;
             oids = NULL;
         }
     }
@@ -91,7 +94,7 @@
     leadkeychar = ALPHA;
     keychar = ALPHA | DIGIT | HYPHEN;
     keystring = leadkeychar keychar*;
-    whsp = SPACE+;
+    whsp = SPACE*;
     number = DIGIT | ( LDIGIT DIGIT+ );
     numericoid = number ( DOT number )+;
     syntaxoid = SQUOTE ( numericoid | "OctetString"i ) SQUOTE;
@@ -104,19 +107,19 @@
     oids = oid | ( LPAREN WSP oidlist WSP RPAREN );
     ObjectClassDescription = "(" whsp %start numericoid %numericoid_end whsp
                                 ( "NAME"i qdescrs )?
-                                ( "SUP"i oids %write_sups )?
+                                ( "SUP"i whsp oids %write_sups whsp )?
                                 (
                                   ( "ABSTRACT"i
                                     | "STRUCTURAL"i %set_structural
                                     | "AUXILIARY"i %set_auxiliary
                                   ) whsp
                                 )?
-                                ( "MUST"i oids %write_must )?
-                                ( "MAY"i oids  %write_may )?
+                                ( "MUST"i whsp oids whsp )?
+                                ( "MAY"i whsp oids )?
                               whsp ")";
 
     # instantiate machine rules
-    main:= ObjectClassDescription;
+    main:= ("objectClasses"i ":" whsp)? ObjectClassDescription;
 }%%
 
 %%write data;
