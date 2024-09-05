@@ -310,22 +310,12 @@ ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType
 
     bool result = g_hash_table_insert(schema->attribute_types_by_oid, attributetype->at_oid, attributetype);
 
-    if (!result)
-    {
-        return false;
-    }
-
     for (int i = 0; attributetype_names[i] != NULL; ++i)
     {
-        result = result && g_hash_table_insert(schema->attribute_types_by_name, attributetype_names[i], attributetype);
-
-        if (!result)
-        {
-            return false;
-        }
+        result = g_hash_table_insert(schema->attribute_types_by_name, attributetype_names[i], attributetype);
     }
 
-    return true;
+    return result;
 }
 
 /*!
@@ -363,22 +353,12 @@ ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *ob
 
     bool result = g_hash_table_insert(schema->attribute_types_by_oid, objectclass->oc_oid, objectclass);
 
-    if (!result)
-    {
-        return false;
-    }
-
     for (int i = 0; objectclass_names[i] != NULL; ++i)
     {
-        result = result && g_hash_table_insert(schema->attribute_types_by_name, objectclass_names[i], objectclass);
-
-        if (!result)
-        {
-            return false;
-        }
+        result = g_hash_table_insert(schema->attribute_types_by_name, objectclass_names[i], objectclass);
     }
 
-    return true;
+    return result;
 }
 
 /**
