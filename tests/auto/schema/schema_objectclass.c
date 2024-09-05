@@ -26,6 +26,8 @@ Ensure(returns_true_on_successful_append_of_objectclass) {
 
     assert_that(result, is_equal_to(true));
     assert_that(ldap_schema_object_classes(schema)[0], is_equal_to(objectclass));
+    assert_that(ldap_schema_get_objectclass_by_oid(schema, "test_objectclass_oid"), is_equal_to(objectclass));
+    assert_that(ldap_schema_get_objectclass_by_name(schema, "test_objectclass_name"), is_equal_to(objectclass));
 
     talloc_free(ctx);
 }

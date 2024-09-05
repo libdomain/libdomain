@@ -26,6 +26,8 @@ Ensure(returns_true_on_successful_append_of_attribute) {
 
     assert_that(result, is_equal_to(true));
     assert_that(ldap_schema_attribute_types(schema)[0], is_equal_to(attribute));
+    assert_that(ldap_schema_get_attributetype_by_oid(schema, "test_attribute_oid"), is_equal_to(attribute));
+    assert_that(ldap_schema_get_attributetype_by_name(schema, "test_attribute_name"), is_equal_to(attribute));
 
     talloc_free(ctx);
 }
