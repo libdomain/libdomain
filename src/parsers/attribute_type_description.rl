@@ -74,7 +74,7 @@
                                 whsp ")";
 
     # instantiate machine rules
-    main:= "attributeTypes"i ":" whsp AttributeTypeDescription;
+    main:= ("attributeTypes"i ":" whsp)? AttributeTypeDescription;
 
 }%%
 
