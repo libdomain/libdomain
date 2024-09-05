@@ -17,13 +17,6 @@
 ** Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 **
 ***********************************************************************************************************************/
-#define check_for_null_parameter(parameter, error) \
-    if (parameter == NULL) \
-    { \
-        ld_error(error); \
-        return NULL; \
-    }
-
 #include "schema.h"
 #include "schema_p.h"
 
@@ -36,6 +29,13 @@
 #include <ldap.h>
 #include <ldap_schema.h>
 
+#define check_for_null_parameter(parameter, error) \
+    if (parameter == NULL) \
+    { \
+        ld_error(error); \
+        return NULL; \
+    }
+
 /*!
  * \brief ldap_schema_new Allocates ldap_schema_t and checks it for validity.
  * \param[in] ctx         TALLOC_CTX to use.
@@ -46,21 +46,10 @@
 ldap_schema_t*
 ldap_schema_new(TALLOC_CTX *ctx)
 {
-    if (!ctx)
-    {
-        ld_error("NULL talloc context.\n");
-
-        return NULL;
-    }
+    check_for_null_parameter(ctx, "NULL talloc context.\n")
 
     ldap_schema_t* result = talloc_zero(ctx, struct ldap_schema_t);
-
-    if (!result)
-    {
-        ld_error("Unable to allocate ldap_schema_t.\n");
-
-        return NULL;
-    }
+    check_for_null_parameter(result, "Unable to allocate ldap_schema_t.\n")
 
     result->attribute_types_by_oid = g_hash_table_new(g_str_hash, g_str_equal);
     result->attribute_types_by_name = g_hash_table_new(g_str_hash, g_str_equal);
