@@ -44,11 +44,12 @@ set(PROJECT_SOURCES
     entry_p.h
     group.c
     group.h
+    ldap_parsers.h
+    ldap_parsers.c
     ldap_syntaxes.c
     ldap_syntaxes.h
     organizational_unit.c
     organizational_unit.h
-    parsers.h
     request_queue.h
     request_queue.c
     schema.h

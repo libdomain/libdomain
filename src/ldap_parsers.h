@@ -18,14 +18,14 @@
 **
 ***********************************************************************************************************************/
 
-#ifndef LIB_DOMAIN_PARSERS_H
-#define LIB_DOMAIN_PARSERS_H
+#ifndef LIB_DOMAIN_LDAP_PARSERS_H
+#define LIB_DOMAIN_LDAP_PARSERS_H
 
 #include <talloc.h>
-#include <ldap_schemas.h>
+#include <ldap_schema.h>
 
-LDAPObjectClass* parse_object_class_description(TALLOC_CTX* talloc_ctx, const char *const in, const size_t len);
+LDAPAttributeType* parse_attribute_type(TALLOC_CTX *talloc_ctx, const char *value);
 
-LDAPAttributeType* parse_attribute_type_description(TALLOC_CTX *talloc_ctx, const char *const in, const size_t len);
+LDAPObjectClass* parse_object_class(TALLOC_CTX* talloc_ctx, const char *value);
 
-#endif//LIB_DOMAIN_PARSERS_H
+#endif//LIB_DOMAIN_LDAP_PARSERS_H
