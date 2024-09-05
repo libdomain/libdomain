@@ -15,6 +15,7 @@ add_subdirectory(connection_state_machine)
 add_subdirectory(search)
 
 add_subdirectory(schema)
+add_subdirectory(ldap_parsers)
 add_subdirectory(ldap_syntaxes)
 add_subdirectory(openldap_schema)
 
