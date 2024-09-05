@@ -7,10 +7,13 @@
 
 static const char* VALID_VALUES[] =
 {
-    "objectClasses: ( 1.2.840.113556.1.5.10 NAME 'classRegistration' SUP leaf STRUCTURAL MAY (requiredCategories $ managedBy $ implementedCategories $ cOMTreatAsClassId $ cOMProgID $ cOMOtherProgId $ cOMInterfaceID $ cOMCLSID ) ) objectClasses: ( 1.2.840.113556.1.5.84 NAME 'displaySpecifier' SUP top STRUCTURAL MAY (treatAsLeaf $ shellPropertyPages $ shellContextMenu $ scopeFlags $ queryFilter $ iconPath $ extraColumns $ creationWizard $ createWizardExt $ createDialog $ contextMenu $ classDisplayName $ attributeDisplayNames $ adminPropertyPages $ adminMultiselectPropertyPages $ adminContextMenu ) )",
+    "objectClasses: ( 1.2.840.113556.1.5.10 NAME 'classRegistration' SUP leaf STRUCTURAL MAY (requiredCategories $ managedBy $ implementedCategories $ cOMTreatAsClassId $ cOMProgID $ cOMOtherProgId $ cOMInterfaceID $ cOMCLSID ) )",
+    "objectClasses: ( 1.2.840.113556.1.5.84 NAME 'displaySpecifier' SUP top STRUCTURAL MAY (treatAsLeaf $ shellPropertyPages $ shellContextMenu $ scopeFlags $ queryFilter $ iconPath $ extraColumns $ creationWizard $ createWizardExt $ createDialog $ contextMenu $ classDisplayName $ attributeDisplayNames $ adminPropertyPages $ adminMultiselectPropertyPages $ adminContextMenu ) )",
     "objectClasses: ( 1.2.840.113556.1.5.68 NAME 'applicationSiteSettings' SUP top ABSTRACT MAY (notificationList $ applicationName ) )",
     "objectClasses: ( 1.2.840.113556.1.5.7000.53 NAME 'crossRefContainer' SUP top STRUCTURAL MAY (msDS-EnabledFeature $ msDS-SPNSuffixes $ uPNSuffixes $ msDS-UpdateScript $ msDS-ExecuteScriptPassword $ msDS-Behavior-Version ) )",
     "objectClasses: ( 1.2.840.113556.1.5.5 NAME 'samServer' SUP securityObject STRUCTURAL MAY (samDomainUpdates ) )",
+    "objectClasses: ( 1.2.840.113556.1.5.212 NAME 'msWMI-ShadowObject' SUP top STRUCTURAL MUST (msWMI-TargetObject ) )",
+    "objectClasses: ( 1.2.840.113556.1.3.46 NAME 'mailRecipient' SUP top AUXILIARY MUST (msWMI-TargetObject ) )",
 };
 static const int NUMBER_OF_VALID_VALUES = number_of_elements(VALID_VALUES);
 
