@@ -243,8 +243,7 @@ ldap_schema_load(struct ldap_connection_ctx_t* connection)
         return schema_load_openldap(connection, connection->schema);
 
     case LDAP_TYPE_ACTIVE_DIRECTORY:
-        // TODO: move call `schema_load_active_directory` function
-        return RETURN_CODE_SUCCESS;
+        return schema_load_active_directory(connection, connection->schema);
 
     case LDAP_TYPE_FREE_IPA:
         // TODO: move call `schema_load_free_ipa` function

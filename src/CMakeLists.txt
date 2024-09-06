@@ -24,6 +24,7 @@ pkg_check_modules(Libverto REQUIRED IMPORTED_TARGET libverto)
 pkg_check_modules(Libconfig REQUIRED IMPORTED_TARGET libconfig)
 
 set(PROJECT_SOURCES
+    ad_schema.c
     attribute.c
     attribute.h
     common.c
