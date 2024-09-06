@@ -17,31 +17,17 @@ Ensure(returns_true_on_successful_append_of_attribute) {
 
     struct ldap_schema_t *schema = ldap_schema_new(ctx);
     LDAPAttributeType* attribute = talloc_zero(ctx, LDAPAttributeType);
+    attribute->at_names = talloc_array(ctx, char*, 2);
+    attribute->at_names[0] = "test_attribute_name";
+    attribute->at_names[1] = NULL;
+    attribute->at_oid = "test_attribute_oid";
 
     bool result = ldap_schema_append_attributetype(schema, attribute);
 
     assert_that(result, is_equal_to(true));
     assert_that(ldap_schema_attribute_types(schema)[0], is_equal_to(attribute));
-
-    talloc_free(ctx);
-}
-
-Ensure(returns_true_on_successful_append_to_full_capacity_to_attributetypes) {
-    TALLOC_CTX *ctx = talloc_new(NULL);
-
-    struct ldap_schema_t *schema = ldap_schema_new(ctx);
-    schema->attribute_types_capacity = 1;
-    LDAPAttributeType *attribute = talloc_zero(ctx, LDAPAttributeType);
-
-    bool result = ldap_schema_append_attributetype(schema, attribute);
-
-    assert_that(result, is_equal_to(true));
-    assert_that(ldap_schema_attribute_types(schema)[0], is_equal_to(attribute));
-
-    result = ldap_schema_append_attributetype(schema, attribute);
-
-    assert_that(result, is_equal_to(true));
-    assert_that(ldap_schema_attribute_types(schema)[1], is_equal_to(attribute));
+    assert_that(ldap_schema_get_attributetype_by_oid(schema, "test_attribute_oid"), is_equal_to(attribute));
+    assert_that(ldap_schema_get_attributetype_by_name(schema, "test_attribute_name"), is_equal_to(attribute));
 
     talloc_free(ctx);
 }
@@ -69,13 +55,51 @@ Ensure(returns_false_on_null_attributetype_with_valid_schema) {
     talloc_free(ctx);
 }
 
+Ensure(get_attributetype_returns_null_on_valid_schema_and_invalid_name_or_oid)
+{
+    TALLOC_CTX *ctx = talloc_new(NULL);
+
+    struct ldap_schema_t *schema = ldap_schema_new(ctx);
+
+    LDAPAttributeType *attribute = talloc_zero(ctx, LDAPAttributeType);
+
+    attribute->at_names = talloc_array(ctx, char*, 2);
+    attribute->at_names[0] = "test_attribute_name";
+    attribute->at_names[1] = NULL;
+    attribute->at_oid = "test_attribute_oid";
+
+    ldap_schema_append_attributetype(NULL, attribute);
+
+    LDAPAttributeType* result = ldap_schema_get_attributetype_by_name(schema, "wrong_attribute_name");
+
+    assert_that(result, is_equal_to(NULL));
+
+    result = ldap_schema_get_attributetype_by_oid(schema, "wrong_attribute_oid");
+
+    assert_that(result, is_equal_to(NULL));
+
+    talloc_free(ctx);
+}
+
+Ensure(get_attributetype_returns_null_on_invalid_schema)
+{
+    LDAPAttributeType* result = ldap_schema_get_attributetype_by_name(NULL, "test_attribute_name");
+
+    assert_that(result, is_equal_to(NULL));
+
+    result = ldap_schema_get_attributetype_by_oid(NULL, "test_attribute_oid");
+
+    assert_that(result, is_equal_to(NULL));
+}
+
 TestSuite*
 schema_attributetype_test_suite()
 {
     TestSuite *suite = create_test_suite();
     add_test(suite, returns_true_on_successful_append_of_attribute);
-    add_test(suite, returns_true_on_successful_append_to_full_capacity_to_attributetypes);
     add_test(suite, returns_false_on_null_schema_with_valid_attributetype);
     add_test(suite, returns_false_on_null_attributetype_with_valid_schema);
+    add_test(suite, get_attributetype_returns_null_on_valid_schema_and_invalid_name_or_oid);
+    add_test(suite, get_attributetype_returns_null_on_invalid_schema);
     return suite;
 }
