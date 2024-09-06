@@ -229,6 +229,8 @@ ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType
     char** attributetype_names = attributetype->at_names;
     check_for_null_parameter(attributetype_names, "Attribute type names list is empty!\n");
 
+    check_for_null_parameter(attributetype->at_oid, "ldap_schema_append_attributetype - oid of attribute type parameter is NULL!\n");
+
     bool result = g_hash_table_insert(schema->attribute_types_by_oid, attributetype->at_oid, attributetype);
 
     for (int i = 0; attributetype_names[i] != NULL; ++i)
@@ -255,6 +257,8 @@ ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *ob
 
     char** objectclass_names = objectclass->oc_names;
     check_for_null_parameter(objectclass_names, "Object class names list is empty!\n");
+
+    check_for_null_parameter(objectclass->oc_oid, "ldap_schema_append_objectclass - oid of object class parameter is NULL!\n");
 
     bool result = g_hash_table_insert(schema->object_classes_by_oid, objectclass->oc_oid, objectclass);
 
