@@ -29,7 +29,7 @@
 #include <ldap.h>
 #include <ldap_schema.h>
 
-#define check_for_null_parameter(parameter, error) \
+#define return_null_if_null(parameter, error) \
     if (parameter == NULL) \
     { \
         ld_error(error); \
@@ -46,10 +46,10 @@
 ldap_schema_t*
 ldap_schema_new(TALLOC_CTX *ctx)
 {
-    check_for_null_parameter(ctx, "NULL talloc context.\n")
+    return_null_if_null(ctx, "NULL talloc context.\n")
 
     ldap_schema_t* result = talloc_zero(ctx, struct ldap_schema_t);
-    check_for_null_parameter(result, "Unable to allocate ldap_schema_t.\n")
+    return_null_if_null(result, "Unable to allocate ldap_schema_t.\n")
 
     result->attribute_types_by_oid = g_hash_table_new(g_str_hash, g_str_equal);
     result->attribute_types_by_name = g_hash_table_new(g_str_hash, g_str_equal);
@@ -88,15 +88,15 @@ ldap_schema_new(TALLOC_CTX *ctx)
 LDAPObjectClass**
 ldap_schema_object_classes(const ldap_schema_t *schema)
 {
-    check_for_null_parameter(schema, "ldap_schema_object_classes - schema is NULL!\n");
-    check_for_null_parameter(schema->object_classes_by_oid,
+    return_null_if_null(schema, "ldap_schema_object_classes - schema is NULL!\n");
+    return_null_if_null(schema->object_classes_by_oid,
                              "ldap_schema_object_classes - object_classes_by_oid is NULL!\n");
 
     int result_size = g_hash_table_size(schema->object_classes_by_oid);
 
     LDAPObjectClass** result = talloc_array(schema, LDAPObjectClass*, result_size + 1);
 
-    check_for_null_parameter(result,
+    return_null_if_null(result,
                              "ldap_schema_object_classes - talloc_array for LDAPObjectClass returned NULL!\n");
 
     GHashTableIter iter;
@@ -123,15 +123,15 @@ ldap_schema_object_classes(const ldap_schema_t *schema)
 LDAPAttributeType**
 ldap_schema_attribute_types(const ldap_schema_t* schema)
 {
-    check_for_null_parameter(schema, "ldap_schema_attribute_types - schema is NULL!\n");
-    check_for_null_parameter(schema->attribute_types_by_oid,
+    return_null_if_null(schema, "ldap_schema_attribute_types - schema is NULL!\n");
+    return_null_if_null(schema->attribute_types_by_oid,
                              "ldap_schema_attribute_types - attribute_types_by_oid is NULL!\n");
 
     int result_size = g_hash_table_size(schema->attribute_types_by_oid);
 
     LDAPAttributeType** result = talloc_array(schema, LDAPAttributeType*, result_size + 1);
 
-    check_for_null_parameter(result,
+    return_null_if_null(result,
                              "ldap_schema_attribute_types - talloc_array for LDAPAttributeType returned NULL!\n");
 
     GHashTableIter iter;
@@ -149,7 +149,7 @@ ldap_schema_attribute_types(const ldap_schema_t* schema)
 }
 
 /*!
- * \brief ldap_schema_get_objectclass_by_oid    Returns a LDAPObjectClass struct by oid key.
+ * \brief ldap_schema_get_objectclass_by_oid    Returns a LDAPObjectClass struct corresponding to the specified OID.
  * \param[in] schema                            Schema to work with.
  * \return
  *        - NULL if schema is NULL.
@@ -157,15 +157,15 @@ ldap_schema_attribute_types(const ldap_schema_t* schema)
  */
 LDAPObjectClass *ldap_schema_get_objectclass_by_oid(const ldap_schema_t* schema, const char *oid)
 {
-    check_for_null_parameter(schema, "ldap_schema_get_objectclass_by_oid - schema is NULL!\n");
-    check_for_null_parameter(schema->object_classes_by_oid,
+    return_null_if_null(schema, "ldap_schema_get_objectclass_by_oid - schema is NULL!\n");
+    return_null_if_null(schema->object_classes_by_oid,
                              "ldap_schema_get_objectclass_by_oid - object_classes_by_oid is NULL!\n");
 
     return (LDAPObjectClass *)g_hash_table_lookup(schema->object_classes_by_oid, oid);
 }
 
 /*!
- * \brief ldap_schema_get_objectclass_by_name   Returns a LDAPObjectClass struct by name key.
+ * \brief ldap_schema_get_objectclass_by_name   Returns a LDAPObjectClass struct corresponding to the specified name.
  * \param[in] schema                            Schema to work with.
  * \return
  *        - NULL if schema is NULL.
@@ -173,15 +173,15 @@ LDAPObjectClass *ldap_schema_get_objectclass_by_oid(const ldap_schema_t* schema,
  */
 LDAPObjectClass *ldap_schema_get_objectclass_by_name(const ldap_schema_t* schema, const char *name)
 {
-    check_for_null_parameter(schema, "ldap_schema_get_objectclass_by_name - schema is NULL!\n");
-    check_for_null_parameter(schema->object_classes_by_name,
+    return_null_if_null(schema, "ldap_schema_get_objectclass_by_name - schema is NULL!\n");
+    return_null_if_null(schema->object_classes_by_name,
                              "ldap_schema_get_objectclass_by_name - object_classes_by_name is NULL!\n");
 
     return (LDAPObjectClass *)g_hash_table_lookup(schema->object_classes_by_name, name);
 }
 
 /*!
-* \brief ldap_schema_get_attributetype_by_oid  Returns a LDAPAttributeType struct by oid key.
+* \brief ldap_schema_get_attributetype_by_oid  Returns a LDAPAttributeType struct corresponding to the specified OID.
 * \param[in] schema                            Schema to work with.
 * \return
 *        - NULL if schema is NULL.
@@ -189,15 +189,15 @@ LDAPObjectClass *ldap_schema_get_objectclass_by_name(const ldap_schema_t* schema
 */
 LDAPAttributeType *ldap_schema_get_attributetype_by_oid(const ldap_schema_t* schema, const char *oid)
 {
-    check_for_null_parameter(schema, "ldap_schema_get_attributetype_by_oid - schema is NULL!\n");
-    check_for_null_parameter(schema->attribute_types_by_oid,
+    return_null_if_null(schema, "ldap_schema_get_attributetype_by_oid - schema is NULL!\n");
+    return_null_if_null(schema->attribute_types_by_oid,
                              "ldap_schema_get_attributetype_by_oid - attribute_types_by_oid is NULL!\n");
 
     return (LDAPAttributeType *)g_hash_table_lookup(schema->attribute_types_by_oid, oid);
 }
 
 /*!
-* \brief ldap_schema_get_attributetype_by_name  Returns a LDAPAttributeType struct by name key.
+* \brief ldap_schema_get_attributetype_by_name  Returns a LDAPAttributeType struct corresponding to the specified name.
 * \param[in] schema                             Schema to work with.
 * \return
 *        - NULL if schema is NULL.
@@ -205,8 +205,8 @@ LDAPAttributeType *ldap_schema_get_attributetype_by_oid(const ldap_schema_t* sch
 */
 LDAPAttributeType *ldap_schema_get_attributetype_by_name(const ldap_schema_t* schema, const char *name)
 {
-    check_for_null_parameter(schema, "ldap_schema_get_attributetype_by_name - schema is NULL!\n");
-    check_for_null_parameter(schema->attribute_types_by_name,
+    return_null_if_null(schema, "ldap_schema_get_attributetype_by_name - schema is NULL!\n");
+    return_null_if_null(schema->attribute_types_by_name,
                              "ldap_schema_get_attributetype_by_name - attribute_types_by_name is NULL!\n");
 
     return (LDAPAttributeType *)g_hash_table_lookup(schema->attribute_types_by_name, name);
@@ -223,13 +223,13 @@ LDAPAttributeType *ldap_schema_get_attributetype_by_name(const ldap_schema_t* sc
 bool
 ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType *attributetype)
 {
-    check_for_null_parameter(schema, "Attempt to pass NULL schema parameter.\n");
-    check_for_null_parameter(attributetype, "Attempt to pass NULL attribute type parameter.\n");
+    return_null_if_null(schema, "Attempt to pass NULL schema parameter.\n");
+    return_null_if_null(attributetype, "Attempt to pass NULL attribute type parameter.\n");
 
     char** attributetype_names = attributetype->at_names;
-    check_for_null_parameter(attributetype_names, "Attribute type names list is empty!\n");
+    return_null_if_null(attributetype_names, "Attribute type names list is empty!\n");
 
-    check_for_null_parameter(attributetype->at_oid, "ldap_schema_append_attributetype - oid of attribute type parameter is NULL!\n");
+    return_null_if_null(attributetype->at_oid, "ldap_schema_append_attributetype - oid of attribute type parameter is NULL!\n");
 
     bool result = g_hash_table_insert(schema->attribute_types_by_oid, attributetype->at_oid, attributetype);
 
@@ -252,13 +252,13 @@ ldap_schema_append_attributetype(struct ldap_schema_t *schema, LDAPAttributeType
 bool
 ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *objectclass)
 {
-    check_for_null_parameter(schema, "Attempt to pass NULL schema parameter.\n");
-    check_for_null_parameter(objectclass, "Attempt to pass NULL object class parameter.\n");
+    return_null_if_null(schema, "Attempt to pass NULL schema parameter.\n");
+    return_null_if_null(objectclass, "Attempt to pass NULL object class parameter.\n");
 
     char** objectclass_names = objectclass->oc_names;
-    check_for_null_parameter(objectclass_names, "Object class names list is empty!\n");
+    return_null_if_null(objectclass_names, "Object class names list is empty!\n");
 
-    check_for_null_parameter(objectclass->oc_oid, "ldap_schema_append_objectclass - oid of object class parameter is NULL!\n");
+    return_null_if_null(objectclass->oc_oid, "ldap_schema_append_objectclass - oid of object class parameter is NULL!\n");
 
     bool result = g_hash_table_insert(schema->object_classes_by_oid, objectclass->oc_oid, objectclass);
 
