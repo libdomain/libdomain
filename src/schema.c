@@ -301,6 +301,13 @@ ldap_schema_load(struct ldap_connection_ctx_t* connection)
     return RETURN_CODE_SUCCESS;
 }
 
+/**
+ * @brief ldap_schema_ready Checks the readiness of the schema loading.
+ * @param[in] connection    Connection to work with.
+ * @return
+ *        - false - if schema is not ready.
+ *        - true - if schema is ready.
+ */
 bool
 ldap_schema_ready(struct ldap_connection_ctx_t* connection)
 {
