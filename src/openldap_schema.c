@@ -115,7 +115,7 @@ ldap_schema_callback_common(struct ldap_connection_ctx_t *connection, ld_entry_t
 /**
  * @brief attribute_type_callback   This callback appends LDAP attribute type to schema.
  * @param[in] attribute_value       Attribute value to work with.
- * @param[in] user_data                 An output parameter for returning data (schema in this case) from callback.
+ * @param[in] user_data             An output parameter for returning data (schema in this case) from callback.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
@@ -178,10 +178,10 @@ static enum OperationReturnCode object_class_callback(char *attribute_value, voi
 }
 
 /**
- * @brief object_class_callback     This callback wraps ldap_schema_callback_common for attribute type appending to schema.
- * @param[in] connection            Connection to work with.
- * @param[in] entries               Entries to work with.
- * @param[in] user_data             An output parameter for returning data (schema in this case) from callback.
+ * @brief ldap_schema_attribute_types_search_callback   This callback wraps ldap_schema_callback_common for attribute type appending to schema.
+ * @param[in] connection                                Connection to work with.
+ * @param[in] entries                                   Entries to work with.
+ * @param[in] user_data                                 An output parameter for returning data (schema in this case) from callback.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
@@ -193,10 +193,10 @@ ldap_schema_attribute_types_search_callback(struct ldap_connection_ctx_t *connec
 }
 
 /**
- * @brief object_class_callback     This callback wraps ldap_schema_callback_common for object class appending to schema.
- * @param[in] connection            Connection to work with.
- * @param[in] entries               Entries to work with.
- * @param[in] user_data             An output parameter for returning data (schema in this case) from callback.
+ * @brief ldap_schema_object_classes_search_callback    This callback wraps ldap_schema_callback_common for object class appending to schema.
+ * @param[in] connection                                Connection to work with.
+ * @param[in] entries                                   Entries to work with.
+ * @param[in] user_data                                 An output parameter for returning data (schema in this case) from callback.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
@@ -208,9 +208,9 @@ ldap_schema_object_classes_search_callback(struct ldap_connection_ctx_t *connect
 }
 
 /**
- * @brief ldap_schema_load  Loads the schema of OpenLDAP directory type from the connection.
- * @param[in] connection    Connection to work with.
- * @param[in] schema        Schema for loading data from connection.
+ * @brief schema_load_openldap  Loads the schema of OpenLDAP directory type from the connection.
+ * @param[in] connection        Connection to work with.
+ * @param[in] schema            Schema for loading data from connection.
  * @return
  *        - RETURN_CODE_SUCCESS on success.
  *        - RETURN_CODE_FAILURE on failure.
@@ -232,7 +232,7 @@ schema_load_openldap(struct ldap_connection_ctx_t* connection, struct ldap_schem
 
     if (rc != RETURN_CODE_SUCCESS)
     {
-        ld_error("schema_load_openldab - unable to search attributes.\n");
+        ld_error("schema_load_openldap - unable to search attribute types.\n");
 
         return RETURN_CODE_FAILURE;
     }
