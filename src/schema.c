@@ -151,6 +151,7 @@ ldap_schema_attribute_types(const ldap_schema_t* schema)
 /*!
  * \brief ldap_schema_get_objectclass_by_oid    Returns a LDAPObjectClass struct corresponding to the specified OID.
  * \param[in] schema                            Schema to work with.
+ * \param[in] oid                               Key in the form of an object identifier.
  * \return
  *        - NULL if schema is NULL.
  *        - Object class from schema.
@@ -167,6 +168,7 @@ LDAPObjectClass *ldap_schema_get_objectclass_by_oid(const ldap_schema_t* schema,
 /*!
  * \brief ldap_schema_get_objectclass_by_name   Returns a LDAPObjectClass struct corresponding to the specified name.
  * \param[in] schema                            Schema to work with.
+ * \param[in] name                              Key in the form of an one of object names.
  * \return
  *        - NULL if schema is NULL.
  *        - Object class from schema.
@@ -181,12 +183,13 @@ LDAPObjectClass *ldap_schema_get_objectclass_by_name(const ldap_schema_t* schema
 }
 
 /*!
-* \brief ldap_schema_get_attributetype_by_oid  Returns a LDAPAttributeType struct corresponding to the specified OID.
-* \param[in] schema                            Schema to work with.
-* \return
-*        - NULL if schema is NULL.
-*        - Attribute type from schema.
-*/
+ * \brief ldap_schema_get_attributetype_by_oid  Returns a LDAPAttributeType struct corresponding to the specified OID.
+ * \param[in] schema                            Schema to work with.
+ * \param[in] oid                               Key in the form of an object identifier.
+ * \return
+ *        - NULL if schema is NULL.
+ *        - Attribute type from schema.
+ */
 LDAPAttributeType *ldap_schema_get_attributetype_by_oid(const ldap_schema_t* schema, const char *oid)
 {
     return_null_if_null(schema, "ldap_schema_get_attributetype_by_oid - schema is NULL!\n");
@@ -197,12 +200,13 @@ LDAPAttributeType *ldap_schema_get_attributetype_by_oid(const ldap_schema_t* sch
 }
 
 /*!
-* \brief ldap_schema_get_attributetype_by_name  Returns a LDAPAttributeType struct corresponding to the specified name.
-* \param[in] schema                             Schema to work with.
-* \return
-*        - NULL if schema is NULL.
-*        - Attribute type from schema.
-*/
+ * \brief ldap_schema_get_attributetype_by_name Returns a LDAPAttributeType struct corresponding to the specified name.
+ * \param[in] schema                            Schema to work with.
+ * \param[in] name                              Key in the form of an one of object names.
+ * \return
+ *        - NULL if schema is NULL.
+ *        - Attribute type from schema.
+ */
 LDAPAttributeType *ldap_schema_get_attributetype_by_name(const ldap_schema_t* schema, const char *name)
 {
     return_null_if_null(schema, "ldap_schema_get_attributetype_by_name - schema is NULL!\n");
@@ -270,7 +274,7 @@ ldap_schema_append_objectclass(struct ldap_schema_t *schema, LDAPObjectClass *ob
     return result;
 }
 
-/**
+/*!
  * @brief ldap_schema_load  Loads the schema from the connection depending on the type of directory.
  * @param[in] connection    Connection to work with.
  * @return
@@ -301,7 +305,7 @@ ldap_schema_load(struct ldap_connection_ctx_t* connection)
     return RETURN_CODE_SUCCESS;
 }
 
-/**
+/*!
  * @brief ldap_schema_ready Checks the readiness of the schema loading.
  * @param[in] connection    Connection to work with.
  * @return
