@@ -61,4 +61,7 @@ ldap_schema_load(struct ldap_connection_ctx_t* connection);
 bool
 ldap_schema_ready(struct ldap_connection_ctx_t* connection);
 
+bool
+ldap_schema_validate_entry(ldap_schema_t* schema, ld_entry_t* entry, char** objectclass_names);
+
 #endif//LIB_DOMAIN_SCHEMA_H

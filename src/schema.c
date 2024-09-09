@@ -20,6 +20,10 @@
 #include "schema.h"
 #include "schema_p.h"
 
+#include "domain.h"
+
+#include "entry.h"
+
 #include "common.h"
 
 #include "directory.h"
@@ -312,4 +316,99 @@ ldap_schema_ready(struct ldap_connection_ctx_t* connection)
     default:
         return true;
     }
+}
+
+bool
+ldap_schema_validate_entry(ldap_schema_t* schema, ld_entry_t* entry, char** objectclass_names)
+{
+    return_null_if_null(schema, "ldap_schema_validate_entry - schema is NULL!\n");
+    return_null_if_null(entry, "ldap_schema_validate_entry - entry is NULL!\n");
+    return_null_if_null(entry, "ldap_schema_validate_entry - objectclass_names is NULL!\n");
+
+    GHashTable* user_objectclasses = g_hash_table_new(g_str_hash, g_str_equal);
+
+    for (int i = 0; objectclass_names[i] != NULL; ++i)
+    {
+        LDAPObjectClass* objectclass = ldap_schema_get_objectclass_by_name(schema, objectclass_names[i]);
+
+        if (objectclass != NULL)
+        {
+            g_hash_table_insert(user_objectclasses, objectclass->oc_oid, objectclass);
+        }
+    }
+
+    GHashTable* entry_attributes_by_name = g_hash_table_new(g_str_hash, g_str_equal);
+
+    LDAPAttribute_t** attributes = ld_entry_get_attributes(entry);
+
+    if (attributes == NULL)
+    {
+        return true;
+    }
+
+    for (int i = 0; attributes[i] != NULL; ++i)
+    {
+        char* attribute_name = attributes[i]->name;
+
+        if (attribute_name == NULL)
+        {
+            return true;
+        }
+
+        g_hash_table_insert(entry_attributes_by_name, attribute_name, attributes[i]);
+    }
+
+    GHashTableIter oc_iter;
+    gpointer oc_key = NULL, oc_value = NULL;
+
+    g_hash_table_iter_init(&oc_iter, user_objectclasses);
+    while (g_hash_table_iter_next(&oc_iter, &oc_key, &oc_value))
+    {
+        LDAPObjectClass* objectclass = oc_value;
+
+        char** must_attributetypes_oids = objectclass->oc_at_oids_must;
+
+        if (must_attributetypes_oids == NULL)
+        {
+            // TODO: Think about it
+        }
+
+        for (int i = 0; must_attributetypes_oids[i] != NULL; ++i)
+        {
+            LDAPAttributeType* schema_attributetype = ldap_schema_get_attributetype_by_oid(schema, must_attributetypes_oids[i]);
+
+            if (schema_attributetype == NULL)
+            {
+
+            }
+
+            if (schema_attributetype->at_names == NULL)
+            {
+
+            }
+
+            if (g_hash_table_contains(entry_attributes_by_name, schema_attributetype->at_names[0]))
+            {
+                ld_error("Missing required attribute for objectClass %s", objectclass->oc_names[0]);
+
+                return false;
+            }
+        }
+
+        GHashTableIter at_iter;
+        gpointer at_key = NULL, at_value = NULL;
+
+        g_hash_table_iter_init(&at_iter, entry_attributes_by_name);
+        while (g_hash_table_iter_next(&at_iter, &at_key, &at_value))
+        {
+            if (ldap_schema_get_attributetype_by_name(schema, at_key) == NULL)
+            {
+                ld_error("Invalid attribute for objectClass %s", objectclass->oc_names[0]);
+
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
