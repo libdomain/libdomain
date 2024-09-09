@@ -151,7 +151,7 @@ ldap_schema_attribute_types(const ldap_schema_t* schema)
 /*!
  * \brief ldap_schema_get_objectclass_by_oid    Returns a LDAPObjectClass struct corresponding to the specified OID.
  * \param[in] schema                            Schema to work with.
- * \param[in] oid                               Key in the form of an object identifier.
+ * \param[in] oid                               OID of the object class.
  * \return
  *        - NULL if schema is NULL.
  *        - Object class from schema.
@@ -168,7 +168,7 @@ LDAPObjectClass *ldap_schema_get_objectclass_by_oid(const ldap_schema_t* schema,
 /*!
  * \brief ldap_schema_get_objectclass_by_name   Returns a LDAPObjectClass struct corresponding to the specified name.
  * \param[in] schema                            Schema to work with.
- * \param[in] name                              Key in the form of an one of object names.
+ * \param[in] name                              Name of the object class.
  * \return
  *        - NULL if schema is NULL.
  *        - Object class from schema.
@@ -185,7 +185,7 @@ LDAPObjectClass *ldap_schema_get_objectclass_by_name(const ldap_schema_t* schema
 /*!
  * \brief ldap_schema_get_attributetype_by_oid  Returns a LDAPAttributeType struct corresponding to the specified OID.
  * \param[in] schema                            Schema to work with.
- * \param[in] oid                               Key in the form of an object identifier.
+ * \param[in] oid                               OID of the attribute type.
  * \return
  *        - NULL if schema is NULL.
  *        - Attribute type from schema.
@@ -202,7 +202,7 @@ LDAPAttributeType *ldap_schema_get_attributetype_by_oid(const ldap_schema_t* sch
 /*!
  * \brief ldap_schema_get_attributetype_by_name Returns a LDAPAttributeType struct corresponding to the specified name.
  * \param[in] schema                            Schema to work with.
- * \param[in] name                              Key in the form of an one of object names.
+ * \param[in] name                              One of the attribute names.
  * \return
  *        - NULL if schema is NULL.
  *        - Attribute type from schema.
@@ -306,7 +306,7 @@ ldap_schema_load(struct ldap_connection_ctx_t* connection)
 }
 
 /*!
- * @brief ldap_schema_ready Checks the readiness of the schema loading.
+ * @brief ldap_schema_ready Verifies the schema is fully loaded and ready for use.
  * @param[in] connection    Connection to work with.
  * @return
  *        - false - if schema is not ready.
