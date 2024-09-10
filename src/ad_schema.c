@@ -34,7 +34,7 @@
 
 static char* LDAP_ATTRIBUTE_TYPES[] = { "attributetypes", NULL };
 static char* LDAP_OBJECT_CLASSES[] = { "objectclasses", NULL };
-static char* LDAP_SUBSCHEMA_SUBENTRY = { "subschemaSubentry", NULL };
+static char* LDAP_SUBSCHEMA_SUBENTRY[] = { "subschemaSubentry", NULL };
 
 static char* schema_entry_path = NULL;
 
@@ -98,6 +98,8 @@ ldap_schema_read_entry(ld_entry_t* entry, op_fn callback, void* user_data)
 static enum OperationReturnCode
 ldap_schema_callback_common(struct ldap_connection_ctx_t *connection, ld_entry_t** entries, op_fn callback, void* user_data)
 {
+    (void)connection;
+
     if (entries != NULL && entries[0] != NULL)
     {
         int index = 0;
@@ -163,7 +165,7 @@ static enum OperationReturnCode object_class_callback(char *attribute_value, voi
 
     int error_code = 0;
     const char* error_message = NULL;
-    LDAPObjectClass* object_class = parse_object_class(attribute_value, &error_code);
+    LDAPObjectClass* object_class = parse_object_class(schema, attribute_value);
 
     if (!object_class || error_code != 0)
     {
@@ -196,9 +198,9 @@ static enum OperationReturnCode subschema_subentry_callback(char *attribute_valu
     ldap_schema_t* schema = user_data;
     schema_entry_path = talloc_strdup(schema, attribute_value);
 
-    if (!object_class || strlen(schema_entry_path) == 0)
+    if (!schema_entry_path || strlen(schema_entry_path) == 0)
     {
-        ld_error("Error: %d %s\n", error_code, error_message);
+        ld_error("Error: unable to get schema entry path!\n");
         return RETURN_CODE_FAILURE;
     }
 
