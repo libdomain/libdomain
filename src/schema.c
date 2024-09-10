@@ -413,11 +413,40 @@ ldap_schema_validate_entry(ldap_schema_t* schema, ld_entry_t* entry, char** obje
             continue;
         }
 
+        char** must_at_oids = objectclass->oc_at_oids_must;
+
+        int must_attributes_count = 0;
+
+        if (must_at_oids == NULL)
+        {
+            for (; must_at_oids[must_attributes_count] != NULL; ++must_attributes_count)
+            {
+                LDAPAttributeType* schema_attributetype =
+                        ldap_schema_get_attributetype_by_oid(schema, must_at_oids[must_attributes_count]);
+
+                if (schema_attributetype == NULL || schema_attributetype->at_names == NULL ||
+                        !g_hash_table_contains(entry_attributes_by_name, schema_attributetype->at_names[0])) // NOTE: I don't think so at_names[0].
+                {                                                                                           // NOTE: Maybe anyone of?
+                    ld_error("ldap_schema_validate_entry - missing required attribute for objectClass %s", objectclass->oc_names[0]);
+
+                    g_hash_table_destroy(test_objectclasses_by_name);
+                    g_hash_table_destroy(entry_attributes_by_name);
+
+                    return false;
+                }
+            }
+        }
+
         char** may_at_oids = objectclass->oc_at_oids_may;
 
-        if (may_at_oids == NULL)
+        if (may_at_oids == NULL && g_hash_table_size(entry_attributes_by_name) != must_attributes_count)
         {
-            // TODO: Think about it
+            ld_error("ldap_schema_validate_entry - invalid attribute for objectClass %s", objectclass->oc_names[0]);
+
+            g_hash_table_destroy(test_objectclasses_by_name);
+            g_hash_table_destroy(entry_attributes_by_name);
+
+            return false;
         }
 
         GHashTableIter at_iter;
@@ -437,32 +466,23 @@ ldap_schema_validate_entry(ldap_schema_t* schema, ld_entry_t* entry, char** obje
                 }
             }
 
+            if (contains_at)
+            {
+                continue;
+            }
+
+            for (int k = 0; must_at_oids[k] != NULL; ++k)
+            {
+                if (!strcmp(at_key, must_at_oids[k]))
+                {
+                    contains_at = true;
+                    break;
+                }
+            }
+
             if (!contains_at)
             {
                 ld_error("ldap_schema_validate_entry - invalid attribute for objectClass %s", objectclass->oc_names[0]);
-
-                g_hash_table_destroy(test_objectclasses_by_name);
-                g_hash_table_destroy(entry_attributes_by_name);
-
-                return false;
-            }
-        }
-
-        char** must_at_oids = objectclass->oc_at_oids_must;
-
-        if (must_at_oids == NULL)
-        {
-            continue;
-        }
-
-        for (int j = 0; must_at_oids[j] != NULL; ++j)
-        {
-            LDAPAttributeType* schema_attributetype = ldap_schema_get_attributetype_by_oid(schema, must_at_oids[j]);
-
-            if (schema_attributetype == NULL || schema_attributetype->at_names == NULL ||
-                    !g_hash_table_contains(entry_attributes_by_name, schema_attributetype->at_names[0])) // NOTE: I don't think so at_names[0].
-            {                                                                                           // NOTE: Maybe anyone of?
-                ld_error("ldap_schema_validate_entry - missing required attribute for objectClass %s", objectclass->oc_names[0]);
 
                 g_hash_table_destroy(test_objectclasses_by_name);
                 g_hash_table_destroy(entry_attributes_by_name);
