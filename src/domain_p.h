@@ -22,7 +22,7 @@
 #define LIB_DOMAIN_PRIVATE_H
 
 #include <stdbool.h>
-#include <talloc.h>
+#include "helper_p.h"
 
 typedef struct ld_config_s
 {
@@ -72,11 +72,11 @@ typedef struct ldhandle
         output = input; \
     }
 
-#define check_and_assign_attribute(attrs, value, index, talloc_ctx) \
+#define check_and_assign_attribute(error_handler, attrs, value, index, talloc_ctx) \
     if (value && strlen(value) > 0) \
     { \
-        attrs[index]->values    = talloc_array(talloc_ctx, char *, 2); \
-        attrs[index]->values[0] = talloc_strndup(talloc_ctx, value, strlen(value)); \
+        ld_talloc_array(attrs[index]->values, error_handler, talloc_ctx, char *, 2); \
+        ld_talloc_strndup(attrs[index]->values[0], error_handler, talloc_ctx, value, strlen(value)); \
         attrs[index]->values[1] = NULL; \
     }
 
