@@ -331,10 +331,10 @@ ldap_schema_validate_entry(ldap_schema_t* schema, ld_entry_t* entry, char** obje
     char** objectclass_attribute_values = objectclass_attribute->values;
     return_null_if_null(objectclass_attribute_values, "ldap_schema_validate_entry - attribute objectClass values is NULL!\n");
 
-    LDAPObjectClass* objectclass;
+    LDAPObjectClass* objectclass = NULL;
     for (int i = 0; objectclass == NULL && objectclass_names[i] != NULL; ++i)
     {
-        LDAPObjectClass* test_objectclass;
+        LDAPObjectClass* test_objectclass = NULL;
         for (int j = 0; test_objectclass == NULL && objectclass_attribute_values[j] != NULL; ++j)
         {
             test_objectclass = ldap_schema_get_objectclass_by_name(schema, objectclass_names[i]);
