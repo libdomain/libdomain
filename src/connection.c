@@ -26,6 +26,8 @@
 
 #include "request_queue.h"
 
+#include "helper_p.h"
+
 #include <assert.h>
 #include <sasl/sasl.h>
 
@@ -127,7 +129,9 @@ static void search_requests_init(struct ldap_search_request_t* requests, int siz
  */
 struct timeval* connection_microseconds_to_timeval(TALLOC_CTX *talloc_ctx, int microseconds)
 {
-    struct timeval* time_interval = talloc(talloc_ctx, struct timeval);
+    struct timeval* time_interval = NULL;
+    ld_talloc(time_interval, error_exit, talloc_ctx, struct timeval);
+
     if (microseconds < 0)
     {
         time_interval->tv_sec = -1;
@@ -140,6 +144,9 @@ struct timeval* connection_microseconds_to_timeval(TALLOC_CTX *talloc_ctx, int m
     }
 
     return time_interval;
+
+    error_exit:
+    return NULL;
 }
 
 /*!
@@ -181,7 +188,8 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
     connection->rmech = NULL;
 
-    connection->state_machine = talloc(global_ctx->talloc_ctx, struct state_machine_ctx_t);
+    ld_talloc(connection->state_machine, error_exit, global_ctx->talloc_ctx, struct state_machine_ctx_t);
+    
     csm_init(connection->state_machine, connection);
 
     if (config->search_timelimit > 0)
@@ -199,7 +207,8 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
     set_ldap_option(connection->ldap, LDAP_OPT_CONNECT_ASYNC, LDAP_OPT_ON);
 
-    connection->ldap_defaults = talloc_zero(global_ctx->talloc_ctx, struct ldap_sasl_defaults_t);
+    ld_talloc_zero(connection->ldap_defaults, error_exit, global_ctx->talloc_ctx, struct ldap_sasl_defaults_t);
+
     connection->ldap_defaults->mechanism = LDAP_SASL_SIMPLE;
 
     if (config->use_sasl)
@@ -212,7 +221,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
         get_ldap_option(connection->ldap, LDAP_OPT_X_SASL_AUTHZID, &connection->ldap_defaults->authzid);
 
         connection->ldap_defaults->flags = config->sasl_options->sasl_flags;
-        connection->ldap_defaults->mechanism = talloc_strdup(global_ctx->talloc_ctx, config->sasl_options->mechanism);
+        ld_talloc_strdup(connection->ldap_defaults->mechanism, error_exit, global_ctx->talloc_ctx, config->sasl_options->mechanism);
     }
 
     if (config->use_start_tls)
@@ -282,6 +291,8 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
     return RETURN_CODE_SUCCESS;
 
     error_exit:
+        // TODO: consider what needs to be added in order to correctly return the error without breaking anything
+        // (or break minimally)
         return RETURN_CODE_FAILURE;
 }
 
@@ -317,6 +328,8 @@ enum OperationReturnCode connection_install_handlers(struct ldap_connection_ctx_
     return RETURN_CODE_SUCCESS;
 
     error_exit:
+        // TODO: consider what needs to be added in order to correctly return the error without breaking anything
+        // (or break minimally)
         ldap_unbind_ext_s(connection->ldap, NULL, NULL);
         return RETURN_CODE_FAILURE;
 }
@@ -518,6 +531,8 @@ enum OperationReturnCode connection_ldap_bind(struct ldap_connection_ctx_t *conn
         get_ldap_option(connection->ldap, LDAP_OPT_RESULT_CODE, (void*)&error_code);
         get_ldap_option(connection->ldap, LDAP_OPT_DIAGNOSTIC_MESSAGE, (void*)&diagnostic_message);
         error_exit:
+            // TODO: consider what needs to be added in order to correctly return the error without breaking anything
+            // (or break minimally)
             ld_error("Unable to perform ldap_sasl_interactive_bind - op code: %d - code: %d %s\n", rc, error_code, diagnostic_message);
             ldap_memfree(diagnostic_message);
             ldap_unbind_ext_s(connection->ldap, NULL, NULL);
@@ -617,6 +632,8 @@ void connection_on_read(verto_ctx *ctx, verto_ev *ev)
     }
 
     error_exit:
+        // TODO: consider what needs to be added in order to correctly return the error without breaking anything
+        // (or break minimally)
         return;
 }
 
@@ -658,7 +675,7 @@ enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connecti
         }
     }
 
-    talloc_free(connection->ldap_defaults);
+    ld_talloc_free(connection->ldap_defaults, error_exit);
 
     if (connection->read_event)
     {
@@ -676,7 +693,13 @@ enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connecti
 
         ldap_unbind_ext(connection->ldap, NULL, NULL);
     }
+
     return RETURN_CODE_SUCCESS;
+
+    error_exit:
+    // TODO: consider what needs to be added in order to correctly return the error without breaking anything
+    // (or break minimally)
+    return RETURN_CODE_FAILURE;
 }
 
 /**
@@ -751,6 +774,8 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
     return RETURN_CODE_SUCCESS;
 
     error_exit:
+        // TODO: consider what needs to be added in order to correctly return the error without breaking anything
+        // (or break minimally)
         return RETURN_CODE_FAILURE;
 }
 
@@ -805,5 +830,7 @@ enum OperationReturnCode connection_start_tls_on_read(int rc, LDAPMessage * mess
     return RETURN_CODE_SUCCESS;
 
     error_exit:
+        // TODO: consider what needs to be added in order to correctly return the error without breaking anything
+        // (or break minimally)
         return RETURN_CODE_FAILURE;
 }
