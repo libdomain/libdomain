@@ -325,77 +325,36 @@ ldap_schema_validate_entry(ldap_schema_t* schema, ld_entry_t* entry, char** obje
     return_null_if_null(entry, "ldap_schema_validate_entry - entry is NULL!\n");
     return_null_if_null(entry, "ldap_schema_validate_entry - objectclass_names is NULL!\n");
 
-    GHashTable* test_objectclasses_by_name = g_hash_table_new(g_str_hash, g_str_equal);
-
-    for (int i = 0; objectclass_names[i] != NULL; ++i)
-    {
-        LDAPObjectClass* objectclass = ldap_schema_get_objectclass_by_name(schema, objectclass_names[i]);
-
-        if (objectclass != NULL)
-        {
-            g_hash_table_insert(test_objectclasses_by_name, objectclass_names[i], objectclass);
-        }
-    }
-
-
-
     LDAPAttribute_t* objectclass_attribute = ld_entry_get_attribute(entry, "objectClass");
-
-    if (objectclass_attribute == NULL)
-    {
-        ld_error("ldap_schema_validate_entry - attribute objectClass is NULL!");
-
-        g_hash_table_destroy(test_objectclasses_by_name);
-
-        return false;
-    }
+    return_null_if_null(objectclass_attribute, "ldap_schema_validate_entry - attribute objectClass is NULL!\n");
 
     char** objectclass_attribute_values = objectclass_attribute->values;
+    return_null_if_null(objectclass_attribute_values, "ldap_schema_validate_entry - attribute objectClass values is NULL!\n");
 
-    if (objectclass_attribute_values == NULL)
+    LDAPObjectClass* objectclass;
+    for (int i = 0; objectclass == NULL && objectclass_names[i] != NULL; ++i)
     {
-        ld_error("ldap_schema_validate_entry - attribute objectClass is empty!");
-
-        g_hash_table_destroy(test_objectclasses_by_name);
-
-        return false;
-    }
-
-    bool contains_at_least_one_objectclass = false;
-
-    for (int i = 0; objectclass_attribute_values[i] != NULL; ++i)
-    {
-        if (g_hash_table_contains(test_objectclasses_by_name, objectclass_attribute_values[i]))
+        LDAPObjectClass* test_objectclass;
+        for (int j = 0; test_objectclass == NULL && objectclass_attribute_values[j] != NULL; ++j)
         {
-            contains_at_least_one_objectclass = true;
-            break;
+            test_objectclass = ldap_schema_get_objectclass_by_name(schema, objectclass_names[i]);
         }
+
+        objectclass = test_objectclass;
     }
-
-    if (!contains_at_least_one_objectclass)
-    {
-        ld_error("ldap_schema_validate_entry - entry does not contains test object classes!");
-
-        g_hash_table_destroy(test_objectclasses_by_name);
-
-        return false;
-    }
-
-
+    return_null_if_null(objectclass, "ldap_schema_validate_entry - entry objectClass values does not match parameter!\n")
 
     GHashTable* entry_attributes_by_name = g_hash_table_new(g_str_hash, g_str_equal);
 
     LDAPAttribute_t** attributes = ld_entry_get_attributes(entry);
-
     for (int i = 0; attributes[i] != NULL; ++i)
     {
         char* attribute_name = attributes[i]->name;
 
         if (attribute_name == NULL)
         {
-            ld_error("ldap_schema_validate_entry - attribute name is NULL!");
+            ld_error("ldap_schema_validate_entry - attribute name is NULL!\n");
 
-            g_hash_table_destroy(test_objectclasses_by_name);
             g_hash_table_destroy(entry_attributes_by_name);
 
             return false;
@@ -404,95 +363,102 @@ ldap_schema_validate_entry(ldap_schema_t* schema, ld_entry_t* entry, char** obje
         g_hash_table_insert(entry_attributes_by_name, attribute_name, attributes[i]);
     }
 
-    for (int i = 0; objectclass_attribute_values[i] != NULL; ++i)
+    char** must_at_oids = objectclass->oc_at_oids_must;
+    int must_at_count = 0;
+
+    if (must_at_oids == NULL)
     {
-        LDAPObjectClass* objectclass = g_hash_table_lookup(test_objectclasses_by_name, objectclass_attribute_values[i]);
+        goto validate_may;
+    }
 
-        if (objectclass == NULL)
+    for (; must_at_oids[must_at_count] != NULL; ++must_at_count)
+    {
+        LDAPAttributeType* schema_attributetype =
+                ldap_schema_get_attributetype_by_oid(schema, must_at_oids[must_at_count]);
+
+        if (schema_attributetype == NULL || schema_attributetype->at_names == NULL)
         {
-            continue;
-        }
+            ld_error("ldap_schema_validate_entry - missing required attribute for objectClass %s\n", objectclass->oc_names[0]);
 
-        char** must_at_oids = objectclass->oc_at_oids_must;
-
-        int must_attributes_count = 0;
-
-        if (must_at_oids == NULL)
-        {
-            for (; must_at_oids[must_attributes_count] != NULL; ++must_attributes_count)
-            {
-                LDAPAttributeType* schema_attributetype =
-                        ldap_schema_get_attributetype_by_oid(schema, must_at_oids[must_attributes_count]);
-
-                if (schema_attributetype == NULL || schema_attributetype->at_names == NULL ||
-                        !g_hash_table_contains(entry_attributes_by_name, schema_attributetype->at_names[0])) // NOTE: I don't think so at_names[0].
-                {                                                                                           // NOTE: Maybe anyone of?
-                    ld_error("ldap_schema_validate_entry - missing required attribute for objectClass %s", objectclass->oc_names[0]);
-
-                    g_hash_table_destroy(test_objectclasses_by_name);
-                    g_hash_table_destroy(entry_attributes_by_name);
-
-                    return false;
-                }
-            }
-        }
-
-        char** may_at_oids = objectclass->oc_at_oids_may;
-
-        if (may_at_oids == NULL && g_hash_table_size(entry_attributes_by_name) != must_attributes_count)
-        {
-            ld_error("ldap_schema_validate_entry - invalid attribute for objectClass %s", objectclass->oc_names[0]);
-
-            g_hash_table_destroy(test_objectclasses_by_name);
             g_hash_table_destroy(entry_attributes_by_name);
 
             return false;
         }
 
-        GHashTableIter at_iter;
-        gpointer at_key = NULL, at_value = NULL;
-
-        g_hash_table_iter_init(&at_iter, entry_attributes_by_name);
-        while (g_hash_table_iter_next(&at_iter, &at_key, &at_value))
+        char** schema_at_names = schema_attributetype->at_names;
+        int j;
+        for (j = 0; schema_at_names[j] != NULL; ++j)
         {
-            bool contains_at = false;
-
-            for (int k = 0; may_at_oids[k] != NULL; ++k)
+            if (g_hash_table_contains(entry_attributes_by_name, schema_at_names[j]))
             {
-                if (!strcmp(at_key, may_at_oids[k]))
-                {
-                    contains_at = true;
-                    break;
-                }
+                break;
             }
+        }
 
-            if (contains_at)
-            {
-                continue;
-            }
+        if (schema_at_names[j] == NULL)
+        {
+            ld_error("ldap_schema_validate_entry - missing required attribute for objectClass %s\n", objectclass->oc_names[0]);
 
-            for (int k = 0; must_at_oids[k] != NULL; ++k)
-            {
-                if (!strcmp(at_key, must_at_oids[k]))
-                {
-                    contains_at = true;
-                    break;
-                }
-            }
+            g_hash_table_destroy(entry_attributes_by_name);
 
-            if (!contains_at)
-            {
-                ld_error("ldap_schema_validate_entry - invalid attribute for objectClass %s", objectclass->oc_names[0]);
-
-                g_hash_table_destroy(test_objectclasses_by_name);
-                g_hash_table_destroy(entry_attributes_by_name);
-
-                return false;
-            }
+            return false;
         }
     }
 
-    g_hash_table_destroy(test_objectclasses_by_name);
+validate_may:
+
+    char** may_at_oids = objectclass->oc_at_oids_may;
+
+    if (may_at_oids == NULL && g_hash_table_size(entry_attributes_by_name) != must_at_count)
+    {
+        ld_error("ldap_schema_validate_entry - invalid attribute for objectClass %s\n", objectclass->oc_names[0]);
+
+        g_hash_table_destroy(entry_attributes_by_name);
+
+        return false;
+    }
+
+    GHashTableIter at_iter;
+    gpointer at_key = NULL, at_value = NULL;
+
+    g_hash_table_iter_init(&at_iter, entry_attributes_by_name);
+    while (g_hash_table_iter_next(&at_iter, &at_key, &at_value))
+    {
+        bool contains_at = false;
+
+        for (int k = 0; must_at_oids[k] != NULL; ++k)
+        {
+            if (!strcmp(at_key, must_at_oids[k]))
+            {
+                contains_at = true;
+                break;
+            }
+        }
+
+        if (contains_at || may_at_oids == NULL)
+        {
+            continue;
+        }
+
+        for (int k = 0; may_at_oids[k] != NULL; ++k)
+        {
+            if (!strcmp(at_key, may_at_oids[k]))
+            {
+                contains_at = true;
+                break;
+            }
+        }
+
+        if (!contains_at)
+        {
+            ld_error("ldap_schema_validate_entry - invalid attribute for objectClass %s\n", objectclass->oc_names[0]);
+
+            g_hash_table_destroy(entry_attributes_by_name);
+
+            return false;
+        }
+    }
+
     g_hash_table_destroy(entry_attributes_by_name);
 
     return true;
