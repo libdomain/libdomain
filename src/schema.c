@@ -36,6 +36,28 @@
         return NULL; \
     }
 
+#define clear_and_unref_hash_table(hash_table) \
+    if (hash_table) \
+    { \
+        g_hash_table_remove_all(hash_table); \
+        g_hash_table_unref(hash_table); \
+    } \
+
+/*!
+ * \brief ldap_schema_destructor Destroys schema associated hash tables and frees memory.
+ * \param[in] schema             Schema to free.
+ */
+static int
+ldap_schema_destructor(ldap_schema_t *schema)
+{
+    clear_and_unref_hash_table(schema->attribute_types_by_name);
+    clear_and_unref_hash_table(schema->attribute_types_by_oid);
+    clear_and_unref_hash_table(schema->object_classes_by_name);
+    clear_and_unref_hash_table(schema->object_classes_by_oid);
+
+    return 0;
+}
+
 /*!
  * \brief ldap_schema_new Allocates ldap_schema_t and checks it for validity.
  * \param[in] ctx         TALLOC_CTX to use.
@@ -74,6 +96,8 @@ ldap_schema_new(TALLOC_CTX *ctx)
 
         return NULL;
     }
+
+    talloc_set_destructor(result, ldap_schema_destructor);
 
     return result;
 }
