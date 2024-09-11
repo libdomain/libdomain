@@ -36,13 +36,6 @@
         return NULL; \
     }
 
-#define clear_and_unref_hash_table(hash_table) \
-    if (hash_table) \
-    { \
-        g_hash_table_remove_all(hash_table); \
-        g_hash_table_unref(hash_table); \
-    } \
-
 /*!
  * \brief ldap_schema_destructor Destroys schema associated hash tables and frees memory.
  * \param[in] schema             Schema to free.
@@ -50,10 +43,10 @@
 static int
 ldap_schema_destructor(ldap_schema_t *schema)
 {
-    clear_and_unref_hash_table(schema->attribute_types_by_name);
-    clear_and_unref_hash_table(schema->attribute_types_by_oid);
-    clear_and_unref_hash_table(schema->object_classes_by_name);
-    clear_and_unref_hash_table(schema->object_classes_by_oid);
+    g_hash_table_destroy(schema->attribute_types_by_name);
+    g_hash_table_destroy(schema->attribute_types_by_oid);
+    g_hash_table_destroy(schema->object_classes_by_name);
+    g_hash_table_destroy(schema->object_classes_by_oid);
 
     return 0;
 }
