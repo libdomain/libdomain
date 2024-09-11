@@ -23,6 +23,7 @@
 #include "common.h"
 #include "domain_p.h"
 #include "entry.h"
+#include "helper_p.h"
 
 enum ComputerAttributeIndex
 {
@@ -81,13 +82,18 @@ enum OperationReturnCode ld_add_computer(LDHandle *handle,
  */
 enum OperationReturnCode ld_del_computer(LDHandle *handle, const char *name, const char *parent)
 {
-    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+    TALLOC_CTX *talloc_ctx;
+    ld_talloc_new(talloc_ctx, error_case, NULL);
 
     int rc = ld_del_entry(handle, name, parent ? parent : create_computer_parent(talloc_ctx, handle), "cn");
 
-    talloc_free(talloc_ctx);
+    ld_talloc_free(talloc_ctx, error_case);
 
     return rc;
+
+    // On any error.
+    error_case:
+    return RETURN_CODE_FAILURE;
 }
 
 /**
@@ -102,13 +108,18 @@ enum OperationReturnCode ld_del_computer(LDHandle *handle, const char *name, con
  */
 enum OperationReturnCode ld_mod_computer(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **computer_attrs)
 {
-    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+    TALLOC_CTX *talloc_ctx;
+    ld_talloc_new(talloc_ctx, error_case, NULL);
 
     int rc = ld_mod_entry(handle, name, parent ? parent : create_computer_parent(talloc_ctx, handle), "cn", computer_attrs);
 
-    talloc_free(talloc_ctx);
+    ld_talloc_free(talloc_ctx, error_case);
 
     return rc;
+
+    // On any error
+    error_case:
+    return RETURN_CODE_FAILURE;
 }
 
 /**
@@ -123,11 +134,16 @@ enum OperationReturnCode ld_mod_computer(LDHandle *handle, const char *name, con
  */
 enum OperationReturnCode ld_rename_computer(LDHandle *handle, const char *old_name, const char *new_name, const char *parent)
 {
-    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+    TALLOC_CTX *talloc_ctx;
+    ld_talloc_new(talloc_ctx, error_case, NULL);
 
     int rc = ld_rename_entry(handle, old_name, new_name, parent ? parent : create_computer_parent(talloc_ctx, handle), "cn");
 
-    talloc_free(talloc_ctx);
+    ld_talloc_free(talloc_ctx, error_case);
 
     return rc;
+
+    // On any error
+    error_case:
+    return RETURN_CODE_FAILURE;
 }
