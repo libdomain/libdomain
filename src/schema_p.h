@@ -45,4 +45,7 @@ struct ldap_schema_t
 enum OperationReturnCode schema_load_openldap(struct ldap_connection_ctx_t* connection,
                                               struct ldap_schema_t* schema);
 
+enum OperationReturnCode schema_load_active_directory(struct ldap_connection_ctx_t* connection,
+                                                      struct ldap_schema_t* schema);
+
 #endif//LIB_DOMAIN_SCHEMA_PRIVATE_H
