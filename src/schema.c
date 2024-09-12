@@ -371,10 +371,10 @@ ldap_schema_validate_entry(ldap_schema_t* schema, ld_entry_t* entry, char** obje
         goto validate_may;
     }
 
-    for (; must_at_oids[must_at_count] != NULL; ++must_at_count)
+    while(must_at_oids[must_at_count] != NULL)
     {
         LDAPAttributeType* schema_attributetype =
-                ldap_schema_get_attributetype_by_oid(schema, must_at_oids[must_at_count]);
+                ldap_schema_get_attributetype_by_oid(schema, must_at_oids[must_at_count++]);
 
         if (schema_attributetype == NULL || schema_attributetype->at_names == NULL)
         {
