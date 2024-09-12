@@ -332,15 +332,25 @@ ldap_schema_validate_entry(ldap_schema_t* schema, ld_entry_t* entry, char** obje
     return_null_if_null(objectclass_attribute_values, "ldap_schema_validate_entry - attribute objectClass values is NULL!\n");
 
     LDAPObjectClass* objectclass = NULL;
-    for (int i = 0; objectclass == NULL && objectclass_names[i] != NULL; ++i)
+    for (int i = 0; objectclass_names[i] != NULL; ++i)
     {
         LDAPObjectClass* test_objectclass = NULL;
-        for (int j = 0; test_objectclass == NULL && objectclass_attribute_values[j] != NULL; ++j)
+        for (int j = 0; objectclass_attribute_values[j] != NULL; ++j)
         {
             test_objectclass = ldap_schema_get_objectclass_by_name(schema, objectclass_names[i]);
+
+            if (test_objectclass != NULL)
+            {
+                break;
+            }
         }
 
         objectclass = test_objectclass;
+
+        if (objectclass != NULL)
+        {
+            break;
+        }
     }
     return_null_if_null(objectclass, "ldap_schema_validate_entry - entry objectClass values does not match parameter!\n")
 
