@@ -91,6 +91,8 @@
 #define ld_talloc_strndup(var, error_handler, ctx, str, n) \
     LD_ALLOC_HELPER(var, talloc_strndup, "Error - failed to allocate memory", error_handler, ctx, str, n)
 
+#define ld_talloc_realloc(var, error_handler, ctx, type, count) \
+    LD_ALLOC_HELPER(var, talloc_realloc, "Error - failed to allocate memory", error_handler, ctx, var, type, count)
 
 #define ld_talloc_free(ctx, error_handler) \
     LD_FREE_HELPER(talloc_free, "Error - failed to free memory", error_handler, ctx)
