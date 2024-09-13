@@ -74,7 +74,7 @@ static const int CONNECTION_UPDATE_INTERVAL = 1000;
 ld_config_t *ld_load_config(TALLOC_CTX* ctx, const char *filename)
 {
     ld_config_t *result = NULL;
-    ld_talloc(result, case_error, ctx, ld_config_t);
+    ld_talloc(result, error_exit, ctx, ld_config_t);
 
     if (!result)
     {
@@ -102,11 +102,11 @@ ld_config_t *ld_load_config(TALLOC_CTX* ctx, const char *filename)
 
     if (port > 0)
     {
-        ld_talloc_asprintf(result->host, case_error, ctx, "%s:%d", host, port);
+        ld_talloc_asprintf(result->host, error_exit, result, "%s:%d", host, port);
     }
     else
     {
-        ld_talloc_strndup(result->host, case_error, ctx, host, strlen(host));
+        ld_talloc_strndup(result->host, error_exit, result, host, strlen(host));
     }
 
     int protocol_version = LDAP_VERSION3;
@@ -125,17 +125,17 @@ ld_config_t *ld_load_config(TALLOC_CTX* ctx, const char *filename)
 
     if (base_dn)
     {
-        ld_talloc_strndup(result->base_dn, case_error, ctx, base_dn, strlen(base_dn));
+        ld_talloc_strndup(result->base_dn, error_exit, result, base_dn, strlen(base_dn));
     }
     else
     {
-        ld_talloc_strndup(result->base_dn, case_error, ctx, empty_string, strlen(empty_string));
+        ld_talloc_strndup(result->base_dn, error_exit, result, empty_string, strlen(empty_string));
     }
 
 
     if (username)
     {
-        ld_talloc_strndup(result->username, case_error, ctx, username, strlen(username));
+        ld_talloc_strndup(result->username, error_exit, result, username, strlen(username));
     }
     else
     {
@@ -144,7 +144,7 @@ ld_config_t *ld_load_config(TALLOC_CTX* ctx, const char *filename)
 
     if (password)
     {
-        ld_talloc_strndup(result->password, case_error, ctx, password, strlen(password));
+        ld_talloc_strndup(result->password, error_exit, result, password, strlen(password));
     }
     else
     {
@@ -182,41 +182,39 @@ ld_config_t *ld_load_config(TALLOC_CTX* ctx, const char *filename)
 
     if (cacertfile)
     {
-        ld_talloc_strndup(result->cacertfile, case_error, ctx, cacertfile, strlen(cacertfile))
+        ld_talloc_strndup(result->cacertfile, error_exit, result, cacertfile, strlen(cacertfile))
     }
     else
     {
-        ld_talloc_strndup(result->cacertfile, case_error, ctx, empty_string, strlen(empty_string))
+        ld_talloc_strndup(result->cacertfile, error_exit, result, empty_string, strlen(empty_string))
     }
 
     if (certfile)
     {
-        ld_talloc_strndup(result->certfile, case_error, ctx, certfile, strlen(certfile))
+        ld_talloc_strndup(result->certfile, error_exit, result, certfile, strlen(certfile))
     }
     else
     {
-        ld_talloc_strndup(result->certfile, case_error, ctx, empty_string, strlen(empty_string))
+        ld_talloc_strndup(result->certfile, error_exit, result, empty_string, strlen(empty_string))
     }
 
     if (keyfile)
     {
-        ld_talloc_strndup(result->keyfile, case_error, ctx, keyfile, strlen(keyfile))
+        ld_talloc_strndup(result->keyfile, error_exit, result, keyfile, strlen(keyfile))
     }
     else
     {
-        ld_talloc_strndup(result->keyfile, case_error, ctx, empty_string, strlen(empty_string))
+        ld_talloc_strndup(result->keyfile, error_exit, result, empty_string, strlen(empty_string))
     }
 
     config_destroy(&cfg);
 
     return result;
 
-    case_error:
-        // TODO: consider what needs to be added in order to correctly return the error without breaking anything
-        // (or break minimally)
-        if(result)
+    error_exit:
+        if (result)
         {
-            ld_talloc_free(result, case_error);
+            ld_talloc_free(result, error_exit);
         }
         return NULL;
 }
@@ -268,29 +266,29 @@ ld_config_t *ld_create_config(TALLOC_CTX* talloc_ctx,
 
     if (port > 0)
     {
-        ld_talloc_asprintf(result->host, error_exit, talloc_ctx, "%s:%d", host, port);
+        ld_talloc_asprintf(result->host, error_exit, result, "%s:%d", host, port);
     }
     else
     {
-        ld_talloc_asprintf(result->host, error_exit, talloc_ctx, "%s", host);
+        ld_talloc_asprintf(result->host, error_exit, result, "%s", host);
     }
 
     const char *empty_string = "";
 
     result->protocol_version = protocol_version;
 
-    ld_talloc_strndup(result->base_dn, error_exit, talloc_ctx, base_dn, strlen(base_dn));
+    ld_talloc_strndup(result->base_dn, error_exit, result, base_dn, strlen(base_dn));
 
     result->username = NULL;
     result->password = NULL;
 
     if (username)
     {
-        ld_talloc_strndup(result->username, error_exit, talloc_ctx, username, strlen(username));
+        ld_talloc_strndup(result->username, error_exit, result, username, strlen(username));
     }
     if (password)
     {
-        ld_talloc_strndup(result->password, error_exit, talloc_ctx, password, strlen(password));
+        ld_talloc_strndup(result->password, error_exit, result, password, strlen(password));
     }
 
     result->simple_bind = simple_bind;
@@ -302,36 +300,38 @@ ld_config_t *ld_create_config(TALLOC_CTX* talloc_ctx,
 
     if (cacertfile)
     {
-        ld_talloc_strndup(result->cacertfile, error_exit, talloc_ctx, cacertfile, strlen(cacertfile));
+        ld_talloc_strndup(result->cacertfile, error_exit, result, cacertfile, strlen(cacertfile));
     }
     else
     {
-        ld_talloc_strndup(result->cacertfile, error_exit, talloc_ctx, empty_string, strlen(empty_string));
+        ld_talloc_strndup(result->cacertfile, error_exit, result, empty_string, strlen(empty_string));
     }
 
     if (certfile)
     {
-        ld_talloc_strndup(result->certfile, error_exit, talloc_ctx, certfile, strlen(certfile));
+        ld_talloc_strndup(result->certfile, error_exit, result, certfile, strlen(certfile));
     }
     else
     {
-        ld_talloc_strndup(result->certfile, error_exit, talloc_ctx, empty_string, strlen(empty_string));
+        ld_talloc_strndup(result->certfile, error_exit, result, empty_string, strlen(empty_string));
     }
 
     if (keyfile)
     {
-        ld_talloc_strndup(result->keyfile, error_exit, talloc_ctx, keyfile, strlen(keyfile));
+        ld_talloc_strndup(result->keyfile, error_exit, result, keyfile, strlen(keyfile));
     }
     else
     {
-        ld_talloc_strndup(result->keyfile, error_exit, talloc_ctx, empty_string, strlen(empty_string));
+        ld_talloc_strndup(result->keyfile, error_exit, result, empty_string, strlen(empty_string));
     }
 
     return result;
 
     error_exit:
-        // TODO: consider what needs to be added in order to correctly return the error without breaking anything
-        // (or break minimally)
+        if (result)
+        {
+            ld_talloc_free(result, error_exit);
+        }
         return NULL;
 }
 
@@ -418,15 +418,22 @@ void ld_init(LDHandle** handle, const ld_config_t* config)
     if (rc != RETURN_CODE_SUCCESS)
     {
         ld_error("Unable to configure connection");
-        return;
+        goto error_exit;
     }
 
     (*handle)->connection_ctx->handle = (*handle);
+    return;
 
     error_exit:
-        // TODO: consider what needs to be added in order to correctly return the error without breaking anything
-        // (or break minimally)
-        return;
+        if (*handle)
+        {
+            if ((*handle)->talloc_ctx)
+            {
+                ld_talloc_free((*handle)->talloc_ctx, error_exit);
+            }
+            free(*handle);
+            *handle = NULL;
+        }
 }
 
 static void connection_update(verto_ctx *ctx, verto_ev *ev)
@@ -543,9 +550,9 @@ static LDAPMod ** fill_attributes(LDAPAttribute_t **entry_attrs, TALLOC_CTX *tal
 
     while (entry_attrs[attr_index] != NULL)
     {
-        ld_talloc(attrs[attr_index], error_exit, talloc_ctx, LDAPMod);
+        ld_talloc(attrs[attr_index], error_exit, attrs, LDAPMod);
         attrs[attr_index]->mod_op = mod_op;
-        ld_talloc_strdup(attrs[attr_index]->mod_type, error_exit, talloc_ctx, entry_attrs[attr_index]->name);
+        ld_talloc_strdup(attrs[attr_index]->mod_type, error_exit, attrs[attr_index], entry_attrs[attr_index]->name);
 
         int val_count = 0;
         while (entry_attrs[attr_index]->values[val_count] != NULL)
@@ -553,12 +560,12 @@ static LDAPMod ** fill_attributes(LDAPAttribute_t **entry_attrs, TALLOC_CTX *tal
             val_count++;
         }
 
-        ld_talloc_array(attrs[attr_index]->mod_values, error_exit, talloc_ctx, char*, val_count + 1);
+        ld_talloc_array(attrs[attr_index]->mod_values, error_exit, attrs[attr_index], char*, val_count + 1);
 
         int val_index = 0;
         while (entry_attrs[attr_index]->values[val_index] != NULL)
         {
-            ld_talloc_strdup(attrs[attr_index]->mod_values[val_index], error_exit, talloc_ctx, entry_attrs[attr_index]->values[val_index]);
+            ld_talloc_strdup(attrs[attr_index]->mod_values[val_index], error_exit, attrs[attr_index]->mod_values, entry_attrs[attr_index]->values[val_index]);
             val_index++;
         }
         attrs[attr_index]->mod_values[val_count] = NULL;
@@ -570,7 +577,12 @@ static LDAPMod ** fill_attributes(LDAPAttribute_t **entry_attrs, TALLOC_CTX *tal
 
     return attrs;
 
-    error_exit: 
+    error_exit:
+        if (attrs)
+        {
+            ld_talloc_free(attrs, error_exit);
+        }
+
         return NULL;
 }
 
@@ -614,6 +626,11 @@ enum OperationReturnCode ld_add_entry(LDHandle *handle, const char *name, const 
     return rc;
 
     error_exit:
+        if (talloc_ctx)
+        {
+            ld_talloc_free(talloc_ctx, error_exit);
+        }
+
         return RETURN_CODE_FAILURE;
 }
 
@@ -652,6 +669,11 @@ enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const 
     return rc;
 
     error_exit:
+        if (talloc_ctx)
+        {
+            ld_talloc_free(talloc_ctx, error_exit);
+        }
+
         return RETURN_CODE_FAILURE;
 }
 
@@ -695,6 +717,11 @@ enum OperationReturnCode ld_mod_entry(LDHandle *handle, const char *name, const 
     return rc;
 
     error_exit:
+        if (talloc_ctx)
+        {
+            ld_talloc_free(talloc_ctx, error_exit);
+        }
+
         return RETURN_CODE_FAILURE;
 }
 
@@ -740,6 +767,11 @@ enum OperationReturnCode ld_rename_entry(LDHandle *handle, const char *old_name,
     return rc;
 
     error_exit:
+        if (talloc_ctx)
+        {
+            ld_talloc_free(talloc_ctx, error_exit);
+        }
+
         return RETURN_CODE_FAILURE;
 }
 
@@ -814,5 +846,10 @@ enum OperationReturnCode ld_mod_entry_attrs(LDHandle *handle, const char *name, 
     return rc;
 
     error_exit:
+        if (talloc_ctx)
+        {
+            ld_talloc_free(talloc_ctx, error_exit);
+        }
+
         return RETURN_CODE_FAILURE;
 }
