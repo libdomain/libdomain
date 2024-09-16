@@ -134,23 +134,42 @@ static enum OperationReturnCode group_member_modify(LDHandle *handle, const char
 
     check_string(user_dn, this_user_dn, "group_member_modify");
 
-    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+    TALLOC_CTX *talloc_ctx = NULL;
+    ld_talloc_new(talloc_ctx, error_exit, NULL);
 
-    LDAPMod **attrs = talloc_array(talloc_ctx, LDAPMod*, 2);
-    attrs[0] = talloc_zero(talloc_ctx, LDAPMod);
+    LDAPMod **attrs = NULL;
+    ld_talloc_array(attrs, error_exit, talloc_ctx, LDAPMod*, 2);
+
+    attrs[0] = NULL;
+    ld_talloc_zero(attrs[0], error_exit, talloc_ctx, LDAPMod);
+
     attrs[0]->mod_op = mod_operation;
-    attrs[0]->mod_type = talloc_strndup(talloc_ctx, member, strlen(member));
-    attrs[0]->mod_values = talloc_array(talloc_ctx, char*, 2);
 
-    attrs[0]->mod_values[0] = talloc_strndup(talloc_ctx, this_user_dn, strlen(this_user_dn));
+    attrs[0]->mod_type = NULL;
+    ld_talloc_strndup(attrs[0]->mod_type, error_exit, talloc_ctx, member, strlen(member));
+
+    attrs[0]->mod_values = NULL;
+    ld_talloc_array(attrs[0]->mod_values, error_exit, talloc_ctx, char*, 2)
+
+    attrs[0]->mod_values[0] = NULL;
+    ld_talloc_strndup(attrs[0]->mod_values[0], error_exit, talloc_ctx, this_user_dn, strlen(this_user_dn))
+
     attrs[0]->mod_values[1] = NULL;
     attrs[1] = NULL;
 
     int rc = modify(handle->connection_ctx, this_group_dn, attrs);
 
-    talloc_free(talloc_ctx);
+    ld_talloc_free(talloc_ctx, error_exit);
 
     return rc;
+
+    error_exit:
+        if (talloc_ctx)
+        {
+            ld_talloc_free(talloc_ctx, error_exit);
+        }
+
+        return RETURN_CODE_FAILURE;
 }
 
 /**
