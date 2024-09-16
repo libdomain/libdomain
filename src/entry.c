@@ -311,7 +311,7 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
 
                     if (entry_index + 2 >= entries_size)
                     {
-                        ld_talloc_realloc(entries, error_exit, connection->handle->talloc_ctx, NULL, ld_entry_t*, entries_size * 2);
+                        ld_talloc_realloc(entries, error_exit, connection->handle->talloc_ctx, ld_entry_t*, entries_size * 2);
                     }
 
                     char* dn = ldap_get_dn(connection->ldap, message);
@@ -772,7 +772,7 @@ ld_entry_t* ld_entry_new(TALLOC_CTX *ctx, const char* dn)
     ld_talloc_zero(result, error_exit, ctx, ld_entry_t);
 
     result->dn = NULL;
-    ld_talloc_strdup(result, error_exit, result, dn);
+    ld_talloc_strdup(result->dn, error_exit, result, dn);
 
     result->attributes = g_hash_table_new(g_str_hash, g_str_equal);
 
@@ -971,5 +971,4 @@ LDAPAttribute_t **ld_entry_get_attributes(ld_entry_t *entry)
             }
             ld_talloc_free(result, error_exit);
         }
-        return;
 }
