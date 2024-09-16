@@ -300,14 +300,8 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
 
                 ld_info("Handle %d\n", connection->handle);
 
-                ld_entry_t** entries = talloc_array(connection->handle->talloc_ctx, ld_entry_t*, INITIAL_ARRAY_SIZE);
-
-                if (!entries)
-                {
-                    ld_error("search_on_read - out of memory during allocation of entries!\n");
-
-                    return RETURN_CODE_FAILURE;
-                }
+                ld_entry_t** entries = NULL;
+                ld_talloc_array(entries, error_exit, connection->handle->talloc_ctx, ld_entry_t*, INITIAL_ARRAY_SIZE);
 
                 int entry_index = 0;
 
@@ -317,14 +311,7 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
 
                     if (entry_index + 2 >= entries_size)
                     {
-                        entries = talloc_realloc(connection->handle->talloc_ctx, NULL, ld_entry_t*, entries_size * 2);
-
-                        if (!entries)
-                        {
-                            ld_error("search_on_read - out of memory during allocation of entries!\n");
-
-                            return RETURN_CODE_FAILURE;
-                        }
+                        ld_talloc_realloc(entries, error_exit, connection->handle->talloc_ctx, NULL, ld_entry_t*, entries_size * 2);
                     }
 
                     char* dn = ldap_get_dn(connection->ldap, message);
@@ -333,9 +320,17 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
 
                     if (!ld_entry)
                     {
-                        ld_error("search_on_read - out of memory - unable to create new entry!\n");
-
-                        return RETURN_CODE_FAILURE;
+                        error_exit_free:
+                        if (entries)
+                        {
+                            while (entry_index)
+                            {
+                                --entry_index;
+                                ldap_memfree(entries[entry_index]);
+                            }
+                            ld_talloc_free(entries, error_exit_free);
+                        }
+                        goto error_exit;
                     }
 
                     entries[entry_index] = ld_entry;
@@ -343,17 +338,19 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
                     attribute = ldap_first_attribute(connection->ldap, message, &ber_element);
                     while (attribute != NULL)
                     {
-                        LDAPAttribute_t* ld_attribute = talloc_zero(connection->handle->talloc_ctx, LDAPAttribute_t);
-                        ld_attribute->name = talloc_strdup(connection->handle->talloc_ctx, attribute);
+                        LDAPAttribute_t* ld_attribute = NULL;
+
+                        ld_talloc_zero(ld_attribute, error_exit, connection->handle->talloc_ctx, LDAPAttribute_t);
+                        ld_talloc_strdup(ld_attribute->name, error_exit, connection->handle->talloc_ctx, attribute);
 
                         values = ldap_get_values_len(connection->ldap, message, attribute);
                         values_count = ldap_count_values_len(values);
 
-                        ld_attribute->values = talloc_array(connection->handle->talloc_ctx, char*, values_count + 1);
+                        ld_talloc_array(ld_attribute->values, error_exit, connection->handle->talloc_ctx, char*, values_count + 1);
 
                         for(int values_index = 0; values_index < values_count; values_index++)
                         {
-                            ld_attribute->values[values_index] = talloc_strdup(connection->handle->talloc_ctx, values[values_index]->bv_val);
+                            ld_talloc_strdup(ld_attribute->values[values_index], error_exit, connection->handle->talloc_ctx, values[values_index]->bv_val);
                         }
                         ld_attribute->values[values_count] = NULL;
                         ldap_value_free_len(values);
@@ -399,7 +396,8 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
         connection->on_error_operation(rc, message, connection);
     }
 
-    return RETURN_CODE_FAILURE;
+    error_exit:
+        return RETURN_CODE_FAILURE;
 }
 
 /**
@@ -770,40 +768,29 @@ ld_entry_t* ld_entry_new(TALLOC_CTX *ctx, const char* dn)
         return NULL;
     }
 
-    ld_entry_t* result = talloc_zero(ctx, ld_entry_t);
+    ld_entry_t* result = NULL;
+    ld_talloc_zero(result, error_exit, ctx, ld_entry_t);
 
-    if (!result)
-    {
-        ld_error("ld_entry_new - out of memory - unable to create entry!\n");
-
-        return NULL;
-    }
-
-    result->dn = talloc_strdup(result, dn);
-
-    if (!result->dn)
-    {
-        talloc_free(result);
-
-        ld_error("ld_entry_new - out of memory - unable to copy dn!\n");
-
-        return NULL;
-    }
+    result->dn = NULL;
+    ld_talloc_strdup(result, error_exit, result, dn);
 
     result->attributes = g_hash_table_new(g_str_hash, g_str_equal);
 
     if (!result->attributes)
     {
-        talloc_free(result);
-
-        ld_error("ld_entry_new - out of memory - unable to create attributes!\n");
-
-        return NULL;
+        goto error_exit;
     }
 
     talloc_set_destructor((void*)result, ld_entry_destructor);
 
     return result;
+
+    error_exit:
+        if (result)
+        {
+            ld_talloc_free(result, error_exit);
+        }
+        return NULL;
 }
 
 /**
@@ -906,16 +893,31 @@ static void fill_attribute(gpointer key, gpointer value, gpointer userdata)
         index++;
     }
 
-    attribute->values = talloc_array(userdata, char*, index + 1);
+    ld_talloc_array(attribute->values, error_exit, userdata, char*, index + 1);
 
     int value_index = 0;
     while(values[value_index] != NULL)
     {
-        attribute->values[value_index] = talloc_strdup(userdata, values[value_index]);
+        ld_talloc_strdup(attribute->values[value_index], error_exit, userdata, values[value_index]);
         value_index++;
     }
 
     attribute->values[index] = NULL;
+
+    error_exit:
+        if (attribute->values)
+        {
+            while (value_index)
+            {
+                // OK,            OK, ... OK,            OK,            ERROR(not allocated)
+                // ^0             ^1  ... ^value_index-2 ^value_index-1 ^value_index
+                --value_index; 
+                ld_talloc_free(attribute->values[value_index], error_exit);
+                // on ld_talloc_free error will be skiped.
+            }
+            ld_talloc_free(attribute->values, error_exit);
+        }
+        return;
 }
 
 /**
@@ -939,7 +941,8 @@ LDAPAttribute_t **ld_entry_get_attributes(ld_entry_t *entry)
 
     int attributes_size = g_hash_table_size(entry->attributes);
 
-    LDAPAttribute_t ** result = talloc_array(entry, LDAPAttribute_t*, attributes_size + 1);
+    LDAPAttribute_t ** result = NULL;
+    ld_talloc_array(result, error_exit, entry, LDAPAttribute_t*, attributes_size + 1);
 
     GHashTableIter iter;
     gpointer key = NULL, value = NULL;
@@ -947,11 +950,26 @@ LDAPAttribute_t **ld_entry_get_attributes(ld_entry_t *entry)
     int index = 0;
     g_hash_table_iter_init(&iter, entry->attributes);
     while (g_hash_table_iter_next(&iter, &key, &value)) {
-        result[index] = talloc_zero(result, LDAPAttribute_t);
+        ld_talloc_zero(result[index], error_exit, result, LDAPAttribute_t);
         fill_attribute(key, value, result[index]);
         index++;
     }
     result[attributes_size] = NULL;
 
     return result;
+
+    error_exit:
+        if (result)
+        {
+            while (index)
+            {
+                // OK,      OK, ... OK,      OK,      ERROR(not allocated)
+                // ^0       ^1  ... ^index-2 ^index-1 ^index
+                --index; 
+                ld_talloc_free(result[index], error_exit);
+                // on ld_talloc_free error will be skiped.
+            }
+            ld_talloc_free(result, error_exit);
+        }
+        return;
 }
