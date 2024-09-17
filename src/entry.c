@@ -913,7 +913,7 @@ static void fill_attribute(gpointer key, gpointer value, gpointer userdata)
                 // ^0             ^1  ... ^value_index-2 ^value_index-1 ^value_index
                 --value_index; 
                 ld_talloc_free(attribute->values[value_index], error_exit);
-                // on ld_talloc_free error will be skiped.
+                // on ld_talloc_free error will be skipped.
             }
             ld_talloc_free(attribute->values, error_exit);
         }
@@ -967,7 +967,7 @@ LDAPAttribute_t **ld_entry_get_attributes(ld_entry_t *entry)
                 // ^0       ^1  ... ^index-2 ^index-1 ^index
                 --index; 
                 ld_talloc_free(result[index], error_exit);
-                // on ld_talloc_free error will be skiped.
+                // on ld_talloc_free error will be skipped.
             }
             ld_talloc_free(result, error_exit);
         }
