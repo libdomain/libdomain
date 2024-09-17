@@ -214,7 +214,8 @@ ld_config_t *ld_load_config(TALLOC_CTX* ctx, const char *filename)
     error_exit:
         if (result)
         {
-            ld_talloc_free(result, error_exit);
+            talloc_free(result);
+            result = NULL;
         }
         return NULL;
 }
@@ -330,7 +331,8 @@ ld_config_t *ld_create_config(TALLOC_CTX* talloc_ctx,
     error_exit:
         if (result)
         {
-            ld_talloc_free(result, error_exit);
+            talloc_free(result);
+            result = NULL;
         }
         return NULL;
 }
@@ -429,7 +431,8 @@ void ld_init(LDHandle** handle, const ld_config_t* config)
         {
             if ((*handle)->talloc_ctx)
             {
-                ld_talloc_free((*handle)->talloc_ctx, error_exit);
+                talloc_free((*handle)->talloc_ctx);
+                (*handle)->talloc_ctx = NULL;
             }
             free(*handle);
             *handle = NULL;
@@ -580,7 +583,8 @@ static LDAPMod ** fill_attributes(LDAPAttribute_t **entry_attrs, TALLOC_CTX *tal
     error_exit:
         if (attrs)
         {
-            ld_talloc_free(attrs, error_exit);
+            talloc_free(attrs);
+            attrs = NULL;
         }
 
         return NULL;
@@ -628,7 +632,8 @@ enum OperationReturnCode ld_add_entry(LDHandle *handle, const char *name, const 
     error_exit:
         if (talloc_ctx)
         {
-            ld_talloc_free(talloc_ctx, error_exit);
+            talloc_free(talloc_ctx);
+            talloc_ctx = NULL;
         }
 
         return RETURN_CODE_FAILURE;
@@ -671,7 +676,8 @@ enum OperationReturnCode ld_del_entry(LDHandle *handle, const char *name, const 
     error_exit:
         if (talloc_ctx)
         {
-            ld_talloc_free(talloc_ctx, error_exit);
+            talloc_free(talloc_ctx);
+            talloc_ctx = NULL;
         }
 
         return RETURN_CODE_FAILURE;
@@ -719,7 +725,8 @@ enum OperationReturnCode ld_mod_entry(LDHandle *handle, const char *name, const 
     error_exit:
         if (talloc_ctx)
         {
-            ld_talloc_free(talloc_ctx, error_exit);
+            talloc_free(talloc_ctx);
+            talloc_ctx = NULL;
         }
 
         return RETURN_CODE_FAILURE;
@@ -769,7 +776,8 @@ enum OperationReturnCode ld_rename_entry(LDHandle *handle, const char *old_name,
     error_exit:
         if (talloc_ctx)
         {
-            ld_talloc_free(talloc_ctx, error_exit);
+            talloc_free(talloc_ctx);
+            talloc_ctx = NULL;
         }
 
         return RETURN_CODE_FAILURE;
@@ -848,7 +856,8 @@ enum OperationReturnCode ld_mod_entry_attrs(LDHandle *handle, const char *name, 
     error_exit:
         if (talloc_ctx)
         {
-            ld_talloc_free(talloc_ctx, error_exit);
+            talloc_free(talloc_ctx);
+            talloc_ctx = NULL;
         }
 
         return RETURN_CODE_FAILURE;
