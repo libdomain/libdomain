@@ -320,7 +320,6 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
 
                     if (!ld_entry)
                     {
-                        error_exit_free:
                         if (entries)
                         {
                             while (entry_index)
@@ -328,7 +327,8 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
                                 --entry_index;
                                 ldap_memfree(entries[entry_index]);
                             }
-                            ld_talloc_free(entries, error_exit_free);
+                            talloc_free(entries);
+                            entries = NULL;
                         }
                         goto error_exit;
                     }
@@ -788,7 +788,8 @@ ld_entry_t* ld_entry_new(TALLOC_CTX *ctx, const char* dn)
     error_exit:
         if (result)
         {
-            ld_talloc_free(result, error_exit);
+            talloc_free(result);
+            result = NULL;
         }
         return NULL;
 }
@@ -898,7 +899,7 @@ static void fill_attribute(gpointer key, gpointer value, gpointer userdata)
     int value_index = 0;
     while(values[value_index] != NULL)
     {
-        ld_talloc_strdup(attribute->values[value_index], error_exit, userdata, values[value_index]);
+        ld_talloc_strdup(attribute->values[value_index], error_exit, attribute->values, values[value_index]);
         value_index++;
     }
 
@@ -907,15 +908,8 @@ static void fill_attribute(gpointer key, gpointer value, gpointer userdata)
     error_exit:
         if (attribute->values)
         {
-            while (value_index)
-            {
-                // OK,            OK, ... OK,            OK,            ERROR(not allocated)
-                // ^0             ^1  ... ^value_index-2 ^value_index-1 ^value_index
-                --value_index; 
-                ld_talloc_free(attribute->values[value_index], error_exit);
-                // on ld_talloc_free error will be skipped.
-            }
-            ld_talloc_free(attribute->values, error_exit);
+            talloc_free(attribute->values);
+            attribute->values = NULL;
         }
         return;
 }
@@ -961,14 +955,7 @@ LDAPAttribute_t **ld_entry_get_attributes(ld_entry_t *entry)
     error_exit:
         if (result)
         {
-            while (index)
-            {
-                // OK,      OK, ... OK,      OK,      ERROR(not allocated)
-                // ^0       ^1  ... ^index-2 ^index-1 ^index
-                --index; 
-                ld_talloc_free(result[index], error_exit);
-                // on ld_talloc_free error will be skipped.
-            }
-            ld_talloc_free(result, error_exit);
+            talloc_free(result);
+            result = NULL;
         }
 }
