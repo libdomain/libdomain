@@ -19,6 +19,7 @@
 ***********************************************************************************************************************/
 
 #include "request_queue.h"
+#include "helper_p.h"
 
 struct request_queue
 {
@@ -38,17 +39,15 @@ struct request_queue
  */
 request_queue *request_queue_new(TALLOC_CTX *ctx, unsigned int capacity)
 {
-    request_queue* result = talloc_zero(ctx, struct request_queue);
-    if (!result)
-    {
-        ld_error("Unable to allocate request_queue.\n");
-
-        return NULL;
-    }
+    request_queue* result = NULL;
+    ld_talloc_zero(result, error_exit, ctx, struct request_queue);
 
     result->capacity = capacity;
 
     return result;
+
+    error_exit:
+        return NULL;
 }
 
 /*!
