@@ -322,7 +322,8 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
     error_exit:
         if (talloc_ctx)
         {
-            ld_talloc_free(talloc_ctx, error_exit);
+            talloc_free(talloc_ctx);
+            talloc_ctx = NULL;
         }
         return RETURN_CODE_FAILURE;
 }
@@ -722,7 +723,7 @@ enum OperationReturnCode connection_close(struct ldap_connection_ctx_t *connecti
     return RETURN_CODE_SUCCESS;
 
     error_exit:
-    return RETURN_CODE_FAILURE;
+        return RETURN_CODE_FAILURE;
 }
 
 /**
@@ -797,8 +798,6 @@ enum OperationReturnCode connection_bind_on_read(int rc, LDAPMessage * message, 
     return RETURN_CODE_SUCCESS;
 
     error_exit:
-        // TODO: consider what needs to be added in order to correctly return the error without breaking anything
-        // (or break minimally)
         return RETURN_CODE_FAILURE;
 }
 
@@ -853,7 +852,5 @@ enum OperationReturnCode connection_start_tls_on_read(int rc, LDAPMessage * mess
     return RETURN_CODE_SUCCESS;
 
     error_exit:
-        // TODO: consider what needs to be added in order to correctly return the error without breaking anything
-        // (or break minimally)
         return RETURN_CODE_FAILURE;
 }
