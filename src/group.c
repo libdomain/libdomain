@@ -166,7 +166,8 @@ static enum OperationReturnCode group_member_modify(LDHandle *handle, const char
     error_exit:
         if (talloc_ctx)
         {
-            ld_talloc_free(talloc_ctx, error_exit);
+            talloc_free(talloc_ctx);
+            talloc_ctx = NULL;
         }
 
         return RETURN_CODE_FAILURE;
