@@ -40,7 +40,7 @@ struct request_queue
 request_queue *request_queue_new(TALLOC_CTX *ctx, unsigned int capacity)
 {
     request_queue* result = NULL;
-    ld_talloc_zero(result, error_exit, ctx, struct request_queue);
+    ld_talloc_zero_e(result, error_exit, "Unable to allocate request_queue.\n", ctx, struct request_queue);
 
     result->capacity = capacity;
 
