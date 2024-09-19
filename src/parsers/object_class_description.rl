@@ -22,9 +22,10 @@
     {
         if (symbol_start != p)
         {
-            result->oc_names = talloc_realloc(talloc_ctx, result->oc_names, char*, name_index + 1);
+            result->oc_names = talloc_realloc(talloc_ctx, result->oc_names, char*, name_index + 2);
             result->oc_names[name_index] = talloc_strndup(talloc_ctx, symbol_start, fpc - symbol_start);
             name_index++;
+            result->oc_names[name_index] = NULL;
         }
         symbol_start = p;
     }
@@ -33,9 +34,10 @@
     {
         if (symbol_start != p)
         {
-            oids = talloc_realloc(talloc_ctx, oids, char*, oid_index + 1);
+            oids = talloc_realloc(talloc_ctx, oids, char*, oid_index + 2);
             oids[oid_index] = talloc_strndup(talloc_ctx, symbol_start, fpc - symbol_start);
             oid_index++;
+            oids[oid_index] = NULL;
         }
         symbol_start = p;
     }
