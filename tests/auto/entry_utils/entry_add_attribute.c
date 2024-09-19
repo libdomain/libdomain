@@ -36,9 +36,9 @@ Ensure(returns_failure_when_attr_is_null)
 Ensure(returns_failure_when_attr_name_is_null)
 {
     TALLOC_CTX *ctx = talloc_new(NULL);
+    const char* dn = "cn=test,dc=domain,dc=alt";
 
-    ld_entry_t *entry = talloc(ctx, ld_entry_t);
-    entry->attributes = g_hash_table_new(g_str_hash, g_str_equal);
+    ld_entry_t* entry = ld_entry_new(ctx, dn);
 
     LDAPAttribute_t *attr = talloc(ctx, LDAPAttribute_t);
     attr->name = NULL;

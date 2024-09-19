@@ -17,6 +17,7 @@ Ensure(Cgreen, load_config_from_file) {
 
     char *valid_file_envvar = "VALID_CONFIG_FILE";
     char *valid_file = get_environment_variable(talloc_ctx, valid_file_envvar);
+    assert_that(valid_file_envvar, is_non_null);
 
     ld_config_t* config = ld_load_config(talloc_ctx, valid_file);
 
