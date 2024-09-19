@@ -113,6 +113,22 @@ ldap_schema_callback_common(struct ldap_connection_ctx_t *connection, ld_entry_t
 }
 
 /**
+ * @brief attribute_type_destructor Destructor of the attribute type description.
+ * @param[in] reference             Pointer to the pointer to attribute type description.
+ * @return
+ *        0 - on success.
+ */
+int attribute_type_destructor(LDAPAttributeType **reference)
+{
+    if (reference)
+    {
+        ldap_attributetype_free(*reference);
+    }
+
+    return 0;
+}
+
+/**
  * @brief attribute_type_callback   This callback appends LDAP attribute type to schema.
  * @param[in] attribute_value       Attribute value to work with.
  * @param[in] user_data             An output parameter for returning data (schema in this case) from callback.
@@ -122,26 +138,49 @@ ldap_schema_callback_common(struct ldap_connection_ctx_t *connection, ld_entry_t
  */
 static enum OperationReturnCode attribute_type_callback(char *attribute_value, void* user_data)
 {
-    ldap_schema_t* schema = user_data;
+    ldap_schema_t* schema = talloc_get_type_abort(user_data, struct ldap_schema_t);
+
+    LDAPAttributeType **reference = talloc_zero(schema, LDAPAttributeType*);
 
     int error_code = 0;
     const char* error_message = NULL;
     LDAPAttributeType* attribute_type = ldap_str2attributetype(attribute_value, &error_code, &error_message, LDAP_SCHEMA_ALLOW_ALL);
     if (!attribute_type || error_code != 0)
     {
-        ld_error("Error: %d %s\n", error_code, error_message);
+        talloc_free(reference);
+
+        ld_error("Unable to parse attribute type %d %s\n", error_code, error_message);
         return RETURN_CODE_FAILURE;
     }
     else
     {
+        *reference = attribute_type;
+        talloc_set_destructor(reference, attribute_type_destructor);
+
         if (!ldap_schema_append_attributetype(schema, attribute_type))
         {
-            ld_error("Error: unable to add attribute type to the schema!\n");
+            ld_error("Unable to add attribute type to the schema!\n");
             return RETURN_CODE_FAILURE;
         }
     }
 
     return RETURN_CODE_SUCCESS;
+}
+
+/**
+ * @brief object_class_destructor Destructor of the object class description.
+ * @param[in] reference           Pointer to pointer to object class description.
+ * @return
+ *        0 - on success.
+ */
+int object_class_destructor(LDAPObjectClass **reference)
+{
+    if (reference)
+    {
+        ldap_objectclass_free(*reference);
+    }
+
+    return 0;
 }
 
 /**
@@ -154,7 +193,9 @@ static enum OperationReturnCode attribute_type_callback(char *attribute_value, v
  */
 static enum OperationReturnCode object_class_callback(char *attribute_value, void* user_data)
 {
-    ldap_schema_t* schema = user_data;
+    ldap_schema_t* schema = talloc_get_type_abort(user_data, struct ldap_schema_t);
+
+    LDAPObjectClass **reference = talloc_zero(schema, LDAPObjectClass*);
 
     int error_code = 0;
     const char* error_message = NULL;
@@ -162,14 +203,19 @@ static enum OperationReturnCode object_class_callback(char *attribute_value, voi
 
     if (!object_class || error_code != 0)
     {
-        ld_error("Error: %d %s\n", error_code, error_message);
+        talloc_free(reference);
+
+        ld_error("Unable to parse object class: %d %s\n", error_code, error_message);
         return RETURN_CODE_FAILURE;
     }
     else
     {
+        *reference = object_class;
+        talloc_set_destructor(reference, object_class_destructor);
+
         if (!ldap_schema_append_objectclass(schema, object_class))
         {
-            ld_error("Error: unable to add class to the schema!\n");
+            ld_error("Unable to add class to the schema!\n");
             return RETURN_CODE_FAILURE;
         }
     }
