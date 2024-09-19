@@ -141,12 +141,11 @@ static enum OperationReturnCode attribute_type_callback(char *attribute_value, v
     ldap_schema_t* schema = talloc_get_type_abort(user_data, struct ldap_schema_t);
 
     LDAPAttributeType **reference = talloc_zero(schema, LDAPAttributeType*);
-    talloc_set_destructor(reference, attribute_type_destructor);
 
     int error_code = 0;
     const char* error_message = NULL;
     LDAPAttributeType* attribute_type = ldap_str2attributetype(attribute_value, &error_code, &error_message, LDAP_SCHEMA_ALLOW_ALL);
-    if (!attribute_type || error_code != 0 || error_message != 0)
+    if (!attribute_type || error_code != 0)
     {
         talloc_free(reference);
 
@@ -155,7 +154,8 @@ static enum OperationReturnCode attribute_type_callback(char *attribute_value, v
     }
     else
     {
-        reference = &attribute_type;
+        *reference = attribute_type;
+        talloc_set_destructor(reference, attribute_type_destructor);
 
         if (!ldap_schema_append_attributetype(schema, attribute_type))
         {
@@ -196,13 +196,12 @@ static enum OperationReturnCode object_class_callback(char *attribute_value, voi
     ldap_schema_t* schema = talloc_get_type_abort(user_data, struct ldap_schema_t);
 
     LDAPObjectClass **reference = talloc_zero(schema, LDAPObjectClass*);
-    talloc_set_destructor(reference, object_class_destructor);
 
     int error_code = 0;
     const char* error_message = NULL;
     LDAPObjectClass* object_class = ldap_str2objectclass(attribute_value, &error_code, &error_message, LDAP_SCHEMA_ALLOW_ALL);
 
-    if (!object_class || error_code != 0 || error_message != 0)
+    if (!object_class || error_code != 0)
     {
         talloc_free(reference);
 
@@ -211,7 +210,8 @@ static enum OperationReturnCode object_class_callback(char *attribute_value, voi
     }
     else
     {
-        reference = &object_class;
+        *reference = object_class;
+        talloc_set_destructor(reference, object_class_destructor);
 
         if (!ldap_schema_append_objectclass(schema, object_class))
         {
