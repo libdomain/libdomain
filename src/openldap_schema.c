@@ -146,11 +146,11 @@ static enum OperationReturnCode attribute_type_callback(char *attribute_value, v
     int error_code = 0;
     const char* error_message = NULL;
     LDAPAttributeType* attribute_type = ldap_str2attributetype(attribute_value, &error_code, &error_message, LDAP_SCHEMA_ALLOW_ALL);
-    if (!attribute_type || error_code != 0)
+    if (!attribute_type || error_code != 0 || error_message != 0)
     {
         talloc_free(reference);
 
-        ld_error("Error: %d %s\n", error_code, error_message);
+        ld_error("Unable to parse attribute type %d %s\n", error_code, error_message);
         return RETURN_CODE_FAILURE;
     }
     else
@@ -159,7 +159,7 @@ static enum OperationReturnCode attribute_type_callback(char *attribute_value, v
 
         if (!ldap_schema_append_attributetype(schema, attribute_type))
         {
-            ld_error("Error: unable to add attribute type to the schema!\n");
+            ld_error("Unable to add attribute type to the schema!\n");
             return RETURN_CODE_FAILURE;
         }
     }
@@ -202,7 +202,7 @@ static enum OperationReturnCode object_class_callback(char *attribute_value, voi
     const char* error_message = NULL;
     LDAPObjectClass* object_class = ldap_str2objectclass(attribute_value, &error_code, &error_message, LDAP_SCHEMA_ALLOW_ALL);
 
-    if (!object_class || error_code != 0)
+    if (!object_class || error_code != 0 || error_message != 0)
     {
         talloc_free(reference);
 
