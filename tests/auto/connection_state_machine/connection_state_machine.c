@@ -24,6 +24,8 @@ static struct context_t* create_context()
     struct context_t* ctx = malloc(sizeof(context_t));
     assert_that(ctx, is_non_null);
 
+    memset(ctx, 0, sizeof(context_t));
+
     ctx->global_ctx.global_ldap = NULL;
     ctx->global_ctx.talloc_ctx = talloc_new(NULL);
     assert_that(ctx->global_ctx.talloc_ctx, is_non_null);
@@ -93,7 +95,7 @@ Ensure(Cgreen, connection_state_machine_next_state) {
     ctx->connection_ctx.ldap_params->dn = "cn=admin,dc=domain,dc=alt";
     ctx->connection_ctx.ldap_params->passwd = talloc(ctx->global_ctx.talloc_ctx, struct berval);
     ctx->connection_ctx.ldap_params->passwd->bv_len = strlen(ctx->config.sasl_options->passwd);
-    ctx->connection_ctx.ldap_params->passwd->bv_val = strdup(ctx->config.sasl_options->passwd);
+    ctx->connection_ctx.ldap_params->passwd->bv_val = talloc_strdup(ctx->global_ctx.talloc_ctx, ctx->config.sasl_options->passwd);
     ctx->connection_ctx.ldap_params->clientctrls = NULL;
     ctx->connection_ctx.ldap_params->serverctrls = NULL;
 
@@ -148,6 +150,7 @@ Ensure(Cgreen, connection_state_machine_set_state) {
     void* talloc_ctx = talloc_new(NULL);
 
     struct state_machine_ctx_t* csm = talloc(talloc_ctx, struct state_machine_ctx_t);
+    csm->state = LDAP_CONNECTION_STATE_ERROR;
 
     int rc = csm_set_state(csm, LDAP_CONNECTION_STATE_INIT);
     assert_that(csm->state, is_equal_to(LDAP_CONNECTION_STATE_INIT));

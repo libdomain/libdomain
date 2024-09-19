@@ -22,9 +22,10 @@
     {
         if (symbol_start != p)
         {
-            result->at_names = talloc_realloc(talloc_ctx, result->at_names, char*, name_index + 1);
+            result->at_names = talloc_realloc(talloc_ctx, result->at_names, char*, name_index + 2);
             result->at_names[name_index] = talloc_strndup(talloc_ctx, symbol_start, fpc - symbol_start);
             name_index++;
+            result->at_names[name_index] = NULL;
         }
         symbol_start = p;
     }

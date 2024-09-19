@@ -21,6 +21,8 @@ static struct context_t* create_context()
     struct context_t* ctx = malloc(sizeof(context_t));
     assert_that(ctx, is_non_null);
 
+    memset(ctx, 0, sizeof(context_t));
+
     ctx->global_ctx.global_ldap = NULL;
     ctx->global_ctx.talloc_ctx = talloc_new(NULL);
     assert_that(ctx->global_ctx.talloc_ctx, is_non_null);

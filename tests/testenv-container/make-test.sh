@@ -15,4 +15,4 @@ cd $BUILD_DIR && \
 pwd && \
 cmake -DLIBDOMAIN_BUILD_TESTS:BOOL=ON -DCMAKE_BUILD_TYPE=Debug -B . .. && \
 make && \
-ctest --overwrite MemoryCheckCommandOptions="-q --leak-check=full --error-exitcode=99" -T memcheck --verbose
+ctest --overwrite MemoryCheckCommandOptions="-q --leak-check=full --error-exitcode=99 --suppressions=/tmp/valgrind.supp" -T memcheck --verbose

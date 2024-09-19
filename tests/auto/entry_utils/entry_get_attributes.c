@@ -14,9 +14,10 @@ Ensure(ld_entry_get_attributes_returns_null_when_entry_is_null)
 Ensure(ld_entry_get_attributes_returns_null_when_entry_has_no_attributes)
 {
     TALLOC_CTX *ctx = talloc_new(NULL);
+    const char* dn = "cn=test,dc=domain,dc=alt";
 
-    ld_entry_t *entry = talloc_zero(ctx, ld_entry_t);
-    entry->attributes = g_hash_table_new(g_str_hash, g_str_equal);
+    ld_entry_t* entry = ld_entry_new(ctx, dn);
+
     LDAPAttribute_t **attributes = ld_entry_get_attributes(entry);
     assert_that(attributes[0], is_null);
 
@@ -26,10 +27,9 @@ Ensure(ld_entry_get_attributes_returns_null_when_entry_has_no_attributes)
 Ensure(ld_entry_get_attributes_returns_attributes_when_entry_has_attributes)
 {
     TALLOC_CTX *ctx = talloc_new(NULL);
+    const char* dn = "cn=test,dc=domain,dc=alt";
 
-    ld_entry_t *entry = talloc_zero(ctx, ld_entry_t);
-
-    entry->attributes = g_hash_table_new(g_str_hash, g_str_equal);
+    ld_entry_t* entry = ld_entry_new(ctx, dn);
 
     LDAPAttribute_t *attribute = talloc_zero(entry, LDAPAttribute_t);
     attribute->name = "test";
