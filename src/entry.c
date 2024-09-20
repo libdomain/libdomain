@@ -301,7 +301,7 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
                 ld_info("Handle %d\n", connection->handle);
 
                 ld_entry_t** entries = NULL;
-                ld_talloc_array(entries, error_exit, connection->handle->talloc_ctx, ld_entry_t*, INITIAL_ARRAY_SIZE);
+                ld_talloc_array_e(entries, error_exit, "search_on_read - out of memory during allocation of entries!\n", connection->handle->talloc_ctx, ld_entry_t*, INITIAL_ARRAY_SIZE);
 
                 int entry_index = 0;
 
@@ -311,7 +311,7 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
 
                     if (entry_index + 2 >= entries_size)
                     {
-                        ld_talloc_realloc(entries, error_exit, connection->handle->talloc_ctx, ld_entry_t*, entries_size * 2);
+                        ld_talloc_realloc_e(entries, error_exit, "search_on_read - out of memory during allocation of entries!\n", connection->handle->talloc_ctx, ld_entry_t*, entries_size * 2);
                     }
 
                     char* dn = ldap_get_dn(connection->ldap, message);
@@ -320,6 +320,7 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
 
                     if (!ld_entry)
                     {
+                        ld_error("search_on_read - out of memory - unable to create new ld_entry_t!\n");
                         if (entries)
                         {
                             while (entry_index)
@@ -769,15 +770,16 @@ ld_entry_t* ld_entry_new(TALLOC_CTX *ctx, const char* dn)
     }
 
     ld_entry_t* result = NULL;
-    ld_talloc_zero(result, error_exit, ctx, ld_entry_t);
+    ld_talloc_zero_e(result, error_exit, "ld_entry_new - out of memory - unable to create new ld_entry_t!\n", ctx, ld_entry_t);
 
     result->dn = NULL;
-    ld_talloc_strdup(result->dn, error_exit, result, dn);
+    ld_talloc_strdup_e(result->dn, error_exit, "ld_entry_new - out of memory - unable to create new ld_entry_t!\n", result, dn);
 
     result->attributes = g_hash_table_new(g_str_hash, g_str_equal);
 
     if (!result->attributes)
     {
+        ld_error("ld_entry_new - out of memory - unable to create attributes!\n");
         goto error_exit;
     }
 
@@ -958,4 +960,5 @@ LDAPAttribute_t **ld_entry_get_attributes(ld_entry_t *entry)
             talloc_free(result);
             result = NULL;
         }
+        return NULL;
 }
