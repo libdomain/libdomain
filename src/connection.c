@@ -198,7 +198,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
     if (config->search_timelimit > 0)
     {
-        search_timeout = connection_microseconds_to_timeval(talloc_ctx, config->search_timelimit);
+        search_timeout = connection_microseconds_to_timeval(global_ctx->talloc_ctx, config->search_timelimit);
 
         if (search_timeout == NULL)
         {
@@ -209,7 +209,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
         set_ldap_option(connection->ldap, LDAP_OPT_TIMELIMIT, search_timeout);
     }
 
-    network_timeout = connection_microseconds_to_timeval(talloc_ctx, config->network_timeout);
+    network_timeout = connection_microseconds_to_timeval(global_ctx->talloc_ctx, config->network_timeout);
 
     if (network_timeout == NULL)
     {
