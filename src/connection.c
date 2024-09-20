@@ -130,7 +130,7 @@ static void search_requests_init(struct ldap_search_request_t* requests, int siz
 struct timeval* connection_microseconds_to_timeval(TALLOC_CTX *talloc_ctx, int microseconds)
 {
     struct timeval* time_interval = NULL;
-    ld_talloc(time_interval, error_exit, talloc_ctx, struct timeval);
+    ld_talloc_e(time_interval, error_exit, "Error - out of memory - unable to allocate memory for timeval", talloc_ctx, struct timeval);
 
     if (microseconds < 0)
     {
@@ -174,7 +174,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
     struct timeval* network_timeout = NULL;
 
     TALLOC_CTX* talloc_ctx = NULL;
-    ld_talloc_new(talloc_ctx, error_exit, NULL);
+    ld_talloc_new_e(talloc_ctx, error_exit, "Error - out of memory - unable to allocate memory for TALLOC_CTX\n", NULL);
 
     int rc = ldap_initialize(&connection->ldap, config->server);
 
@@ -192,8 +192,8 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
     connection->rmech = NULL;
 
     // steal on 311
-    ld_talloc(connection->state_machine, error_exit, talloc_ctx, struct state_machine_ctx_t);
-    
+    ld_talloc_e(connection->state_machine, error_exit, "Error - out of memory - unable to allocate memory for state_machine_ctx_t", talloc_ctx, struct state_machine_ctx_t);
+
     csm_init(connection->state_machine, connection);
 
     if (config->search_timelimit > 0)
@@ -202,7 +202,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
         if (search_timeout == NULL)
         {
-            ld_error("Error - failed to allocate memory");
+            ld_error("Error - out of memory - unable to allocate memory for timeval\n");
             goto error_exit;
         }
 
@@ -213,7 +213,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
     if (network_timeout == NULL)
     {
-        ld_error("Error - failed to allocate memory");
+        ld_error("Error - out of memory - unable to allocate memory for timeval\n");
         goto error_exit;
     }
 
@@ -226,7 +226,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
     set_ldap_option(connection->ldap, LDAP_OPT_CONNECT_ASYNC, LDAP_OPT_ON);
 
     // steal on 312
-    ld_talloc_zero(connection->ldap_defaults, error_exit, talloc_ctx, struct ldap_sasl_defaults_t);
+    ld_talloc_zero_e(connection->ldap_defaults, error_exit, "Error - out of memory - unable to allocate memory for ldap_sasl_defaults_t", talloc_ctx, struct ldap_sasl_defaults_t);
 
     connection->ldap_defaults->mechanism = LDAP_SASL_SIMPLE;
 
@@ -242,7 +242,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
         connection->ldap_defaults->flags = config->sasl_options->sasl_flags;
 
         // steal on 315
-        ld_talloc_strdup(connection->ldap_defaults->mechanism, error_exit, talloc_ctx, config->sasl_options->mechanism);
+        ld_talloc_strdup_e(connection->ldap_defaults->mechanism, error_exit, "Error - out of memory - unable to allocate memory for sasl mechanism", talloc_ctx, config->sasl_options->mechanism);
     }
 
     if (config->use_start_tls)
