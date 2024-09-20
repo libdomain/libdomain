@@ -317,7 +317,7 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
 
                     if (entry_index + 2 >= entries_size)
                     {
-                        entries = talloc_realloc(connection->handle->talloc_ctx, NULL, ld_entry_t*, entries_size * 2);
+                        entries = talloc_realloc(connection->handle->talloc_ctx, entries, ld_entry_t*, entries_size * 2);
 
                         if (!entries)
                         {
