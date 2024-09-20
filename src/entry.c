@@ -907,6 +907,8 @@ static void fill_attribute(gpointer key, gpointer value, gpointer userdata)
 
     attribute->values[index] = NULL;
 
+    return;
+
     error_exit:
         if (attribute->values)
         {
