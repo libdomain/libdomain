@@ -80,25 +80,25 @@
     LD_ALLOC_HELPER(var, talloc_asprintf, error_message, error_handler, ctx, fmt, __VA_ARGS__)
 
 #define ld_talloc_asprintf(var, error_handler, ctx, fmt, ...) \
-    ld_talloc_asprintf_e(var, error_handler, "Error - failed to allocate memory", ctx, fmt, ...)
+    ld_talloc_asprintf_e(var, error_handler, "Error - failed to allocate memory", ctx, fmt, __VA_ARGS__)
 
 #define ld_talloc_asprintf_addbuf_e(var, error_handler, error_message, ps, fmt, ...) \
     LD_ALLOC_HELPER(var, talloc_asprintf_addbuf, error_message, error_handler, ps, fmt, __VA_ARGS__)
 
 #define ld_talloc_asprintf_addbuf(var, error_handler, ps, fmt, ...) \
-    ld_talloc_asprintf_addbuf_e(var, error_handler, "Error - failed to allocate memory", ps, fmt, ...)
+    ld_talloc_asprintf_addbuf_e(var, error_handler, "Error - failed to allocate memory", ps, fmt, __VA_ARGS__)
 
 #define ld_talloc_asprintf_append_e(var, error_handler, error_message, str, fmt, ...) \
     LD_ALLOC_HELPER(var, talloc_asprintf_append, error_message, error_handler, str, fmt, __VA_ARGS__)
 
 #define ld_talloc_asprintf_append(var, error_handler, str, fmt, ...) \
-    ld_talloc_asprintf_append_e(var, error_handler, "Error - failed to allocate memory", str, fmt, ...)
+    ld_talloc_asprintf_append_e(var, error_handler, "Error - failed to allocate memory", str, fmt, __VA_ARGS__)
 
 #define ld_talloc_asprintf_append_buffer_e(var, error_handler, error_message, str, fmt, ...) \
     LD_ALLOC_HELPER(var, talloc_asprintf_append_buffer, error_message, error_handler, str, fmt, __VA_ARGS__)
 
 #define ld_talloc_asprintf_append_buffer(var, error_handler, str, fmt, ...) \
-    ld_talloc_asprintf_append_buffer_e(var, error_handler, "Error - failed to allocate memory", str, fmt, ...)
+    ld_talloc_asprintf_append_buffer_e(var, error_handler, "Error - failed to allocate memory", str, fmt, __VA_ARGS__)
 
 #define ld_talloc_vasprintf_e(var, error_handler, error_message, ctx, fmt, valist) \
     LD_ALLOC_HELPER(var, talloc_vasprintf, error_message, error_handler, ctx, fmt, valist)
