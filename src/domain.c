@@ -263,7 +263,7 @@ ld_config_t *ld_create_config(TALLOC_CTX* talloc_ctx,
     }
 
     ld_config_t *result = NULL;
-    ld_talloc_zero(result, error_exit, talloc_ctx, ld_config_t);
+    ld_talloc_zero_e(result, error_exit, "Unable to allocate memory for config_t", talloc_ctx, ld_config_t);
 
     if (port > 0)
     {
