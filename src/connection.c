@@ -191,7 +191,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
     connection->rmech = NULL;
 
-    // steal on 311
+    // steal on 314
     ld_talloc_e(connection->state_machine, error_exit, "Error - out of memory - unable to allocate memory for state_machine_ctx_t", talloc_ctx, struct state_machine_ctx_t);
 
     csm_init(connection->state_machine, connection);
@@ -225,7 +225,7 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
     set_ldap_option(connection->ldap, LDAP_OPT_CONNECT_ASYNC, LDAP_OPT_ON);
 
-    // steal on 312
+    // steal on 315
     ld_talloc_zero_e(connection->ldap_defaults, error_exit, "Error - out of memory - unable to allocate memory for ldap_sasl_defaults_t", talloc_ctx, struct ldap_sasl_defaults_t);
 
     connection->ldap_defaults->mechanism = LDAP_SASL_SIMPLE;
@@ -241,8 +241,11 @@ enum OperationReturnCode connection_configure(struct ldap_global_context_t *glob
 
         connection->ldap_defaults->flags = config->sasl_options->sasl_flags;
 
-        // steal on 315
-        ld_talloc_strdup_e(connection->ldap_defaults->mechanism, error_exit, "Error - out of memory - unable to allocate memory for sasl mechanism", talloc_ctx, config->sasl_options->mechanism);
+        if (config->sasl_options->mechanism)
+        {
+            // steal on 318
+            ld_talloc_strdup_e(connection->ldap_defaults->mechanism, error_exit, "Error - out of memory - unable to allocate memory for sasl mechanism", talloc_ctx, config->sasl_options->mechanism);
+        }
     }
 
     if (config->use_start_tls)
