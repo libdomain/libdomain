@@ -24,7 +24,7 @@
 
 #include "directory.h"
 
-#include <talloc.h>
+#include "helper_p.h"
 
 #include <ldap.h>
 #include <ldap_schema.h>
@@ -63,19 +63,16 @@ ldap_schema_new(TALLOC_CTX *ctx)
 {
     return_null_if_null(ctx, "NULL talloc context.\n")
 
-    ldap_schema_t* result = talloc_zero(ctx, struct ldap_schema_t);
-    return_null_if_null(result, "Unable to allocate ldap_schema_t.\n")
+    ldap_schema_t* result = NULL;
+    ld_talloc_zero_e(result, error_exit, "Unable to allocate ldap_schema_t.\n", ctx, struct ldap_schema_t);
 
     result->attribute_types_by_oid = g_hash_table_new(g_str_hash, g_str_equal);
     result->attribute_types_by_name = g_hash_table_new(g_str_hash, g_str_equal);
 
     if (!result->attribute_types_by_oid || !result->attribute_types_by_name)
     {
-        talloc_free(result);
-
         ld_error("ldap_schema_new - out of memory - unable to create attribute types in schema!\n");
-
-        return NULL;
+        goto error_exit;
     }
 
     result->object_classes_by_oid = g_hash_table_new(g_str_hash, g_str_equal);
@@ -83,16 +80,38 @@ ldap_schema_new(TALLOC_CTX *ctx)
 
     if (!result->object_classes_by_oid || !result->object_classes_by_name)
     {
-        talloc_free(result);
-
         ld_error("ldap_schema_new - out of memory - unable to create object classes in schema!\n");
-
-        return NULL;
+        goto error_exit;
     }
 
     talloc_set_destructor(result, ldap_schema_destructor);
 
     return result;
+
+    error_exit:
+        if (result)
+        {
+            if (result->attribute_types_by_oid)
+            {
+                g_hash_table_destroy(result->attribute_types_by_oid);
+            }
+            if (result->attribute_types_by_name)
+            {
+                g_hash_table_destroy(result->attribute_types_by_name);
+            }
+            if (result->object_classes_by_oid)
+            {
+                g_hash_table_destroy(result->object_classes_by_oid);
+            }
+            if (result->object_classes_by_name)
+            {
+                g_hash_table_destroy(result->object_classes_by_name);
+            }
+
+            talloc_free(result);
+            result = NULL;
+        }
+        return NULL;
 }
 
 /*!
@@ -111,10 +130,8 @@ ldap_schema_object_classes(const ldap_schema_t *schema)
 
     int result_size = g_hash_table_size(schema->object_classes_by_oid);
 
-    LDAPObjectClass** result = talloc_array(schema, LDAPObjectClass*, result_size + 1);
-
-    return_null_if_null(result,
-                             "ldap_schema_object_classes - talloc_array for LDAPObjectClass returned NULL!\n");
+    LDAPObjectClass** result = NULL;
+    ld_talloc_array_e(result, error_exit, "ldap_schema_object_classes - talloc_array for LDAPObjectClass returned NULL!\n", schema, LDAPObjectClass*, result_size + 1)
 
     GHashTableIter iter;
     gpointer key = NULL, value = NULL;
@@ -128,6 +145,9 @@ ldap_schema_object_classes(const ldap_schema_t *schema)
     result[result_size] = NULL;
 
     return result;
+
+    error_exit: 
+        return NULL;
 }
 
 /*!
@@ -146,10 +166,8 @@ ldap_schema_attribute_types(const ldap_schema_t* schema)
 
     int result_size = g_hash_table_size(schema->attribute_types_by_oid);
 
-    LDAPAttributeType** result = talloc_array(schema, LDAPAttributeType*, result_size + 1);
-
-    return_null_if_null(result,
-                             "ldap_schema_attribute_types - talloc_array for LDAPAttributeType returned NULL!\n");
+    LDAPAttributeType** result =  NULL;
+    ld_talloc_array_e(result, error_exit, "ldap_schema_attribute_types - talloc_array for LDAPAttributeType returned NULL!\n", schema, LDAPAttributeType*, result_size + 1);
 
     GHashTableIter iter;
     gpointer key = NULL, value = NULL;
@@ -163,6 +181,9 @@ ldap_schema_attribute_types(const ldap_schema_t* schema)
     result[result_size] = NULL;
 
     return result;
+
+    error_exit:
+        return NULL;
 }
 
 /*!
