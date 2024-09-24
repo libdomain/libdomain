@@ -326,9 +326,9 @@ enum OperationReturnCode search_on_read(int rc, LDAPMessage *message, struct lda
                             while (entry_index)
                             {
                                 --entry_index;
-                                ldap_memfree(entries[entry_index]);
+                                ld_talloc_free(entries[entry_index], error_exit);
                             }
-                            talloc_free(entries);
+                            ld_talloc_free(entries, error_exit);
                             entries = NULL;
                         }
                         goto error_exit;
