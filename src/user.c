@@ -21,6 +21,15 @@ enum UserAttributeIndex
     USER_PASSWORD  = 8,
 };
 
+/**
+ * @brief create_user_parent  Get user parent string allocated with talloc.
+ * @param[in] talloc_ctx      Pointer to talloc context.
+ * @param[in] LDHandle        libdomain session handle.
+ * @return
+ *        - User Parent if exist.
+ *        - "" if user parent doesn't exist.
+ *        - NULL on out of memory
+ */
 static const char* create_user_parent(TALLOC_CTX *talloc_ctx, LDHandle *handle)
 {
     char* ou_users = NULL;
@@ -37,34 +46,88 @@ static const char* create_user_parent(TALLOC_CTX *talloc_ctx, LDHandle *handle)
     return talloc_asprintf(talloc_ctx, "%s,%s", ou_users, handle ? handle->global_config->base_dn : "");
 }
 
+/**
+ * @brief create_lockout_time_attributes_openldap  Create lockout time attributes for OpenLDAP
+ * @param[in] ctx                                  Pointer to talloc context.
+ * @param[in] value                                lockout time.
+ * @return
+ *        - Pointer to array with already created lockout time attribute.
+ *        - NULL on out of memory
+ */
 static LDAPAttribute_t** create_lockout_time_attributes_openldap(TALLOC_CTX* ctx, const char* value)
 {
-    LDAPAttribute_t** attrs;
+    LDAPAttribute_t** attrs = NULL;
 
-    attrs = talloc_array(ctx, LDAPAttribute_t*, 2);
-    attrs[0] = talloc(ctx, LDAPAttribute_t);
-    attrs[0]->values = talloc_array(ctx, char*, 2);
-    attrs[0]->name = talloc_strdup(ctx, "pwdAccountLockedTime");
-    attrs[0]->values[0] = value ? talloc_strdup(ctx, value) : NULL;
-    attrs[0]->values[1] = NULL;
+    ld_talloc_array(attrs, error_exit, ctx, LDAPAttribute_t*, 2);
+    ld_talloc(attrs[0], error_exit, attrs, LDAPAttribute_t);
+    ld_talloc_strdup(attrs[0]->name, error_exit, attrs, "pwdAccountLockedTime");
+    ld_talloc_zero_array(attrs[0]->values, error_exit, attrs, char*, 2);
+
+    if (value)
+    {
+        // ctx - because of last allocation.
+        // see steal lower
+        ld_talloc_strdup(attrs[0]->values[0], error_exit, ctx, value);
+    }
+    // or NULL
+    // `attrs[0]->values[0]` and `attrs[0]->values[1]` already zeroed
+
     attrs[1] = NULL;
 
+    talloc_steal(ctx, attrs[0]);
+    talloc_steal(ctx, attrs[0]->name);
+    talloc_steal(ctx, attrs[0]->values);
+
     return attrs;
+
+    error_exit:
+        if (attrs)
+        {
+            talloc_free(attrs);
+        }
+
+        return NULL;
 }
 
+/**
+ * @brief create_lockout_time_attributes_openldap  Create lockout time attributes for Active Directory
+ * @param[in] ctx                                  Pointer to talloc context.
+ * @param[in] value                                lockout time.
+ * @return
+ *        - Pointer to array with already created lockout time attribute.
+ *        - NULL on out of memory
+ */
 static LDAPAttribute_t** create_lockout_time_attributes_ad(TALLOC_CTX* ctx, const char* value)
 {
-    LDAPAttribute_t** attrs;
+    LDAPAttribute_t** attrs = NULL;
 
-    attrs = talloc_array(ctx, LDAPAttribute_t*, 2);
-    attrs[0] = talloc(ctx, LDAPAttribute_t);
-    attrs[0]->values = talloc_array(ctx, char*, 2);
-    attrs[0]->name = talloc_strdup(ctx, "userAccountControl");
-    attrs[0]->values[0] = value ? talloc_strdup(ctx, value) : NULL;
-    attrs[0]->values[1] = NULL;
-    attrs[1] = NULL;
+    ld_talloc_array(attrs, error_exit, ctx, LDAPAttribute_t*, 2);
+    ld_talloc(attrs[0], error_exit, attrs, LDAPAttribute_t);
+    ld_talloc_strdup(attrs[0]->name, error_exit, attrs, "userAccountControl");
+    ld_talloc_zero_array(attrs[0]->values, error_exit, attrs, char*, 2);
+
+    if (value)
+    {
+        // ctx - because of last allocation.
+        // see steal lower
+        ld_talloc_strdup(attrs[0]->values[0], error_exit, ctx, value);
+    }
+    // or NULL
+    // `attrs[0]->values[0]` and `attrs[0]->values[1]` already zeroed
+
+    talloc_steal(ctx, attrs[0]);
+    talloc_steal(ctx, attrs[0]->name);
+    talloc_steal(ctx, attrs[0]->values);
 
     return attrs;
+
+    error_exit:
+        if (attrs)
+        {
+            talloc_free(attrs);
+        }
+        
+        return NULL;
 }
 
 
@@ -81,8 +144,9 @@ enum OperationReturnCode ld_add_user(LDHandle *handle, const char *name, LDAPAtt
 {
     const char* dn = NULL;
     enum OperationReturnCode rc = RETURN_CODE_FAILURE;
+    TALLOC_CTX *talloc_ctx = NULL;
 
-    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+    ld_talloc_new(talloc_ctx, error_exit, NULL);
 
     if (parent && strlen(parent) > 0)
     {
@@ -90,14 +154,20 @@ enum OperationReturnCode ld_add_user(LDHandle *handle, const char *name, LDAPAtt
     }
     else
     {
-        dn = create_user_parent(talloc_ctx, handle);
+        LD_ALLOC_HELPER(dn, create_user_parent, "Unable to create user parent - out of memory", error_exit, talloc_ctx, handle);
     }
 
     rc = ld_add_entry(handle, name, dn, "cn", user_attrs);
 
-    talloc_free(talloc_ctx);
 
-    return rc;
+    // rc = RETURN_CODE_FAILURE on error exit. In any other case - result of ld_add_entry.
+    error_exit:
+        if (talloc_ctx)
+        {
+            talloc_free(talloc_ctx);
+        }
+
+        return rc;
 }
 
 /**
@@ -111,13 +181,32 @@ enum OperationReturnCode ld_add_user(LDHandle *handle, const char *name, LDAPAtt
  */
 enum OperationReturnCode ld_del_user(LDHandle *handle, const char *name, const char* parent)
 {
-    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+    const char* dn = NULL;
+    enum OperationReturnCode rc = RETURN_CODE_FAILURE;
+    TALLOC_CTX *talloc_ctx = NULL;
 
-    int rc = ld_del_entry(handle, name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn");
+    ld_talloc_new(talloc_ctx, error_exit, NULL);
 
-    talloc_free(talloc_ctx);
+    if (parent)
+    {
+        dn = parent;
+    }
+    else 
+    {
+        LD_ALLOC_HELPER(dn, create_user_parent, "Unable to create user parent - out of memory", error_exit, talloc_ctx, handle);
+    }
 
-    return rc;
+    rc = ld_del_entry(handle, name, dn, "cn");
+
+
+    // rc = RETURN_CODE_FAILURE on error exit. In any other case - result of ld_del_entry.
+    error_exit:
+        if (dn)
+        {
+            talloc_free(talloc_ctx);
+        }
+
+        return rc;
 }
 
 /**
@@ -132,13 +221,30 @@ enum OperationReturnCode ld_del_user(LDHandle *handle, const char *name, const c
  */
 enum OperationReturnCode ld_mod_user(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **user_attrs)
 {
-    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+    const char* dn = NULL;
+    enum OperationReturnCode rc = RETURN_CODE_FAILURE;
+    TALLOC_CTX *talloc_ctx = NULL;
+    
+    ld_talloc_new(talloc_ctx, error_exit, NULL);
 
-    int rc = ld_mod_entry(handle, name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn", user_attrs);
+    if (parent)
+    {
+        dn = parent;
+    }
+    else 
+    {
+        LD_ALLOC_HELPER(dn, create_user_parent, "Unable to create user parent - out of memory", error_exit, talloc_ctx, handle);
+    }
 
-    talloc_free(talloc_ctx);
+    rc = ld_mod_entry(handle, name, dn, "cn", user_attrs);
 
-    return rc;
+    error_exit: 
+        if (talloc_ctx) 
+        {
+            talloc_free(talloc_ctx);
+        }
+
+        return rc;
 }
 
 /**
@@ -153,13 +259,30 @@ enum OperationReturnCode ld_mod_user(LDHandle *handle, const char *name, const c
  */
 enum OperationReturnCode ld_rename_user(LDHandle *handle, const char *old_name, const char *new_name, const char *parent)
 {
-    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+    const char* dn;
+    enum OperationReturnCode rc = RETURN_CODE_FAILURE;
+    TALLOC_CTX *talloc_ctx = NULL;
 
-    int rc = ld_rename_entry(handle, old_name, new_name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn");
+    ld_talloc_new(talloc_ctx, error_exit, NULL);
 
-    talloc_free(talloc_ctx);
+    if (parent)
+    {
+        dn = parent;
+    }
+    else 
+    {
+        LD_ALLOC_HELPER(dn, create_user_parent, "Unable to create user parent - out of memory", error_exit, talloc_ctx, handle);
+    }
 
-    return rc;
+    rc = ld_rename_entry(handle, old_name, new_name, dn, "cn");
+
+    error_exit: 
+        if (talloc_ctx) 
+        {
+            talloc_free(talloc_ctx);
+        }
+
+        return rc;
 }
 
 /*!
@@ -173,28 +296,56 @@ enum OperationReturnCode ld_rename_user(LDHandle *handle, const char *old_name, 
  */
 enum OperationReturnCode ld_block_user(LDHandle *handle, const char *name, const char *parent)
 {
-    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
+    const char* dn = NULL;
+    enum OperationReturnCode rc = RETURN_CODE_FAILURE;
+    TALLOC_CTX *talloc_ctx = NULL;
+    LDAPAttribute_t** attrs = NULL;
 
-    LDAPAttribute_t** attrs;
+    ld_talloc_new(talloc_ctx, error_exit, NULL);
+
     switch (handle->connection_ctx->directory_type) {
     case LDAP_TYPE_OPENLDAP:
-        attrs = create_lockout_time_attributes_openldap(talloc_ctx, "000001010000Z");
+        LD_ALLOC_HELPER(
+            attrs, 
+            create_lockout_time_attributes_openldap, 
+            "Unable to create lockout time OpenLDAP attribute - out of memory", error_exit, 
+            talloc_ctx, 
+            "000001010000Z");
         break;
     case LDAP_TYPE_ACTIVE_DIRECTORY:
-        attrs = create_lockout_time_attributes_ad(talloc_ctx, "514");
+        LD_ALLOC_HELPER(
+            attrs, 
+            create_lockout_time_attributes_ad, 
+            "Unable to create lockout time Active Directory attribute - out of memory", error_exit, 
+            talloc_ctx, 
+            "514");
         break;
     case LDAP_TYPE_FREE_IPA:
          ld_info("Unblocking users for free ipa is not implemented!\n");
     default:
-        return RETURN_CODE_FAILURE;
-        break;
+        goto error_exit;
     }
 
-    int rc = ld_mod_entry_attrs(handle, name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn", attrs, LDAP_MOD_REPLACE);
+    if (parent)
+    {
+        dn = parent;
+    }
+    else 
+    {
+        LD_ALLOC_HELPER(dn, create_user_parent, "Unable to create user parent - out of memory", error_exit, talloc_ctx, handle);
+    }
 
-    talloc_free(talloc_ctx);
+    rc = ld_mod_entry_attrs(handle, name, dn, "cn", attrs, LDAP_MOD_REPLACE);
 
-    return rc;
+    error_exit:
+        if (talloc_ctx)
+        {
+            talloc_free(talloc_ctx);
+        }
+
+        return rc;
+
+
 }
 
 /*!
@@ -208,28 +359,54 @@ enum OperationReturnCode ld_block_user(LDHandle *handle, const char *name, const
  */
 enum OperationReturnCode ld_unblock_user(LDHandle *handle, const char *name, const char *parent)
 {
-    TALLOC_CTX *talloc_ctx = talloc_new(NULL);
-
+    enum OperationReturnCode rc = RETURN_CODE_FAILURE;
     int mod_op = LDAP_MOD_REPLACE;
+    const char* dn = NULL;
+    TALLOC_CTX *talloc_ctx = NULL;
     LDAPAttribute_t** attrs = NULL;
+
+    ld_talloc_new(talloc_ctx, error_exit, NULL);
+
     switch (handle->connection_ctx->directory_type) {
     case LDAP_TYPE_OPENLDAP:
         mod_op = LDAP_MOD_DELETE;
-        attrs = create_lockout_time_attributes_openldap(talloc_ctx, NULL);
+        LD_ALLOC_HELPER(
+            attrs, 
+            create_lockout_time_attributes_openldap, 
+            "Unable to create lockout time OpenLDAP attribute - out of memory", error_exit, 
+            talloc_ctx, 
+            NULL);
         break;
     case LDAP_TYPE_ACTIVE_DIRECTORY:
-        attrs = create_lockout_time_attributes_ad(talloc_ctx, "512");
+        LD_ALLOC_HELPER(
+            attrs, 
+            create_lockout_time_attributes_ad, 
+            "Unable to create lockout time OpenLDAP attribute - out of memory", error_exit, 
+            talloc_ctx, 
+            "512");
         break;
     case LDAP_TYPE_FREE_IPA:
          ld_info("Unblocking users for free ipa is not implemented!\n");
     default:
-        return RETURN_CODE_FAILURE;
-        break;
+        goto error_exit;
     }
 
-    int rc = ld_mod_entry_attrs(handle, name, parent ? parent : create_user_parent(talloc_ctx, handle), "cn", attrs, mod_op);
+    if (parent)
+    {
+        dn = parent;
+    }
+    else 
+    {
+        LD_ALLOC_HELPER(dn, create_user_parent, "Unable to create user parent - out of memory", error_exit, talloc_ctx, handle);
+    }
 
-    talloc_free(talloc_ctx);
+    rc = ld_mod_entry_attrs(handle, name, dn, "cn", attrs, mod_op);
 
-    return rc;
+    error_exit:
+        if (talloc_ctx)
+        {
+            talloc_free(talloc_ctx);
+        }
+
+        return rc;
 }
