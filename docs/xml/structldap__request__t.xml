@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structldap__request__t" kind="struct" language="C++" prot="public">
+    <compoundname>ldap_request_t</compoundname>
+    <includes refid="connection_8h" local="no">connection.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structldap__request__t_1adb65a597eb9924d7a3bdd4d770286195" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ldap_request_t::msgid</definition>
+        <argsstring></argsstring>
+        <name>msgid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="119" column="9" bodyfile="src/connection.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__request__t_1a1e186d16ebb894a713506a6d8ce3e272" prot="public" static="no" mutable="no">
+        <type><ref refid="connection_8h_1ac66a35cf84b9b93a2ede4d7ccd3e2de8" kindref="member">operation_callback_fn</ref></type>
+        <definition>operation_callback_fn ldap_request_t::on_read_operation</definition>
+        <argsstring></argsstring>
+        <name>on_read_operation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="121" column="27" bodyfile="src/connection.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__request__t_1ad2c159c769453d812290cbc796cc0ef8" prot="public" static="no" mutable="no">
+        <type><ref refid="connection_8h_1ac66a35cf84b9b93a2ede4d7ccd3e2de8" kindref="member">operation_callback_fn</ref></type>
+        <definition>operation_callback_fn ldap_request_t::on_write_operation</definition>
+        <argsstring></argsstring>
+        <name>on_write_operation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="122" column="27" bodyfile="src/connection.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__request__t_1ab2a59758ec523be030dc592aa73962d6" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_queue___node__s" kindref="compound">Queue_Node_s</ref></type>
+        <definition>struct Queue_Node_s ldap_request_t::node</definition>
+        <argsstring></argsstring>
+        <name>node</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="122" column="27" bodyfile="src/connection.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>ldap_connection_ctx_t</label>
+        <link refid="structldap__connection__ctx__t"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>read_requests</edgelabel>
+          <edgelabel>write_requests</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>on_error_operation</edgelabel>
+          <edgelabel>prev</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>ldap_params</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>handle</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>schema</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>ldap_defaults</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>state_machine</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>search_requests</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>callqueue</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>config</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ldhandle</label>
+        <link refid="structldhandle"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>connection_ctx</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>global_config</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>global_ctx</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>config_ctx</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>ldap_sasl_defaults_t</label>
+        <link refid="structldap__sasl__defaults__t"/>
+      </node>
+      <node id="14">
+        <label>Queue_Node_s</label>
+        <link refid="struct_queue___node__s"/>
+        <childnode refid="14" relation="usage">
+          <edgelabel>prev</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>ldap_connection_config_t</label>
+        <link refid="structldap__connection__config__t"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>sasl_options</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>ld_config_s</label>
+        <link refid="structld__config__s"/>
+      </node>
+      <node id="13">
+        <label>request_queue</label>
+        <link refid="structrequest__queue"/>
+        <childnode refid="14" relation="usage">
+          <edgelabel>head</edgelabel>
+          <edgelabel>tail</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>ldap_sasl_options_t</label>
+        <link refid="structldap__sasl__options__t"/>
+      </node>
+      <node id="9">
+        <label>ldap_schema_t</label>
+        <link refid="structldap__schema__t"/>
+      </node>
+      <node id="6">
+        <label>ldap_global_context_t</label>
+        <link refid="structldap__global__context__t"/>
+      </node>
+      <node id="11">
+        <label>state_machine_ctx_t</label>
+        <link refid="structstate__machine__ctx__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>ctx</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ldap_sasl_params_t</label>
+        <link refid="structldap__sasl__params__t"/>
+      </node>
+      <node id="1">
+        <label>ldap_request_t</label>
+        <link refid="structldap__request__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>on_read_operation</edgelabel>
+          <edgelabel>on_write_operation</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>node</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ldap_search_request_t</label>
+        <link refid="structldap__search__request__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>on_search_operation</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/connection.h" line="117" column="1" bodyfile="src/connection.h" bodystart="118" bodyend="125"/>
+    <listofallmembers>
+      <member refid="structldap__request__t_1adb65a597eb9924d7a3bdd4d770286195" prot="public" virt="non-virtual"><scope>ldap_request_t</scope><name>msgid</name></member>
+      <member refid="structldap__request__t_1ab2a59758ec523be030dc592aa73962d6" prot="public" virt="non-virtual"><scope>ldap_request_t</scope><name>node</name></member>
+      <member refid="structldap__request__t_1a1e186d16ebb894a713506a6d8ce3e272" prot="public" virt="non-virtual"><scope>ldap_request_t</scope><name>on_read_operation</name></member>
+      <member refid="structldap__request__t_1ad2c159c769453d812290cbc796cc0ef8" prot="public" virt="non-virtual"><scope>ldap_request_t</scope><name>on_write_operation</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structcsm__state__value__t" kind="struct" language="C++" prot="public">
+    <compoundname>csm_state_value_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcsm__state__value__t_1aea396d7f418d025591ee53f76f63b8b6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int csm_state_value_t::state</definition>
+        <argsstring></argsstring>
+        <name>state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection_state_machine.c" line="31" column="9" bodyfile="src/connection_state_machine.c" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcsm__state__value__t_1a3a77546c9f40762516ea204b65875a43" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* csm_state_value_t::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection_state_machine.c" line="32" column="16" bodyfile="src/connection_state_machine.c" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/connection_state_machine.c" line="29" column="1" bodyfile="src/connection_state_machine.c" bodystart="30" bodyend="33"/>
+    <listofallmembers>
+      <member refid="structcsm__state__value__t_1aea396d7f418d025591ee53f76f63b8b6" prot="public" virt="non-virtual"><scope>csm_state_value_t</scope><name>state</name></member>
+      <member refid="structcsm__state__value__t_1a3a77546c9f40762516ea204b65875a43" prot="public" virt="non-virtual"><scope>csm_state_value_t</scope><name>value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

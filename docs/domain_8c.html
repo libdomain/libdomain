@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>src/domain.c file | libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a>/</span>domain.c <span class="m-thin">file</span>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#func-members">Functions</a></li>
+                <li><a href="#var-members">Variables</a></li>
+                <li><a href="#define-members">Defines</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="func-members">
+          <h2><a href="#func-members">Functions</a></h2>
+          <dl class="m-doc">
+            <dt id="a5720ff5991514d066ce2ce1f05665dd7">
+              <span class="m-doc-wrap-bumper">auto <a href="#a5720ff5991514d066ce2ce1f05665dd7" class="m-doc-self">ld_load_config</a>(</span><span class="m-doc-wrap">TALLOC_CTX* ctx,
+              const char* filename) -&gt; <a href="domain_8h.html#a39784904a5576d0e7510c0dd7c4511f7" class="m-doc">ld_<wbr />config_<wbr />t</a>*</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a1a457e330bafff81864e16330ee49204" class="m-doc">ld_create_config</a>(</span><span class="m-doc-wrap">TALLOC_CTX* talloc_ctx,
+              char* host,
+              int port,
+              int protocol_version,
+              char* base_dn,
+              char* username,
+              char* password,
+              bool simple_bind,
+              bool use_tls,
+              bool use_sasl,
+              bool use_anon,
+              int timeout,
+              char* cacertfile,
+              char* certfile,
+              char* keyfile) -&gt; <a href="domain_8h.html#a39784904a5576d0e7510c0dd7c4511f7" class="m-doc">ld_<wbr />config_<wbr />t</a>*</span>
+            </dt>
+            <dd>ld_create_config Fills fields of configuration structure.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a280fdac153f64e5756c3936771e36c5d" class="m-doc">ld_init</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>** handle,
+              const <a href="domain_8h.html#a39784904a5576d0e7510c0dd7c4511f7" class="m-doc">ld_<wbr />config_<wbr />t</a>* config)</span>
+            </dt>
+            <dd>ld_init Initializes the library allowing us to performing various operations.</dd>
+            <dt id="a15040f5c5b7915f61d5fd78159ad80d0">
+              <span class="m-doc-wrap-bumper">static void <a href="#a15040f5c5b7915f61d5fd78159ad80d0" class="m-doc-self">connection_update</a>(</span><span class="m-doc-wrap">verto_ctx* ctx,
+              verto_ev* ev)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a725154d332b43ba3725a58abc04e532c" class="m-doc">ld_install_default_handlers</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle)</span>
+            </dt>
+            <dd>ld_install_default_handlers Installs default handlers to control connection. This method must be called before performing any operations.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a1e834e231c105aa4d3930776e9eb53d2" class="m-doc">ld_install_handler</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              verto_callback* callback,
+              time_t interval)</span>
+            </dt>
+            <dd>ld_install_handler If we need to install custom error callback this method allows us to do so.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#abec4bd908b0862aad78943e378a11a2d" class="m-doc">ld_exec</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle)</span>
+            </dt>
+            <dd>ld_exec Start main event cycle. You don&#x27;t need to call this function if there is already existing event loop e.g. inside of Qt application.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a48da1827fe0a601984ca073e73c29676" class="m-doc">ld_exec_once</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle)</span>
+            </dt>
+            <dd>ld_exec_once Cycles through event list once. May block.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a9b62028587d99192d36cc1bdcb047f36" class="m-doc">ld_free</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle)</span>
+            </dt>
+            <dd>ld_free Free library handle and resources associated with it. After freeing the handle you can no longer perform any operations.</dd>
+            <dt id="a4bd9b51d30f1ad6d073609ec0e239d53">
+              <span class="m-doc-wrap-bumper">static auto <a href="#a4bd9b51d30f1ad6d073609ec0e239d53" class="m-doc-self">fill_attributes</a>(</span><span class="m-doc-wrap"><a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** entry_attrs,
+              TALLOC_CTX* talloc_ctx,
+              int mod_op) -&gt; LDAPMod**</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#ac5880d842d821bd395fe491ef5e0301c" class="m-doc">ld_add_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** entry_attrs) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_add_entry Creates the entry.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a98503ce1e889b53e3c5e804afc3cabe6" class="m-doc">ld_del_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_del_entry Deletes entry.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a7537183d743e55e8b055d2db8de068bc" class="m-doc">ld_mod_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** entry_attrs) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_mod_entry Modifies the entry.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a714b3eca566ef227c0542b47de8d0f80" class="m-doc">ld_rename_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* old_name,
+              const char* new_name,
+              const char* parent,
+              const char* prefix) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_rename_entry Renames the entry.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a1e73802f485469a4f3aaee8b41b1ee34" class="m-doc">ld_install_error_handler</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              <a href="domain_8h.html#a4887834969c328535d8b45775f581afc" class="m-doc">error_<wbr />callback_<wbr />fn</a> callback)</span>
+            </dt>
+            <dd>ld_install_error_handler Allows us to install custom error handle for our application.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#abf1a1199723627800bc0c86151aa0ff3" class="m-doc">ld_mod_entry_attrs</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** entry_attrs,
+              int opcode) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_mod_entry_attrs Modifies list of attributes using supplied operation.</dd>
+          </dl>
+        </section>
+        <section id="var-members">
+          <h2><a href="#var-members">Variables</a></h2>
+          <dl class="m-doc">
+            <dt id="a09fd7ac2df6285d40d68e6f121335191">
+              static const int <a href="#a09fd7ac2df6285d40d68e6f121335191" class="m-doc-self">CONNECTION_UPDATE_INTERVAL</a>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="define-members">
+          <h2><a href="#define-members">Defines</a></h2>
+          <dl class="m-doc">
+            <dt id="afff76e45460c7a235061f5ee0b43649c">
+              <span class="m-doc-wrap-bumper">#define <a href="#afff76e45460c7a235061f5ee0b43649c" class="m-doc-self">get_config_required_string</a>(</span><span class="m-doc-wrap">name,
+              out)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a34faf350e60811b368f911267e228784">
+              <span class="m-doc-wrap-bumper">#define <a href="#a34faf350e60811b368f911267e228784" class="m-doc-self">get_config_optional_setting</a>(</span><span class="m-doc-wrap">name,
+              out,
+              setting_function,
+              specifier)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a89c68b6ae7fd1d3eebe81e4f3d02f8a9">
+              <span class="m-doc-wrap-bumper">#define <a href="#a89c68b6ae7fd1d3eebe81e4f3d02f8a9" class="m-doc-self">get_config_optional_string</a>(</span><span class="m-doc-wrap">name,
+              out)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ad838d7abb32496a557869761cd0f2ad9">
+              <span class="m-doc-wrap-bumper">#define <a href="#ad838d7abb32496a557869761cd0f2ad9" class="m-doc-self">get_config_optional_int</a>(</span><span class="m-doc-wrap">name,
+              out)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aea6cd71598d2af3016e0cbeecfec3e68">
+              <span class="m-doc-wrap-bumper">#define <a href="#aea6cd71598d2af3016e0cbeecfec3e68" class="m-doc-self">get_config_optional_bool</a>(</span><span class="m-doc-wrap">name,
+              out)</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a1a457e330bafff81864e16330ee49204"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper"><a href="domain_8h.html#a39784904a5576d0e7510c0dd7c4511f7" class="m-doc">ld_<wbr />config_<wbr />t</a>* </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a1a457e330bafff81864e16330ee49204" class="m-doc-self">ld_create_config</a>(</span><span class="m-doc-wrap">TALLOC_CTX* talloc_ctx,
+              char* host,
+              int port,
+              int protocol_version,
+              char* base_dn,
+              char* username,
+              char* password,
+              bool simple_bind,
+              bool use_tls,
+              bool use_sasl,
+              bool use_anon,
+              int timeout,
+              char* cacertfile,
+              char* certfile,
+              char* keyfile)</span></span>
+            </h3>
+            <p>ld_create_config Fills fields of configuration structure.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">talloc_ctx</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>host&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Hostname of LDAP server.</td>
+                </tr>
+                <tr>
+                  <td>port&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Port number.</td>
+                </tr>
+                <tr>
+                  <td>protocol_version&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>LDAP protocol version.</td>
+                </tr>
+                <tr>
+                  <td>base_dn&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>DN to use during bind.</td>
+                </tr>
+                <tr>
+                  <td>username&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Username to use</td>
+                </tr>
+                <tr>
+                  <td>password&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>User password</td>
+                </tr>
+                <tr>
+                  <td>simple_bind&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>If we going to perform simple bind instead of interactive bind.</td>
+                </tr>
+                <tr>
+                  <td>use_tls&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>If we going to use TLS encryption.</td>
+                </tr>
+                <tr>
+                  <td>use_sasl&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>If we going to enable SASL.</td>
+                </tr>
+                <tr>
+                  <td>use_anon&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>If we going to enable anonymous logon.</td>
+                </tr>
+                <tr>
+                  <td>timeout&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Timeout to read and write operations.</td>
+                </tr>
+                <tr>
+                  <td>cacertfile&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>certfile&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>keyfile&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>NULL on failure.</li><li>config_t* on success.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a280fdac153f64e5756c3936771e36c5d"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a280fdac153f64e5756c3936771e36c5d" class="m-doc-self">ld_init</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>** handle,
+              const <a href="domain_8h.html#a39784904a5576d0e7510c0dd7c4511f7" class="m-doc">ld_<wbr />config_<wbr />t</a>* config)</span></span>
+            </h3>
+            <p>ld_init Initializes the library allowing us to performing various operations.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-warning">out</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>config&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Configuration of the connections.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a725154d332b43ba3725a58abc04e532c"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a725154d332b43ba3725a58abc04e532c" class="m-doc-self">ld_install_default_handlers</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle)</span></span>
+            </h3>
+            <p>ld_install_default_handlers Installs default handlers to control connection. This method must be called before performing any operations.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a1e834e231c105aa4d3930776e9eb53d2"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a1e834e231c105aa4d3930776e9eb53d2" class="m-doc-self">ld_install_handler</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              verto_callback* callback,
+              time_t interval)</span></span>
+            </h3>
+            <p>ld_install_handler If we need to install custom error callback this method allows us to do so.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>callback</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>interval</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="abec4bd908b0862aad78943e378a11a2d"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#abec4bd908b0862aad78943e378a11a2d" class="m-doc-self">ld_exec</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle)</span></span>
+            </h3>
+            <p>ld_exec Start main event cycle. You don&#x27;t need to call this function if there is already existing event loop e.g. inside of Qt application.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a48da1827fe0a601984ca073e73c29676"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a48da1827fe0a601984ca073e73c29676" class="m-doc-self">ld_exec_once</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle)</span></span>
+            </h3>
+            <p>ld_exec_once Cycles through event list once. May block.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a9b62028587d99192d36cc1bdcb047f36"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a9b62028587d99192d36cc1bdcb047f36" class="m-doc-self">ld_free</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle)</span></span>
+            </h3>
+            <p>ld_free Free library handle and resources associated with it. After freeing the handle you can no longer perform any operations.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ac5880d842d821bd395fe491ef5e0301c"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ac5880d842d821bd395fe491ef5e0301c" class="m-doc-self">ld_add_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** entry_attrs)</span></span>
+            </h3>
+            <p>ld_add_entry Creates the entry.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the entry.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Parent container that holds the entry.</td>
+                </tr>
+                <tr>
+                  <td>prefix</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>entry_attrs&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>List of the attributes to create entry with.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a98503ce1e889b53e3c5e804afc3cabe6"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a98503ce1e889b53e3c5e804afc3cabe6" class="m-doc-self">ld_del_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix)</span></span>
+            </h3>
+            <p>ld_del_entry Deletes entry.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the entry.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Parent container that holds the entry.</td>
+                </tr>
+                <tr>
+                  <td>prefix&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Prefix of the entry.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a7537183d743e55e8b055d2db8de068bc"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a7537183d743e55e8b055d2db8de068bc" class="m-doc-self">ld_mod_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** entry_attrs)</span></span>
+            </h3>
+            <p>ld_mod_entry Modifies the entry.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the entry.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Parent container that holds the entry.</td>
+                </tr>
+                <tr>
+                  <td>prefix</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>entry_attrs&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>List of the attributes to modify.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a714b3eca566ef227c0542b47de8d0f80"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a714b3eca566ef227c0542b47de8d0f80" class="m-doc-self">ld_rename_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* old_name,
+              const char* new_name,
+              const char* parent,
+              const char* prefix)</span></span>
+            </h3>
+            <p>ld_rename_entry Renames the entry.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>old_name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Old name of the entry.</td>
+                </tr>
+                <tr>
+                  <td>new_name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>New name of the entry.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Parent container that holds the entry.</td>
+                </tr>
+                <tr>
+                  <td>prefix&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Prefix for entry type.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a1e73802f485469a4f3aaee8b41b1ee34"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a1e73802f485469a4f3aaee8b41b1ee34" class="m-doc-self">ld_install_error_handler</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              <a href="domain_8h.html#a4887834969c328535d8b45775f581afc" class="m-doc">error_<wbr />callback_<wbr />fn</a> callback)</span></span>
+            </h3>
+            <p>ld_install_error_handler Allows us to install custom error handle for our application.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>callback&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Callback to call.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="abf1a1199723627800bc0c86151aa0ff3"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#abf1a1199723627800bc0c86151aa0ff3" class="m-doc-self">ld_mod_entry_attrs</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** entry_attrs,
+              int opcode)</span></span>
+            </h3>
+            <p>ld_mod_entry_attrs Modifies list of attributes using supplied operation.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the entry.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Parent container that holds the entry.</td>
+                </tr>
+                <tr>
+                  <td>prefix&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Prefix of the entry.</td>
+                </tr>
+                <tr>
+                  <td>entry_attrs&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>List of the attributes to modify.</td>
+                </tr>
+                <tr>
+                  <td>opcode&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Code of operation e.g. LDAP_MOD_REPLACE.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

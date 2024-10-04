@@ -1,0 +1,490 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="computer_8c" kind="file" language="C++">
+    <compoundname>computer.c</compoundname>
+    <includes refid="computer_8h" local="yes">computer.h</includes>
+    <includes refid="common_8h" local="yes">common.h</includes>
+    <includes refid="domain__p_8h" local="yes">domain_p.h</includes>
+    <includes refid="entry_8h" local="yes">entry.h</includes>
+    <includes refid="helper__p_8h" local="yes">helper_p.h</includes>
+    <incdepgraph>
+      <node id="7">
+        <label>stdbool.h</label>
+      </node>
+      <node id="11">
+        <label>entry.h</label>
+        <link refid="entry_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>domain_p.h</label>
+        <link refid="domain__p_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>helper_p.h</label>
+        <link refid="helper__p_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/computer.c</label>
+        <link refid="computer_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>computer.h</label>
+        <link refid="computer_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ldap.h</label>
+      </node>
+      <node id="8">
+        <label>verto.h</label>
+      </node>
+      <node id="5">
+        <label>talloc.h</label>
+      </node>
+      <node id="3">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>request_queue.h</label>
+        <link refid="request__queue_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>domain.h</label>
+        <link refid="domain_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>connection.h</label>
+        <link refid="connection_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="computer_8c_1aa69b377fb9c2633260918668464e5016" prot="public" static="no" strong="no">
+        <type></type>
+        <name>ComputerAttributeIndex</name>
+        <enumvalue id="computer_8c_1aa69b377fb9c2633260918668464e5016ad8abddf49217e1dac50748b3f94596db" prot="public">
+          <name>OBJECT_CLASS</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="computer_8c_1aa69b377fb9c2633260918668464e5016a6306f3103ed2cc5f45a9013bbba7bcfc" prot="public">
+          <name>CN</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="computer_8c_1aa69b377fb9c2633260918668464e5016ab6018339139b51a498dc44bd760766fc" prot="public">
+          <name>DESCRIPTION</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="computer_8c_1aa69b377fb9c2633260918668464e5016a25734c5e0c2fb6b8926173f93f5c220f" prot="public">
+          <name>SERIAL_NUMBER</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="computer_8c_1aa69b377fb9c2633260918668464e5016a072ced2d6cfcb49a11b46602faf65ebe" prot="public">
+          <name>SEE_ALSO</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="computer_8c_1aa69b377fb9c2633260918668464e5016a68273389efb091bf752795ba51a139fc" prot="public">
+          <name>ORGANIZATION_NAME</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="computer_8c_1aa69b377fb9c2633260918668464e5016a4c1655d98ae875905115ac4367897eab" prot="public">
+          <name>LOCALITY_NAME</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="computer_8c_1aa69b377fb9c2633260918668464e5016adce3f6fabb3ba828076711c23b81d1d7" prot="public">
+          <name>OWNER</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="computer_8c_1aa69b377fb9c2633260918668464e5016a786d498ef342067bc017ec1404a7076f" prot="public">
+          <name>ORGANIZATION_UNIT_NAME</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/computer.c" line="28" column="1" bodyfile="src/computer.c" bodystart="29" bodyend="39"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="computer_8c_1aca20f963d13c1f2f748f873379c2020e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>static const char* create_computer_parent</definition>
+        <argsstring>(TALLOC_CTX *talloc_ctx, LDHandle *handle)</argsstring>
+        <name>create_computer_parent</name>
+        <param>
+          <type>TALLOC_CTX *</type>
+          <declname>talloc_ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/computer.c" line="41" column="19" bodyfile="src/computer.c" bodystart="41" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="computer_8c_1a1c4f3b27f339422a19cd7ab98142a9c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_add_computer</definition>
+        <argsstring>(LDHandle *handle, const char *name, LDAPAttribute_t **attrs, const char *parent)</argsstring>
+        <name>ld_add_computer</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="domain_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" kindref="member">LDAPAttribute_t</ref> **</type>
+          <declname>attrs</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+<para>ld_add_computer Creates new computer </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>LibDomain handle </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the computer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">attrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Attributes of the computer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container of the computer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/computer.c" line="41" column="19" bodyfile="src/computer.c" bodystart="56" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="computer_8c_1a2138785340cb33d8fa13edffe8c890fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_del_computer</definition>
+        <argsstring>(LDHandle *handle, const char *name, const char *parent)</argsstring>
+        <name>ld_del_computer</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+<para>ld_del_computer Deletes computer </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the computer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container of the computer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/computer.c" line="41" column="19" bodyfile="src/computer.c" bodystart="83" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="computer_8c_1a949bf563963ffde20857a7b535d10677" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_mod_computer</definition>
+        <argsstring>(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **computer_attrs)</argsstring>
+        <name>ld_mod_computer</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type><ref refid="domain_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" kindref="member">LDAPAttribute_t</ref> **</type>
+          <declname>computer_attrs</declname>
+        </param>
+        <briefdescription>
+<para>ld_mod_computer Modifies computer </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the computer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container of the computer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">computer_attrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of the attributes to modify. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/computer.c" line="41" column="19" bodyfile="src/computer.c" bodystart="109" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="computer_8c_1ae2cf7234931491dead25605c044d8e9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_rename_computer</definition>
+        <argsstring>(LDHandle *handle, const char *old_name, const char *new_name, const char *parent)</argsstring>
+        <name>ld_rename_computer</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>old_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>new_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+<para>ld_rename_computer Renames computer </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">old_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Old name of the computer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">new_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New name of the computer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container of the computer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/computer.c" line="41" column="19" bodyfile="src/computer.c" bodystart="135" bodyend="149"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/computer.c"/>
+  </compounddef>
+</doxygen>

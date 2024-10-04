@@ -1,0 +1,217 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structldhandle" kind="struct" language="C++" prot="public">
+    <compoundname>ldhandle</compoundname>
+    <includes refid="domain__p_8h" local="no">domain_p.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structldhandle_1a3c89e17bbe8c5b17123c21e0d04d791d" prot="public" static="no" mutable="no">
+        <type>TALLOC_CTX *</type>
+        <definition>TALLOC_CTX* ldhandle::talloc_ctx</definition>
+        <argsstring></argsstring>
+        <name>talloc_ctx</name>
+        <briefdescription>
+<para>Talloc context we use during the allocation when working with the library. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="50" column="16" bodyfile="src/domain_p.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldhandle_1ac217cdaf362379ee2ba8bcba6f992c3f" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structldap__global__context__t" kindref="compound">ldap_global_context_t</ref> *</type>
+        <definition>struct ldap_global_context_t* ldhandle::global_ctx</definition>
+        <argsstring></argsstring>
+        <name>global_ctx</name>
+        <briefdescription>
+<para>Global context of the library. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="51" column="32" bodyfile="src/domain_p.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldhandle_1ad2b2a732b088d2537f8a57465faa8eaa" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+        <definition>struct ldap_connection_ctx_t* ldhandle::connection_ctx</definition>
+        <argsstring></argsstring>
+        <name>connection_ctx</name>
+        <briefdescription>
+<para>Connection context. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="52" column="32" bodyfile="src/domain_p.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldhandle_1ac51717862a50f8a93a4e7bc78f0e2329" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structldap__connection__config__t" kindref="compound">ldap_connection_config_t</ref> *</type>
+        <definition>struct ldap_connection_config_t* ldhandle::config_ctx</definition>
+        <argsstring></argsstring>
+        <name>config_ctx</name>
+        <briefdescription>
+<para>Connection configuration. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="53" column="35" bodyfile="src/domain_p.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldhandle_1a6b8654ad2d4ac99ce2953d4be125e435" prot="public" static="no" mutable="no">
+        <type><ref refid="domain_8h_1a39784904a5576d0e7510c0dd7c4511f7" kindref="member">ld_config_t</ref> *</type>
+        <definition>ld_config_t* ldhandle::global_config</definition>
+        <argsstring></argsstring>
+        <name>global_config</name>
+        <briefdescription>
+<para>Global configuration of the library. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="54" column="17" bodyfile="src/domain_p.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>ldap_connection_ctx_t</label>
+        <link refid="structldap__connection__ctx__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>read_requests</edgelabel>
+          <edgelabel>write_requests</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>on_error_operation</edgelabel>
+          <edgelabel>prev</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>ldap_params</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>handle</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>schema</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>ldap_defaults</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>state_machine</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>search_requests</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>callqueue</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>config</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>ldhandle</label>
+        <link refid="structldhandle"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>connection_ctx</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>global_config</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>global_ctx</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>config_ctx</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>ldap_sasl_defaults_t</label>
+        <link refid="structldap__sasl__defaults__t"/>
+      </node>
+      <node id="4">
+        <label>Queue_Node_s</label>
+        <link refid="struct_queue___node__s"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>prev</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>ld_config_s</label>
+        <link refid="structld__config__s"/>
+      </node>
+      <node id="11">
+        <label>ldap_connection_config_t</label>
+        <link refid="structldap__connection__config__t"/>
+        <childnode refid="12" relation="usage">
+          <edgelabel>sasl_options</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>request_queue</label>
+        <link refid="structrequest__queue"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>head</edgelabel>
+          <edgelabel>tail</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ldap_sasl_options_t</label>
+        <link refid="structldap__sasl__options__t"/>
+      </node>
+      <node id="6">
+        <label>ldap_schema_t</label>
+        <link refid="structldap__schema__t"/>
+      </node>
+      <node id="14">
+        <label>ldap_global_context_t</label>
+        <link refid="structldap__global__context__t"/>
+      </node>
+      <node id="8">
+        <label>state_machine_ctx_t</label>
+        <link refid="structstate__machine__ctx__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>ctx</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>ldap_sasl_params_t</label>
+        <link refid="structldap__sasl__params__t"/>
+      </node>
+      <node id="3">
+        <label>ldap_request_t</label>
+        <link refid="structldap__request__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>on_read_operation</edgelabel>
+          <edgelabel>on_write_operation</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>node</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>ldap_search_request_t</label>
+        <link refid="structldap__search__request__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>on_search_operation</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/domain_p.h" line="48" column="1" bodyfile="src/domain_p.h" bodystart="49" bodyend="55"/>
+    <listofallmembers>
+      <member refid="structldhandle_1ac51717862a50f8a93a4e7bc78f0e2329" prot="public" virt="non-virtual"><scope>ldhandle</scope><name>config_ctx</name></member>
+      <member refid="structldhandle_1ad2b2a732b088d2537f8a57465faa8eaa" prot="public" virt="non-virtual"><scope>ldhandle</scope><name>connection_ctx</name></member>
+      <member refid="structldhandle_1a6b8654ad2d4ac99ce2953d4be125e435" prot="public" virt="non-virtual"><scope>ldhandle</scope><name>global_config</name></member>
+      <member refid="structldhandle_1ac217cdaf362379ee2ba8bcba6f992c3f" prot="public" virt="non-virtual"><scope>ldhandle</scope><name>global_ctx</name></member>
+      <member refid="structldhandle_1a3c89e17bbe8c5b17123c21e0d04d791d" prot="public" virt="non-virtual"><scope>ldhandle</scope><name>talloc_ctx</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

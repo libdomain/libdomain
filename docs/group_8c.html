@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>src/group.c file | libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a>/</span>group.c <span class="m-thin">file</span>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#enum-members">Enums</a></li>
+                <li><a href="#func-members">Functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="enum-members">
+          <h2><a href="#enum-members">Enums</a></h2>
+          <dl class="m-doc">
+            <dt id="a0563b758068b40465a27b2185f5b5eda">
+              <span class="m-doc-wrap-bumper">enum <a href="#a0563b758068b40465a27b2185f5b5eda" class="m-doc-self">GroupAttributeIndex</a> { </span><span class="m-doc-wrap"><a href="#a0563b758068b40465a27b2185f5b5edaad8abddf49217e1dac50748b3f94596db" class="m-doc">OBJECT_CLASS</a> = 0,
+              <a href="#a0563b758068b40465a27b2185f5b5edaa6306f3103ed2cc5f45a9013bbba7bcfc" class="m-doc">CN</a> = 1,
+              <a href="#a0563b758068b40465a27b2185f5b5edaab6018339139b51a498dc44bd760766fc" class="m-doc">DESCRIPTION</a> = 2,
+              <a href="#a0563b758068b40465a27b2185f5b5edaa3e5677ab06da57141f4edc369db5fa48" class="m-doc">GID_NUMBER</a> = 3 }</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="func-members">
+          <h2><a href="#func-members">Functions</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a439eb8b24d99385476234ffbf555d87a" class="m-doc">ld_add_group</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** attributes,
+              const char* parent) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_add_group Creates the group.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a0afb6c01666925f9bbe34165379bd79e" class="m-doc">ld_del_group</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_del_group Deletes the group.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a3591f2a7cc22e69613caface0d988e24" class="m-doc">ld_mod_group</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** group_attrs) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_mod_group Modifies the group.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a2a701bb11daa7b76a23f34e5bce48913" class="m-doc">ld_rename_group</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* old_name,
+              const char* new_name,
+              const char* parent) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_rename_group Renames group.</dd>
+            <dt id="aa6190e52898be4e033691287e13c5fef">
+              <span class="m-doc-wrap-bumper">static auto <a href="#aa6190e52898be4e033691287e13c5fef" class="m-doc-self">group_member_modify</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* group_dn,
+              const char* user_dn,
+              char mod_operation) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a0a266cecd508b7c041d9ae6cc8963852" class="m-doc">ld_group_add_user</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* group_name,
+              const char* user_name) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_group_add_user Adds user to the group.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#af00d4c0ade4a552122d66ff7404c8757" class="m-doc">ld_group_remove_user</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* group_name,
+              const char* user_name) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_group_remove_user Removes user from the group.</dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a439eb8b24d99385476234ffbf555d87a"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a439eb8b24d99385476234ffbf555d87a" class="m-doc-self">ld_add_group</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** attributes,
+              const char* parent)</span></span>
+            </h3>
+            <p>ld_add_group Creates the group.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of a group.</td>
+                </tr>
+                <tr>
+                  <td>attributes&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>List of group attributes depends on directory type.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Parent container that holds the group.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a0afb6c01666925f9bbe34165379bd79e"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a0afb6c01666925f9bbe34165379bd79e" class="m-doc-self">ld_del_group</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent)</span></span>
+            </h3>
+            <p>ld_del_group Deletes the group.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the group.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Container that holds the group.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a3591f2a7cc22e69613caface0d988e24"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a3591f2a7cc22e69613caface0d988e24" class="m-doc-self">ld_mod_group</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** group_attrs)</span></span>
+            </h3>
+            <p>ld_mod_group Modifies the group.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the group.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Container that holds the group.</td>
+                </tr>
+                <tr>
+                  <td>group_attrs&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>List of attributes to modify.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a2a701bb11daa7b76a23f34e5bce48913"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a2a701bb11daa7b76a23f34e5bce48913" class="m-doc-self">ld_rename_group</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* old_name,
+              const char* new_name,
+              const char* parent)</span></span>
+            </h3>
+            <p>ld_rename_group Renames group.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>old_name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Old name of the group.</td>
+                </tr>
+                <tr>
+                  <td>new_name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>New name of the group.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Container that holds the group.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a0a266cecd508b7c041d9ae6cc8963852"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a0a266cecd508b7c041d9ae6cc8963852" class="m-doc-self">ld_group_add_user</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* group_name,
+              const char* user_name)</span></span>
+            </h3>
+            <p>ld_group_add_user Adds user to the group.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>group_name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the group to add user into.</td>
+                </tr>
+                <tr>
+                  <td>user_name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the user to add.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="af00d4c0ade4a552122d66ff7404c8757"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#af00d4c0ade4a552122d66ff7404c8757" class="m-doc-self">ld_group_remove_user</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* group_name,
+              const char* user_name)</span></span>
+            </h3>
+            <p>ld_group_remove_user Removes user from the group.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>group_name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the group to remove user from.</td>
+                </tr>
+                <tr>
+                  <td>user_name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the user.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

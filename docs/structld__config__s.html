@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ld_config_s struct | libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          ld_config_s <span class="m-thin">struct</span>
+          <div class="m-doc-include m-code m-inverted m-text-right"><span class="cp">#include</span> <a class="cpf" href="domain__p_8h.html">&lt;src/domain_p.h&gt;</a></div>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#pub-attribs">Public variables</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="pub-attribs">
+          <h2><a href="#pub-attribs">Public variables</a></h2>
+          <dl class="m-doc">
+            <dt id="aeafc055088a4f46e5a47dcd7caaca0ee">
+              char* <a href="#aeafc055088a4f46e5a47dcd7caaca0ee" class="m-doc-self">host</a>
+            </dt>
+            <dd>LDAP server to connect to.</dd>
+            <dt id="abdda9f4f90277c342e00e6d7a2153f23">
+              int <a href="#abdda9f4f90277c342e00e6d7a2153f23" class="m-doc-self">protocol_version</a>
+            </dt>
+            <dd>LDAP protocol version we require from server.</dd>
+            <dt id="a5898c403e3eb313b4c69c2650a6e11de">
+              char* <a href="#a5898c403e3eb313b4c69c2650a6e11de" class="m-doc-self">base_dn</a>
+            </dt>
+            <dd>Base dn to bind with.</dd>
+            <dt id="ad699ca09527f07ab2499836d96fd0af2">
+              char* <a href="#ad699ca09527f07ab2499836d96fd0af2" class="m-doc-self">username</a>
+            </dt>
+            <dd>Name of the user we connect as. Can be NULL.</dd>
+            <dt id="a6b9a25f2c6df50b2fcc553890c094eea">
+              char* <a href="#a6b9a25f2c6df50b2fcc553890c094eea" class="m-doc-self">password</a>
+            </dt>
+            <dd>Password for the said user. Can be NULL.</dd>
+            <dt id="ab54fccd556062547b502b41e1e3676f3">
+              bool <a href="#ab54fccd556062547b502b41e1e3676f3" class="m-doc-self">simple_bind</a>
+            </dt>
+            <dd>We can use two type of bind simple and interactive. Use true for simple and false otherwise.</dd>
+            <dt id="af96140cac1311b8862e0e5a9a094743f">
+              bool <a href="#af96140cac1311b8862e0e5a9a094743f" class="m-doc-self">use_tls</a>
+            </dt>
+            <dd>If we need to establish a TLS or SSL connection.</dd>
+            <dt id="ac0df8154560aef654e4650e9be44bb38">
+              bool <a href="#ac0df8154560aef654e4650e9be44bb38" class="m-doc-self">use_sasl</a>
+            </dt>
+            <dd>If we use SASL protocol.</dd>
+            <dt id="ad118fed9a7e1c1c449535be88df399a9">
+              bool <a href="#ad118fed9a7e1c1c449535be88df399a9" class="m-doc-self">use_anon</a>
+            </dt>
+            <dd>If we are going to perform &quot;anonymous bind&quot;.</dd>
+            <dt id="a295edc1d744a693217a114dc419270d2">
+              int <a href="#a295edc1d744a693217a114dc419270d2" class="m-doc-self">timeout</a>
+            </dt>
+            <dd>Operation timeout. Once we reach specified limit current operation fails.</dd>
+            <dt id="ac8354484dbc9f46fa2c85e2e27cc431f">
+              char* <a href="#ac8354484dbc9f46fa2c85e2e27cc431f" class="m-doc-self">cacertfile</a>
+            </dt>
+            <dd>Defines the complete path to a CA certificate, which is utilized for validating the server&#x27;s presented certificate.</dd>
+            <dt id="a55688799c9943bd8d7393b750dba002e">
+              char* <a href="#a55688799c9943bd8d7393b750dba002e" class="m-doc-self">certfile</a>
+            </dt>
+            <dd>Client certificate file path.</dd>
+            <dt id="a30f1b10682c63cdaf382c8ea247f06d5">
+              char* <a href="#a30f1b10682c63cdaf382c8ea247f06d5" class="m-doc-self">keyfile</a>
+            </dt>
+            <dd>Private key file associated with client certificate.</dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

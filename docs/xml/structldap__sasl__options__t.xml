@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structldap__sasl__options__t" kind="struct" language="C++" prot="public">
+    <compoundname>ldap_sasl_options_t</compoundname>
+    <includes refid="connection_8h" local="no">connection.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structldap__sasl__options__t_1a5119290f38fb0dfe7b52ad595877869d" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ldap_sasl_options_t::mechanism</definition>
+        <argsstring></argsstring>
+        <name>mechanism</name>
+        <briefdescription>
+<para>Sasl mechanism to use. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="43" column="10" bodyfile="src/connection.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__sasl__options__t_1afd4e07c833ce3bf554020abb544e3e8d" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* ldap_sasl_options_t::passwd</definition>
+        <argsstring></argsstring>
+        <name>passwd</name>
+        <briefdescription>
+<para>User password. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="45" column="16" bodyfile="src/connection.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__sasl__options__t_1a8aee9198c29943f2a7832492d0ce330b" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ldap_sasl_options_t::sasl_nocanon</definition>
+        <argsstring></argsstring>
+        <name>sasl_nocanon</name>
+        <briefdescription>
+<para>Do not use reverse DNS queries. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="47" column="10" bodyfile="src/connection.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__sasl__options__t_1ad2aaf67fe85b4729c47e7b2b6d9f1fed" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short ldap_sasl_options_t::sasl_flags</definition>
+        <argsstring></argsstring>
+        <name>sasl_flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="48" column="11" bodyfile="src/connection.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__sasl__options__t_1a64a7c463b5771f78c194915a0409ac99" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ldap_sasl_options_t::sasl_secprops</definition>
+        <argsstring></argsstring>
+        <name>sasl_secprops</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="49" column="10" bodyfile="src/connection.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/connection.h" line="41" column="1" bodyfile="src/connection.h" bodystart="42" bodyend="50"/>
+    <listofallmembers>
+      <member refid="structldap__sasl__options__t_1a5119290f38fb0dfe7b52ad595877869d" prot="public" virt="non-virtual"><scope>ldap_sasl_options_t</scope><name>mechanism</name></member>
+      <member refid="structldap__sasl__options__t_1afd4e07c833ce3bf554020abb544e3e8d" prot="public" virt="non-virtual"><scope>ldap_sasl_options_t</scope><name>passwd</name></member>
+      <member refid="structldap__sasl__options__t_1ad2aaf67fe85b4729c47e7b2b6d9f1fed" prot="public" virt="non-virtual"><scope>ldap_sasl_options_t</scope><name>sasl_flags</name></member>
+      <member refid="structldap__sasl__options__t_1a8aee9198c29943f2a7832492d0ce330b" prot="public" virt="non-virtual"><scope>ldap_sasl_options_t</scope><name>sasl_nocanon</name></member>
+      <member refid="structldap__sasl__options__t_1a64a7c463b5771f78c194915a0409ac99" prot="public" virt="non-virtual"><scope>ldap_sasl_options_t</scope><name>sasl_secprops</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

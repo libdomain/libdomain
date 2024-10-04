@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="directory_8c" kind="file" language="C++">
+    <compoundname>directory.c</compoundname>
+    <includes refid="directory_8h" local="yes">directory.h</includes>
+    <includes refid="entry_8h" local="yes">entry.h</includes>
+    <incdepgraph>
+      <node id="7">
+        <label>stdbool.h</label>
+      </node>
+      <node id="10">
+        <label>entry.h</label>
+        <link refid="entry_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ldap.h</label>
+      </node>
+      <node id="8">
+        <label>verto.h</label>
+      </node>
+      <node id="5">
+        <label>talloc.h</label>
+      </node>
+      <node id="1">
+        <label>src/directory.c</label>
+        <link refid="directory_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>directory.h</label>
+        <link refid="directory_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>request_queue.h</label>
+        <link refid="request__queue_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>connection.h</label>
+        <link refid="connection_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="directory_8c_1a6200ee813053775b91477abc1f8dbff1" prot="public" static="yes" mutable="no">
+        <type>char *</type>
+        <definition>char* LDAP_DIRECTORY_ATTRS[]</definition>
+        <argsstring>[]</argsstring>
+        <name>LDAP_DIRECTORY_ATTRS</name>
+        <initializer>= { &quot;*&quot;, NULL }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/directory.c" line="24" column="13" bodyfile="src/directory.c" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="directory_8c_1a11fe05766960e4369a8f3a7d65bf298c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode directory_get_type</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection)</argsstring>
+        <name>directory_get_type</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>directory_get_type Request LDAP type from service. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>connection to use </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/directory.c" line="24" column="13" bodyfile="src/directory.c" bodystart="33" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="directory_8c_1a132b01abb7e679a61129f81a3e95e690" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool directory_process_attribute</definition>
+        <argsstring>(const char *attribute_name, struct ldap_connection_ctx_t *connection)</argsstring>
+        <name>directory_process_attribute</name>
+        <param>
+          <type>const char *</type>
+          <declname>attribute_name</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>directory_process_attribute </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">attribute_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>true if directory type is recognized.</para>
+</listitem><listitem><para>false if we have not detected directory type yet. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/directory.c" line="73" column="6" bodyfile="src/directory.c" bodystart="73" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="directory_8c_1a68d7d2a751f67bf5f006a887c6f4c4ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode directory_parse_result</definition>
+        <argsstring>(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection)</argsstring>
+        <name>directory_parse_result</name>
+        <param>
+          <type>int</type>
+          <declname>rc</declname>
+        </param>
+        <param>
+          <type>LDAPMessage *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>directory_parse_result Parses results returned by directory_get_type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">rc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Return code of ldap_result. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message received from ldap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/directory.c" line="73" column="6" bodyfile="src/directory.c" bodystart="105" bodyend="163"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/directory.c"/>
+  </compounddef>
+</doxygen>

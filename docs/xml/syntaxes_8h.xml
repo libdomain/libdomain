@@ -1,0 +1,275 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="syntaxes_8h" kind="file" language="C++">
+    <compoundname>syntaxes.h</compoundname>
+    <includes local="no">stdbool.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includedby refid="ldap__syntaxes_8c" local="yes">src/ldap_syntaxes.c</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>stdbool.h</label>
+      </node>
+      <node id="3">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1">
+        <label>src/syntaxes/syntaxes.h</label>
+        <link refid="syntaxes_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/ldap_syntaxes.c</label>
+        <link refid="ldap__syntaxes_8c"/>
+      </node>
+      <node id="1">
+        <label>src/syntaxes/syntaxes.h</label>
+        <link refid="syntaxes_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="syntaxes_8h_1adf3eb892c3bf1dc3453f8aa6e5d04880" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_boolean</definition>
+        <argsstring>(const char *const in, const size_t len)</argsstring>
+        <name>is_boolean</name>
+        <param>
+          <type>const char *const</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/syntaxes/syntaxes.h" line="27" column="6" declfile="src/syntaxes/syntaxes.h" declline="27" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="syntaxes_8h_1a9cb6f16cfcaca5e7495f873f29c0a47a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_directory_string</definition>
+        <argsstring>(const char *const in, const size_t len)</argsstring>
+        <name>is_directory_string</name>
+        <param>
+          <type>const char *const</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/syntaxes/syntaxes.h" line="28" column="6" declfile="src/syntaxes/syntaxes.h" declline="28" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="syntaxes_8h_1a45b6ed22a23935a7c19a8e4dadeb49ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_dn</definition>
+        <argsstring>(const char *const in, const size_t len)</argsstring>
+        <name>is_dn</name>
+        <param>
+          <type>const char *const</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/syntaxes/syntaxes.h" line="29" column="6" declfile="src/syntaxes/syntaxes.h" declline="29" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="syntaxes_8h_1af0d8592465b58de9d56a5e32bfe60805" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_generalized_time</definition>
+        <argsstring>(const char *const in, const size_t len)</argsstring>
+        <name>is_generalized_time</name>
+        <param>
+          <type>const char *const</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/syntaxes/syntaxes.h" line="30" column="6" declfile="src/syntaxes/syntaxes.h" declline="30" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="syntaxes_8h_1a4eab7c6c90605230ee0086384007038b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_ia5string</definition>
+        <argsstring>(const char *const in, const size_t len)</argsstring>
+        <name>is_ia5string</name>
+        <param>
+          <type>const char *const</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/syntaxes/syntaxes.h" line="31" column="6" declfile="src/syntaxes/syntaxes.h" declline="31" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="syntaxes_8h_1adb3cabd1720f4e1e0421ad08bb9f13c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_integer</definition>
+        <argsstring>(const char *const in, const size_t len)</argsstring>
+        <name>is_integer</name>
+        <param>
+          <type>const char *const</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/syntaxes/syntaxes.h" line="32" column="6" declfile="src/syntaxes/syntaxes.h" declline="32" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="syntaxes_8h_1ad05066bdb5831172a7b9f3fb626343a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_numeric_string</definition>
+        <argsstring>(const char *const in, const size_t len)</argsstring>
+        <name>is_numeric_string</name>
+        <param>
+          <type>const char *const</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/syntaxes/syntaxes.h" line="33" column="6" declfile="src/syntaxes/syntaxes.h" declline="33" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="syntaxes_8h_1a608cd1a5cb719c5b3ab8fc71dcc196fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_octet_string</definition>
+        <argsstring>(const char *const in, const size_t len)</argsstring>
+        <name>is_octet_string</name>
+        <param>
+          <type>const char *const</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/syntaxes/syntaxes.h" line="34" column="6" declfile="src/syntaxes/syntaxes.h" declline="34" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="syntaxes_8h_1ab85d1acdf0c697821a4a4342fed9c6ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_oid</definition>
+        <argsstring>(const char *const in, const size_t len)</argsstring>
+        <name>is_oid</name>
+        <param>
+          <type>const char *const</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/syntaxes/syntaxes.h" line="35" column="6" declfile="src/syntaxes/syntaxes.h" declline="35" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="syntaxes_8h_1a55170877d600ebcaecdaa82e31b241c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_printable_string</definition>
+        <argsstring>(const char *const in, const size_t len)</argsstring>
+        <name>is_printable_string</name>
+        <param>
+          <type>const char *const</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/syntaxes/syntaxes.h" line="36" column="6" declfile="src/syntaxes/syntaxes.h" declline="36" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="syntaxes_8h_1a50e3c7f1455ed1f9deb9ca1f8bcb773e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool is_utc_time</definition>
+        <argsstring>(const char *const in, const size_t len)</argsstring>
+        <name>is_utc_time</name>
+        <param>
+          <type>const char *const</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/syntaxes/syntaxes.h" line="37" column="6" declfile="src/syntaxes/syntaxes.h" declline="37" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/syntaxes/syntaxes.h"/>
+  </compounddef>
+</doxygen>

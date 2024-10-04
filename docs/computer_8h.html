@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>src/computer.h file | libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a>/</span>computer.h <span class="m-thin">file</span>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#func-members">Functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="func-members">
+          <h2><a href="#func-members">Functions</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a1c4f3b27f339422a19cd7ab98142a9c3" class="m-doc">ld_add_computer</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** attrs,
+              const char* parent) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_add_computer Creates new computer</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a2138785340cb33d8fa13edffe8c890fe" class="m-doc">ld_del_computer</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_del_computer Deletes computer</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a949bf563963ffde20857a7b535d10677" class="m-doc">ld_mod_computer</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** computer_attrs) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_mod_computer Modifies computer</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#ae2cf7234931491dead25605c044d8e9c" class="m-doc">ld_rename_computer</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* old_name,
+              const char* new_name,
+              const char* parent) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_rename_computer Renames computer</dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a1c4f3b27f339422a19cd7ab98142a9c3"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a1c4f3b27f339422a19cd7ab98142a9c3" class="m-doc-self">ld_add_computer</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** attrs,
+              const char* parent)</span></span>
+            </h3>
+            <p>ld_add_computer Creates new computer</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>LibDomain handle</td>
+                </tr>
+                <tr>
+                  <td>name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>name of the computer</td>
+                </tr>
+                <tr>
+                  <td>attrs&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Attributes of the computer</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Parent container of the computer.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a2138785340cb33d8fa13edffe8c890fe"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a2138785340cb33d8fa13edffe8c890fe" class="m-doc-self">ld_del_computer</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent)</span></span>
+            </h3>
+            <p>ld_del_computer Deletes computer</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the computer.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Parent container of the computer.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a949bf563963ffde20857a7b535d10677"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a949bf563963ffde20857a7b535d10677" class="m-doc-self">ld_mod_computer</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** computer_attrs)</span></span>
+            </h3>
+            <p>ld_mod_computer Modifies computer</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the computer.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Parent container of the computer.</td>
+                </tr>
+                <tr>
+                  <td>computer_attrs&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>List of the attributes to modify.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ae2cf7234931491dead25605c044d8e9c"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ae2cf7234931491dead25605c044d8e9c" class="m-doc-self">ld_rename_computer</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* old_name,
+              const char* new_name,
+              const char* parent)</span></span>
+            </h3>
+            <p>ld_rename_computer Renames computer</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>old_name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Old name of the computer.</td>
+                </tr>
+                <tr>
+                  <td>new_name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>New name of the computer.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Parent container of the computer.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

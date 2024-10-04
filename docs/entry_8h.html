@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>src/entry.h file | libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a>/</span>entry.h <span class="m-thin">file</span>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#typedef-members">Typedefs</a></li>
+                <li><a href="#func-members">Functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="typedef-members">
+          <h2><a href="#typedef-members">Typedefs</a></h2>
+          <dl class="m-doc">
+            <dt id="a133ec15039a9fdf8b0f9f5d7e25d1742">
+              using <a href="#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc-self">LDAPAttribute_t</a> = struct <a href="struct_l_d_a_p_attribute__s.html" class="m-doc">LDAPAttribute_<wbr />s</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a2ccd81bd4e99cd2355b31175ac3d766d">
+              using <a href="#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc-self">ld_entry_t</a> = struct <a href="structld__entry__s.html" class="m-doc">ld_<wbr />entry_<wbr />s</a>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="func-members">
+          <h2><a href="#func-members">Functions</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a6ff1c81f937804c9e34795983559978e" class="m-doc">add</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              const char* dn,
+              LDAPMod** attrs) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>add This function wraps ldap_add_ext function associating it with connection.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a5d489bf3eb34043937add4702b6551a3" class="m-doc">add_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>add_on_write This callback called on complition of ldap add operation.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a5598726f4588883be03ad2e354d3a59c" class="m-doc">search</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              const char* base_dn,
+              int scope,
+              const char* filter,
+              char** attrs,
+              bool attrsonly,
+              <a href="connection_8h.html#a5eca06a31481a5a57dbce6ed7ec34876" class="m-doc">search_<wbr />callback_<wbr />fn</a> search_callback,
+              void* user_data) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>search Function wraps ldap search operation associating it with connection.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#accf9def971ffd54a062f87a892131e95" class="m-doc">search_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>search_on_read This callback called upon complition of ldap search operation.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#aa51539f373c825161750ccc94c3d30ab" class="m-doc">modify</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              const char* dn,
+              LDAPMod** attrs) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>modify This function wraps ldap_modify_ext.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#aab80ea2080a412cc9ae0e0cc72400a9a" class="m-doc">modify_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>modify_on_read This callback called upon complition of ldap modify operation.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a981102b111c8c3307f2961a8fc17579f" class="m-doc">ld_delete</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              const char* dn) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_delete Function wraps ldap_delete_ext.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#ab3638c011fe40e1a2b07a480e393636e" class="m-doc">delete_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>delete_on_read This callback determines result of delete operation.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#aff6c71cf672bbac63af03e5129a62769" class="m-doc">ld_rename</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              const char* olddn,
+              const char* newdn,
+              const char* new_parent,
+              bool delete_original) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_rename Wraps ldap_rename function.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a3efec17847a5b987255ecd625da29a58" class="m-doc">rename_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>rename_on_read This callback determines result of rename operation.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#adb1e2cc1dfe826e4bb469b40a90c3bbd" class="m-doc">whoami</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>whoami This operation only supported on OpenLDAP and determines who current user is.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a0edd5f887878590bc1e40073b5291546" class="m-doc">whoami_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>whoami_on_read This callback determines result of whoami operation.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a5b155e9364545822cf5faf32b2e1b6dd" class="m-doc">ld_entry_new</a>(</span><span class="m-doc-wrap">TALLOC_CTX* ctx,
+              const char* dn) -&gt; <a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>*</span>
+            </dt>
+            <dd>ld_entry_new Creates new ld_entry_t;</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a83607ae86031073fc512ae4c9e73f07a" class="m-doc">ld_entry_get_dn</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>* entry) -&gt; const char*</span>
+            </dt>
+            <dd>ld_entry_get_dn Get entry&#x27;s dn;</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a35553c438b83390243962544705a232f" class="m-doc">ld_entry_add_attribute</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>* entry,
+              const <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>* attr) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_entry_add_attribute Adds attribute to entry.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#aacc9caf07e7adaddd3e0664777f7cbfb" class="m-doc">ld_entry_get_attribute</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>* entry,
+              const char* name_or_oid) -&gt; <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>*</span>
+            </dt>
+            <dd>ld_entry_get_attribute Gets attribute from entry.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a9c57d97548dd8b115204fcbabfbe8693" class="m-doc">ld_entry_get_attributes</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>* entry) -&gt; <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>**</span>
+            </dt>
+            <dd>ld_entry_get_attributes Get all attributes.</dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a6ff1c81f937804c9e34795983559978e"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a6ff1c81f937804c9e34795983559978e" class="m-doc-self">add</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              const char* dn,
+              LDAPMod** attrs)</span></span>
+            </h3>
+            <p>add This function wraps ldap_add_ext function associating it with connection.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Connection to work with.</td>
+                </tr>
+                <tr>
+                  <td>dn&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>The name of the entry to add. If NULL, a zero length DN is sent to the server.</td>
+                </tr>
+                <tr>
+                  <td>attrs&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>The entry&#x27;s attributes, specified using the LDAPMod structure defined for ldap_modify(). The mod_type and mod_vals fields MUST be filled in. The mod_op field is ignored unless ORed with the constant LDAP_MOD_BVALUES, used to select the mod_bvalues case of the mod_vals union.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a5d489bf3eb34043937add4702b6551a3"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a5d489bf3eb34043937add4702b6551a3" class="m-doc-self">add_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>add_on_write This callback called on complition of ldap add operation.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">rc&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Return code of ldap_result.</td>
+                </tr>
+                <tr>
+                  <td>message&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Message received from ldap.</td>
+                </tr>
+                <tr>
+                  <td>connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Connection to work with.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a5598726f4588883be03ad2e354d3a59c"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a5598726f4588883be03ad2e354d3a59c" class="m-doc-self">search</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              const char* base_dn,
+              int scope,
+              const char* filter,
+              char** attrs,
+              bool attrsonly,
+              <a href="connection_8h.html#a5eca06a31481a5a57dbce6ed7ec34876" class="m-doc">search_<wbr />callback_<wbr />fn</a> search_callback,
+              void* user_data)</span></span>
+            </h3>
+            <p>search Function wraps ldap search operation associating it with connection.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Connection to work with.</td>
+                </tr>
+                <tr>
+                  <td>base_dn&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>The dn of the entry at which to start the search. If NULL, a zero length DN is sent to the server.</td>
+                </tr>
+                <tr>
+                  <td>scope&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>One of LDAP_SCOPE_BASE (0x00), LDAP_SCOPE_ONELEVEL (0x01), or LDAP_SCOPE_SUBTREE (0x02), indicating the scope of the search.</td>
+                </tr>
+                <tr>
+                  <td>filter&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>A character string as described in [13], representing the search filter. The value NULL can be passed to indicate that the filter &quot;(objectclass=*)&quot; which matches all entries is to be used. Note that if the caller of the API is using LDAPv2, only a subset of the filter functionality described in [13] can be successfully used.</td>
+                </tr>
+                <tr>
+                  <td>attrs&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>A NULL-terminated array of strings indicating which attributes to return for each matching entry. Passing NULL for this parameter causes all available user attributes to be retrieved. The special constant string LDAP_NO_ATTRS (&quot;1.1&quot;) MAY be used as the only string in the array to indicate that no attribute types are to be returned by the server. The special constant string LDAP_ALL_USER_ATTRS (&quot;*&quot;) can be used in the attrs array along with the names of some operational attributes to indicate that all user attributes plus the listed operational attributes are to be returned.</td>
+                </tr>
+                <tr>
+                  <td>attrsonly&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>A boolean value that MUST be zero if both attribute types and values are to be returned, and non-zero if only types are wanted.</td>
+                </tr>
+                <tr>
+                  <td>search_callback&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>A callback function on search operation.</td>
+                </tr>
+                <tr>
+                  <td>user_data&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>An output parameter for returning data after a search.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="accf9def971ffd54a062f87a892131e95"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#accf9def971ffd54a062f87a892131e95" class="m-doc-self">search_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>search_on_read This callback called upon complition of ldap search operation.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">rc&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Return code of ldap_result.</td>
+                </tr>
+                <tr>
+                  <td>message&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Message received from ldap.</td>
+                </tr>
+                <tr>
+                  <td>connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Connection to work with.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="aa51539f373c825161750ccc94c3d30ab"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aa51539f373c825161750ccc94c3d30ab" class="m-doc-self">modify</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              const char* dn,
+              LDAPMod** attrs)</span></span>
+            </h3>
+            <p>modify This function wraps ldap_modify_ext.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Connection to work with.</td>
+                </tr>
+                <tr>
+                  <td>dn&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>The name of the entry to modify. If NULL, a zero length DN is sent to the server.</td>
+                </tr>
+                <tr>
+                  <td>attrs&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>A NULL-terminated array of modifications to make to the entry.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="aab80ea2080a412cc9ae0e0cc72400a9a"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aab80ea2080a412cc9ae0e0cc72400a9a" class="m-doc-self">modify_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>modify_on_read This callback called upon complition of ldap modify operation.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">rc</td>
+                  <td>Return code of ldap_result.</td>
+                </tr>
+                <tr>
+                  <td>message</td>
+                  <td>Message received from ldap.</td>
+                </tr>
+                <tr>
+                  <td>connection</td>
+                  <td>Connection to work with.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a981102b111c8c3307f2961a8fc17579f"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a981102b111c8c3307f2961a8fc17579f" class="m-doc-self">ld_delete</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              const char* dn)</span></span>
+            </h3>
+            <p>ld_delete Function wraps ldap_delete_ext.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Connection to work with.</td>
+                </tr>
+                <tr>
+                  <td>dn&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>The name of the entry to delete. If NULL, a zero length DN is sent to the server.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ab3638c011fe40e1a2b07a480e393636e"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ab3638c011fe40e1a2b07a480e393636e" class="m-doc-self">delete_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>delete_on_read This callback determines result of delete operation.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">rc&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Return code of ldap_result.</td>
+                </tr>
+                <tr>
+                  <td>message&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Message received from ldap.</td>
+                </tr>
+                <tr>
+                  <td>connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Connection to work with.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="aff6c71cf672bbac63af03e5129a62769"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aff6c71cf672bbac63af03e5129a62769" class="m-doc-self">ld_rename</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              const char* olddn,
+              const char* newdn,
+              const char* new_parent,
+              bool delete_original)</span></span>
+            </h3>
+            <p>ld_rename Wraps ldap_rename function.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a3efec17847a5b987255ecd625da29a58"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a3efec17847a5b987255ecd625da29a58" class="m-doc-self">rename_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>rename_on_read This callback determines result of rename operation.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">rc&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Return code of ldap_result.</td>
+                </tr>
+                <tr>
+                  <td>message&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Message received from ldap.</td>
+                </tr>
+                <tr>
+                  <td>connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Connection to work with.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="adb1e2cc1dfe826e4bb469b40a90c3bbd"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#adb1e2cc1dfe826e4bb469b40a90c3bbd" class="m-doc-self">whoami</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>whoami This operation only supported on OpenLDAP and determines who current user is.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Connection to work with.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a0edd5f887878590bc1e40073b5291546"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a0edd5f887878590bc1e40073b5291546" class="m-doc-self">whoami_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>whoami_on_read This callback determines result of whoami operation.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">rc&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Return code of ldap_result.</td>
+                </tr>
+                <tr>
+                  <td>message&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Message received from ldap.</td>
+                </tr>
+                <tr>
+                  <td>connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Connection to work with.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a5b155e9364545822cf5faf32b2e1b6dd"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper"><a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>* </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a5b155e9364545822cf5faf32b2e1b6dd" class="m-doc-self">ld_entry_new</a>(</span><span class="m-doc-wrap">TALLOC_CTX* ctx,
+              const char* dn)</span></span>
+            </h3>
+            <p>ld_entry_new Creates new ld_entry_t;</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">ctx&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Talloc ctx to use.</td>
+                </tr>
+                <tr>
+                  <td>dn</td>
+                  <td></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>Valid pointer to ld_entry_t.</li><li>NULL on error.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a83607ae86031073fc512ae4c9e73f07a"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">const char* </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a83607ae86031073fc512ae4c9e73f07a" class="m-doc-self">ld_entry_get_dn</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>* entry)</span></span>
+            </h3>
+            <p>ld_entry_get_dn Get entry&#x27;s dn;</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">entry&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Entry to use.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>NULL - on error.</li><li>DN on success.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a35553c438b83390243962544705a232f"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a35553c438b83390243962544705a232f" class="m-doc-self">ld_entry_add_attribute</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>* entry,
+              const <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>* attr)</span></span>
+            </h3>
+            <p>ld_entry_add_attribute Adds attribute to entry.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">entry&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Entry to use.</td>
+                </tr>
+                <tr>
+                  <td>attr&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Attribute to add.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_FAILURE - on error.</li><li>RETURN_CODE_SUCCESS - when attribute was added successduly.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="aacc9caf07e7adaddd3e0664777f7cbfb"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper"><a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>* </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aacc9caf07e7adaddd3e0664777f7cbfb" class="m-doc-self">ld_entry_get_attribute</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>* entry,
+              const char* name_or_oid)</span></span>
+            </h3>
+            <p>ld_entry_get_attribute Gets attribute from entry.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">entry&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Entry to use.</td>
+                </tr>
+                <tr>
+                  <td>name_or_oid&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of attribute.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>NULL - if attribute not found.</li><li>Pointer to LDAPAttribute_t if attribute was found.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a9c57d97548dd8b115204fcbabfbe8693"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper"><a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a9c57d97548dd8b115204fcbabfbe8693" class="m-doc-self">ld_entry_get_attributes</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>* entry)</span></span>
+            </h3>
+            <p>ld_entry_get_attributes Get all attributes.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">entry&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Entry to get attributes from.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>NULL terminated array of attributes on success.</li><li>NULL on error.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+<aside class="m-note m-default"><h4>See also</h4><p>talloc_free(); It is required to call talloc_free() upon completing work with attributes.</p></aside>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

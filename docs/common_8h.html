@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>src/common.h file | libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a>/</span>common.h <span class="m-thin">file</span>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#nested-classes">Classes</a></li>
+                <li><a href="#enum-members">Enums</a></li>
+                <li><a href="#typedef-members">Typedefs</a></li>
+                <li><a href="#func-members">Functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="nested-classes">
+          <h2><a href="#nested-classes">Classes</a></h2>
+          <dl class="m-doc">
+            <dt>
+              struct <a href="structldap__global__context__t.html" class="m-doc">ldap_global_context_t</a>
+            </dt>
+            <dd><a href="structldap__global__context__t.html" class="m-doc">ldap_<wbr />global_<wbr />context_<wbr />t</a> - One of the contexts associated with LDHandle.</dd>
+          </dl>
+        </section>
+        <section id="enum-members">
+          <h2><a href="#enum-members">Enums</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">enum <a href="#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> { </span><span class="m-doc-wrap"><a href="#a0eb30976238f6076cad4dfc7ab28121dac6a1acb4400b2e15dfb366d280022408" class="m-doc">RETURN_CODE_SUCCESS</a> = 1,
+              <a href="#a0eb30976238f6076cad4dfc7ab28121da28f779e3c5700dc480d02d96ea9e8f72" class="m-doc">RETURN_CODE_FAILURE</a> = 2,
+              <a href="#a0eb30976238f6076cad4dfc7ab28121da589850475120c3e69ccd68aae8472275" class="m-doc">RETURN_CODE_MISSING_ATTRIBUTE</a> = 3,
+              <a href="#a0eb30976238f6076cad4dfc7ab28121da98d0f8383c25d0f708dd1ceff1aa20e4" class="m-doc">RETURN_CODE_OPERATION_IN_PROGRESS</a> = 4,
+              <a href="#a0eb30976238f6076cad4dfc7ab28121da92bdfed89d377126cf4ff09ecd82b202" class="m-doc">RETURN_CODE_REPEAT_LAST_OPERATION</a> = 5 }</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="typedef-members">
+          <h2><a href="#typedef-members">Typedefs</a></h2>
+          <dl class="m-doc">
+            <dt>
+              using <a href="#a47a1880e9ec1cece6abfb33254989b6f" class="m-doc">ldap_global_context_t</a> = struct <a href="structldap__global__context__t.html" class="m-doc">ldap_<wbr />global_<wbr />context_<wbr />t</a>
+            </dt>
+            <dd><a href="structldap__global__context__t.html" class="m-doc">ldap_<wbr />global_<wbr />context_<wbr />t</a> - One of the contexts associated with LDHandle.</dd>
+          </dl>
+        </section>
+        <section id="func-members">
+          <h2><a href="#func-members">Functions</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a510c422451a8060e367f6d8a5e669b44" class="m-doc">ld_error</a>(</span><span class="m-doc-wrap">const char* format,
+              ...)</span>
+            </dt>
+            <dd>ld_error Logs error to stderror.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a59189c50d0d5f3705c51771c9fa2e3d5" class="m-doc">ld_warning</a>(</span><span class="m-doc-wrap">const char* format,
+              ...)</span>
+            </dt>
+            <dd>ld_warning Logs warning to stderror.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a3a93af25b0bc8dbf7b01e825fa683ad4" class="m-doc">ld_info</a>(</span><span class="m-doc-wrap">const char* format,
+              ...)</span>
+            </dt>
+            <dd>ld_info Logs information to stderror.</dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Enum documentation</h2>
+          <section class="m-doc-details" id="a0eb30976238f6076cad4dfc7ab28121d"><div>
+            <h3>
+              enum <a href="#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc-self">OperationReturnCode</a>
+            </h3>
+            <p><span></span></p>
+            <table class="m-table m-fullwidth m-flat m-doc">
+              <thead><tr><th style="width: 1%">Enumerators</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><a href="#a0eb30976238f6076cad4dfc7ab28121dac6a1acb4400b2e15dfb366d280022408" class="m-doc-self" id="a0eb30976238f6076cad4dfc7ab28121dac6a1acb4400b2e15dfb366d280022408">RETURN_CODE_SUCCESS</a></td>
+                  <td>
+                  <p>Operation was successful.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a0eb30976238f6076cad4dfc7ab28121da28f779e3c5700dc480d02d96ea9e8f72" class="m-doc-self" id="a0eb30976238f6076cad4dfc7ab28121da28f779e3c5700dc480d02d96ea9e8f72">RETURN_CODE_FAILURE</a></td>
+                  <td>
+                  <p>Operation ended up in error state.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a0eb30976238f6076cad4dfc7ab28121da589850475120c3e69ccd68aae8472275" class="m-doc-self" id="a0eb30976238f6076cad4dfc7ab28121da589850475120c3e69ccd68aae8472275">RETURN_CODE_MISSING_ATTRIBUTE</a></td>
+                  <td>
+                  <p>Required attribute for LDAP entry was not provided.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a0eb30976238f6076cad4dfc7ab28121da98d0f8383c25d0f708dd1ceff1aa20e4" class="m-doc-self" id="a0eb30976238f6076cad4dfc7ab28121da98d0f8383c25d0f708dd1ceff1aa20e4">RETURN_CODE_OPERATION_IN_PROGRESS</a></td>
+                  <td>
+                  <p>Current operation is in progress.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#a0eb30976238f6076cad4dfc7ab28121da92bdfed89d377126cf4ff09ecd82b202" class="m-doc-self" id="a0eb30976238f6076cad4dfc7ab28121da92bdfed89d377126cf4ff09ecd82b202">RETURN_CODE_REPEAT_LAST_OPERATION</a></td>
+                  <td>
+                  <p>Last function call must be repeated.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+        </section>
+        <section>
+          <h2>Typedef documentation</h2>
+          <section class="m-doc-details" id="a47a1880e9ec1cece6abfb33254989b6f"><div>
+            <h3>
+              typedef struct <a href="structldap__global__context__t.html" class="m-doc">ldap_<wbr />global_<wbr />context_<wbr />t</a> <a href="#a47a1880e9ec1cece6abfb33254989b6f" class="m-doc-self">ldap_global_context_t</a>
+            </h3>
+            <p><a href="structldap__global__context__t.html" class="m-doc">ldap_<wbr />global_<wbr />context_<wbr />t</a> - One of the contexts associated with LDHandle.</p>
+<aside class="m-note m-default"><h4>See also</h4><p><a href="domain__p_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a></p></aside>
+          </div></section>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a510c422451a8060e367f6d8a5e669b44"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a510c422451a8060e367f6d8a5e669b44" class="m-doc-self">ld_error</a>(</span><span class="m-doc-wrap">const char* format,
+              ...)</span></span>
+            </h3>
+            <p>ld_error Logs error to stderror.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">format</td>
+                  <td>Format that used in printf function.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a59189c50d0d5f3705c51771c9fa2e3d5"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a59189c50d0d5f3705c51771c9fa2e3d5" class="m-doc-self">ld_warning</a>(</span><span class="m-doc-wrap">const char* format,
+              ...)</span></span>
+            </h3>
+            <p>ld_warning Logs warning to stderror.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">format</td>
+                  <td>Format that used in printf function.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a3a93af25b0bc8dbf7b01e825fa683ad4"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a3a93af25b0bc8dbf7b01e825fa683ad4" class="m-doc-self">ld_info</a>(</span><span class="m-doc-wrap">const char* format,
+              ...)</span></span>
+            </h3>
+            <p>ld_info Logs information to stderror.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">format</td>
+                  <td>Format that used in printf function.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

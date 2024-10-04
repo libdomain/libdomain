@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>src/connection.c file | libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a>/</span>connection.c <span class="m-thin">file</span>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#nested-classes">Classes</a></li>
+                <li><a href="#typedef-members">Typedefs</a></li>
+                <li><a href="#func-members">Functions</a></li>
+                <li><a href="#var-members">Variables</a></li>
+                <li><a href="#define-members">Defines</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="nested-classes">
+          <h2><a href="#nested-classes">Classes</a></h2>
+          <dl class="m-doc">
+            <dt>
+              struct <a href="structoption__value__t.html" class="m-doc">option_value_t</a>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="typedef-members">
+          <h2><a href="#typedef-members">Typedefs</a></h2>
+          <dl class="m-doc">
+            <dt id="a99aafce60ca2a606d16ebe8b199bae85">
+              using <a href="#a99aafce60ca2a606d16ebe8b199bae85" class="m-doc-self">option_value_t</a> = struct <a href="structoption__value__t.html" class="m-doc">option_<wbr />value_<wbr />t</a>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="func-members">
+          <h2><a href="#func-members">Functions</a></h2>
+          <dl class="m-doc">
+            <dt id="a9e6b5411dca7728c5d6d924bdc5940b5">
+              <span class="m-doc-wrap-bumper">static auto <a href="#a9e6b5411dca7728c5d6d924bdc5940b5" class="m-doc-self">ldap_option2string</a>(</span><span class="m-doc-wrap">int option) -&gt; const char*</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="af73bca496607a6d4cee70f15ca17ef83">
+              <span class="m-doc-wrap-bumper">static void <a href="#af73bca496607a6d4cee70f15ca17ef83" class="m-doc-self">ldap_requests_init</a>(</span><span class="m-doc-wrap">struct <a href="structldap__request__t.html" class="m-doc">ldap_<wbr />request_<wbr />t</a>* requests,
+              int size)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aaf04e35bb8c84dc6ffa2b154fd6cc1ce">
+              <span class="m-doc-wrap-bumper">static void <a href="#aaf04e35bb8c84dc6ffa2b154fd6cc1ce" class="m-doc-self">search_requests_init</a>(</span><span class="m-doc-wrap">struct <a href="structldap__search__request__t.html" class="m-doc">ldap_<wbr />search_<wbr />request_<wbr />t</a>* requests,
+              int size)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#afca87a97ffe6098ad96e004505c0c9a5" class="m-doc">connection_microseconds_to_timeval</a>(</span><span class="m-doc-wrap">TALLOC_CTX* talloc_ctx,
+              int microseconds) -&gt; struct timeval*</span>
+            </dt>
+            <dd>connection_microseconds_to_timeval</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a2866726bb3b6722962f3013421e39098" class="m-doc">connection_configure</a>(</span><span class="m-doc-wrap">struct <a href="structldap__global__context__t.html" class="m-doc">ldap_<wbr />global_<wbr />context_<wbr />t</a>* global_ctx,
+              struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              struct <a href="structldap__connection__config__t.html" class="m-doc">ldap_<wbr />connection_<wbr />config_<wbr />t</a>* config) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>connection_configure Configures connection while performing following actions:</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#abbf18e493630502ad6cf040275cffcaa" class="m-doc">connection_install_handlers</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>connection_install_handlers Installs handlers for read and write operations.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a1de75d52cb071e90702c31d362258e88" class="m-doc">connection_start_tls</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>connection_start_tls Setups tls transport.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#ab77349a606e00ff37d1814ad97c1beaa" class="m-doc">connection_sasl_bind</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>connection_sasl_bind Tries to perform non interactive connection using sasl bind. Installs connection_bind_on_read operation handler.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a6755c4d450d90978b21dc62d43dbbdcf" class="m-doc">sasl_interact_gssapi</a>(</span><span class="m-doc-wrap">LDAP* ld,
+              unsigned flags,
+              void* indefaults,
+              void* in) -&gt; int</span>
+            </dt>
+            <dd>sasl_interact_gssapi This function is a callback that is called by ldap_sasl_interactive_bind.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#af5a42fc3c066386306d39652315a2cce" class="m-doc">connection_ldap_bind</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>connection_ldap_bind Performs interactive bind and installs connection_bind_on_read operation handler.</dd>
+            <dt id="abaac8a2064b22da089d240a18d5d49cc">
+              <span class="m-doc-wrap-bumper">void <a href="#abaac8a2064b22da089d240a18d5d49cc" class="m-doc-self">connection_optional_transition_on_error</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a5d2e780ea5cdb546b83379a501a60a2a" class="m-doc">connection_on_read</a>(</span><span class="m-doc-wrap">verto_ctx* ctx,
+              verto_ev* ev)</span>
+            </dt>
+            <dd>connection_on_read This callback is performed on read operation.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a8661eaf7fdd612c68a71c71cc581fe46" class="m-doc">connection_on_write</a>(</span><span class="m-doc-wrap">verto_ctx* ctx,
+              verto_ev* ev)</span>
+            </dt>
+            <dd>connection_on_read This callback is performed on write operation.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a8f570ed9ab07e32217a8e571fa7409e3" class="m-doc">connection_close</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>connection_close Closes connection and frees resources associated with said connection.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#abec94c893a59b447c8ed94593dccc80b" class="m-doc">connection_bind_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>connection_bind_on_read This callback is performed during bind operation.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a51167ddcd9789d902dde8daedc1c0a7d" class="m-doc">connection_start_tls_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>connection_start_tls_on_read This callback is performed during initiation of tls connection.</dd>
+          </dl>
+        </section>
+        <section id="var-members">
+          <h2><a href="#var-members">Variables</a></h2>
+          <dl class="m-doc">
+            <dt id="aad86c80f20673d72cc6412378ed0a0d4">
+              const <a href="structoption__value__t.html" class="m-doc">option_<wbr />value_<wbr />t</a> <a href="#aad86c80f20673d72cc6412378ed0a0d4" class="m-doc-self">option_strings</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a667da26929fb4cff3afbd5fb106c0648">
+              const int <a href="#a667da26929fb4cff3afbd5fb106c0648" class="m-doc-self">option_strings_size</a>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="define-members">
+          <h2><a href="#define-members">Defines</a></h2>
+          <dl class="m-doc">
+            <dt id="af8c317a42292b61c93aae91e59118a46">
+              <span class="m-doc-wrap-bumper">#define <a href="#af8c317a42292b61c93aae91e59118a46" class="m-doc-self">container_of</a>(</span><span class="m-doc-wrap">ptr,
+              type,
+              member)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a3d7b61c23771d76af33538b7fdeaca91">
+              <span class="m-doc-wrap-bumper">#define <a href="#a3d7b61c23771d76af33538b7fdeaca91" class="m-doc-self">number_of_elements</a>(</span><span class="m-doc-wrap">x)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ac3b98298f6bff900e27b21277348e29c">
+              <span class="m-doc-wrap-bumper">#define <a href="#ac3b98298f6bff900e27b21277348e29c" class="m-doc-self">set_ldap_option</a>(</span><span class="m-doc-wrap">ldap,
+              option,
+              value)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a105b1c79bad0504d768c05f4ae16ade5">
+              <span class="m-doc-wrap-bumper">#define <a href="#a105b1c79bad0504d768c05f4ae16ade5" class="m-doc-self">set_bool_option</a>(</span><span class="m-doc-wrap">ldap,
+              option,
+              value)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a2e29a952bfa794331d6b5af12aeb19d2">
+              <span class="m-doc-wrap-bumper">#define <a href="#a2e29a952bfa794331d6b5af12aeb19d2" class="m-doc-self">get_ldap_option</a>(</span><span class="m-doc-wrap">ldap,
+              option,
+              value)</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="afca87a97ffe6098ad96e004505c0c9a5"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">struct timeval* </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#afca87a97ffe6098ad96e004505c0c9a5" class="m-doc-self">connection_microseconds_to_timeval</a>(</span><span class="m-doc-wrap">TALLOC_CTX* talloc_ctx,
+              int microseconds)</span></span>
+            </h3>
+            <p>connection_microseconds_to_timeval</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">talloc_ctx&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>microseconds&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Number of microseconds for timeout.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td>Pointer to timeval struct.</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a2866726bb3b6722962f3013421e39098"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a2866726bb3b6722962f3013421e39098" class="m-doc-self">connection_configure</a>(</span><span class="m-doc-wrap">struct <a href="structldap__global__context__t.html" class="m-doc">ldap_<wbr />global_<wbr />context_<wbr />t</a>* global_ctx,
+              struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              struct <a href="structldap__connection__config__t.html" class="m-doc">ldap_<wbr />connection_<wbr />config_<wbr />t</a>* config)</span></span>
+            </h3>
+            <p>connection_configure Configures connection while performing following actions:</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">global_ctx</td>
+                  <td>[in] global context to use</td>
+                </tr>
+                <tr>
+                  <td>connection</td>
+                  <td>[out] configured connection ready to be supplied to connection state machine</td>
+                </tr>
+                <tr>
+                  <td>config</td>
+                  <td>[in] connection configuration contains parameters for sasl, tls, etc.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+<ol><li>Creates LDAP handle and sets protocol version, turns on async connection flag.</li><li>Depending on usage of sasl configures sals flags for connection. Allocates structure to hold sasl parameters.</li><li>Depending on usage of TLS configures TLS flags for connection.</li><li>Creates event base for connection.</li></ol>
+          </div></section>
+          <section class="m-doc-details" id="abbf18e493630502ad6cf040275cffcaa"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#abbf18e493630502ad6cf040275cffcaa" class="m-doc-self">connection_install_handlers</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>connection_install_handlers Installs handlers for read and write operations.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">connection</td>
+                  <td>[in] connection to install handlers for.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_SUCCESS on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+<aside class="m-note m-default"><h4>See also</h4><p><a href="#a5d2e780ea5cdb546b83379a501a60a2a" class="m-doc">connection_<wbr />on_<wbr />read</a></p><p><a href="#a8661eaf7fdd612c68a71c71cc581fe46" class="m-doc">connection_<wbr />on_<wbr />write</a></p></aside>
+          </div></section>
+          <section class="m-doc-details" id="a1de75d52cb071e90702c31d362258e88"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a1de75d52cb071e90702c31d362258e88" class="m-doc-self">connection_start_tls</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>connection_start_tls Setups tls transport.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>connection to use</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ab77349a606e00ff37d1814ad97c1beaa"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ab77349a606e00ff37d1814ad97c1beaa" class="m-doc-self">connection_sasl_bind</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>connection_sasl_bind Tries to perform non interactive connection using sasl bind. Installs connection_bind_on_read operation handler.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">connection</td>
+                  <td>[in] connection to perform bind with.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a6755c4d450d90978b21dc62d43dbbdcf"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">int </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a6755c4d450d90978b21dc62d43dbbdcf" class="m-doc-self">sasl_interact_gssapi</a>(</span><span class="m-doc-wrap">LDAP* ld,
+              unsigned flags,
+              void* indefaults,
+              void* in)</span></span>
+            </h3>
+            <p>sasl_interact_gssapi This function is a callback that is called by ldap_sasl_interactive_bind.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">ld</td>
+                  <td>[in] ldap handle to use</td>
+                </tr>
+                <tr>
+                  <td>flags</td>
+                  <td>[in] unused</td>
+                </tr>
+                <tr>
+                  <td>indefaults</td>
+                  <td>[in] we need to provide <a href="structldap__sasl__defaults__t.html" class="m-doc">ldap_<wbr />sasl_<wbr />defaults_<wbr />t</a></td>
+                </tr>
+                <tr>
+                  <td>in</td>
+                  <td>[in] list of client interactions with user for caller to fill in</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>LDAP_SUCCESS on success.</li><li>LDAP_PARAM_ERROR on parameter error.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="af5a42fc3c066386306d39652315a2cce"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#af5a42fc3c066386306d39652315a2cce" class="m-doc-self">connection_ldap_bind</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>connection_ldap_bind Performs interactive bind and installs connection_bind_on_read operation handler.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">connection</td>
+                  <td>[in] connection to perform bind on</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_OPERATION_IN_PROGRESS if operation is still running.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a5d2e780ea5cdb546b83379a501a60a2a"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a5d2e780ea5cdb546b83379a501a60a2a" class="m-doc-self">connection_on_read</a>(</span><span class="m-doc-wrap">verto_ctx* ctx,
+              verto_ev* ev)</span></span>
+            </h3>
+            <p>connection_on_read This callback is performed on read operation.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">ctx</td>
+                  <td>[in] event context</td>
+                </tr>
+                <tr>
+                  <td>ev</td>
+                  <td>[in] event</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a8661eaf7fdd612c68a71c71cc581fe46"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a8661eaf7fdd612c68a71c71cc581fe46" class="m-doc-self">connection_on_write</a>(</span><span class="m-doc-wrap">verto_ctx* ctx,
+              verto_ev* ev)</span></span>
+            </h3>
+            <p>connection_on_read This callback is performed on write operation.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">ctx</td>
+                  <td>[in] event context</td>
+                </tr>
+                <tr>
+                  <td>ev</td>
+                  <td>[in] event</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a8f570ed9ab07e32217a8e571fa7409e3"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a8f570ed9ab07e32217a8e571fa7409e3" class="m-doc-self">connection_close</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>connection_close Closes connection and frees resources associated with said connection.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">connection</td>
+                  <td>[in] connection to use</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td>RETURN_CODE_SUCCESS.</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="abec94c893a59b447c8ed94593dccc80b"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#abec94c893a59b447c8ed94593dccc80b" class="m-doc-self">connection_bind_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>connection_bind_on_read This callback is performed during bind operation.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">rc</td>
+                  <td>[in] result code of bind operation.</td>
+                </tr>
+                <tr>
+                  <td>message</td>
+                  <td>[in] message received during operation.</td>
+                </tr>
+                <tr>
+                  <td>connection</td>
+                  <td>[in] connection used during bind operation.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a51167ddcd9789d902dde8daedc1c0a7d"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a51167ddcd9789d902dde8daedc1c0a7d" class="m-doc-self">connection_start_tls_on_read</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>connection_start_tls_on_read This callback is performed during initiation of tls connection.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">rc&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>result code of bind operation.</td>
+                </tr>
+                <tr>
+                  <td>message&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>message received during operation.</td>
+                </tr>
+                <tr>
+                  <td>connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>connection used during bind operation.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

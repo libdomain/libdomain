@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>src/ldap_syntaxes.c file | libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a>/</span>ldap_syntaxes.c <span class="m-thin">file</span>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#func-members">Functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="func-members">
+          <h2><a href="#func-members">Functions</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a3b09cfebecd3c730c07ae81be4a1ce5c" class="m-doc">validate_boolean</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd>validate_boolean Validates array if indeed boolean value.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a7a5d8339f163719d53696128ffcfff05" class="m-doc">validate_integer</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd>validate_integer Validates array if indeed integer value.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#ab3a19fe8646a78af931432a19dcc943a" class="m-doc">validate_octet_string</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd>validate_octet_string Validates array if indeed integer value.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a39a0684cef786f44a921324239050c44" class="m-doc">validate_oid</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd>validate_oid Validates array if indeed integer value.</dd>
+            <dt id="a33400872a9e4f7cca5f651b99a134c7c">
+              <span class="m-doc-wrap-bumper">auto <a href="#a33400872a9e4f7cca5f651b99a134c7c" class="m-doc-self">validate_numeric_string</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a0e8ba7b695548dd1581f8573b42f03ce">
+              <span class="m-doc-wrap-bumper">auto <a href="#a0e8ba7b695548dd1581f8573b42f03ce" class="m-doc-self">validate_printable_string</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a207a64e961d821dd84d0b70874290bc2">
+              <span class="m-doc-wrap-bumper">auto <a href="#a207a64e961d821dd84d0b70874290bc2" class="m-doc-self">validate_case_ignore_string</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a73ef24312281998991362db4c9421296">
+              <span class="m-doc-wrap-bumper">auto <a href="#a73ef24312281998991362db4c9421296" class="m-doc-self">validate_ia5_string</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ab894d935117d80938fb975e416486589">
+              <span class="m-doc-wrap-bumper">auto <a href="#ab894d935117d80938fb975e416486589" class="m-doc-self">validate_utc_time</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a87e3d2b1857ab72c7ab52cf31a2a389b">
+              <span class="m-doc-wrap-bumper">auto <a href="#a87e3d2b1857ab72c7ab52cf31a2a389b" class="m-doc-self">validate_generalized_time</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a2a77b652afaedb38debabd9028d567ff">
+              <span class="m-doc-wrap-bumper">auto <a href="#a2a77b652afaedb38debabd9028d567ff" class="m-doc-self">validate_case_sensitive_string</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="acdff4b8ae3b3224996feb36b2052aedf">
+              <span class="m-doc-wrap-bumper">auto <a href="#acdff4b8ae3b3224996feb36b2052aedf" class="m-doc-self">validate_directory_string</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a5445cc4003f5ddbe1130197c411155e6" class="m-doc">validate_large_integer</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd>validate_large_integer Validates array if indeed int64 value.</dd>
+            <dt id="ac1526eb0c0cef8080514a216b1830de9">
+              <span class="m-doc-wrap-bumper">auto <a href="#ac1526eb0c0cef8080514a216b1830de9" class="m-doc-self">validate_object_security_descriptor</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a4ff6db39bf68b6eb1247ee9dacba6c48">
+              <span class="m-doc-wrap-bumper">auto <a href="#a4ff6db39bf68b6eb1247ee9dacba6c48" class="m-doc-self">validate_dn</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="acbdf2bd69bdacbff0878e20d8a782e33">
+              <span class="m-doc-wrap-bumper">auto <a href="#acbdf2bd69bdacbff0878e20d8a782e33" class="m-doc-self">validate_dn_with_octet_string</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="af260e85e8217b179caceae95e45268d8">
+              <span class="m-doc-wrap-bumper">auto <a href="#af260e85e8217b179caceae95e45268d8" class="m-doc-self">validate_dn_with_string</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ad9d133c4721d5c356514177786cdbf04">
+              <span class="m-doc-wrap-bumper">auto <a href="#ad9d133c4721d5c356514177786cdbf04" class="m-doc-self">validate_or_name</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="af25c1e07911fa5eb315158667bf1a465">
+              <span class="m-doc-wrap-bumper">auto <a href="#af25c1e07911fa5eb315158667bf1a465" class="m-doc-self">validate_presentation_address</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a8b60f801522fc281f2a84d13ede98c81">
+              <span class="m-doc-wrap-bumper">auto <a href="#a8b60f801522fc281f2a84d13ede98c81" class="m-doc-self">validate_access_point</a>(</span><span class="m-doc-wrap">const char* value) -&gt; bool</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a3b09cfebecd3c730c07ae81be4a1ce5c"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">bool </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a3b09cfebecd3c730c07ae81be4a1ce5c" class="m-doc-self">validate_boolean</a>(</span><span class="m-doc-wrap">const char* value)</span></span>
+            </h3>
+            <p>validate_boolean Validates array if indeed boolean value.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">value&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>NULL terminated array of char to verify.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>false - on error.</li><li>true - on success.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+<p>The function validate_boolean takes in a string and checks if it matches the format of a boolean value as defined by RFC 4517. The function returns True if the input string is either &quot;TRUE&quot; or &quot;FALSE&quot;, otherwise it returns False. From RFC 4517 : Boolean = &quot;TRUE&quot; / &quot;FALSE&quot;</p><aside class="m-note m-default"><h4>See also</h4><p><a href="https://www.rfc-editor.org/rfc/rfc4517.txt">RFC4517</a></p></aside>
+          </div></section>
+          <section class="m-doc-details" id="a7a5d8339f163719d53696128ffcfff05"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">bool </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a7a5d8339f163719d53696128ffcfff05" class="m-doc-self">validate_integer</a>(</span><span class="m-doc-wrap">const char* value)</span></span>
+            </h3>
+            <p>validate_integer Validates array if indeed integer value.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">value&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>NULL terminated array of char to verify.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>false - on error.</li><li>true - on success.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+<p>The function validate_integer takes in a string and checks if it matches the format of a integer value as defined by RFC 4517. The function returns True if the input string is integer value, otherwise it returns False. From RFC 4517 : Integer = ( HYPHEN LDIGIT *DIGIT ) | number From RFC 4512 : number = DIGIT | ( LDIGIT 1*DIGIT ) DIGIT = x30 | LDIGIT ; &quot;0&quot;-&quot;9&quot; LDIGIT = x31-39 ; &quot;1&quot;-&quot;9&quot; HYPHEN = x2D ; hyphen (&quot;-&quot;)</p><aside class="m-note m-default"><h4>See also</h4><p><a href="https://www.rfc-editor.org/rfc/rfc4517.txt">RFC4517</a></p></aside>
+          </div></section>
+          <section class="m-doc-details" id="ab3a19fe8646a78af931432a19dcc943a"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">bool </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ab3a19fe8646a78af931432a19dcc943a" class="m-doc-self">validate_octet_string</a>(</span><span class="m-doc-wrap">const char* value)</span></span>
+            </h3>
+            <p>validate_octet_string Validates array if indeed integer value.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td><ul><li>false - on error.</li><li>true - on success.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+<p>The function validate_octet_string takes in a string and checks if it matches the format of a octet string value as defined by RFC 4517. The function returns True if the input string is octet string value, otherwise it returns False. From RFC 4517 : OctetString = *OCTET OCTET = x00-FF ; Any octet (8-bit data unit)</p><aside class="m-note m-default"><h4>See also</h4><p><a href="https://www.rfc-editor.org/rfc/rfc4517.txt">RFC4517</a></p></aside>
+          </div></section>
+          <section class="m-doc-details" id="a39a0684cef786f44a921324239050c44"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">bool </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a39a0684cef786f44a921324239050c44" class="m-doc-self">validate_oid</a>(</span><span class="m-doc-wrap">const char* value)</span></span>
+            </h3>
+            <p>validate_oid Validates array if indeed integer value.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td><ul><li>false - on error.</li><li>true - on success.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+<p>The function validate_oid takes in a string and checks if it matches the format of a OID value as defined by RFC 4517. The function returns True if the input string is OID value, otherwise it returns False. From RFC 4517 : OctetString = *OCTET OCTET = x00-FF ; Any octet (8-bit data unit)</p><aside class="m-note m-default"><h4>See also</h4><p><a href="https://www.rfc-editor.org/rfc/rfc4517.txt">RFC4517</a></p></aside>
+          </div></section>
+          <section class="m-doc-details" id="a5445cc4003f5ddbe1130197c411155e6"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">bool </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a5445cc4003f5ddbe1130197c411155e6" class="m-doc-self">validate_large_integer</a>(</span><span class="m-doc-wrap">const char* value)</span></span>
+            </h3>
+            <p>validate_large_integer Validates array if indeed int64 value.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">value&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>NULL terminated array of char to verify.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>false - on error.</li><li>true - on success.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+<p>The function validate_large_integer takes in a string and checks if it matches the format of a large integer value as defined by RFC 4517. The function returns True if the input string is large integer value, otherwise it returns False. From RFC 4517 : Integer = ( HYPHEN LDIGIT *DIGIT ) | number From RFC 4512 : number = DIGIT | ( LDIGIT 1*DIGIT ) DIGIT = x30 | LDIGIT ; &quot;0&quot;-&quot;9&quot; LDIGIT = x31-39 ; &quot;1&quot;-&quot;9&quot; HYPHEN = x2D ; hyphen (&quot;-&quot;)</p><aside class="m-note m-default"><h4>See also</h4><p><a href="https://www.rfc-editor.org/rfc/rfc4517.txt">RFC4517</a></p></aside>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structstate__machine__ctx__t" kind="struct" language="C++" prot="public">
+    <compoundname>state_machine_ctx_t</compoundname>
+    <includes refid="connection__state__machine_8h" local="no">connection_state_machine.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structstate__machine__ctx__t_1acee66fadd5fe7329e67cac60695c1cff" prot="public" static="no" mutable="no">
+        <type>enum <ref refid="connection__state__machine_8h_1aaa58f89d042671d6523b67f2a8310b1c" kindref="member">LdapConnectionState</ref></type>
+        <definition>enum LdapConnectionState state_machine_ctx_t::state</definition>
+        <argsstring></argsstring>
+        <name>state</name>
+        <briefdescription>
+<para>State of the connection. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection_state_machine.h" line="51" column="6" bodyfile="src/connection_state_machine.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstate__machine__ctx__t_1a70668cbf272ccb15e7588a0cd2f50ebd" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+        <definition>struct ldap_connection_ctx_t* state_machine_ctx_t::ctx</definition>
+        <argsstring></argsstring>
+        <name>ctx</name>
+        <briefdescription>
+<para>Connection context. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection_state_machine.h" line="45" column="32" bodyfile="src/connection_state_machine.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="structstate__machine__ctx__t" kindref="compound">state_machine_ctx_t</ref> - Struct represents connection state machine. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>ldap_connection_ctx_t</label>
+        <link refid="structldap__connection__ctx__t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>read_requests</edgelabel>
+          <edgelabel>write_requests</edgelabel>
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>on_error_operation</edgelabel>
+          <edgelabel>prev</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>ldap_params</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>handle</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>schema</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>ldap_defaults</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>state_machine</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>search_requests</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>callqueue</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>config</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>ldhandle</label>
+        <link refid="structldhandle"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>connection_ctx</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>global_config</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>global_ctx</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>config_ctx</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>ldap_sasl_defaults_t</label>
+        <link refid="structldap__sasl__defaults__t"/>
+      </node>
+      <node id="4">
+        <label>Queue_Node_s</label>
+        <link refid="struct_queue___node__s"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>prev</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>ldap_connection_config_t</label>
+        <link refid="structldap__connection__config__t"/>
+        <childnode refid="10" relation="usage">
+          <edgelabel>sasl_options</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>ld_config_s</label>
+        <link refid="structld__config__s"/>
+      </node>
+      <node id="14">
+        <label>request_queue</label>
+        <link refid="structrequest__queue"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>head</edgelabel>
+          <edgelabel>tail</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>ldap_sasl_options_t</label>
+        <link refid="structldap__sasl__options__t"/>
+      </node>
+      <node id="11">
+        <label>ldap_schema_t</label>
+        <link refid="structldap__schema__t"/>
+      </node>
+      <node id="8">
+        <label>ldap_global_context_t</label>
+        <link refid="structldap__global__context__t"/>
+      </node>
+      <node id="1">
+        <label>state_machine_ctx_t</label>
+        <link refid="structstate__machine__ctx__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>ctx</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>ldap_sasl_params_t</label>
+        <link refid="structldap__sasl__params__t"/>
+      </node>
+      <node id="3">
+        <label>ldap_request_t</label>
+        <link refid="structldap__request__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>on_read_operation</edgelabel>
+          <edgelabel>on_write_operation</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>node</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>ldap_search_request_t</label>
+        <link refid="structldap__search__request__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>on_search_operation</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/connection_state_machine.h" line="42" column="1" bodyfile="src/connection_state_machine.h" bodystart="43" bodyend="46"/>
+    <listofallmembers>
+      <member refid="structstate__machine__ctx__t_1a70668cbf272ccb15e7588a0cd2f50ebd" prot="public" virt="non-virtual"><scope>state_machine_ctx_t</scope><name>ctx</name></member>
+      <member refid="structstate__machine__ctx__t_1acee66fadd5fe7329e67cac60695c1cff" prot="public" virt="non-virtual"><scope>state_machine_ctx_t</scope><name>state</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,267 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structldap__connection__config__t" kind="struct" language="C++" prot="public">
+    <compoundname>ldap_connection_config_t</compoundname>
+    <includes refid="connection_8h" local="no">connection.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structldap__connection__config__t_1a5079c72caddff1f4e086ea14a58f8288" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* ldap_connection_config_t::server</definition>
+        <argsstring></argsstring>
+        <name>server</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="74" column="16" bodyfile="src/connection.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1a6cf05916044b057fd0c5a111bbbf690d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ldap_connection_config_t::port</definition>
+        <argsstring></argsstring>
+        <name>port</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="75" column="9" bodyfile="src/connection.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1a2c8a9626652c36fc58e5f9af88d1d6c6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ldap_connection_config_t::protocol_verion</definition>
+        <argsstring></argsstring>
+        <name>protocol_verion</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="77" column="9" bodyfile="src/connection.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1a7511dfa5540555a0f6f7199f776a4921" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ldap_connection_config_t::chase_referrals</definition>
+        <argsstring></argsstring>
+        <name>chase_referrals</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="79" column="10" bodyfile="src/connection.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1a15969f9bdc61a6f14e26ee8fb1eb0431" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ldap_connection_config_t::use_start_tls</definition>
+        <argsstring></argsstring>
+        <name>use_start_tls</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="80" column="10" bodyfile="src/connection.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1a6e9896b73e540ec19d7e823f55bb8d96" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ldap_connection_config_t::use_sasl</definition>
+        <argsstring></argsstring>
+        <name>use_sasl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="81" column="10" bodyfile="src/connection.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1ad20a8d32d4730cb4bcae9e9baec1b3bb" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ldap_connection_config_t::bind_type</definition>
+        <argsstring></argsstring>
+        <name>bind_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="83" column="9" bodyfile="src/connection.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1a75307f2ace96d99ba128cf19e329e81a" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structldap__sasl__options__t" kindref="compound">ldap_sasl_options_t</ref> *</type>
+        <definition>struct ldap_sasl_options_t* ldap_connection_config_t::sasl_options</definition>
+        <argsstring></argsstring>
+        <name>sasl_options</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="85" column="30" bodyfile="src/connection.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1afa2becd90377dd040e6eba50c7f30d84" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ldap_connection_config_t::ssl_mode</definition>
+        <argsstring></argsstring>
+        <name>ssl_mode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="87" column="9" bodyfile="src/connection.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1a96b23e2d698db27c615101f27a769f95" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* ldap_connection_config_t::tls_ca_cert_file</definition>
+        <argsstring></argsstring>
+        <name>tls_ca_cert_file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="88" column="16" bodyfile="src/connection.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1af3859326819cdd6590bbc4a26f46f645" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* ldap_connection_config_t::tls_ca_cert_path</definition>
+        <argsstring></argsstring>
+        <name>tls_ca_cert_path</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="89" column="16" bodyfile="src/connection.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1ac77cfa98c4817c61ac339a483ffaedbf" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* ldap_connection_config_t::tls_cert_file</definition>
+        <argsstring></argsstring>
+        <name>tls_cert_file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="91" column="16" bodyfile="src/connection.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1aa1ede102a0e40f9b0b11ed3a9064f824" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* ldap_connection_config_t::tls_key_file</definition>
+        <argsstring></argsstring>
+        <name>tls_key_file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="92" column="16" bodyfile="src/connection.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1aabbe339e1f73335922220215ca9f9eae" prot="public" static="no" mutable="no">
+        <type>bool *</type>
+        <definition>bool* ldap_connection_config_t::tls_require_cert</definition>
+        <argsstring></argsstring>
+        <name>tls_require_cert</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="94" column="10" bodyfile="src/connection.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1adfc95d2ca82aa5503ee742b9a5c0f121" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ldap_connection_config_t::tls_min_protocol_version</definition>
+        <argsstring></argsstring>
+        <name>tls_min_protocol_version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="95" column="9" bodyfile="src/connection.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1a2b5a14c3634020b3715ee62b3e2e03e9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ldap_connection_config_t::search_timelimit</definition>
+        <argsstring></argsstring>
+        <name>search_timelimit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="97" column="9" bodyfile="src/connection.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__connection__config__t_1a28e70cadc35338d64461bdc21c8a5a01" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ldap_connection_config_t::network_timeout</definition>
+        <argsstring></argsstring>
+        <name>network_timeout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="98" column="9" bodyfile="src/connection.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>ldap_connection_config_t</label>
+        <link refid="structldap__connection__config__t"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>sasl_options</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>ldap_sasl_options_t</label>
+        <link refid="structldap__sasl__options__t"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/connection.h" line="72" column="1" bodyfile="src/connection.h" bodystart="73" bodyend="99"/>
+    <listofallmembers>
+      <member refid="structldap__connection__config__t_1ad20a8d32d4730cb4bcae9e9baec1b3bb" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>bind_type</name></member>
+      <member refid="structldap__connection__config__t_1a7511dfa5540555a0f6f7199f776a4921" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>chase_referrals</name></member>
+      <member refid="structldap__connection__config__t_1a28e70cadc35338d64461bdc21c8a5a01" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>network_timeout</name></member>
+      <member refid="structldap__connection__config__t_1a6cf05916044b057fd0c5a111bbbf690d" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>port</name></member>
+      <member refid="structldap__connection__config__t_1a2c8a9626652c36fc58e5f9af88d1d6c6" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>protocol_verion</name></member>
+      <member refid="structldap__connection__config__t_1a75307f2ace96d99ba128cf19e329e81a" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>sasl_options</name></member>
+      <member refid="structldap__connection__config__t_1a2b5a14c3634020b3715ee62b3e2e03e9" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>search_timelimit</name></member>
+      <member refid="structldap__connection__config__t_1a5079c72caddff1f4e086ea14a58f8288" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>server</name></member>
+      <member refid="structldap__connection__config__t_1afa2becd90377dd040e6eba50c7f30d84" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>ssl_mode</name></member>
+      <member refid="structldap__connection__config__t_1a96b23e2d698db27c615101f27a769f95" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>tls_ca_cert_file</name></member>
+      <member refid="structldap__connection__config__t_1af3859326819cdd6590bbc4a26f46f645" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>tls_ca_cert_path</name></member>
+      <member refid="structldap__connection__config__t_1ac77cfa98c4817c61ac339a483ffaedbf" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>tls_cert_file</name></member>
+      <member refid="structldap__connection__config__t_1aa1ede102a0e40f9b0b11ed3a9064f824" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>tls_key_file</name></member>
+      <member refid="structldap__connection__config__t_1adfc95d2ca82aa5503ee742b9a5c0f121" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>tls_min_protocol_version</name></member>
+      <member refid="structldap__connection__config__t_1aabbe339e1f73335922220215ca9f9eae" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>tls_require_cert</name></member>
+      <member refid="structldap__connection__config__t_1a6e9896b73e540ec19d7e823f55bb8d96" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>use_sasl</name></member>
+      <member refid="structldap__connection__config__t_1a15969f9bdc61a6f14e26ee8fb1eb0431" prot="public" virt="non-virtual"><scope>ldap_connection_config_t</scope><name>use_start_tls</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

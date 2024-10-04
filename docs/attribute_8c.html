@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>src/attribute.c file | libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a>/</span>attribute.c <span class="m-thin">file</span>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#func-members">Functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="func-members">
+          <h2><a href="#func-members">Functions</a></h2>
+          <dl class="m-doc">
+            <dt id="a20ac70087da4df4fe321dfea8dec6013">
+              <span class="m-doc-wrap-bumper">static auto <a href="#a20ac70087da4df4fe321dfea8dec6013" class="m-doc-self">create_attribute_parent</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle) -&gt; const char*</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#ac7addbd49dd027137cbc132b5d560b9a" class="m-doc">ld_add_attributes</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* cn,
+              struct <a href="struct_l_d_a_p_attribute__s.html" class="m-doc">LDAPAttribute_<wbr />s</a>** attrs) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_add_attributes Adds list of attributes to ldap entry.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#adc39310120826842ca2c02f7f32822f7" class="m-doc">ld_del_attributes</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* cn,
+              struct <a href="struct_l_d_a_p_attribute__s.html" class="m-doc">LDAPAttribute_<wbr />s</a>** attrs) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_del_attributes Deletes list of attributes from ldap entry.</dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="ac7addbd49dd027137cbc132b5d560b9a"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ac7addbd49dd027137cbc132b5d560b9a" class="m-doc-self">ld_add_attributes</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* cn,
+              struct <a href="struct_l_d_a_p_attribute__s.html" class="m-doc">LDAPAttribute_<wbr />s</a>** attrs)</span></span>
+            </h3>
+            <p>ld_add_attributes Adds list of attributes to ldap entry.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>cn&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Entry&#x27;s LDAP common name.</td>
+                </tr>
+                <tr>
+                  <td>attrs&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to NULL terminated array of attributes.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="adc39310120826842ca2c02f7f32822f7"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#adc39310120826842ca2c02f7f32822f7" class="m-doc-self">ld_del_attributes</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* cn,
+              struct <a href="struct_l_d_a_p_attribute__s.html" class="m-doc">LDAPAttribute_<wbr />s</a>** attrs)</span></span>
+            </h3>
+            <p>ld_del_attributes Deletes list of attributes from ldap entry.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>cn&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Entry&#x27;s LDAP common name.</td>
+                </tr>
+                <tr>
+                  <td>attrs&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to NULL terminated array of attributes.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

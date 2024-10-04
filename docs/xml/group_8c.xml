@@ -1,0 +1,588 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="group_8c" kind="file" language="C++">
+    <compoundname>group.c</compoundname>
+    <includes refid="group_8h" local="yes">group.h</includes>
+    <includes refid="common_8h" local="yes">common.h</includes>
+    <includes refid="directory_8h" local="yes">directory.h</includes>
+    <includes refid="domain__p_8h" local="yes">domain_p.h</includes>
+    <includes refid="entry_8h" local="yes">entry.h</includes>
+    <includes local="no">string.h</includes>
+    <incdepgraph>
+      <node id="7">
+        <label>stdbool.h</label>
+      </node>
+      <node id="14">
+        <label>entry.h</label>
+        <link refid="entry_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>domain_p.h</label>
+        <link refid="domain__p_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>helper_p.h</label>
+        <link refid="helper__p_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ldap.h</label>
+      </node>
+      <node id="8">
+        <label>verto.h</label>
+      </node>
+      <node id="5">
+        <label>talloc.h</label>
+      </node>
+      <node id="9">
+        <label>directory.h</label>
+        <link refid="directory_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/group.c</label>
+        <link refid="group_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>group.h</label>
+        <link refid="group_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>request_queue.h</label>
+        <link refid="request__queue_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>string.h</label>
+      </node>
+      <node id="6">
+        <label>domain.h</label>
+        <link refid="domain_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>connection.h</label>
+        <link refid="connection_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group_8c_1a0563b758068b40465a27b2185f5b5eda" prot="public" static="no" strong="no">
+        <type></type>
+        <name>GroupAttributeIndex</name>
+        <enumvalue id="group_8c_1a0563b758068b40465a27b2185f5b5edaad8abddf49217e1dac50748b3f94596db" prot="public">
+          <name>OBJECT_CLASS</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group_8c_1a0563b758068b40465a27b2185f5b5edaa6306f3103ed2cc5f45a9013bbba7bcfc" prot="public">
+          <name>CN</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group_8c_1a0563b758068b40465a27b2185f5b5edaab6018339139b51a498dc44bd760766fc" prot="public">
+          <name>DESCRIPTION</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group_8c_1a0563b758068b40465a27b2185f5b5edaa3e5677ab06da57141f4edc369db5fa48" prot="public">
+          <name>GID_NUMBER</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/group.c" line="29" column="1" bodyfile="src/group.c" bodystart="30" bodyend="35"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group_8c_1a439eb8b24d99385476234ffbf555d87a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_add_group</definition>
+        <argsstring>(LDHandle *handle, const char *name, LDAPAttribute_t **attributes, const char *parent)</argsstring>
+        <name>ld_add_group</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="domain_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" kindref="member">LDAPAttribute_t</ref> **</type>
+          <declname>attributes</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+<para>ld_add_group Creates the group. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of a group. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">attributes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of group attributes depends on directory type. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container that holds the group. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/group.c" line="1" column="0" bodyfile="src/group.c" bodystart="47" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="group_8c_1a0afb6c01666925f9bbe34165379bd79e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_del_group</definition>
+        <argsstring>(LDHandle *handle, const char *name, const char *parent)</argsstring>
+        <name>ld_del_group</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+<para>ld_del_group Deletes the group. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the group. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Container that holds the group. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/group.c" line="1" column="0" bodyfile="src/group.c" bodystart="74" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="group_8c_1a3591f2a7cc22e69613caface0d988e24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_mod_group</definition>
+        <argsstring>(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **group_attrs)</argsstring>
+        <name>ld_mod_group</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type><ref refid="domain_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" kindref="member">LDAPAttribute_t</ref> **</type>
+          <declname>group_attrs</declname>
+        </param>
+        <briefdescription>
+<para>ld_mod_group Modifies the group. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the group. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Container that holds the group. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">group_attrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of attributes to modify. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/group.c" line="1" column="0" bodyfile="src/group.c" bodystart="89" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="group_8c_1a2a701bb11daa7b76a23f34e5bce48913" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_rename_group</definition>
+        <argsstring>(LDHandle *handle, const char *old_name, const char *new_name, const char *parent)</argsstring>
+        <name>ld_rename_group</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>old_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>new_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+<para>ld_rename_group Renames group. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">old_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Old name of the group. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">new_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New name of the group. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Container that holds the group. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/group.c" line="1" column="0" bodyfile="src/group.c" bodystart="105" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="group_8c_1aa6190e52898be4e033691287e13c5fef" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>static enum OperationReturnCode group_member_modify</definition>
+        <argsstring>(LDHandle *handle, const char *group_dn, const char *user_dn, char mod_operation)</argsstring>
+        <name>group_member_modify</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>group_dn</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>user_dn</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>mod_operation</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/group.c" line="1" column="0" bodyfile="src/group.c" bodystart="110" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="group_8c_1a0a266cecd508b7c041d9ae6cc8963852" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_group_add_user</definition>
+        <argsstring>(LDHandle *handle, const char *group_name, const char *user_name)</argsstring>
+        <name>ld_group_add_user</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>group_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>user_name</declname>
+        </param>
+        <briefdescription>
+<para>ld_group_add_user Adds user to the group. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">group_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the group to add user into. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">user_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the user to add. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/group.c" line="1" column="0" bodyfile="src/group.c" bodystart="185" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="group_8c_1af00d4c0ade4a552122d66ff7404c8757" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_group_remove_user</definition>
+        <argsstring>(LDHandle *handle, const char *group_name, const char *user_name)</argsstring>
+        <name>ld_group_remove_user</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>group_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>user_name</declname>
+        </param>
+        <briefdescription>
+<para>ld_group_remove_user Removes user from the group. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">group_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the group to remove user from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">user_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the user. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/group.c" line="1" column="0" bodyfile="src/group.c" bodystart="199" bodyend="202"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/group.c"/>
+  </compounddef>
+</doxygen>

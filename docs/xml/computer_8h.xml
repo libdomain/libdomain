@@ -1,0 +1,336 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="computer_8h" kind="file" language="C++">
+    <compoundname>computer.h</compoundname>
+    <includes refid="common_8h" local="yes">common.h</includes>
+    <includes refid="domain_8h" local="yes">domain.h</includes>
+    <includedby refid="computer_8c" local="yes">src/computer.c</includedby>
+    <incdepgraph>
+      <node id="6">
+        <label>stdbool.h</label>
+      </node>
+      <node id="1">
+        <label>src/computer.h</label>
+        <link refid="computer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ldap.h</label>
+      </node>
+      <node id="7">
+        <label>verto.h</label>
+      </node>
+      <node id="4">
+        <label>talloc.h</label>
+      </node>
+      <node id="2">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>domain.h</label>
+        <link refid="domain_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/computer.c</label>
+        <link refid="computer_8c"/>
+      </node>
+      <node id="1">
+        <label>src/computer.h</label>
+        <link refid="computer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="computer_8h_1a1c4f3b27f339422a19cd7ab98142a9c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_add_computer</definition>
+        <argsstring>(LDHandle *handle, const char *name, LDAPAttribute_t **attrs, const char *parent)</argsstring>
+        <name>ld_add_computer</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="domain_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" kindref="member">LDAPAttribute_t</ref> **</type>
+          <declname>attrs</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+<para>ld_add_computer Creates new computer </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>LibDomain handle </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the computer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">attrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Attributes of the computer </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container of the computer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/computer.h" line="1" column="0" bodyfile="src/computer.c" bodystart="56" bodyend="72" declfile="src/computer.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="computer_8h_1a2138785340cb33d8fa13edffe8c890fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_del_computer</definition>
+        <argsstring>(LDHandle *handle, const char *name, const char *parent)</argsstring>
+        <name>ld_del_computer</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+<para>ld_del_computer Deletes computer </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the computer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container of the computer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/computer.h" line="1" column="0" bodyfile="src/computer.c" bodystart="83" bodyend="97" declfile="src/computer.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="computer_8h_1a949bf563963ffde20857a7b535d10677" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_mod_computer</definition>
+        <argsstring>(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **computer_attrs)</argsstring>
+        <name>ld_mod_computer</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type><ref refid="domain_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" kindref="member">LDAPAttribute_t</ref> **</type>
+          <declname>computer_attrs</declname>
+        </param>
+        <briefdescription>
+<para>ld_mod_computer Modifies computer </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the computer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container of the computer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">computer_attrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of the attributes to modify. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/computer.h" line="1" column="0" bodyfile="src/computer.c" bodystart="109" bodyend="123" declfile="src/computer.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="computer_8h_1ae2cf7234931491dead25605c044d8e9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_rename_computer</definition>
+        <argsstring>(LDHandle *handle, const char *old_name, const char *new_name, const char *parent)</argsstring>
+        <name>ld_rename_computer</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>old_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>new_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+<para>ld_rename_computer Renames computer </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">old_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Old name of the computer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">new_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New name of the computer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container of the computer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/computer.h" line="1" column="0" bodyfile="src/computer.c" bodystart="135" bodyend="149" declfile="src/computer.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/computer.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="attribute_8h" kind="file" language="C++">
+    <compoundname>attribute.h</compoundname>
+    <includes refid="domain_8h" local="yes">domain.h</includes>
+    <includedby refid="attribute_8c" local="yes">src/attribute.c</includedby>
+    <incdepgraph>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="5">
+        <label>verto.h</label>
+      </node>
+      <node id="3">
+        <label>talloc.h</label>
+      </node>
+      <node id="1">
+        <label>src/attribute.h</label>
+        <link refid="attribute_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>domain.h</label>
+        <link refid="domain_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/attribute.c</label>
+        <link refid="attribute_8c"/>
+      </node>
+      <node id="1">
+        <label>src/attribute.h</label>
+        <link refid="attribute_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="attribute_8h_1ac7addbd49dd027137cbc132b5d560b9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_add_attributes</definition>
+        <argsstring>(LDHandle *handle, const char *cn, struct LDAPAttribute_s **attrs)</argsstring>
+        <name>ld_add_attributes</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>cn</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="struct_l_d_a_p_attribute__s" kindref="compound">LDAPAttribute_s</ref> **</type>
+          <declname>attrs</declname>
+        </param>
+        <briefdescription>
+<para>ld_add_attributes Adds list of attributes to ldap entry. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">cn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Entry&apos;s LDAP common name. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">attrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to NULL terminated array of attributes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/attribute.h" line="1" column="0" bodyfile="src/attribute.c" bodystart="41" bodyend="44" declfile="src/attribute.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="attribute_8h_1adc39310120826842ca2c02f7f32822f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_del_attributes</definition>
+        <argsstring>(LDHandle *handle, const char *cn, struct LDAPAttribute_s **attrs)</argsstring>
+        <name>ld_del_attributes</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>cn</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="struct_l_d_a_p_attribute__s" kindref="compound">LDAPAttribute_s</ref> **</type>
+          <declname>attrs</declname>
+        </param>
+        <briefdescription>
+<para>ld_del_attributes Deletes list of attributes from ldap entry. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">cn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Entry&apos;s LDAP common name. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">attrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to NULL terminated array of attributes. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/attribute.h" line="1" column="0" bodyfile="src/attribute.c" bodystart="55" bodyend="58" declfile="src/attribute.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/attribute.h"/>
+  </compounddef>
+</doxygen>

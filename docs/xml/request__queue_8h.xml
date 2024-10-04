@@ -1,0 +1,456 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="request__queue_8h" kind="file" language="C++">
+    <compoundname>request_queue.h</compoundname>
+    <includes refid="common_8h" local="yes">common.h</includes>
+    <includes local="no">stdbool.h</includes>
+    <includedby refid="connection_8c" local="yes">src/connection.c</includedby>
+    <includedby refid="connection_8h" local="yes">src/connection.h</includedby>
+    <includedby refid="request__queue_8c" local="yes">src/request_queue.c</includedby>
+    <incdepgraph>
+      <node id="5">
+        <label>stdbool.h</label>
+      </node>
+      <node id="3">
+        <label>ldap.h</label>
+      </node>
+      <node id="4">
+        <label>talloc.h</label>
+      </node>
+      <node id="2">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/request_queue.h</label>
+        <link refid="request__queue_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="12">
+        <label>src/entry.c</label>
+        <link refid="entry_8c"/>
+      </node>
+      <node id="13">
+        <label>src/entry.h</label>
+        <link refid="entry_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>src/computer.c</label>
+        <link refid="computer_8c"/>
+      </node>
+      <node id="10">
+        <label>src/schema.c</label>
+        <link refid="schema_8c"/>
+      </node>
+      <node id="18">
+        <label>src/schema.h</label>
+        <link refid="schema_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>src/directory.c</label>
+        <link refid="directory_8c"/>
+      </node>
+      <node id="7">
+        <label>src/directory.h</label>
+        <link refid="directory_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>src/organizational_unit.c</label>
+        <link refid="organizational__unit_8c"/>
+      </node>
+      <node id="9">
+        <label>src/group.c</label>
+        <link refid="group_8c"/>
+      </node>
+      <node id="20">
+        <label>src/request_queue.c</label>
+        <link refid="request__queue_8c"/>
+      </node>
+      <node id="1">
+        <label>src/request_queue.h</label>
+        <link refid="request__queue_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>src/openldap_schema.c</label>
+        <link refid="openldap__schema_8c"/>
+      </node>
+      <node id="6">
+        <label>src/domain.c</label>
+        <link refid="domain_8c"/>
+      </node>
+      <node id="5">
+        <label>src/connection_state_machine.c</label>
+        <link refid="connection__state__machine_8c"/>
+      </node>
+      <node id="4">
+        <label>src/connection_state_machine.h</label>
+        <link refid="connection__state__machine_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>src/ad_schema.c</label>
+        <link refid="ad__schema_8c"/>
+      </node>
+      <node id="2">
+        <label>src/connection.c</label>
+        <link refid="connection_8c"/>
+      </node>
+      <node id="3">
+        <label>src/connection.h</label>
+        <link refid="connection_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>src/user.c</label>
+        <link refid="user_8c"/>
+      </node>
+      <node id="19">
+        <label>src/schema_p.h</label>
+        <link refid="schema__p_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_queue___node__s" prot="public">Queue_Node_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="request__queue_8h_1a8f7856be04a699541786a20e5fe9f543" prot="public" static="no" strong="no">
+        <type></type>
+        <name>RequestQueueErrorCode</name>
+        <enumvalue id="request__queue_8h_1a8f7856be04a699541786a20e5fe9f543a87c1745d1287996bfaebb4babf093e54" prot="public">
+          <name>OPERATION_SUCCESS</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Queue operation was successful. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="request__queue_8h_1a8f7856be04a699541786a20e5fe9f543a3edcc3bd0930a6928eef135303828e90" prot="public">
+          <name>OPERATION_ERROR_FULL</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Underlying storage is full and we were unable to add node to queue. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="request__queue_8h_1a8f7856be04a699541786a20e5fe9f543ab731d3c311dafeef98599c92f4398278" prot="public">
+          <name>OPERATION_ERROR_INVALID_PARAMETER</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Invalid parameter were passed to a function. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="request__queue_8h_1a8f7856be04a699541786a20e5fe9f543a32cda9ceb3a03bab7c6d3e430a1e5285" prot="public">
+          <name>OPERATION_ERROR_FAULT</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>Queue internal logic error. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/request_queue.h" line="38" column="1" bodyfile="src/request_queue.h" bodystart="39" bodyend="44"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="request__queue_8h_1a235658af8a54c0802789750941f461e8" prot="public" static="no">
+        <type>struct <ref refid="structrequest__queue" kindref="compound">request_queue</ref></type>
+        <definition>typedef struct request_queue request_queue</definition>
+        <argsstring></argsstring>
+        <name>request_queue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/request_queue.h" line="1" column="0" bodyfile="src/request_queue.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="request__queue_8h_1aa07b494b074310db04cb264580f6149a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structrequest__queue" kindref="compound">request_queue</ref> *</type>
+        <definition>request_queue* request_queue_new</definition>
+        <argsstring>(TALLOC_CTX *ctx, unsigned int capacity)</argsstring>
+        <name>request_queue_new</name>
+        <param>
+          <type>TALLOC_CTX *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>capacity</declname>
+        </param>
+        <briefdescription>
+<para>request_queue_new Creates new <ref refid="structrequest__queue" kindref="compound">request_queue</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Memory context to operate upon. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">capacity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum size of the queue. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>NULL on error.</para>
+</listitem><listitem><para>Pointer to queue on success. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/request_queue.h" line="47" column="1" bodyfile="src/request_queue.c" bodystart="40" bodyend="51" declfile="src/request_queue.h" declline="47" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="request__queue_8h_1aa243611f18c2de6004f2c4b0c0390d23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="request__queue_8h_1a8f7856be04a699541786a20e5fe9f543" kindref="member">RequestQueueErrorCode</ref></type>
+        <definition>enum RequestQueueErrorCode request_queue_push</definition>
+        <argsstring>(request_queue *queue, struct Queue_Node_s *node)</argsstring>
+        <name>request_queue_push</name>
+        <param>
+          <type><ref refid="structrequest__queue" kindref="compound">request_queue</ref> *</type>
+          <declname>queue</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="struct_queue___node__s" kindref="compound">Queue_Node_s</ref> *</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/request_queue.h" line="47" column="1" bodyfile="src/request_queue.c" bodystart="63" bodyend="110" declfile="src/request_queue.h" declline="47" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="request__queue_8h_1a8173637b21f32ff31bc877708ec613ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="struct_queue___node__s" kindref="compound">Queue_Node_s</ref> *</type>
+        <definition>struct Queue_Node_s* request_queue_pop</definition>
+        <argsstring>(request_queue *queue)</argsstring>
+        <name>request_queue_pop</name>
+        <param>
+          <type><ref refid="structrequest__queue" kindref="compound">request_queue</ref> *</type>
+          <declname>queue</declname>
+        </param>
+        <briefdescription>
+<para>request_queue_pop Get node from the top of queue and remove it. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">queue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current queue to receive element from. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>NULL on underflow.</para>
+</listitem><listitem><para>Pointer to element on success. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/request_queue.h" line="53" column="1" bodyfile="src/request_queue.c" bodystart="119" bodyend="148" declfile="src/request_queue.h" declline="53" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="request__queue_8h_1a101d7cfa5a027709e0d881c44a057d5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="struct_queue___node__s" kindref="compound">Queue_Node_s</ref> *</type>
+        <definition>struct Queue_Node_s* request_queue_peek</definition>
+        <argsstring>(request_queue *queue)</argsstring>
+        <name>request_queue_peek</name>
+        <param>
+          <type><ref refid="structrequest__queue" kindref="compound">request_queue</ref> *</type>
+          <declname>queue</declname>
+        </param>
+        <briefdescription>
+<para>request_queue_peek Get pointer to the head of queue. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">queue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current queue to receive element from. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>NULL on underflow.</para>
+</listitem><listitem><para>Pointer to element on success. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/request_queue.h" line="56" column="1" bodyfile="src/request_queue.c" bodystart="157" bodyend="174" declfile="src/request_queue.h" declline="56" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="request__queue_8h_1a8854b68d0417efb7b7d825f6ec9bc6d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool request_queue_empty</definition>
+        <argsstring>(request_queue *queue)</argsstring>
+        <name>request_queue_empty</name>
+        <param>
+          <type><ref refid="structrequest__queue" kindref="compound">request_queue</ref> *</type>
+          <declname>queue</declname>
+        </param>
+        <briefdescription>
+<para>request_queue_empty Returns true if queue is empty. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">queue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current queue to operate upon. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>true if empty.</para>
+</listitem><listitem><para>false if there are elements in queue. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/request_queue.h" line="58" column="6" bodyfile="src/request_queue.c" bodystart="183" bodyend="193" declfile="src/request_queue.h" declline="58" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="request__queue_8h_1a456c319e7e4e0655da78050e21f2be6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="request__queue_8h_1a8f7856be04a699541786a20e5fe9f543" kindref="member">RequestQueueErrorCode</ref></type>
+        <definition>enum RequestQueueErrorCode request_queue_move</definition>
+        <argsstring>(request_queue *from, request_queue *to)</argsstring>
+        <name>request_queue_move</name>
+        <param>
+          <type><ref refid="structrequest__queue" kindref="compound">request_queue</ref> *</type>
+          <declname>from</declname>
+        </param>
+        <param>
+          <type><ref refid="structrequest__queue" kindref="compound">request_queue</ref> *</type>
+          <declname>to</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/request_queue.h" line="58" column="6" bodyfile="src/request_queue.c" bodystart="206" bodyend="265" declfile="src/request_queue.h" declline="58" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/request_queue.h"/>
+  </compounddef>
+</doxygen>

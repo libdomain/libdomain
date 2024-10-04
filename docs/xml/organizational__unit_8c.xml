@@ -1,0 +1,410 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="organizational__unit_8c" kind="file" language="C++">
+    <compoundname>organizational_unit.c</compoundname>
+    <includes refid="organizational__unit_8h" local="yes">organizational_unit.h</includes>
+    <includes refid="common_8h" local="yes">common.h</includes>
+    <includes refid="domain__p_8h" local="yes">domain_p.h</includes>
+    <includes refid="entry_8h" local="yes">entry.h</includes>
+    <incdepgraph>
+      <node id="7">
+        <label>stdbool.h</label>
+      </node>
+      <node id="11">
+        <label>entry.h</label>
+        <link refid="entry_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>domain_p.h</label>
+        <link refid="domain__p_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>helper_p.h</label>
+        <link refid="helper__p_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ldap.h</label>
+      </node>
+      <node id="8">
+        <label>verto.h</label>
+      </node>
+      <node id="5">
+        <label>talloc.h</label>
+      </node>
+      <node id="3">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/organizational_unit.c</label>
+        <link refid="organizational__unit_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>organizational_unit.h</label>
+        <link refid="organizational__unit_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>request_queue.h</label>
+        <link refid="request__queue_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>domain.h</label>
+        <link refid="domain_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>connection.h</label>
+        <link refid="connection_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="organizational__unit_8c_1a80b5bc112bcaebce0b6734a3fc535084" prot="public" static="no" strong="no">
+        <type></type>
+        <name>OUAttributeIndex</name>
+        <enumvalue id="organizational__unit_8c_1a80b5bc112bcaebce0b6734a3fc535084ad8abddf49217e1dac50748b3f94596db" prot="public">
+          <name>OBJECT_CLASS</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="organizational__unit_8c_1a80b5bc112bcaebce0b6734a3fc535084a28762f16538ce1c9a30c0682dbc7dc47" prot="public">
+          <name>OU</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="organizational__unit_8c_1a80b5bc112bcaebce0b6734a3fc535084ab6018339139b51a498dc44bd760766fc" prot="public">
+          <name>DESCRIPTION</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/organizational_unit.c" line="26" column="1" bodyfile="src/organizational_unit.c" bodystart="27" bodyend="31"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="organizational__unit_8c_1a250dad261a6c2363740065b16087f85d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_add_ou</definition>
+        <argsstring>(LDHandle *handle, const char *name, LDAPAttribute_t **ou_attrs, const char *parent)</argsstring>
+        <name>ld_add_ou</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="domain_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" kindref="member">LDAPAttribute_t</ref> **</type>
+          <declname>ou_attrs</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+<para>ld_add_ou Creates the OU. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the OU. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ou_attrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Attributes of the OU. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/organizational_unit.c" line="1" column="0" bodyfile="src/organizational_unit.c" bodystart="42" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="organizational__unit_8c_1a327ec3a0435c2901d8f5176a1eadfaad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_del_ou</definition>
+        <argsstring>(LDHandle *handle, const char *name, const char *parent)</argsstring>
+        <name>ld_del_ou</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+<para>ld_del_ou Deletes the OU. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the OU. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container that holds the OU. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/organizational_unit.c" line="1" column="0" bodyfile="src/organizational_unit.c" bodystart="69" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="organizational__unit_8c_1aa7085fe13e2c2ea311d6cccb6670a976" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_mod_ou</definition>
+        <argsstring>(LDHandle *handle, const char *name, const char *parent, LDAPAttribute_t **ou_attrs)</argsstring>
+        <name>ld_mod_ou</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type><ref refid="domain_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" kindref="member">LDAPAttribute_t</ref> **</type>
+          <declname>ou_attrs</declname>
+        </param>
+        <briefdescription>
+<para>ld_mod_ou Modifies the OU. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the OU. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container that holds the OU. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ou_attrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of the attributes to modify. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/organizational_unit.c" line="1" column="0" bodyfile="src/organizational_unit.c" bodystart="84" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="organizational__unit_8c_1a46f810c8b40cbeeddde8554df75d5771" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_rename_ou</definition>
+        <argsstring>(LDHandle *handle, const char *old_name, const char *new_name, const char *parent)</argsstring>
+        <name>ld_rename_ou</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>old_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>new_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <briefdescription>
+<para>ld_rename_ou Renames the OU. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">old_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Old name of the OU. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">new_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New name of the OU. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container that holds the OU. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/organizational_unit.c" line="1" column="0" bodyfile="src/organizational_unit.c" bodystart="99" bodyend="102"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/organizational_unit.c"/>
+  </compounddef>
+</doxygen>

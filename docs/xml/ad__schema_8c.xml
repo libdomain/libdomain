@@ -1,0 +1,707 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="ad__schema_8c" kind="file" language="C++">
+    <compoundname>ad_schema.c</compoundname>
+    <includes refid="schema_8h" local="yes">schema.h</includes>
+    <includes refid="schema__p_8h" local="yes">schema_p.h</includes>
+    <includes refid="common_8h" local="yes">common.h</includes>
+    <includes refid="domain_8h" local="yes">domain.h</includes>
+    <includes refid="entry_8h" local="yes">entry.h</includes>
+    <includes refid="ldap__parsers_8h" local="yes">ldap_parsers.h</includes>
+    <includes local="no">talloc.h</includes>
+    <includes local="no">ldap.h</includes>
+    <includes local="no">ldap_schema.h</includes>
+    <incdepgraph>
+      <node id="7">
+        <label>stdbool.h</label>
+      </node>
+      <node id="14">
+        <label>entry.h</label>
+        <link refid="entry_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>ldap_parsers.h</label>
+        <link refid="ldap__parsers_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ldap.h</label>
+      </node>
+      <node id="8">
+        <label>verto.h</label>
+      </node>
+      <node id="2">
+        <label>schema.h</label>
+        <link refid="schema_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>talloc.h</label>
+      </node>
+      <node id="3">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>glib-2.0/glib.h</label>
+      </node>
+      <node id="9">
+        <label>request_queue.h</label>
+        <link refid="request__queue_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>domain.h</label>
+        <link refid="domain_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/ad_schema.c</label>
+        <link refid="ad__schema_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>connection.h</label>
+        <link refid="connection_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>ldap_schema.h</label>
+      </node>
+      <node id="11">
+        <label>schema_p.h</label>
+        <link refid="schema__p_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="ad__schema_8c_1a20b6f9b9f8770c40a11ee85d263b00ec" prot="public" static="no">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref>(*</type>
+        <definition>typedef enum OperationReturnCode(* op_fn) (char *attribute_value, void *user_data)</definition>
+        <argsstring>)(char *attribute_value, void *user_data)</argsstring>
+        <name>op_fn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ad_schema.c" line="39" column="13" bodyfile="src/ad_schema.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="ad__schema_8c_1aedc296bffedbdbe5a4fe6d3989e333d7" prot="public" static="yes" mutable="no">
+        <type>char *</type>
+        <definition>char* LDAP_ATTRIBUTE_TYPES[]</definition>
+        <argsstring>[]</argsstring>
+        <name>LDAP_ATTRIBUTE_TYPES</name>
+        <initializer>= { &quot;attributetypes&quot;, NULL }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ad_schema.c" line="35" column="13" bodyfile="src/ad_schema.c" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ad__schema_8c_1ae9d130a88b6aa800597e2cf5bf661905" prot="public" static="yes" mutable="no">
+        <type>char *</type>
+        <definition>char* LDAP_OBJECT_CLASSES[]</definition>
+        <argsstring>[]</argsstring>
+        <name>LDAP_OBJECT_CLASSES</name>
+        <initializer>= { &quot;objectclasses&quot;, NULL }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ad_schema.c" line="36" column="13" bodyfile="src/ad_schema.c" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ad__schema_8c_1a618709b729ad26ed1f1521417dbf52fa" prot="public" static="yes" mutable="no">
+        <type>char *</type>
+        <definition>char* LDAP_SUBSCHEMA_SUBENTRY[]</definition>
+        <argsstring>[]</argsstring>
+        <name>LDAP_SUBSCHEMA_SUBENTRY</name>
+        <initializer>= { &quot;subschemaSubentry&quot;, NULL }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ad_schema.c" line="37" column="13" bodyfile="src/ad_schema.c" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="ad__schema_8c_1a120e785d5b6d1f74a8c7b5083782c371" prot="public" static="yes" mutable="no">
+        <type>char *</type>
+        <definition>char* schema_entry_path</definition>
+        <argsstring></argsstring>
+        <name>schema_entry_path</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ad_schema.c" line="39" column="13" bodyfile="src/ad_schema.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="ad__schema_8c_1abdd805ab841de640d4ee11f768beebae" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>static enum OperationReturnCode ldap_schema_read_entry</definition>
+        <argsstring>(ld_entry_t *entry, op_fn callback, void *user_data)</argsstring>
+        <name>ldap_schema_read_entry</name>
+        <param>
+          <type><ref refid="connection_8h_1a2ccd81bd4e99cd2355b31175ac3d766d" kindref="member">ld_entry_t</ref> *</type>
+          <declname>entry</declname>
+        </param>
+        <param>
+          <type><ref refid="openldap__schema_8c_1a20b6f9b9f8770c40a11ee85d263b00ec" kindref="member">op_fn</ref></type>
+          <declname>callback</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>user_data</declname>
+        </param>
+        <briefdescription>
+<para>ldap_schema_read_entry Reads attribute values of entry and writes to output parameter. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">entry</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Entry to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">callback</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callback for processing attribute values. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">user_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An output parameter for returning data from callback. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ad_schema.c" line="39" column="13" bodyfile="src/ad_schema.c" bodystart="53" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="ad__schema_8c_1ad6c3d5a7a171ec56b06dc9e3805a2db0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>static enum OperationReturnCode ldap_schema_callback_common</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection, ld_entry_t **entries, op_fn callback, void *user_data)</argsstring>
+        <name>ldap_schema_callback_common</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <param>
+          <type><ref refid="connection_8h_1a2ccd81bd4e99cd2355b31175ac3d766d" kindref="member">ld_entry_t</ref> **</type>
+          <declname>entries</declname>
+        </param>
+        <param>
+          <type><ref refid="openldap__schema_8c_1a20b6f9b9f8770c40a11ee85d263b00ec" kindref="member">op_fn</ref></type>
+          <declname>callback</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>user_data</declname>
+        </param>
+        <briefdescription>
+<para>ldap_schema_callback_common This callback processes LDAP attributes from entries with a callback parameter. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">entries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Entries to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">callback</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callback for processing attribute values. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">user_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An output parameter for returning data from callback. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ad_schema.c" line="39" column="13" bodyfile="src/ad_schema.c" bodystart="99" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="ad__schema_8c_1a7ba9daa5ada1aea4d3dd2a1495bfdfc7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>static enum OperationReturnCode attribute_type_callback</definition>
+        <argsstring>(char *attribute_value, void *user_data)</argsstring>
+        <name>attribute_type_callback</name>
+        <param>
+          <type>char *</type>
+          <declname>attribute_value</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>user_data</declname>
+        </param>
+        <briefdescription>
+<para>attribute_type_callback This callback appends LDAP attribute type to schema. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">attribute_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Attribute value to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">user_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An output parameter for returning data (schema in this case) from callback. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ad_schema.c" line="39" column="13" bodyfile="src/ad_schema.c" bodystart="130" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="ad__schema_8c_1af2fbce3b46c3e30d8f54efa02827dc70" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>static enum OperationReturnCode object_class_callback</definition>
+        <argsstring>(char *attribute_value, void *user_data)</argsstring>
+        <name>object_class_callback</name>
+        <param>
+          <type>char *</type>
+          <declname>attribute_value</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>user_data</declname>
+        </param>
+        <briefdescription>
+<para>object_class_callback This callback appends LDAP object class to schema. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">attribute_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Attribute value to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">user_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An output parameter for returning data (schema in this case) from callback. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ad_schema.c" line="39" column="13" bodyfile="src/ad_schema.c" bodystart="162" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="ad__schema_8c_1af7ba5bb94905cb1265a10e31ca0cb88b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>static enum OperationReturnCode subschema_subentry_callback</definition>
+        <argsstring>(char *attribute_value, void *user_data)</argsstring>
+        <name>subschema_subentry_callback</name>
+        <param>
+          <type>char *</type>
+          <declname>attribute_value</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>user_data</declname>
+        </param>
+        <briefdescription>
+<para>subschema_subentry_callback This callback appends LDAP object class to schema. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">attribute_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Attribute value to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">user_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An output parameter for returning data (schema in this case) from callback. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ad_schema.c" line="39" column="13" bodyfile="src/ad_schema.c" bodystart="196" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="function" id="ad__schema_8c_1a8e668dfd01d291c8215f945fa3c7ccce" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>static enum OperationReturnCode ldap_schema_attribute_types_search_callback</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection, ld_entry_t **entries, void *user_data)</argsstring>
+        <name>ldap_schema_attribute_types_search_callback</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <param>
+          <type><ref refid="connection_8h_1a2ccd81bd4e99cd2355b31175ac3d766d" kindref="member">ld_entry_t</ref> **</type>
+          <declname>entries</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>user_data</declname>
+        </param>
+        <briefdescription>
+<para>object_class_callback This callback wraps ldap_schema_callback_common for attribute type appending to schema. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">entries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Entries to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">user_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An output parameter for returning data (schema in this case) from callback. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ad_schema.c" line="39" column="13" bodyfile="src/ad_schema.c" bodystart="220" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="function" id="ad__schema_8c_1a4ca6f2bf87895d9155385a1b827329be" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>static enum OperationReturnCode ldap_schema_object_classes_search_callback</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection, ld_entry_t **entries, void *user_data)</argsstring>
+        <name>ldap_schema_object_classes_search_callback</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <param>
+          <type><ref refid="connection_8h_1a2ccd81bd4e99cd2355b31175ac3d766d" kindref="member">ld_entry_t</ref> **</type>
+          <declname>entries</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>user_data</declname>
+        </param>
+        <briefdescription>
+<para>object_class_callback This callback wraps ldap_schema_callback_common for object class appending to schema. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">entries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Entries to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">user_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An output parameter for returning data (schema in this case) from callback. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ad_schema.c" line="39" column="13" bodyfile="src/ad_schema.c" bodystart="235" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="ad__schema_8c_1adc9f38906870434edfc9b75ae5dc405c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>static enum OperationReturnCode ldap_schema_subschema_subentry_search_callback</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection, ld_entry_t **entries, void *user_data)</argsstring>
+        <name>ldap_schema_subschema_subentry_search_callback</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <param>
+          <type><ref refid="connection_8h_1a2ccd81bd4e99cd2355b31175ac3d766d" kindref="member">ld_entry_t</ref> **</type>
+          <declname>entries</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>user_data</declname>
+        </param>
+        <briefdescription>
+<para>object_class_callback This callback wraps ldap_schema_callback_common for object class appending to schema. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">entries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Entries to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">user_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An output parameter for returning data (schema in this case) from callback. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ad_schema.c" line="39" column="13" bodyfile="src/ad_schema.c" bodystart="250" bodyend="253"/>
+      </memberdef>
+      <memberdef kind="function" id="ad__schema_8c_1acc525df39666fb8b70e116bf269fc196" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode schema_load_active_directory</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection, struct ldap_schema_t *schema)</argsstring>
+        <name>schema_load_active_directory</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref> *</type>
+          <declname>schema</declname>
+        </param>
+        <briefdescription>
+<para>ldap_schema_load Loads the schema of OpenLDAP directory type from the connection. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">schema</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Schema for loading data from connection. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ad_schema.c" line="39" column="13" bodyfile="src/ad_schema.c" bodystart="264" bodyend="324"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/ad_schema.c"/>
+  </compounddef>
+</doxygen>

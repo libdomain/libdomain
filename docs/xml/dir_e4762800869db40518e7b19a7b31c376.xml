@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_e4762800869db40518e7b19a7b31c376" kind="dir">
+    <compoundname>src/syntaxes</compoundname>
+    <innerfile refid="syntaxes_8h">syntaxes.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/syntaxes/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,810 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="connection_8h" kind="file" language="C++">
+    <compoundname>connection.h</compoundname>
+    <includes local="no">ldap.h</includes>
+    <includes local="no">stdbool.h</includes>
+    <includes local="no">verto.h</includes>
+    <includes refid="common_8h" local="yes">common.h</includes>
+    <includes refid="request__queue_8h" local="yes">request_queue.h</includes>
+    <includedby refid="connection_8c" local="yes">src/connection.c</includedby>
+    <includedby refid="connection__state__machine_8h" local="yes">src/connection_state_machine.h</includedby>
+    <includedby refid="directory_8h" local="yes">src/directory.h</includedby>
+    <includedby refid="domain_8c" local="yes">src/domain.c</includedby>
+    <includedby refid="entry_8c" local="yes">src/entry.c</includedby>
+    <includedby refid="entry_8h" local="yes">src/entry.h</includedby>
+    <includedby refid="schema_8h" local="yes">src/schema.h</includedby>
+    <includedby refid="schema__p_8h" local="yes">src/schema_p.h</includedby>
+    <incdepgraph>
+      <node id="3">
+        <label>stdbool.h</label>
+      </node>
+      <node id="2">
+        <label>ldap.h</label>
+      </node>
+      <node id="4">
+        <label>verto.h</label>
+      </node>
+      <node id="6">
+        <label>talloc.h</label>
+      </node>
+      <node id="5">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>request_queue.h</label>
+        <link refid="request__queue_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/connection.h</label>
+        <link refid="connection_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="11">
+        <label>src/entry.c</label>
+        <link refid="entry_8c"/>
+      </node>
+      <node id="12">
+        <label>src/entry.h</label>
+        <link refid="entry_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>src/computer.c</label>
+        <link refid="computer_8c"/>
+      </node>
+      <node id="9">
+        <label>src/schema.c</label>
+        <link refid="schema_8c"/>
+      </node>
+      <node id="17">
+        <label>src/schema.h</label>
+        <link refid="schema_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>src/directory.c</label>
+        <link refid="directory_8c"/>
+      </node>
+      <node id="6">
+        <label>src/directory.h</label>
+        <link refid="directory_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>src/organizational_unit.c</label>
+        <link refid="organizational__unit_8c"/>
+      </node>
+      <node id="8">
+        <label>src/group.c</label>
+        <link refid="group_8c"/>
+      </node>
+      <node id="15">
+        <label>src/openldap_schema.c</label>
+        <link refid="openldap__schema_8c"/>
+      </node>
+      <node id="5">
+        <label>src/domain.c</label>
+        <link refid="domain_8c"/>
+      </node>
+      <node id="4">
+        <label>src/connection_state_machine.c</label>
+        <link refid="connection__state__machine_8c"/>
+      </node>
+      <node id="3">
+        <label>src/connection_state_machine.h</label>
+        <link refid="connection__state__machine_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>src/ad_schema.c</label>
+        <link refid="ad__schema_8c"/>
+      </node>
+      <node id="2">
+        <label>src/connection.c</label>
+        <link refid="connection_8c"/>
+      </node>
+      <node id="1">
+        <label>src/connection.h</label>
+        <link refid="connection_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>src/user.c</label>
+        <link refid="user_8c"/>
+      </node>
+      <node id="18">
+        <label>src/schema_p.h</label>
+        <link refid="schema__p_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structldap__sasl__options__t" prot="public">ldap_sasl_options_t</innerclass>
+    <innerclass refid="structldap__sasl__defaults__t" prot="public">ldap_sasl_defaults_t</innerclass>
+    <innerclass refid="structldap__sasl__params__t" prot="public">ldap_sasl_params_t</innerclass>
+    <innerclass refid="structldap__connection__config__t" prot="public">ldap_connection_config_t</innerclass>
+    <innerclass refid="structldap__search__request__t" prot="public">ldap_search_request_t</innerclass>
+    <innerclass refid="structldap__request__t" prot="public">ldap_request_t</innerclass>
+    <innerclass refid="structldap__connection__ctx__t" prot="public">ldap_connection_ctx_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="connection_8h_1a8fc96cee4177a369a99de7026ebeba81" prot="public" static="no">
+        <name>MAX_REQUESTS</name>
+        <initializer>8192</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="31" column="9" bodyfile="src/connection.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="connection_8h_1a4e4000657af7cb6be434c48a18e1b32c" prot="public" static="no" strong="no">
+        <type></type>
+        <name>BindType</name>
+        <enumvalue id="connection_8h_1a4e4000657af7cb6be434c48a18e1b32ca9b55819d4a7a962213d9f231238bb287" prot="public">
+          <name>BIND_TYPE_INTERACTIVE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>We are going to perform interactive bind. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="connection_8h_1a4e4000657af7cb6be434c48a18e1b32cafe28046421edb7fa6996d14b0b97ff0c" prot="public">
+          <name>BIND_TYPE_SIMPLE</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>We are going to perform simple bind. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="33" column="1" bodyfile="src/connection.h" bodystart="34" bodyend="37"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="connection_8h_1a10a40f1f6dd23eadbff0e691675da4f4" prot="public" static="no">
+        <type>struct <ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref></type>
+        <definition>typedef struct ldap_schema_t ldap_schema_t</definition>
+        <argsstring></argsstring>
+        <name>ldap_schema_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="1" column="0" bodyfile="src/connection.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="connection_8h_1a83eecc9d3df102a6623e8a8900752bb3" prot="public" static="no">
+        <type>struct <ref refid="structldap__sasl__options__t" kindref="compound">ldap_sasl_options_t</ref></type>
+        <definition>typedef struct ldap_sasl_options_t ldap_sasl_options_t</definition>
+        <argsstring></argsstring>
+        <name>ldap_sasl_options_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="50" column="21"/>
+      </memberdef>
+      <memberdef kind="typedef" id="connection_8h_1adbd8d96637e8a3399004ecd05d14ea00" prot="public" static="no">
+        <type>struct <ref refid="structldap__sasl__defaults__t" kindref="compound">ldap_sasl_defaults_t</ref></type>
+        <definition>typedef struct ldap_sasl_defaults_t ldap_sasl_defaults_t</definition>
+        <argsstring></argsstring>
+        <name>ldap_sasl_defaults_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="62" column="22"/>
+      </memberdef>
+      <memberdef kind="typedef" id="connection_8h_1a698721edbdc51c55fc247aed1bcb7a6e" prot="public" static="no">
+        <type>struct <ref refid="structldap__sasl__params__t" kindref="compound">ldap_sasl_params_t</ref></type>
+        <definition>typedef struct ldap_sasl_params_t ldap_sasl_params_t</definition>
+        <argsstring></argsstring>
+        <name>ldap_sasl_params_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="70" column="20"/>
+      </memberdef>
+      <memberdef kind="typedef" id="connection_8h_1a4f1eb51a93abc169afbbee95fe1116f4" prot="public" static="no">
+        <type>struct <ref refid="structldap__connection__config__t" kindref="compound">ldap_connection_config_t</ref></type>
+        <definition>typedef struct ldap_connection_config_t ldap_connection_config_t</definition>
+        <argsstring></argsstring>
+        <name>ldap_connection_config_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="99" column="26"/>
+      </memberdef>
+      <memberdef kind="typedef" id="connection_8h_1a2ccd81bd4e99cd2355b31175ac3d766d" prot="public" static="no">
+        <type>struct <ref refid="structld__entry__s" kindref="compound">ld_entry_s</ref></type>
+        <definition>typedef struct ld_entry_s ld_entry_t</definition>
+        <argsstring></argsstring>
+        <name>ld_entry_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="1" column="0" bodyfile="src/connection.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="connection_8h_1ac66a35cf84b9b93a2ede4d7ccd3e2de8" prot="public" static="no">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref>(*</type>
+        <definition>typedef enum OperationReturnCode(* operation_callback_fn) (int, LDAPMessage *, struct ldap_connection_ctx_t *)</definition>
+        <argsstring>)(int, LDAPMessage *, struct ldap_connection_ctx_t *)</argsstring>
+        <name>operation_callback_fn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="1" column="0" bodyfile="src/connection.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="connection_8h_1a5eca06a31481a5a57dbce6ed7ec34876" prot="public" static="no">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref>(*</type>
+        <definition>typedef enum OperationReturnCode(* search_callback_fn) (struct ldap_connection_ctx_t *connection, ld_entry_t **entries, void *user_data)</definition>
+        <argsstring>)(struct ldap_connection_ctx_t *connection, ld_entry_t **entries, void *user_data)</argsstring>
+        <name>search_callback_fn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="1" column="0" bodyfile="src/connection.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" prot="public" static="no">
+        <type>struct <ref refid="structldhandle" kindref="compound">ldhandle</ref></type>
+        <definition>typedef struct ldhandle LDHandle</definition>
+        <argsstring></argsstring>
+        <name>LDHandle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="1" column="0" bodyfile="src/connection.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="connection_8h_1a0fa41e06082fdf2ddd95d49703bddb45" prot="public" static="no">
+        <type>struct <ref refid="structldap__search__request__t" kindref="compound">ldap_search_request_t</ref></type>
+        <definition>typedef struct ldap_search_request_t ldap_search_request_t</definition>
+        <argsstring></argsstring>
+        <name>ldap_search_request_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="115" column="23"/>
+      </memberdef>
+      <memberdef kind="typedef" id="connection_8h_1af9b9a31efb3b69aa24c7f9363002ff3b" prot="public" static="no">
+        <type>struct <ref refid="structldap__request__t" kindref="compound">ldap_request_t</ref></type>
+        <definition>typedef struct ldap_request_t ldap_request_t</definition>
+        <argsstring></argsstring>
+        <name>ldap_request_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="125" column="16"/>
+      </memberdef>
+      <memberdef kind="typedef" id="connection_8h_1a09dc9dd59c4ee5f0fff6bb8f1501eb0d" prot="public" static="no">
+        <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref></type>
+        <definition>typedef struct ldap_connection_ctx_t ldap_connection_ctx_t</definition>
+        <argsstring></argsstring>
+        <name>ldap_connection_ctx_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="175" column="23"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="connection_8h_1a2866726bb3b6722962f3013421e39098" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode connection_configure</definition>
+        <argsstring>(struct ldap_global_context_t *global_ctx, struct ldap_connection_ctx_t *connection, struct ldap_connection_config_t *config)</argsstring>
+        <name>connection_configure</name>
+        <param>
+          <type>struct <ref refid="structldap__global__context__t" kindref="compound">ldap_global_context_t</ref> *</type>
+          <declname>global_ctx</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structldap__connection__config__t" kindref="compound">ldap_connection_config_t</ref> *</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>connection_configure Configures connection while performing following actions: </para>
+        </briefdescription>
+        <detaileddescription>
+<para><orderedlist>
+<listitem><para>Creates LDAP handle and sets protocol version, turns on async connection flag.</para>
+</listitem><listitem><para>Depending on usage of sasl configures sals flags for connection. Allocates structure to hold sasl parameters.</para>
+</listitem><listitem><para>Depending on usage of TLS configures TLS flags for connection.</para>
+</listitem><listitem><para>Creates event base for connection. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>global_ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>[in] global context to use </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>[out] configured connection ready to be supplied to connection state machine </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>[in] connection configuration contains parameters for sasl, tls, etc. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+</listitem></orderedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="1" column="0" bodyfile="src/connection.c" bodystart="165" bodyend="329" declfile="src/connection.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="connection_8h_1a1de75d52cb071e90702c31d362258e88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode connection_start_tls</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection)</argsstring>
+        <name>connection_start_tls</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>connection_start_tls Setups tls transport. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>connection to use </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="1" column="0" bodyfile="src/connection.c" bodystart="372" bodyend="401" declfile="src/connection.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="connection_8h_1ab77349a606e00ff37d1814ad97c1beaa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode connection_sasl_bind</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection)</argsstring>
+        <name>connection_sasl_bind</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>connection_sasl_bind Tries to perform non interactive connection using sasl bind. Installs connection_bind_on_read operation handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>[in] connection to perform bind with. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="1" column="0" bodyfile="src/connection.c" bodystart="411" bodyend="453" declfile="src/connection.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="connection_8h_1af5a42fc3c066386306d39652315a2cce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode connection_ldap_bind</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection)</argsstring>
+        <name>connection_ldap_bind</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>connection_ldap_bind Performs interactive bind and installs connection_bind_on_read operation handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>[in] connection to perform bind on </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_OPERATION_IN_PROGRESS if operation is still running.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="1" column="0" bodyfile="src/connection.c" bodystart="527" bodyend="584" declfile="src/connection.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="connection_8h_1a8f570ed9ab07e32217a8e571fa7409e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode connection_close</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection)</argsstring>
+        <name>connection_close</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>connection_close Closes connection and frees resources associated with said connection. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>[in] connection to use </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>RETURN_CODE_SUCCESS. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="1" column="0" bodyfile="src/connection.c" bodystart="682" bodyend="727" declfile="src/connection.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="connection_8h_1a5d2e780ea5cdb546b83379a501a60a2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void connection_on_read</definition>
+        <argsstring>(verto_ctx *ctx, verto_ev *ev)</argsstring>
+        <name>connection_on_read</name>
+        <param>
+          <type>verto_ctx *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>verto_ev *</type>
+          <declname>ev</declname>
+        </param>
+        <briefdescription>
+<para>connection_on_read This callback is performed on read operation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>[in] event context </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>[in] event </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="186" column="6" bodyfile="src/connection.c" bodystart="600" bodyend="664" declfile="src/connection.h" declline="186" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="connection_8h_1a8661eaf7fdd612c68a71c71cc581fe46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void connection_on_write</definition>
+        <argsstring>(verto_ctx *ctx, verto_ev *ev)</argsstring>
+        <name>connection_on_write</name>
+        <param>
+          <type>verto_ctx *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>verto_ev *</type>
+          <declname>ev</declname>
+        </param>
+        <briefdescription>
+<para>connection_on_read This callback is performed on write operation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>[in] event context </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>[in] event </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="187" column="6" bodyfile="src/connection.c" bodystart="671" bodyend="675" declfile="src/connection.h" declline="187" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="connection_8h_1a38b12d16155cf7e610490a2054eed9c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode connection_bind_on_read</definition>
+        <argsstring>(int, LDAPMessage *, struct ldap_connection_ctx_t *connection)</argsstring>
+        <name>connection_bind_on_read</name>
+        <param>
+          <type>int</type>
+          <declname>rc</declname>
+        </param>
+        <param>
+          <type>LDAPMessage *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>connection_bind_on_read This callback is performed during bind operation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>[in] result code of bind operation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>[in] message received during operation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>[in] connection used during bind operation. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="187" column="6" bodyfile="src/connection.c" bodystart="738" bodyend="802" declfile="src/connection.h" declline="187" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="connection_8h_1a6513b815134703186face064cadaa0f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode connection_start_tls_on_read</definition>
+        <argsstring>(int, LDAPMessage *, struct ldap_connection_ctx_t *connection)</argsstring>
+        <name>connection_start_tls_on_read</name>
+        <param>
+          <type>int</type>
+          <declname>rc</declname>
+        </param>
+        <param>
+          <type>LDAPMessage *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>connection_start_tls_on_read This callback is performed during initiation of tls connection. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">rc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>result code of bind operation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>message received during operation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>connection used during bind operation. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="187" column="6" bodyfile="src/connection.c" bodystart="813" bodyend="856" declfile="src/connection.h" declline="187" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/connection.h"/>
+  </compounddef>
+</doxygen>

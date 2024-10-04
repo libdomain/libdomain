@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>src/openldap_schema.c file | libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a>/</span>openldap_schema.c <span class="m-thin">file</span>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#typedef-members">Typedefs</a></li>
+                <li><a href="#func-members">Functions</a></li>
+                <li><a href="#var-members">Variables</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="typedef-members">
+          <h2><a href="#typedef-members">Typedefs</a></h2>
+          <dl class="m-doc">
+            <dt id="a20b6f9b9f8770c40a11ee85d263b00ec">
+              using <a href="#a20b6f9b9f8770c40a11ee85d263b00ec" class="m-doc-self">op_fn</a> = enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a>(*)(char*attribute_value, void*user_data)
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="func-members">
+          <h2><a href="#func-members">Functions</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">static auto <a href="#abdd805ab841de640d4ee11f768beebae" class="m-doc">ldap_schema_read_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>* entry,
+              <a href="#a20b6f9b9f8770c40a11ee85d263b00ec" class="m-doc">op_<wbr />fn</a> callback,
+              void* user_data) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ldap_schema_read_entry Reads attribute values of entry and writes to output parameter.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">static auto <a href="#ad6c3d5a7a171ec56b06dc9e3805a2db0" class="m-doc">ldap_schema_callback_common</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              <a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>** entries,
+              <a href="#a20b6f9b9f8770c40a11ee85d263b00ec" class="m-doc">op_<wbr />fn</a> callback,
+              void* user_data) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ldap_schema_callback_common This callback processes LDAP attributes from entries with a callback parameter.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#ae59acac1be605621f25ce7aac64606bf" class="m-doc">attribute_type_destructor</a>(</span><span class="m-doc-wrap">LDAPAttributeType** reference) -&gt; int</span>
+            </dt>
+            <dd>attribute_type_destructor Destructor of the attribute type description.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">static auto <a href="#a7ba9daa5ada1aea4d3dd2a1495bfdfc7" class="m-doc">attribute_type_callback</a>(</span><span class="m-doc-wrap">char* attribute_value,
+              void* user_data) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>attribute_type_callback This callback appends LDAP attribute type to schema.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a3c2d9cd29a24ae883e6a96d4e6c6525f" class="m-doc">object_class_destructor</a>(</span><span class="m-doc-wrap">LDAPObjectClass** reference) -&gt; int</span>
+            </dt>
+            <dd>object_class_destructor Destructor of the object class description.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">static auto <a href="#af2fbce3b46c3e30d8f54efa02827dc70" class="m-doc">object_class_callback</a>(</span><span class="m-doc-wrap">char* attribute_value,
+              void* user_data) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>object_class_callback This callback appends LDAP object class to schema.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">static auto <a href="#a8e668dfd01d291c8215f945fa3c7ccce" class="m-doc">ldap_schema_attribute_types_search_callback</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              <a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>** entries,
+              void* user_data) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ldap_schema_attribute_types_search_callback This callback wraps ldap_schema_callback_common for attribute type appending to schema.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">static auto <a href="#a4ca6f2bf87895d9155385a1b827329be" class="m-doc">ldap_schema_object_classes_search_callback</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              <a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>** entries,
+              void* user_data) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ldap_schema_object_classes_search_callback This callback wraps ldap_schema_callback_common for object class appending to schema.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#ac725027fd4d276ba2b3dadc1cf29965b" class="m-doc">schema_load_openldap</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              struct <a href="structldap__schema__t.html" class="m-doc">ldap_<wbr />schema_<wbr />t</a>* schema) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>schema_load_openldap Loads the schema of OpenLDAP directory type from the connection.</dd>
+          </dl>
+        </section>
+        <section id="var-members">
+          <h2><a href="#var-members">Variables</a></h2>
+          <dl class="m-doc">
+            <dt id="aedc296bffedbdbe5a4fe6d3989e333d7">
+              char* <a href="#aedc296bffedbdbe5a4fe6d3989e333d7" class="m-doc-self">LDAP_ATTRIBUTE_TYPES</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ae9d130a88b6aa800597e2cf5bf661905">
+              char* <a href="#ae9d130a88b6aa800597e2cf5bf661905" class="m-doc-self">LDAP_OBJECT_CLASSES</a>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="abdd805ab841de640d4ee11f768beebae"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">static enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#abdd805ab841de640d4ee11f768beebae" class="m-doc-self">ldap_schema_read_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>* entry,
+              <a href="#a20b6f9b9f8770c40a11ee85d263b00ec" class="m-doc">op_<wbr />fn</a> callback,
+              void* user_data)</span></span>
+            </h3>
+            <p>ldap_schema_read_entry Reads attribute values of entry and writes to output parameter.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">entry&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Entry to work with.</td>
+                </tr>
+                <tr>
+                  <td>callback&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Callback for processing attribute values.</td>
+                </tr>
+                <tr>
+                  <td>user_data&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>An output parameter for returning data from callback.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ad6c3d5a7a171ec56b06dc9e3805a2db0"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">static enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ad6c3d5a7a171ec56b06dc9e3805a2db0" class="m-doc-self">ldap_schema_callback_common</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              <a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>** entries,
+              <a href="#a20b6f9b9f8770c40a11ee85d263b00ec" class="m-doc">op_<wbr />fn</a> callback,
+              void* user_data)</span></span>
+            </h3>
+            <p>ldap_schema_callback_common This callback processes LDAP attributes from entries with a callback parameter.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Connection to work with.</td>
+                </tr>
+                <tr>
+                  <td>entries&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Entries to work with.</td>
+                </tr>
+                <tr>
+                  <td>callback&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Callback for processing attribute values.</td>
+                </tr>
+                <tr>
+                  <td>user_data&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>An output parameter for returning data from callback.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ae59acac1be605621f25ce7aac64606bf"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">int </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ae59acac1be605621f25ce7aac64606bf" class="m-doc-self">attribute_type_destructor</a>(</span><span class="m-doc-wrap">LDAPAttributeType** reference)</span></span>
+            </h3>
+            <p>attribute_type_destructor Destructor of the attribute type description.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">reference&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to the pointer to attribute type description.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td>0 - on success.</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a7ba9daa5ada1aea4d3dd2a1495bfdfc7"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">static enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a7ba9daa5ada1aea4d3dd2a1495bfdfc7" class="m-doc-self">attribute_type_callback</a>(</span><span class="m-doc-wrap">char* attribute_value,
+              void* user_data)</span></span>
+            </h3>
+            <p>attribute_type_callback This callback appends LDAP attribute type to schema.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">attribute_value&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Attribute value to work with.</td>
+                </tr>
+                <tr>
+                  <td>user_data&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>An output parameter for returning data (schema in this case) from callback.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a3c2d9cd29a24ae883e6a96d4e6c6525f"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">int </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a3c2d9cd29a24ae883e6a96d4e6c6525f" class="m-doc-self">object_class_destructor</a>(</span><span class="m-doc-wrap">LDAPObjectClass** reference)</span></span>
+            </h3>
+            <p>object_class_destructor Destructor of the object class description.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">reference&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to pointer to object class description.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td>0 - on success.</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="af2fbce3b46c3e30d8f54efa02827dc70"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">static enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#af2fbce3b46c3e30d8f54efa02827dc70" class="m-doc-self">object_class_callback</a>(</span><span class="m-doc-wrap">char* attribute_value,
+              void* user_data)</span></span>
+            </h3>
+            <p>object_class_callback This callback appends LDAP object class to schema.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">attribute_value&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Attribute value to work with.</td>
+                </tr>
+                <tr>
+                  <td>user_data&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>An output parameter for returning data (schema in this case) from callback.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a8e668dfd01d291c8215f945fa3c7ccce"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">static enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a8e668dfd01d291c8215f945fa3c7ccce" class="m-doc-self">ldap_schema_attribute_types_search_callback</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              <a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>** entries,
+              void* user_data)</span></span>
+            </h3>
+            <p>ldap_schema_attribute_types_search_callback This callback wraps ldap_schema_callback_common for attribute type appending to schema.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Connection to work with.</td>
+                </tr>
+                <tr>
+                  <td>entries&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Entries to work with.</td>
+                </tr>
+                <tr>
+                  <td>user_data&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>An output parameter for returning data (schema in this case) from callback.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a4ca6f2bf87895d9155385a1b827329be"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">static enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a4ca6f2bf87895d9155385a1b827329be" class="m-doc-self">ldap_schema_object_classes_search_callback</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              <a href="connection_8h.html#a2ccd81bd4e99cd2355b31175ac3d766d" class="m-doc">ld_<wbr />entry_<wbr />t</a>** entries,
+              void* user_data)</span></span>
+            </h3>
+            <p>ldap_schema_object_classes_search_callback This callback wraps ldap_schema_callback_common for object class appending to schema.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Connection to work with.</td>
+                </tr>
+                <tr>
+                  <td>entries&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Entries to work with.</td>
+                </tr>
+                <tr>
+                  <td>user_data&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>An output parameter for returning data (schema in this case) from callback.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ac725027fd4d276ba2b3dadc1cf29965b"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ac725027fd4d276ba2b3dadc1cf29965b" class="m-doc-self">schema_load_openldap</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection,
+              struct <a href="structldap__schema__t.html" class="m-doc">ldap_<wbr />schema_<wbr />t</a>* schema)</span></span>
+            </h3>
+            <p>schema_load_openldap Loads the schema of OpenLDAP directory type from the connection.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Connection to work with.</td>
+                </tr>
+                <tr>
+                  <td>schema&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Schema for loading data from connection.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

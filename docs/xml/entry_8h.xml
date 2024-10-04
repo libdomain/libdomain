@@ -1,0 +1,1099 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="entry_8h" kind="file" language="C++">
+    <compoundname>entry.h</compoundname>
+    <includes refid="connection_8h" local="yes">connection.h</includes>
+    <includedby refid="ad__schema_8c" local="yes">src/ad_schema.c</includedby>
+    <includedby refid="computer_8c" local="yes">src/computer.c</includedby>
+    <includedby refid="directory_8c" local="yes">src/directory.c</includedby>
+    <includedby refid="domain_8c" local="yes">src/domain.c</includedby>
+    <includedby refid="entry_8c" local="yes">src/entry.c</includedby>
+    <includedby refid="group_8c" local="yes">src/group.c</includedby>
+    <includedby refid="openldap__schema_8c" local="yes">src/openldap_schema.c</includedby>
+    <includedby refid="organizational__unit_8c" local="yes">src/organizational_unit.c</includedby>
+    <includedby refid="user_8c" local="yes">src/user.c</includedby>
+    <incdepgraph>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="1">
+        <label>src/entry.h</label>
+        <link refid="entry_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>ldap.h</label>
+      </node>
+      <node id="5">
+        <label>verto.h</label>
+      </node>
+      <node id="7">
+        <label>talloc.h</label>
+      </node>
+      <node id="6">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>request_queue.h</label>
+        <link refid="request__queue_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>connection.h</label>
+        <link refid="connection_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6">
+        <label>src/entry.c</label>
+        <link refid="entry_8c"/>
+      </node>
+      <node id="1">
+        <label>src/entry.h</label>
+        <link refid="entry_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src/computer.c</label>
+        <link refid="computer_8c"/>
+      </node>
+      <node id="4">
+        <label>src/directory.c</label>
+        <link refid="directory_8c"/>
+      </node>
+      <node id="9">
+        <label>src/organizational_unit.c</label>
+        <link refid="organizational__unit_8c"/>
+      </node>
+      <node id="7">
+        <label>src/group.c</label>
+        <link refid="group_8c"/>
+      </node>
+      <node id="8">
+        <label>src/openldap_schema.c</label>
+        <link refid="openldap__schema_8c"/>
+      </node>
+      <node id="5">
+        <label>src/domain.c</label>
+        <link refid="domain_8c"/>
+      </node>
+      <node id="2">
+        <label>src/ad_schema.c</label>
+        <link refid="ad__schema_8c"/>
+      </node>
+      <node id="10">
+        <label>src/user.c</label>
+        <link refid="user_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="entry_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" prot="public" static="no">
+        <type>struct <ref refid="struct_l_d_a_p_attribute__s" kindref="compound">LDAPAttribute_s</ref></type>
+        <definition>typedef struct LDAPAttribute_s LDAPAttribute_t</definition>
+        <argsstring></argsstring>
+        <name>LDAPAttribute_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="1" column="0" bodyfile="src/entry.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="entry_8h_1a2ccd81bd4e99cd2355b31175ac3d766d" prot="public" static="no">
+        <type>struct <ref refid="structld__entry__s" kindref="compound">ld_entry_s</ref></type>
+        <definition>typedef struct ld_entry_s ld_entry_t</definition>
+        <argsstring></argsstring>
+        <name>ld_entry_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="1" column="0" bodyfile="src/entry.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="entry_8h_1a6ff1c81f937804c9e34795983559978e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode add</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection, const char *dn, LDAPMod **attrs)</argsstring>
+        <name>add</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>dn</declname>
+        </param>
+        <param>
+          <type>LDAPMod **</type>
+          <declname>attrs</declname>
+        </param>
+        <briefdescription>
+<para>add This function wraps ldap_add_ext function associating it with connection. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">dn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The name of the entry to add. If NULL, a zero length DN is sent to the server. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">attrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The entry&apos;s attributes, specified using the LDAPMod structure defined for ldap_modify(). The mod_type and mod_vals fields MUST be filled in. The mod_op field is ignored unless ORed with the constant LDAP_MOD_BVALUES, used to select the mod_bvalues case of the mod_vals union. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="1" column="0" bodyfile="src/entry.c" bodystart="40" bodyend="57" declfile="src/entry.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1a5d489bf3eb34043937add4702b6551a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode add_on_read</definition>
+        <argsstring>(int rc, LDAPMessage *message, ldap_connection_ctx_t *connection)</argsstring>
+        <name>add_on_read</name>
+        <param>
+          <type>int</type>
+          <declname>rc</declname>
+        </param>
+        <param>
+          <type>LDAPMessage *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type><ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>add_on_write This callback called on complition of ldap add operation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">rc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Return code of ldap_result. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message received from ldap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="1" column="0" bodyfile="src/entry.c" bodystart="68" bodyend="115" declfile="src/entry.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1a5598726f4588883be03ad2e354d3a59c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode search</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection, const char *base_dn, int scope, const char *filter, char **attrs, bool attrsonly, search_callback_fn search_callback, void *user_data)</argsstring>
+        <name>search</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>base_dn</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>scope</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>filter</declname>
+        </param>
+        <param>
+          <type>char **</type>
+          <declname>attrs</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>attrsonly</declname>
+        </param>
+        <param>
+          <type><ref refid="connection_8h_1a5eca06a31481a5a57dbce6ed7ec34876" kindref="member">search_callback_fn</ref></type>
+          <declname>search_callback</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>user_data</declname>
+        </param>
+        <briefdescription>
+<para>search Function wraps ldap search operation associating it with connection. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">base_dn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The dn of the entry at which to start the search. If NULL, a zero length DN is sent to the server. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">scope</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>One of LDAP_SCOPE_BASE (0x00), LDAP_SCOPE_ONELEVEL (0x01), or LDAP_SCOPE_SUBTREE (0x02), indicating the scope of the search. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">filter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A character string as described in [13], representing the search filter. The value NULL can be passed to indicate that the filter &quot;(objectclass=*)&quot; which matches all entries is to be used. Note that if the caller of the API is using LDAPv2, only a subset of the filter functionality described in [13] can be successfully used. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">attrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A NULL-terminated array of strings indicating which attributes to return for each matching entry. Passing NULL for this parameter causes all available user attributes to be retrieved. The special constant string LDAP_NO_ATTRS (&quot;1.1&quot;) MAY be used as the only string in the array to indicate that no attribute types are to be returned by the server. The special constant string LDAP_ALL_USER_ATTRS (&quot;*&quot;) can be used in the attrs array along with the names of some operational attributes to indicate that all user attributes plus the listed operational attributes are to be returned. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">attrsonly</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A boolean value that MUST be zero if both attribute types and values are to be returned, and non-zero if only types are wanted. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">search_callback</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A callback function on search operation. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">user_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An output parameter for returning data after a search. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="1" column="0" bodyfile="src/entry.c" bodystart="193" bodyend="240" declfile="src/entry.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1accf9def971ffd54a062f87a892131e95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode search_on_read</definition>
+        <argsstring>(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection)</argsstring>
+        <name>search_on_read</name>
+        <param>
+          <type>int</type>
+          <declname>rc</declname>
+        </param>
+        <param>
+          <type>LDAPMessage *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>search_on_read This callback called upon complition of ldap search operation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">rc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Return code of ldap_result. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message received from ldap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="1" column="0" bodyfile="src/entry.c" bodystart="275" bodyend="402" declfile="src/entry.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1aa51539f373c825161750ccc94c3d30ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode modify</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection, const char *dn, LDAPMod **attrs)</argsstring>
+        <name>modify</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>dn</declname>
+        </param>
+        <param>
+          <type>LDAPMod **</type>
+          <declname>attrs</declname>
+        </param>
+        <briefdescription>
+<para>modify This function wraps ldap_modify_ext. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">dn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The name of the entry to modify. If NULL, a zero length DN is sent to the server.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">attrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A NULL-terminated array of modifications to make to the entry. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="1" column="0" bodyfile="src/entry.c" bodystart="414" bodyend="436" declfile="src/entry.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1aab80ea2080a412cc9ae0e0cc72400a9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode modify_on_read</definition>
+        <argsstring>(int rc, LDAPMessage *message, ldap_connection_ctx_t *connection)</argsstring>
+        <name>modify_on_read</name>
+        <param>
+          <type>int</type>
+          <declname>rc</declname>
+        </param>
+        <param>
+          <type>LDAPMessage *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type><ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>modify_on_read This callback called upon complition of ldap modify operation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Return code of ldap_result. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message received from ldap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="1" column="0" bodyfile="src/entry.c" bodystart="447" bodyend="494" declfile="src/entry.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1a981102b111c8c3307f2961a8fc17579f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_delete</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection, const char *dn)</argsstring>
+        <name>ld_delete</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>dn</declname>
+        </param>
+        <briefdescription>
+<para>ld_delete Function wraps ldap_delete_ext. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">dn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The name of the entry to delete. If NULL, a zero length DN is sent to the server. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="1" column="0" bodyfile="src/entry.c" bodystart="504" bodyend="525" declfile="src/entry.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1ab3638c011fe40e1a2b07a480e393636e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode delete_on_read</definition>
+        <argsstring>(int rc, LDAPMessage *message, ldap_connection_ctx_t *connection)</argsstring>
+        <name>delete_on_read</name>
+        <param>
+          <type>int</type>
+          <declname>rc</declname>
+        </param>
+        <param>
+          <type>LDAPMessage *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type><ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>delete_on_read This callback determines result of delete operation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">rc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Return code of ldap_result. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message received from ldap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="1" column="0" bodyfile="src/entry.c" bodystart="536" bodyend="582" declfile="src/entry.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1aff6c71cf672bbac63af03e5129a62769" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_rename</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection, const char *olddn, const char *newdn, const char *new_parent, bool delete_original)</argsstring>
+        <name>ld_rename</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>olddn</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>newdn</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>new_parent</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>delete_original</declname>
+        </param>
+        <briefdescription>
+<para>ld_rename Wraps ldap_rename function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>connection[in]</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>olddn[in]</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Old dn of the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newdn[in]</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New dn of the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>new_parent[in]</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New parent of the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>delete_original[in]</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If we going to delete original entry or not </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="1" column="0" bodyfile="src/entry.c" bodystart="654" bodyend="680" declfile="src/entry.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1a3efec17847a5b987255ecd625da29a58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode rename_on_read</definition>
+        <argsstring>(int rc, LDAPMessage *message, ldap_connection_ctx_t *connection)</argsstring>
+        <name>rename_on_read</name>
+        <param>
+          <type>int</type>
+          <declname>rc</declname>
+        </param>
+        <param>
+          <type>LDAPMessage *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type><ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>rename_on_read This callback determines result of rename operation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">rc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Return code of ldap_result. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message received from ldap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="1" column="0" bodyfile="src/entry.c" bodystart="691" bodyend="737" declfile="src/entry.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1adb1e2cc1dfe826e4bb469b40a90c3bbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode whoami</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection)</argsstring>
+        <name>whoami</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>whoami This operation only supported on OpenLDAP and determines who current user is. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="1" column="0" bodyfile="src/entry.c" bodystart="588" bodyend="606" declfile="src/entry.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1a0edd5f887878590bc1e40073b5291546" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode whoami_on_read</definition>
+        <argsstring>(int rc, LDAPMessage *message, struct ldap_connection_ctx_t *connection)</argsstring>
+        <name>whoami_on_read</name>
+        <param>
+          <type>int</type>
+          <declname>rc</declname>
+        </param>
+        <param>
+          <type>LDAPMessage *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>whoami_on_read This callback determines result of whoami operation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">rc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Return code of ldap_result. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message received from ldap. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="1" column="0" bodyfile="src/entry.c" bodystart="617" bodyend="641" declfile="src/entry.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1a5b155e9364545822cf5faf32b2e1b6dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="connection_8h_1a2ccd81bd4e99cd2355b31175ac3d766d" kindref="member">ld_entry_t</ref> *</type>
+        <definition>ld_entry_t* ld_entry_new</definition>
+        <argsstring>(TALLOC_CTX *ctx, const char *dn)</argsstring>
+        <name>ld_entry_new</name>
+        <param>
+          <type>TALLOC_CTX *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>dn</declname>
+        </param>
+        <briefdescription>
+<para>ld_entry_new Creates new ld_entry_t; </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Talloc ctx to use. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Valid pointer to ld_entry_t.</para>
+</listitem><listitem><para>NULL on error. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="55" column="12" bodyfile="src/entry.c" bodystart="756" bodyend="797" declfile="src/entry.h" declline="55" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1a83607ae86031073fc512ae4c9e73f07a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* ld_entry_get_dn</definition>
+        <argsstring>(ld_entry_t *entry)</argsstring>
+        <name>ld_entry_get_dn</name>
+        <param>
+          <type><ref refid="connection_8h_1a2ccd81bd4e99cd2355b31175ac3d766d" kindref="member">ld_entry_t</ref> *</type>
+          <declname>entry</declname>
+        </param>
+        <briefdescription>
+<para>ld_entry_get_dn Get entry&apos;s dn; </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">entry</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Entry to use. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>NULL - on error.</para>
+</listitem><listitem><para>DN on success. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="56" column="12" bodyfile="src/entry.c" bodystart="862" bodyend="872" declfile="src/entry.h" declline="56" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1a35553c438b83390243962544705a232f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_entry_add_attribute</definition>
+        <argsstring>(ld_entry_t *entry, const LDAPAttribute_t *attr)</argsstring>
+        <name>ld_entry_add_attribute</name>
+        <param>
+          <type><ref refid="connection_8h_1a2ccd81bd4e99cd2355b31175ac3d766d" kindref="member">ld_entry_t</ref> *</type>
+          <declname>entry</declname>
+        </param>
+        <param>
+          <type>const <ref refid="domain_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" kindref="member">LDAPAttribute_t</ref> *</type>
+          <declname>attr</declname>
+        </param>
+        <briefdescription>
+<para>ld_entry_add_attribute Adds attribute to entry. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">entry</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Entry to use. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">attr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Attribute to add. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_FAILURE - on error.</para>
+</listitem><listitem><para>RETURN_CODE_SUCCESS - when attribute was added successduly. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="56" column="12" bodyfile="src/entry.c" bodystart="807" bodyend="833" declfile="src/entry.h" declline="56" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1aacc9caf07e7adaddd3e0664777f7cbfb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="domain_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" kindref="member">LDAPAttribute_t</ref> *</type>
+        <definition>LDAPAttribute_t* ld_entry_get_attribute</definition>
+        <argsstring>(ld_entry_t *entry, const char *name_or_oid)</argsstring>
+        <name>ld_entry_get_attribute</name>
+        <param>
+          <type><ref refid="connection_8h_1a2ccd81bd4e99cd2355b31175ac3d766d" kindref="member">ld_entry_t</ref> *</type>
+          <declname>entry</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name_or_oid</declname>
+        </param>
+        <briefdescription>
+<para>ld_entry_get_attribute Gets attribute from entry. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">entry</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Entry to use. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name_or_oid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of attribute. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>NULL - if attribute not found.</para>
+</listitem><listitem><para>Pointer to LDAPAttribute_t if attribute was found. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="58" column="17" bodyfile="src/entry.c" bodystart="843" bodyend="853" declfile="src/entry.h" declline="58" declcolumn="17"/>
+      </memberdef>
+      <memberdef kind="function" id="entry_8h_1a9c57d97548dd8b115204fcbabfbe8693" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="domain_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" kindref="member">LDAPAttribute_t</ref> **</type>
+        <definition>LDAPAttribute_t** ld_entry_get_attributes</definition>
+        <argsstring>(ld_entry_t *entry)</argsstring>
+        <name>ld_entry_get_attributes</name>
+        <param>
+          <type><ref refid="connection_8h_1a2ccd81bd4e99cd2355b31175ac3d766d" kindref="member">ld_entry_t</ref> *</type>
+          <declname>entry</declname>
+        </param>
+        <briefdescription>
+<para>ld_entry_get_attributes Get all attributes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">entry</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Entry to get attributes from. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>NULL terminated array of attributes on success.</para>
+</listitem><listitem><para>NULL on error. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<simplesect kind="see"><para>talloc_free(); It is required to call talloc_free() upon completing work with attributes. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry.h" line="59" column="17" bodyfile="src/entry.c" bodystart="931" bodyend="966" declfile="src/entry.h" declline="59" declcolumn="17"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/entry.h"/>
+  </compounddef>
+</doxygen>

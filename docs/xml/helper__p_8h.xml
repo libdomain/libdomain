@@ -1,0 +1,772 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="helper__p_8h" kind="file" language="C++">
+    <compoundname>helper_p.h</compoundname>
+    <includes local="no">talloc.h</includes>
+    <includes refid="common_8h" local="yes">common.h</includes>
+    <includedby refid="computer_8c" local="yes">src/computer.c</includedby>
+    <includedby refid="connection_8c" local="yes">src/connection.c</includedby>
+    <includedby refid="domain__p_8h" local="yes">src/domain_p.h</includedby>
+    <includedby refid="request__queue_8c" local="yes">src/request_queue.c</includedby>
+    <includedby refid="schema_8c" local="yes">src/schema.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>src/helper_p.h</label>
+        <link refid="helper__p_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ldap.h</label>
+      </node>
+      <node id="2">
+        <label>talloc.h</label>
+      </node>
+      <node id="3">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="8">
+        <label>src/entry.c</label>
+        <link refid="entry_8c"/>
+      </node>
+      <node id="4">
+        <label>src/domain_p.h</label>
+        <link refid="domain__p_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/helper_p.h</label>
+        <link refid="helper__p_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/computer.c</label>
+        <link refid="computer_8c"/>
+      </node>
+      <node id="13">
+        <label>src/schema.c</label>
+        <link refid="schema_8c"/>
+      </node>
+      <node id="10">
+        <label>src/organizational_unit.c</label>
+        <link refid="organizational__unit_8c"/>
+      </node>
+      <node id="9">
+        <label>src/group.c</label>
+        <link refid="group_8c"/>
+      </node>
+      <node id="12">
+        <label>src/request_queue.c</label>
+        <link refid="request__queue_8c"/>
+      </node>
+      <node id="5">
+        <label>src/attribute.c</label>
+        <link refid="attribute_8c"/>
+      </node>
+      <node id="7">
+        <label>src/domain.c</label>
+        <link refid="domain_8c"/>
+      </node>
+      <node id="6">
+        <label>src/connection_state_machine.c</label>
+        <link refid="connection__state__machine_8c"/>
+      </node>
+      <node id="3">
+        <label>src/connection.c</label>
+        <link refid="connection_8c"/>
+      </node>
+      <node id="11">
+        <label>src/user.c</label>
+        <link refid="user_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" prot="public" static="no">
+        <name>LD_ALLOC_HELPER</name>
+        <param><defname>var</defname></param>
+        <param><defname>func</defname></param>
+        <param><defname>error</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>    var = func(__VA_ARGS__); \
+    if (var == NULL) \
+    { \
+        <ref refid="common_8h_1a510c422451a8060e367f6d8a5e669b44" kindref="member">ld_error</ref>(error); \
+        goto error_handler; \
+    }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="27" column="9" bodyfile="src/helper_p.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1aa5d5a96a14947b3dbbda66cd626c8eac" prot="public" static="no">
+        <name>LD_FREE_HELPER</name>
+        <param><defname>func</defname></param>
+        <param><defname>error</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>    if (func(ctx) != 0) \
+    { \
+        ctx = NULL; \
+        <ref refid="common_8h_1a510c422451a8060e367f6d8a5e669b44" kindref="member">ld_error</ref>(error); \
+        goto error_handler; \
+    } \
+    ctx = NULL;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="34" column="9" bodyfile="src/helper_p.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1aaaca65bb6c555c0fa567f6cbd9a651a3" prot="public" static="no">
+        <name>ld_talloc_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>type</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc, error_message, error_handler, ctx, type)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="43" column="9" bodyfile="src/helper_p.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a5f64398d369ce2147b102a5f1b077cf6" prot="public" static="no">
+        <name>ld_talloc</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>type</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1aaaca65bb6c555c0fa567f6cbd9a651a3" kindref="member">ld_talloc_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, ctx, type)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="46" column="9" bodyfile="src/helper_p.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1ad4ff3b0244fe4eb018328ed12c516889" prot="public" static="no">
+        <name>ld_talloc_array_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>type</defname></param>
+        <param><defname>count</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_array, error_message, error_handler, ctx, type, count)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="49" column="9" bodyfile="src/helper_p.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1acae196fe37decab6dfc216ebebb35a10" prot="public" static="no">
+        <name>ld_talloc_array</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>type</defname></param>
+        <param><defname>count</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1ad4ff3b0244fe4eb018328ed12c516889" kindref="member">ld_talloc_array_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, ctx, type, count)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="52" column="9" bodyfile="src/helper_p.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a9f48879cd8db34ab83fc1e5d9caf757b" prot="public" static="no">
+        <name>ld_talloc_size_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>size</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_size, error_message, error_handler, ctx, size)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="55" column="9" bodyfile="src/helper_p.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a9650c2e7df46284ca40a40dcc028aea0" prot="public" static="no">
+        <name>ld_talloc_size</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>size</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a9f48879cd8db34ab83fc1e5d9caf757b" kindref="member">ld_talloc_size_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, ctx, size)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="58" column="9" bodyfile="src/helper_p.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a16d2de562f71aadd9e83b93285d65f0c" prot="public" static="no">
+        <name>ld_talloc_zero_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>type</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_zero, error_message, error_handler, ctx, type)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="61" column="9" bodyfile="src/helper_p.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a991c938c29cfb4bacaf9ffd4a8f0a743" prot="public" static="no">
+        <name>ld_talloc_zero</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>type</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a16d2de562f71aadd9e83b93285d65f0c" kindref="member">ld_talloc_zero_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, ctx, type)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="64" column="9" bodyfile="src/helper_p.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a7e08be7a1edc55cd6d7396d0040d966b" prot="public" static="no">
+        <name>ld_talloc_zero_array_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>type</defname></param>
+        <param><defname>count</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_zero_array, error_message, error_handler, ctx, type, count)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="67" column="9" bodyfile="src/helper_p.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1ad7de63bf174d1ed809c1bf5bcd71515c" prot="public" static="no">
+        <name>ld_talloc_zero_array</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>type</defname></param>
+        <param><defname>count</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a7e08be7a1edc55cd6d7396d0040d966b" kindref="member">ld_talloc_zero_array_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, ctx, type, count)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="70" column="9" bodyfile="src/helper_p.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a2845627da2d4309cd970497be4930869" prot="public" static="no">
+        <name>ld_talloc_zero_size_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>size</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_zero_size, error_message, error_handler, ctx, size)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="73" column="9" bodyfile="src/helper_p.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a7504af1afc94b6723699928d2386bf4a" prot="public" static="no">
+        <name>ld_talloc_zero_size</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>size</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a2845627da2d4309cd970497be4930869" kindref="member">ld_talloc_zero_size_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, ctx, size)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="76" column="9" bodyfile="src/helper_p.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1ac561d0e7114fd6fc50b1d31942f8314b" prot="public" static="no">
+        <name>ld_talloc_asprintf_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>fmt</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_asprintf, error_message, error_handler, ctx, fmt, __VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="79" column="9" bodyfile="src/helper_p.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a23458071d7d76064a6140dd1a04fca9b" prot="public" static="no">
+        <name>ld_talloc_asprintf</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>fmt</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1ac561d0e7114fd6fc50b1d31942f8314b" kindref="member">ld_talloc_asprintf_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, ctx, fmt, __VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="82" column="9" bodyfile="src/helper_p.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1ac9c1e683ca14c3812d253a800b70f295" prot="public" static="no">
+        <name>ld_talloc_asprintf_addbuf_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>ps</defname></param>
+        <param><defname>fmt</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_asprintf_addbuf, error_message, error_handler, ps, fmt, __VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="85" column="9" bodyfile="src/helper_p.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a96ac22089df435ca09740944e474a4c1" prot="public" static="no">
+        <name>ld_talloc_asprintf_addbuf</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>ps</defname></param>
+        <param><defname>fmt</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1ac9c1e683ca14c3812d253a800b70f295" kindref="member">ld_talloc_asprintf_addbuf_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, ps, fmt, __VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="88" column="9" bodyfile="src/helper_p.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1af85d5d97c472cf66a98110600e254f84" prot="public" static="no">
+        <name>ld_talloc_asprintf_append_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>str</defname></param>
+        <param><defname>fmt</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_asprintf_append, error_message, error_handler, str, fmt, __VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="91" column="9" bodyfile="src/helper_p.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1ab5bec253903ea51dfd3ccb15b35a3baa" prot="public" static="no">
+        <name>ld_talloc_asprintf_append</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>str</defname></param>
+        <param><defname>fmt</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1af85d5d97c472cf66a98110600e254f84" kindref="member">ld_talloc_asprintf_append_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, str, fmt, __VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="94" column="9" bodyfile="src/helper_p.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a0b2207e425b198bf2a23f0f8a9f95aff" prot="public" static="no">
+        <name>ld_talloc_asprintf_append_buffer_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>str</defname></param>
+        <param><defname>fmt</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_asprintf_append_buffer, error_message, error_handler, str, fmt, __VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="97" column="9" bodyfile="src/helper_p.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1ab688210ac24375c348f30031bf0ef7cf" prot="public" static="no">
+        <name>ld_talloc_asprintf_append_buffer</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>str</defname></param>
+        <param><defname>fmt</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a0b2207e425b198bf2a23f0f8a9f95aff" kindref="member">ld_talloc_asprintf_append_buffer_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, str, fmt, __VA_ARGS__)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="100" column="9" bodyfile="src/helper_p.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1abb27dc639b0abf04f22ba7b49f306e46" prot="public" static="no">
+        <name>ld_talloc_vasprintf_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>fmt</defname></param>
+        <param><defname>valist</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_vasprintf, error_message, error_handler, ctx, fmt, valist)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="103" column="9" bodyfile="src/helper_p.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a705b27fcd9e258a17d8ffd20324605a5" prot="public" static="no">
+        <name>ld_talloc_vasprintf</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>fmt</defname></param>
+        <param><defname>valist</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1abb27dc639b0abf04f22ba7b49f306e46" kindref="member">ld_talloc_vasprintf_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, ctx, fmt, valist)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="106" column="9" bodyfile="src/helper_p.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a833aa1782cc29c8f6b56a6214ea2c56d" prot="public" static="no">
+        <name>ld_talloc_vasprintf_append_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>str</defname></param>
+        <param><defname>fmt</defname></param>
+        <param><defname>valist</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_vasprintf_append, error_message, str, fmt, valist)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="109" column="9" bodyfile="src/helper_p.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1aac59c4f423309ce066c10f8f9e43ef0a" prot="public" static="no">
+        <name>ld_talloc_vasprintf_append</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>str</defname></param>
+        <param><defname>fmt</defname></param>
+        <param><defname>valist</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a833aa1782cc29c8f6b56a6214ea2c56d" kindref="member">ld_talloc_vasprintf_append_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, str, fmt, valist)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="112" column="9" bodyfile="src/helper_p.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a3ca06c9db34f18b87b760de259b84aae" prot="public" static="no">
+        <name>ld_talloc_vasprintf_append_buffer_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>fmt</defname></param>
+        <param><defname>valist</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_vasprintf_append_buffer, error_message, error_handler, str, fmt, valist)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="115" column="9" bodyfile="src/helper_p.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a13cce675d442d025a98d64a8d2e48219" prot="public" static="no">
+        <name>ld_talloc_vasprintf_append_buffer</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>fmt</defname></param>
+        <param><defname>valist</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a3ca06c9db34f18b87b760de259b84aae" kindref="member">ld_talloc_vasprintf_append_buffer_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, fmt, valist)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="118" column="9" bodyfile="src/helper_p.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1afb657454e013ba1d86e14352c1731545" prot="public" static="no">
+        <name>ld_talloc_new_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>ctx</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_new, error_message, error_handler, ctx)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="121" column="9" bodyfile="src/helper_p.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a8d6a885841bb317b77d165d806cfc17c" prot="public" static="no">
+        <name>ld_talloc_new</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>ctx</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1afb657454e013ba1d86e14352c1731545" kindref="member">ld_talloc_new_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, ctx)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="124" column="9" bodyfile="src/helper_p.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a906562bab8424976399448adf7c9e6cf" prot="public" static="no">
+        <name>ld_talloc_memdup_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>t</defname></param>
+        <param><defname>p</defname></param>
+        <param><defname>size</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_memdup, error_message, error_handler, t, p, size)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="127" column="9" bodyfile="src/helper_p.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a2aa81486421f8438eaef3c52568481d2" prot="public" static="no">
+        <name>ld_talloc_memdup</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>t</defname></param>
+        <param><defname>p</defname></param>
+        <param><defname>size</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a906562bab8424976399448adf7c9e6cf" kindref="member">ld_talloc_memdup_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, t, p, size)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="130" column="9" bodyfile="src/helper_p.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a684b961ddaaf41d7758f9255d994c603" prot="public" static="no">
+        <name>ld_talloc_strdup_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>str</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_strdup, error_message, error_handler, ctx, str)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="133" column="9" bodyfile="src/helper_p.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a8e4fb80670fdf7f289869309a2faa2dc" prot="public" static="no">
+        <name>ld_talloc_strdup</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>str</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a684b961ddaaf41d7758f9255d994c603" kindref="member">ld_talloc_strdup_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, ctx, str)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="136" column="9" bodyfile="src/helper_p.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1ae28441e0e2f1f29dd87a7ad166635d4f" prot="public" static="no">
+        <name>ld_talloc_strndup_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>str</defname></param>
+        <param><defname>n</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_strndup, error_message, error_handler, ctx, str, n)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="139" column="9" bodyfile="src/helper_p.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a7baeb5f0f94c7cefa5876bfa60b93bf7" prot="public" static="no">
+        <name>ld_talloc_strndup</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>str</defname></param>
+        <param><defname>n</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1ae28441e0e2f1f29dd87a7ad166635d4f" kindref="member">ld_talloc_strndup_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, ctx, str, n)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="142" column="9" bodyfile="src/helper_p.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1acd12ea1457b323b5f7000939ea215025" prot="public" static="no">
+        <name>ld_talloc_realloc_e</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>type</defname></param>
+        <param><defname>count</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1a840c1ea58c8461c6e0b26b4c18228f6e" kindref="member">LD_ALLOC_HELPER</ref>(var, talloc_realloc, error_message, error_handler, ctx, var, type, count)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="145" column="9" bodyfile="src/helper_p.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a8eb1933b8e71678c344786ef7dba43d7" prot="public" static="no">
+        <name>ld_talloc_realloc</name>
+        <param><defname>var</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>ctx</defname></param>
+        <param><defname>type</defname></param>
+        <param><defname>count</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1acd12ea1457b323b5f7000939ea215025" kindref="member">ld_talloc_realloc_e</ref>(var, error_handler, &quot;Error - failed to allocate memory&quot;, ctx, type, count)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="148" column="9" bodyfile="src/helper_p.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a4b366b8374ab3835f9f8bba79437007e" prot="public" static="no">
+        <name>ld_talloc_free_e</name>
+        <param><defname>ctx</defname></param>
+        <param><defname>error_handler</defname></param>
+        <param><defname>error_message</defname></param>
+        <initializer>    <ref refid="helper__p_8h_1aa5d5a96a14947b3dbbda66cd626c8eac" kindref="member">LD_FREE_HELPER</ref>(talloc_free, error_message, error_handler, ctx)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="151" column="9" bodyfile="src/helper_p.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="helper__p_8h_1a8ba1eb571fd51714faef67cc91782195" prot="public" static="no">
+        <name>ld_talloc_free</name>
+        <param><defname>ctx</defname></param>
+        <param><defname>error_handler</defname></param>
+        <initializer><ref refid="helper__p_8h_1a4b366b8374ab3835f9f8bba79437007e" kindref="member">ld_talloc_free_e</ref>(ctx, error_handler, &quot;Error - failed to free memory&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/helper_p.h" line="154" column="9" bodyfile="src/helper_p.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/helper_p.h"/>
+  </compounddef>
+</doxygen>

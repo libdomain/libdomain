@@ -1,0 +1,460 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="ldap__syntaxes_8h" kind="file" language="C++">
+    <compoundname>ldap_syntaxes.h</compoundname>
+    <includes local="no">stdbool.h</includes>
+    <includedby refid="ldap__syntaxes_8c" local="yes">src/ldap_syntaxes.c</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>stdbool.h</label>
+      </node>
+      <node id="1">
+        <label>src/ldap_syntaxes.h</label>
+        <link refid="ldap__syntaxes_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/ldap_syntaxes.c</label>
+        <link refid="ldap__syntaxes_8c"/>
+      </node>
+      <node id="1">
+        <label>src/ldap_syntaxes.h</label>
+        <link refid="ldap__syntaxes_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="ldap__syntaxes_8h_1a3b09cfebecd3c730c07ae81be4a1ce5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_boolean</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_boolean</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>validate_boolean Validates array if indeed boolean value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The function validate_boolean takes in a string and checks if it matches the format of a boolean value as defined by RFC 4517. The function returns True if the input string is either &quot;TRUE&quot; or &quot;FALSE&quot;, otherwise it returns False. From RFC 4517 : Boolean = &quot;TRUE&quot; / &quot;FALSE&quot;</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NULL terminated array of char to verify. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>false - on error.</para>
+</listitem><listitem><para>true - on success. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<simplesect kind="see"><para><ulink url="https://www.rfc-editor.org/rfc/rfc4517.txt">RFC4517</ulink> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="26" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="45" bodyend="53" declfile="src/ldap_syntaxes.h" declline="26" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1a7a5d8339f163719d53696128ffcfff05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_integer</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_integer</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>validate_integer Validates array if indeed integer value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The function validate_integer takes in a string and checks if it matches the format of a integer value as defined by RFC 4517. The function returns True if the input string is integer value, otherwise it returns False. From RFC 4517 : Integer = ( HYPHEN LDIGIT *DIGIT ) | number From RFC 4512 : number = DIGIT | ( LDIGIT 1*DIGIT ) DIGIT = x30 | LDIGIT ; &quot;0&quot;-&quot;9&quot; LDIGIT = x31-39 ; &quot;1&quot;-&quot;9&quot; HYPHEN = x2D ; hyphen (&quot;-&quot;)</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NULL terminated array of char to verify. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>false - on error.</para>
+</listitem><listitem><para>true - on success. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<simplesect kind="see"><para><ulink url="https://www.rfc-editor.org/rfc/rfc4517.txt">RFC4517</ulink> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="27" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="76" bodyend="112" declfile="src/ldap_syntaxes.h" declline="27" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1ab3a19fe8646a78af931432a19dcc943a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_octet_string</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_octet_string</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>validate_octet_string Validates array if indeed integer value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The function validate_octet_string takes in a string and checks if it matches the format of a octet string value as defined by RFC 4517. The function returns True if the input string is octet string value, otherwise it returns False. From RFC 4517 : OctetString = *OCTET OCTET = x00-FF ; Any octet (8-bit data unit)</para>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>false - on error.</para>
+</listitem><listitem><para>true - on success. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<simplesect kind="see"><para><ulink url="https://www.rfc-editor.org/rfc/rfc4517.txt">RFC4517</ulink> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="28" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="130" bodyend="138" declfile="src/ldap_syntaxes.h" declline="28" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1a39a0684cef786f44a921324239050c44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_oid</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_oid</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>validate_oid Validates array if indeed integer value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The function validate_oid takes in a string and checks if it matches the format of a OID value as defined by RFC 4517. The function returns True if the input string is OID value, otherwise it returns False. From RFC 4517 : OctetString = *OCTET OCTET = x00-FF ; Any octet (8-bit data unit)</para>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>false - on error.</para>
+</listitem><listitem><para>true - on success. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<simplesect kind="see"><para><ulink url="https://www.rfc-editor.org/rfc/rfc4517.txt">RFC4517</ulink> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="29" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="156" bodyend="164" declfile="src/ldap_syntaxes.h" declline="29" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1a33400872a9e4f7cca5f651b99a134c7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_numeric_string</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_numeric_string</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="30" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="166" bodyend="174" declfile="src/ldap_syntaxes.h" declline="30" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1a0e8ba7b695548dd1581f8573b42f03ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_printable_string</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_printable_string</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="31" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="176" bodyend="184" declfile="src/ldap_syntaxes.h" declline="31" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1a207a64e961d821dd84d0b70874290bc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_case_ignore_string</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_case_ignore_string</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="32" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="186" bodyend="194" declfile="src/ldap_syntaxes.h" declline="32" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1a73ef24312281998991362db4c9421296" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_ia5_string</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_ia5_string</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="33" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="196" bodyend="204" declfile="src/ldap_syntaxes.h" declline="33" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1ab894d935117d80938fb975e416486589" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_utc_time</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_utc_time</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="34" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="206" bodyend="214" declfile="src/ldap_syntaxes.h" declline="34" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1a87e3d2b1857ab72c7ab52cf31a2a389b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_generalized_time</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_generalized_time</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="35" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="216" bodyend="224" declfile="src/ldap_syntaxes.h" declline="35" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1a2a77b652afaedb38debabd9028d567ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_case_sensitive_string</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_case_sensitive_string</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="36" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="226" bodyend="234" declfile="src/ldap_syntaxes.h" declline="36" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1acdff4b8ae3b3224996feb36b2052aedf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_directory_string</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_directory_string</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="37" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="236" bodyend="244" declfile="src/ldap_syntaxes.h" declline="37" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1a5445cc4003f5ddbe1130197c411155e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_large_integer</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_large_integer</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>validate_large_integer Validates array if indeed int64 value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The function validate_large_integer takes in a string and checks if it matches the format of a large integer value as defined by RFC 4517. The function returns True if the input string is large integer value, otherwise it returns False. From RFC 4517 : Integer = ( HYPHEN LDIGIT *DIGIT ) | number From RFC 4512 : number = DIGIT | ( LDIGIT 1*DIGIT ) DIGIT = x30 | LDIGIT ; &quot;0&quot;-&quot;9&quot; LDIGIT = x31-39 ; &quot;1&quot;-&quot;9&quot; HYPHEN = x2D ; hyphen (&quot;-&quot;)</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NULL terminated array of char to verify. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>false - on error.</para>
+</listitem><listitem><para>true - on success. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<simplesect kind="see"><para><ulink url="https://www.rfc-editor.org/rfc/rfc4517.txt">RFC4517</ulink> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="38" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="267" bodyend="298" declfile="src/ldap_syntaxes.h" declline="38" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1ac1526eb0c0cef8080514a216b1830de9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_object_security_descriptor</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_object_security_descriptor</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="39" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="300" bodyend="304" declfile="src/ldap_syntaxes.h" declline="39" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1a4ff6db39bf68b6eb1247ee9dacba6c48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_dn</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_dn</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="40" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="306" bodyend="314" declfile="src/ldap_syntaxes.h" declline="40" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1acbdf2bd69bdacbff0878e20d8a782e33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_dn_with_octet_string</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_dn_with_octet_string</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="41" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="316" bodyend="324" declfile="src/ldap_syntaxes.h" declline="41" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1ad9d133c4721d5c356514177786cdbf04" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_or_name</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_or_name</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="42" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="336" bodyend="340" declfile="src/ldap_syntaxes.h" declline="42" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1af25c1e07911fa5eb315158667bf1a465" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_presentation_address</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_presentation_address</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="43" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="342" bodyend="346" declfile="src/ldap_syntaxes.h" declline="43" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1a8b60f801522fc281f2a84d13ede98c81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_access_point</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_access_point</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="44" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="348" bodyend="352" declfile="src/ldap_syntaxes.h" declline="44" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__syntaxes_8h_1af260e85e8217b179caceae95e45268d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool validate_dn_with_string</definition>
+        <argsstring>(const char *value)</argsstring>
+        <name>validate_dn_with_string</name>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_syntaxes.h" line="45" column="6" bodyfile="src/ldap_syntaxes.c" bodystart="326" bodyend="334" declfile="src/ldap_syntaxes.h" declline="45" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/ldap_syntaxes.h"/>
+  </compounddef>
+</doxygen>

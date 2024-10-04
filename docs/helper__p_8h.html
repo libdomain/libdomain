@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>src/helper_p.h file | libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a>/</span>helper_p.h <span class="m-thin">file</span>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#define-members">Defines</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="define-members">
+          <h2><a href="#define-members">Defines</a></h2>
+          <dl class="m-doc">
+            <dt id="a840c1ea58c8461c6e0b26b4c18228f6e">
+              <span class="m-doc-wrap-bumper">#define <a href="#a840c1ea58c8461c6e0b26b4c18228f6e" class="m-doc-self">LD_ALLOC_HELPER</a>(</span><span class="m-doc-wrap">var,
+              func,
+              error,
+              error_handler,
+              ...)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aa5d5a96a14947b3dbbda66cd626c8eac">
+              <span class="m-doc-wrap-bumper">#define <a href="#aa5d5a96a14947b3dbbda66cd626c8eac" class="m-doc-self">LD_FREE_HELPER</a>(</span><span class="m-doc-wrap">func,
+              error,
+              error_handler,
+              ctx,
+              ...)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aaaca65bb6c555c0fa567f6cbd9a651a3">
+              <span class="m-doc-wrap-bumper">#define <a href="#aaaca65bb6c555c0fa567f6cbd9a651a3" class="m-doc-self">ld_talloc_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              ctx,
+              type)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a5f64398d369ce2147b102a5f1b077cf6">
+              <span class="m-doc-wrap-bumper">#define <a href="#a5f64398d369ce2147b102a5f1b077cf6" class="m-doc-self">ld_talloc</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              ctx,
+              type)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ad4ff3b0244fe4eb018328ed12c516889">
+              <span class="m-doc-wrap-bumper">#define <a href="#ad4ff3b0244fe4eb018328ed12c516889" class="m-doc-self">ld_talloc_array_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              ctx,
+              type,
+              count)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="acae196fe37decab6dfc216ebebb35a10">
+              <span class="m-doc-wrap-bumper">#define <a href="#acae196fe37decab6dfc216ebebb35a10" class="m-doc-self">ld_talloc_array</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              ctx,
+              type,
+              count)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a9f48879cd8db34ab83fc1e5d9caf757b">
+              <span class="m-doc-wrap-bumper">#define <a href="#a9f48879cd8db34ab83fc1e5d9caf757b" class="m-doc-self">ld_talloc_size_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              ctx,
+              size)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a9650c2e7df46284ca40a40dcc028aea0">
+              <span class="m-doc-wrap-bumper">#define <a href="#a9650c2e7df46284ca40a40dcc028aea0" class="m-doc-self">ld_talloc_size</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              ctx,
+              size)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a16d2de562f71aadd9e83b93285d65f0c">
+              <span class="m-doc-wrap-bumper">#define <a href="#a16d2de562f71aadd9e83b93285d65f0c" class="m-doc-self">ld_talloc_zero_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              ctx,
+              type)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a991c938c29cfb4bacaf9ffd4a8f0a743">
+              <span class="m-doc-wrap-bumper">#define <a href="#a991c938c29cfb4bacaf9ffd4a8f0a743" class="m-doc-self">ld_talloc_zero</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              ctx,
+              type)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a7e08be7a1edc55cd6d7396d0040d966b">
+              <span class="m-doc-wrap-bumper">#define <a href="#a7e08be7a1edc55cd6d7396d0040d966b" class="m-doc-self">ld_talloc_zero_array_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              ctx,
+              type,
+              count)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ad7de63bf174d1ed809c1bf5bcd71515c">
+              <span class="m-doc-wrap-bumper">#define <a href="#ad7de63bf174d1ed809c1bf5bcd71515c" class="m-doc-self">ld_talloc_zero_array</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              ctx,
+              type,
+              count)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a2845627da2d4309cd970497be4930869">
+              <span class="m-doc-wrap-bumper">#define <a href="#a2845627da2d4309cd970497be4930869" class="m-doc-self">ld_talloc_zero_size_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              ctx,
+              size)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a7504af1afc94b6723699928d2386bf4a">
+              <span class="m-doc-wrap-bumper">#define <a href="#a7504af1afc94b6723699928d2386bf4a" class="m-doc-self">ld_talloc_zero_size</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              ctx,
+              size)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ac561d0e7114fd6fc50b1d31942f8314b">
+              <span class="m-doc-wrap-bumper">#define <a href="#ac561d0e7114fd6fc50b1d31942f8314b" class="m-doc-self">ld_talloc_asprintf_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              ctx,
+              fmt,
+              ...)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a23458071d7d76064a6140dd1a04fca9b">
+              <span class="m-doc-wrap-bumper">#define <a href="#a23458071d7d76064a6140dd1a04fca9b" class="m-doc-self">ld_talloc_asprintf</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              ctx,
+              fmt,
+              ...)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ac9c1e683ca14c3812d253a800b70f295">
+              <span class="m-doc-wrap-bumper">#define <a href="#ac9c1e683ca14c3812d253a800b70f295" class="m-doc-self">ld_talloc_asprintf_addbuf_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              ps,
+              fmt,
+              ...)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a96ac22089df435ca09740944e474a4c1">
+              <span class="m-doc-wrap-bumper">#define <a href="#a96ac22089df435ca09740944e474a4c1" class="m-doc-self">ld_talloc_asprintf_addbuf</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              ps,
+              fmt,
+              ...)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="af85d5d97c472cf66a98110600e254f84">
+              <span class="m-doc-wrap-bumper">#define <a href="#af85d5d97c472cf66a98110600e254f84" class="m-doc-self">ld_talloc_asprintf_append_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              str,
+              fmt,
+              ...)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ab5bec253903ea51dfd3ccb15b35a3baa">
+              <span class="m-doc-wrap-bumper">#define <a href="#ab5bec253903ea51dfd3ccb15b35a3baa" class="m-doc-self">ld_talloc_asprintf_append</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              str,
+              fmt,
+              ...)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a0b2207e425b198bf2a23f0f8a9f95aff">
+              <span class="m-doc-wrap-bumper">#define <a href="#a0b2207e425b198bf2a23f0f8a9f95aff" class="m-doc-self">ld_talloc_asprintf_append_buffer_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              str,
+              fmt,
+              ...)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ab688210ac24375c348f30031bf0ef7cf">
+              <span class="m-doc-wrap-bumper">#define <a href="#ab688210ac24375c348f30031bf0ef7cf" class="m-doc-self">ld_talloc_asprintf_append_buffer</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              str,
+              fmt,
+              ...)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="abb27dc639b0abf04f22ba7b49f306e46">
+              <span class="m-doc-wrap-bumper">#define <a href="#abb27dc639b0abf04f22ba7b49f306e46" class="m-doc-self">ld_talloc_vasprintf_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              ctx,
+              fmt,
+              valist)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a705b27fcd9e258a17d8ffd20324605a5">
+              <span class="m-doc-wrap-bumper">#define <a href="#a705b27fcd9e258a17d8ffd20324605a5" class="m-doc-self">ld_talloc_vasprintf</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              ctx,
+              fmt,
+              valist)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a833aa1782cc29c8f6b56a6214ea2c56d">
+              <span class="m-doc-wrap-bumper">#define <a href="#a833aa1782cc29c8f6b56a6214ea2c56d" class="m-doc-self">ld_talloc_vasprintf_append_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              str,
+              fmt,
+              valist)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aac59c4f423309ce066c10f8f9e43ef0a">
+              <span class="m-doc-wrap-bumper">#define <a href="#aac59c4f423309ce066c10f8f9e43ef0a" class="m-doc-self">ld_talloc_vasprintf_append</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              str,
+              fmt,
+              valist)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a3ca06c9db34f18b87b760de259b84aae">
+              <span class="m-doc-wrap-bumper">#define <a href="#a3ca06c9db34f18b87b760de259b84aae" class="m-doc-self">ld_talloc_vasprintf_append_buffer_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              fmt,
+              valist)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a13cce675d442d025a98d64a8d2e48219">
+              <span class="m-doc-wrap-bumper">#define <a href="#a13cce675d442d025a98d64a8d2e48219" class="m-doc-self">ld_talloc_vasprintf_append_buffer</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              fmt,
+              valist)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="afb657454e013ba1d86e14352c1731545">
+              <span class="m-doc-wrap-bumper">#define <a href="#afb657454e013ba1d86e14352c1731545" class="m-doc-self">ld_talloc_new_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              ctx)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a8d6a885841bb317b77d165d806cfc17c">
+              <span class="m-doc-wrap-bumper">#define <a href="#a8d6a885841bb317b77d165d806cfc17c" class="m-doc-self">ld_talloc_new</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              ctx)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a906562bab8424976399448adf7c9e6cf">
+              <span class="m-doc-wrap-bumper">#define <a href="#a906562bab8424976399448adf7c9e6cf" class="m-doc-self">ld_talloc_memdup_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              t,
+              p,
+              size)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a2aa81486421f8438eaef3c52568481d2">
+              <span class="m-doc-wrap-bumper">#define <a href="#a2aa81486421f8438eaef3c52568481d2" class="m-doc-self">ld_talloc_memdup</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              t,
+              p,
+              size)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a684b961ddaaf41d7758f9255d994c603">
+              <span class="m-doc-wrap-bumper">#define <a href="#a684b961ddaaf41d7758f9255d994c603" class="m-doc-self">ld_talloc_strdup_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              ctx,
+              str)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a8e4fb80670fdf7f289869309a2faa2dc">
+              <span class="m-doc-wrap-bumper">#define <a href="#a8e4fb80670fdf7f289869309a2faa2dc" class="m-doc-self">ld_talloc_strdup</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              ctx,
+              str)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="ae28441e0e2f1f29dd87a7ad166635d4f">
+              <span class="m-doc-wrap-bumper">#define <a href="#ae28441e0e2f1f29dd87a7ad166635d4f" class="m-doc-self">ld_talloc_strndup_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              ctx,
+              str,
+              n)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a7baeb5f0f94c7cefa5876bfa60b93bf7">
+              <span class="m-doc-wrap-bumper">#define <a href="#a7baeb5f0f94c7cefa5876bfa60b93bf7" class="m-doc-self">ld_talloc_strndup</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              ctx,
+              str,
+              n)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="acd12ea1457b323b5f7000939ea215025">
+              <span class="m-doc-wrap-bumper">#define <a href="#acd12ea1457b323b5f7000939ea215025" class="m-doc-self">ld_talloc_realloc_e</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              error_message,
+              ctx,
+              type,
+              count)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a8eb1933b8e71678c344786ef7dba43d7">
+              <span class="m-doc-wrap-bumper">#define <a href="#a8eb1933b8e71678c344786ef7dba43d7" class="m-doc-self">ld_talloc_realloc</a>(</span><span class="m-doc-wrap">var,
+              error_handler,
+              ctx,
+              type,
+              count)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a4b366b8374ab3835f9f8bba79437007e">
+              <span class="m-doc-wrap-bumper">#define <a href="#a4b366b8374ab3835f9f8bba79437007e" class="m-doc-self">ld_talloc_free_e</a>(</span><span class="m-doc-wrap">ctx,
+              error_handler,
+              error_message)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a8ba1eb571fd51714faef67cc91782195">
+              <span class="m-doc-wrap-bumper">#define <a href="#a8ba1eb571fd51714faef67cc91782195" class="m-doc-self">ld_talloc_free</a>(</span><span class="m-doc-wrap">ctx,
+              error_handler)</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

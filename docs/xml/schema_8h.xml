@@ -1,0 +1,581 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="schema_8h" kind="file" language="C++">
+    <compoundname>schema.h</compoundname>
+    <includes refid="common_8h" local="yes">common.h</includes>
+    <includes refid="connection_8h" local="yes">connection.h</includes>
+    <includes local="no">stdbool.h</includes>
+    <includes local="no">ldap.h</includes>
+    <includes local="no">ldap_schema.h</includes>
+    <includedby refid="ad__schema_8c" local="yes">src/ad_schema.c</includedby>
+    <includedby refid="connection_8c" local="yes">src/connection.c</includedby>
+    <includedby refid="connection__state__machine_8c" local="yes">src/connection_state_machine.c</includedby>
+    <includedby refid="openldap__schema_8c" local="yes">src/openldap_schema.c</includedby>
+    <includedby refid="schema_8c" local="yes">src/schema.c</includedby>
+    <incdepgraph>
+      <node id="6">
+        <label>stdbool.h</label>
+      </node>
+      <node id="3">
+        <label>ldap.h</label>
+      </node>
+      <node id="7">
+        <label>verto.h</label>
+      </node>
+      <node id="1">
+        <label>src/schema.h</label>
+        <link refid="schema_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>talloc.h</label>
+      </node>
+      <node id="2">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>request_queue.h</label>
+        <link refid="request__queue_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>connection.h</label>
+        <link refid="connection_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>ldap_schema.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6">
+        <label>src/schema.c</label>
+        <link refid="schema_8c"/>
+      </node>
+      <node id="1">
+        <label>src/schema.h</label>
+        <link refid="schema_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>src/openldap_schema.c</label>
+        <link refid="openldap__schema_8c"/>
+      </node>
+      <node id="4">
+        <label>src/connection_state_machine.c</label>
+        <link refid="connection__state__machine_8c"/>
+      </node>
+      <node id="2">
+        <label>src/ad_schema.c</label>
+        <link refid="ad__schema_8c"/>
+      </node>
+      <node id="3">
+        <label>src/connection.c</label>
+        <link refid="connection_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="schema_8h_1a10a40f1f6dd23eadbff0e691675da4f4" prot="public" static="no">
+        <type>struct <ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref></type>
+        <definition>typedef struct ldap_schema_t ldap_schema_t</definition>
+        <argsstring></argsstring>
+        <name>ldap_schema_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema.h" line="1" column="0" bodyfile="src/schema.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="schema_8h_1a7c47ed317cf87954dd03397ad35bdc89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref> *</type>
+        <definition>ldap_schema_t* ldap_schema_new</definition>
+        <argsstring>(TALLOC_CTX *ctx)</argsstring>
+        <name>ldap_schema_new</name>
+        <param>
+          <type>TALLOC_CTX *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>ldap_schema_new Allocates <ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref> and checks it for validity. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>TALLOC_CTX to use. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>NULL on error.</para>
+</listitem><listitem><para>Pointer to ldap schema on success. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema.h" line="35" column="1" bodyfile="src/schema.c" bodystart="62" bodyend="115" declfile="src/schema.h" declline="35" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="schema_8h_1adcff64b7851ac3c27e5d2c2a0351d68a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LDAPObjectClass **</type>
+        <definition>LDAPObjectClass** ldap_schema_object_classes</definition>
+        <argsstring>(const ldap_schema_t *schema)</argsstring>
+        <name>ldap_schema_object_classes</name>
+        <param>
+          <type>const <ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref> *</type>
+          <declname>schema</declname>
+        </param>
+        <briefdescription>
+<para>ldap_schema_object_classes Returns a list of LDAPObjectClass structs. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">schema</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Schema to work with. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>NULL if schema is NULL.</para>
+</listitem><listitem><para>List of object classes from schema. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema.h" line="39" column="1" bodyfile="src/schema.c" bodystart="125" bodyend="151" declfile="src/schema.h" declline="39" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="schema_8h_1aa78379959cd7ccb67bc471971d109ee3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ldap_schema_append_attributetype</definition>
+        <argsstring>(ldap_schema_t *schema, LDAPAttributeType *attributetype)</argsstring>
+        <name>ldap_schema_append_attributetype</name>
+        <param>
+          <type><ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref> *</type>
+          <declname>schema</declname>
+        </param>
+        <param>
+          <type>LDAPAttributeType *</type>
+          <declname>attributetype</declname>
+        </param>
+        <briefdescription>
+<para>ldap_schema_append_attributetype Appends attribute type to the list of schema&apos;s attribute types. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">schema</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Schema to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">attributetype</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Attribute type to add. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>false - on error.</para>
+</listitem><listitem><para>true - on success. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema.h" line="40" column="6" bodyfile="src/schema.c" bodystart="266" bodyend="284" declfile="src/schema.h" declline="40" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="schema_8h_1a4412c8f3f84dbfc18930153b392fae07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LDAPAttributeType **</type>
+        <definition>LDAPAttributeType** ldap_schema_attribute_types</definition>
+        <argsstring>(const ldap_schema_t *schema)</argsstring>
+        <name>ldap_schema_attribute_types</name>
+        <param>
+          <type>const <ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref> *</type>
+          <declname>schema</declname>
+        </param>
+        <briefdescription>
+<para>ldap_schema_attribute_types Returns a list of LDAPAttributeType structs. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">schema</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Schema to work with. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>NULL if schema is NULL.</para>
+</listitem><listitem><para>List of attribute types from schema. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema.h" line="43" column="1" bodyfile="src/schema.c" bodystart="161" bodyend="187" declfile="src/schema.h" declline="43" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="schema_8h_1ac6d7ab0ff998b7d0fafbb482218446f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ldap_schema_append_objectclass</definition>
+        <argsstring>(ldap_schema_t *schema, LDAPObjectClass *objectclass)</argsstring>
+        <name>ldap_schema_append_objectclass</name>
+        <param>
+          <type><ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref> *</type>
+          <declname>schema</declname>
+        </param>
+        <param>
+          <type>LDAPObjectClass *</type>
+          <declname>objectclass</declname>
+        </param>
+        <briefdescription>
+<para>ldap_schema_append_objectclass Appends object class to the list of schema&apos;s object classes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">schema</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current schema we working with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">objectclass</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Object class we want to add to schema. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>false - on error.</para>
+</listitem><listitem><para>true - on success. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema.h" line="44" column="6" bodyfile="src/schema.c" bodystart="295" bodyend="313" declfile="src/schema.h" declline="44" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="schema_8h_1a550fa5eecfb62e3f2172ab7cadb03ab0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LDAPAttributeType *</type>
+        <definition>LDAPAttributeType* ldap_schema_get_attributetype_by_name</definition>
+        <argsstring>(const ldap_schema_t *schema, const char *name)</argsstring>
+        <name>ldap_schema_get_attributetype_by_name</name>
+        <param>
+          <type>const <ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref> *</type>
+          <declname>schema</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>ldap_schema_get_attributetype_by_name Returns a LDAPAttributeType struct corresponding to the specified name. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">schema</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Schema to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>One of the attribute names. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>NULL if schema is NULL.</para>
+</listitem><listitem><para>Attribute type from schema. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema.h" line="47" column="1" bodyfile="src/schema.c" bodystart="248" bodyend="255" declfile="src/schema.h" declline="47" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="schema_8h_1a0ca312e5aed39549170a7dcfd5d89482" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LDAPAttributeType *</type>
+        <definition>LDAPAttributeType* ldap_schema_get_attributetype_by_oid</definition>
+        <argsstring>(const ldap_schema_t *schema, const char *oid)</argsstring>
+        <name>ldap_schema_get_attributetype_by_oid</name>
+        <param>
+          <type>const <ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref> *</type>
+          <declname>schema</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>oid</declname>
+        </param>
+        <briefdescription>
+<para>ldap_schema_get_attributetype_by_oid Returns a LDAPAttributeType struct corresponding to the specified OID. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">schema</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Schema to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">oid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>OID of the attribute type. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>NULL if schema is NULL.</para>
+</listitem><listitem><para>Attribute type from schema. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema.h" line="50" column="1" bodyfile="src/schema.c" bodystart="231" bodyend="238" declfile="src/schema.h" declline="50" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="schema_8h_1a0b7afa0c713b72e7fcec3f878b30d28d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LDAPObjectClass *</type>
+        <definition>LDAPObjectClass* ldap_schema_get_objectclass_by_name</definition>
+        <argsstring>(const ldap_schema_t *schema, const char *name)</argsstring>
+        <name>ldap_schema_get_objectclass_by_name</name>
+        <param>
+          <type>const <ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref> *</type>
+          <declname>schema</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>ldap_schema_get_objectclass_by_name Returns a LDAPObjectClass struct corresponding to the specified name. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">schema</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Schema to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the object class. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>NULL if schema is NULL.</para>
+</listitem><listitem><para>Object class from schema. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema.h" line="53" column="1" bodyfile="src/schema.c" bodystart="214" bodyend="221" declfile="src/schema.h" declline="53" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="schema_8h_1a34e2110b918a05c54ffbbe4613768c7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LDAPObjectClass *</type>
+        <definition>LDAPObjectClass* ldap_schema_get_objectclass_by_oid</definition>
+        <argsstring>(const ldap_schema_t *schema, const char *oid)</argsstring>
+        <name>ldap_schema_get_objectclass_by_oid</name>
+        <param>
+          <type>const <ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref> *</type>
+          <declname>schema</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>oid</declname>
+        </param>
+        <briefdescription>
+<para>ldap_schema_get_objectclass_by_oid Returns a LDAPObjectClass struct corresponding to the specified OID. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">schema</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Schema to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">oid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>OID of the object class. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>NULL if schema is NULL.</para>
+</listitem><listitem><para>Object class from schema. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema.h" line="56" column="1" bodyfile="src/schema.c" bodystart="197" bodyend="204" declfile="src/schema.h" declline="56" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="schema_8h_1a11b8d1522c3bb8eccfb122655e78e774" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ldap_schema_load</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection)</argsstring>
+        <name>ldap_schema_load</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>ldap_schema_load Loads the schema from the connection depending on the type of directory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema.h" line="56" column="1" bodyfile="src/schema.c" bodystart="323" bodyend="343" declfile="src/schema.h" declline="56" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="schema_8h_1a1757025dea67d51187d291e025d70756" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ldap_schema_ready</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection)</argsstring>
+        <name>ldap_schema_ready</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>ldap_schema_ready Verifies the schema is fully loaded and ready for use. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>false - if schema is not ready.</para>
+</listitem><listitem><para>true - if schema is ready. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema.h" line="62" column="1" bodyfile="src/schema.c" bodystart="353" bodyend="363" declfile="src/schema.h" declline="62" declcolumn="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/schema.h"/>
+  </compounddef>
+</doxygen>

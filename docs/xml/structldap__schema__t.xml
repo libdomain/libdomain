@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structldap__schema__t" kind="struct" language="C++" prot="public">
+    <compoundname>ldap_schema_t</compoundname>
+    <includes refid="schema__p_8h" local="no">schema_p.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structldap__schema__t_1a6a533e68eafed61c25d820ad2304f4e5" prot="public" static="no" mutable="no">
+        <type>GHashTable *</type>
+        <definition>GHashTable* ldap_schema_t::object_classes_by_oid</definition>
+        <argsstring></argsstring>
+        <name>object_classes_by_oid</name>
+        <briefdescription>
+<para>Hash table of object classes by oc_oid key. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema_p.h" line="39" column="16" bodyfile="src/schema_p.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__schema__t_1acb5a842abbc9a7d62862a5e2f1138cca" prot="public" static="no" mutable="no">
+        <type>GHashTable *</type>
+        <definition>GHashTable* ldap_schema_t::object_classes_by_name</definition>
+        <argsstring></argsstring>
+        <name>object_classes_by_name</name>
+        <briefdescription>
+<para>Hash table of object classes by oc_name key. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema_p.h" line="40" column="16" bodyfile="src/schema_p.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__schema__t_1aa1534942a13d80ae813811770b936eb8" prot="public" static="no" mutable="no">
+        <type>GHashTable *</type>
+        <definition>GHashTable* ldap_schema_t::attribute_types_by_oid</definition>
+        <argsstring></argsstring>
+        <name>attribute_types_by_oid</name>
+        <briefdescription>
+<para>Hash table of attribute types by at_oid key. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema_p.h" line="41" column="16" bodyfile="src/schema_p.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__schema__t_1a5ca7d5387ea2344ee26836f1ad04264a" prot="public" static="no" mutable="no">
+        <type>GHashTable *</type>
+        <definition>GHashTable* ldap_schema_t::attribute_types_by_name</definition>
+        <argsstring></argsstring>
+        <name>attribute_types_by_name</name>
+        <briefdescription>
+<para>Hash table of attribute types by at_name key. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema_p.h" line="42" column="16" bodyfile="src/schema_p.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref> struct - Represents LDAP schema. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/schema_p.h" line="37" column="1" bodyfile="src/schema_p.h" bodystart="38" bodyend="43"/>
+    <listofallmembers>
+      <member refid="structldap__schema__t_1a5ca7d5387ea2344ee26836f1ad04264a" prot="public" virt="non-virtual"><scope>ldap_schema_t</scope><name>attribute_types_by_name</name></member>
+      <member refid="structldap__schema__t_1aa1534942a13d80ae813811770b936eb8" prot="public" virt="non-virtual"><scope>ldap_schema_t</scope><name>attribute_types_by_oid</name></member>
+      <member refid="structldap__schema__t_1acb5a842abbc9a7d62862a5e2f1138cca" prot="public" virt="non-virtual"><scope>ldap_schema_t</scope><name>object_classes_by_name</name></member>
+      <member refid="structldap__schema__t_1a6a533e68eafed61c25d820ad2304f4e5" prot="public" virt="non-virtual"><scope>ldap_schema_t</scope><name>object_classes_by_oid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

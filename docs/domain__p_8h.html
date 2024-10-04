@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>src/domain_p.h file | libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a>/</span>domain_p.h <span class="m-thin">file</span>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#nested-classes">Classes</a></li>
+                <li><a href="#typedef-members">Typedefs</a></li>
+                <li><a href="#func-members">Functions</a></li>
+                <li><a href="#define-members">Defines</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="nested-classes">
+          <h2><a href="#nested-classes">Classes</a></h2>
+          <dl class="m-doc">
+            <dt>
+              struct <a href="structld__config__s.html" class="m-doc">ld_config_s</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              struct <a href="structldhandle.html" class="m-doc">ldhandle</a>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="typedef-members">
+          <h2><a href="#typedef-members">Typedefs</a></h2>
+          <dl class="m-doc">
+            <dt id="a39784904a5576d0e7510c0dd7c4511f7">
+              using <a href="#a39784904a5576d0e7510c0dd7c4511f7" class="m-doc-self">ld_config_t</a> = struct <a href="structld__config__s.html" class="m-doc">ld_<wbr />config_<wbr />s</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="aee5bc18c3dd6ebf54740b4bb4284db84">
+              using <a href="#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc-self">LDHandle</a> = struct <a href="structldhandle.html" class="m-doc">ldhandle</a>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a133ec15039a9fdf8b0f9f5d7e25d1742">
+              using <a href="#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc-self">LDAPAttribute_t</a> = struct <a href="struct_l_d_a_p_attribute__s.html" class="m-doc">LDAPAttribute_<wbr />s</a>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="func-members">
+          <h2><a href="#func-members">Functions</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#ac5880d842d821bd395fe491ef5e0301c" class="m-doc">ld_add_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** entry_attrs) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_add_entry Creates the entry.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a98503ce1e889b53e3c5e804afc3cabe6" class="m-doc">ld_del_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_del_entry Deletes entry.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a7537183d743e55e8b055d2db8de068bc" class="m-doc">ld_mod_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** entry_attrs) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_mod_entry Modifies the entry.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a714b3eca566ef227c0542b47de8d0f80" class="m-doc">ld_rename_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* old_name,
+              const char* new_name,
+              const char* parent,
+              const char* prefix) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_rename_entry Renames the entry.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#abf1a1199723627800bc0c86151aa0ff3" class="m-doc">ld_mod_entry_attrs</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** entry_attrs,
+              int opcode) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>ld_mod_entry_attrs Modifies list of attributes using supplied operation.</dd>
+          </dl>
+        </section>
+        <section id="define-members">
+          <h2><a href="#define-members">Defines</a></h2>
+          <dl class="m-doc">
+            <dt id="a507c1b9f6a4484cdc21b5dc2a5e7d944">
+              <span class="m-doc-wrap-bumper">#define <a href="#a507c1b9f6a4484cdc21b5dc2a5e7d944" class="m-doc-self">check_handle</a>(</span><span class="m-doc-wrap">handle,
+              function_name)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="adf70372f08fecbad757983d106760afd">
+              <span class="m-doc-wrap-bumper">#define <a href="#adf70372f08fecbad757983d106760afd" class="m-doc-self">check_string</a>(</span><span class="m-doc-wrap">input,
+              output,
+              function_name)</span>
+            </dt>
+            <dd><span></span></dd>
+            <dt id="a1e7bf1934bbd2b9d1e0dcefcc30f860d">
+              <span class="m-doc-wrap-bumper">#define <a href="#a1e7bf1934bbd2b9d1e0dcefcc30f860d" class="m-doc-self">check_and_assign_attribute</a>(</span><span class="m-doc-wrap">error_handler,
+              attrs,
+              value,
+              index,
+              talloc_ctx)</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="ac5880d842d821bd395fe491ef5e0301c"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ac5880d842d821bd395fe491ef5e0301c" class="m-doc-self">ld_add_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** entry_attrs)</span></span>
+            </h3>
+            <p>ld_add_entry Creates the entry.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the entry.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Parent container that holds the entry.</td>
+                </tr>
+                <tr>
+                  <td>prefix</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>entry_attrs&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>List of the attributes to create entry with.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a98503ce1e889b53e3c5e804afc3cabe6"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a98503ce1e889b53e3c5e804afc3cabe6" class="m-doc-self">ld_del_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix)</span></span>
+            </h3>
+            <p>ld_del_entry Deletes entry.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the entry.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Parent container that holds the entry.</td>
+                </tr>
+                <tr>
+                  <td>prefix&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Prefix of the entry.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a7537183d743e55e8b055d2db8de068bc"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a7537183d743e55e8b055d2db8de068bc" class="m-doc-self">ld_mod_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** entry_attrs)</span></span>
+            </h3>
+            <p>ld_mod_entry Modifies the entry.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the entry.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Parent container that holds the entry.</td>
+                </tr>
+                <tr>
+                  <td>prefix</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>entry_attrs&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>List of the attributes to modify.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a714b3eca566ef227c0542b47de8d0f80"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a714b3eca566ef227c0542b47de8d0f80" class="m-doc-self">ld_rename_entry</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* old_name,
+              const char* new_name,
+              const char* parent,
+              const char* prefix)</span></span>
+            </h3>
+            <p>ld_rename_entry Renames the entry.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>old_name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Old name of the entry.</td>
+                </tr>
+                <tr>
+                  <td>new_name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>New name of the entry.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Parent container that holds the entry.</td>
+                </tr>
+                <tr>
+                  <td>prefix&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Prefix for entry type.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="abf1a1199723627800bc0c86151aa0ff3"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#abf1a1199723627800bc0c86151aa0ff3" class="m-doc-self">ld_mod_entry_attrs</a>(</span><span class="m-doc-wrap"><a href="connection_8h.html#aee5bc18c3dd6ebf54740b4bb4284db84" class="m-doc">LDHandle</a>* handle,
+              const char* name,
+              const char* parent,
+              const char* prefix,
+              <a href="domain_8h.html#a133ec15039a9fdf8b0f9f5d7e25d1742" class="m-doc">LDAPAttribute_<wbr />t</a>** entry_attrs,
+              int opcode)</span></span>
+            </h3>
+            <p>ld_mod_entry_attrs Modifies list of attributes using supplied operation.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">handle&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Pointer to libdomain session handle.</td>
+                </tr>
+                <tr>
+                  <td>name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Name of the entry.</td>
+                </tr>
+                <tr>
+                  <td>parent&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Parent container that holds the entry.</td>
+                </tr>
+                <tr>
+                  <td>prefix&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Prefix of the entry.</td>
+                </tr>
+                <tr>
+                  <td>entry_attrs&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>List of the attributes to modify.</td>
+                </tr>
+                <tr>
+                  <td>opcode&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Code of operation e.g. LDAP_MOD_REPLACE.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

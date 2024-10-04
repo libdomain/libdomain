@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="entry__p_8h" kind="file" language="C++">
+    <compoundname>entry_p.h</compoundname>
+    <includes local="no">glib-2.0/glib.h</includes>
+    <includedby refid="entry_8c" local="yes">src/entry.c</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>glib-2.0/glib.h</label>
+      </node>
+      <node id="1">
+        <label>src/entry_p.h</label>
+        <link refid="entry__p_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/entry.c</label>
+        <link refid="entry_8c"/>
+      </node>
+      <node id="1">
+        <label>src/entry_p.h</label>
+        <link refid="entry__p_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structld__entry__s" prot="public">ld_entry_s</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="entry__p_8h_1a2ccd81bd4e99cd2355b31175ac3d766d" prot="public" static="no">
+        <type>struct <ref refid="structld__entry__s" kindref="compound">ld_entry_s</ref></type>
+        <definition>typedef struct ld_entry_s ld_entry_t</definition>
+        <argsstring></argsstring>
+        <name>ld_entry_t</name>
+        <briefdescription>
+<para>ld_entry_t - Structure holds LDAP entry information. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry_p.h" line="32" column="12"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="entry__p_8h_1a88467f71ba67b69dbcde0834b6dad0db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void connection_remove_search_request</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection, int index)</argsstring>
+        <name>connection_remove_search_request</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+<para>remove_search_request Removes search request from connection by index. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to remove request from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index to remove. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry_p.h" line="34" column="6" bodyfile="src/entry.c" bodystart="247" bodyend="264" declfile="src/entry_p.h" declline="34" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/entry_p.h"/>
+  </compounddef>
+</doxygen>

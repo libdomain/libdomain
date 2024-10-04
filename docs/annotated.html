@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html" id="m-navbar-current">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>Classes</h1>
+        <ul class="m-doc">
+          <li>struct <a href="structcsm__state__value__t.html" class="m-doc">csm_state_value_t</a> <span class="m-doc"><span></span></span></li>
+          <li>struct <a href="structld__config__s.html" class="m-doc">ld_config_s</a> <span class="m-doc"><span></span></span></li>
+          <li>struct <a href="structld__entry__s.html" class="m-doc">ld_entry_s</a> <span class="m-doc">ld_entry_t - Structure holds LDAP entry information.</span></li>
+          <li>struct <a href="structldap__connection__config__t.html" class="m-doc">ldap_connection_config_t</a> <span class="m-doc"><span></span></span></li>
+          <li>struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_connection_ctx_t</a> <span class="m-doc"><span></span></span></li>
+          <li>struct <a href="structldap__global__context__t.html" class="m-doc">ldap_global_context_t</a> <span class="m-doc"><a href="structldap__global__context__t.html" class="m-doc">ldap_<wbr />global_<wbr />context_<wbr />t</a> - One of the contexts associated with LDHandle.</span></li>
+          <li>struct <a href="structldap__request__t.html" class="m-doc">ldap_request_t</a> <span class="m-doc"><span></span></span></li>
+          <li>struct <a href="structldap__sasl__defaults__t.html" class="m-doc">ldap_sasl_defaults_t</a> <span class="m-doc"><span></span></span></li>
+          <li>struct <a href="structldap__sasl__options__t.html" class="m-doc">ldap_sasl_options_t</a> <span class="m-doc"><span></span></span></li>
+          <li>struct <a href="structldap__sasl__params__t.html" class="m-doc">ldap_sasl_params_t</a> <span class="m-doc"><span></span></span></li>
+          <li>struct <a href="structldap__schema__t.html" class="m-doc">ldap_schema_t</a> <span class="m-doc">The <a href="structldap__schema__t.html" class="m-doc">ldap_<wbr />schema_<wbr />t</a> struct - Represents LDAP schema.</span></li>
+          <li>struct <a href="structldap__search__request__t.html" class="m-doc">ldap_search_request_t</a> <span class="m-doc"><span></span></span></li>
+          <li>struct <a href="struct_l_d_a_p_attribute__s.html" class="m-doc">LDAPAttribute_s</a> <span class="m-doc">LDAPAttribute_t Structure represents LDAP attribute.</span></li>
+          <li>struct <a href="structldhandle.html" class="m-doc">ldhandle</a> <span class="m-doc"><span></span></span></li>
+          <li>struct <a href="structoption__value__t.html" class="m-doc">option_value_t</a> <span class="m-doc"><span></span></span></li>
+          <li>struct <a href="struct_queue___node__s.html" class="m-doc">Queue_Node_s</a> <span class="m-doc"><a href="struct_queue___node__s.html" class="m-doc">Queue_<wbr />Node_<wbr />s</a> - A queue node.</span></li>
+          <li>struct <a href="structrequest__queue.html" class="m-doc">request_queue</a> <span class="m-doc"><span></span></span></li>
+          <li>struct <a href="structstate__machine__ctx__t.html" class="m-doc">state_machine_ctx_t</a> <span class="m-doc"><a href="structstate__machine__ctx__t.html" class="m-doc">state_<wbr />machine_<wbr />ctx_<wbr />t</a> - Struct represents connection state machine.</span></li>
+        </ul>
+        <script>
+        function toggle(e) {
+            e.parentElement.className = e.parentElement.className == 'm-doc-collapsible' ?
+                'm-doc-expansible' : 'm-doc-collapsible';
+            return false;
+        }
+        /* Collapse all nodes marked as such. Doing it via JS instead of
+           directly in markup so disabling it doesn't harm usability. The list
+           is somehow regenerated on every iteration and shrinks as I change
+           the classes. It's not documented anywhere and I'm not sure if this
+           is the same across browsers, so I am going backwards in that list to
+           be sure. */
+        var collapsed = document.getElementsByClassName("collapsed");
+        for(var i = collapsed.length - 1; i >= 0; --i)
+            collapsed[i].className = 'm-doc-expansible';
+        </script>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

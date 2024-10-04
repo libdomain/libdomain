@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structrequest__queue" kind="struct" language="C++" prot="public">
+    <compoundname>request_queue</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrequest__queue_1a65fd018070b59247e4a1ee6f5b4ae20b" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_queue___node__s" kindref="compound">Queue_Node_s</ref> *</type>
+        <definition>struct Queue_Node_s* request_queue::head</definition>
+        <argsstring></argsstring>
+        <name>head</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/request_queue.c" line="26" column="24" bodyfile="src/request_queue.c" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrequest__queue_1a9140aca594ec9c4599c454b8681c9279" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_queue___node__s" kindref="compound">Queue_Node_s</ref> *</type>
+        <definition>struct Queue_Node_s* request_queue::tail</definition>
+        <argsstring></argsstring>
+        <name>tail</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/request_queue.c" line="27" column="24" bodyfile="src/request_queue.c" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrequest__queue_1a948a9cd107a210a57a9005f3413193de" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int request_queue::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/request_queue.c" line="28" column="9" bodyfile="src/request_queue.c" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrequest__queue_1a582c6620f6dd8ec3a1dbd0f81513e938" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int request_queue::capacity</definition>
+        <argsstring></argsstring>
+        <name>capacity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/request_queue.c" line="29" column="9" bodyfile="src/request_queue.c" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>Queue_Node_s</label>
+        <link refid="struct_queue___node__s"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>prev</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>request_queue</label>
+        <link refid="structrequest__queue"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>head</edgelabel>
+          <edgelabel>tail</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/request_queue.c" line="24" column="1" bodyfile="src/request_queue.c" bodystart="25" bodyend="30"/>
+    <listofallmembers>
+      <member refid="structrequest__queue_1a582c6620f6dd8ec3a1dbd0f81513e938" prot="public" virt="non-virtual"><scope>request_queue</scope><name>capacity</name></member>
+      <member refid="structrequest__queue_1a65fd018070b59247e4a1ee6f5b4ae20b" prot="public" virt="non-virtual"><scope>request_queue</scope><name>head</name></member>
+      <member refid="structrequest__queue_1a948a9cd107a210a57a9005f3413193de" prot="public" virt="non-virtual"><scope>request_queue</scope><name>size</name></member>
+      <member refid="structrequest__queue_1a9140aca594ec9c4599c454b8681c9279" prot="public" virt="non-virtual"><scope>request_queue</scope><name>tail</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,380 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="connection__state__machine_8h" kind="file" language="C++">
+    <compoundname>connection_state_machine.h</compoundname>
+    <includes refid="connection_8h" local="yes">connection.h</includes>
+    <includedby refid="connection_8c" local="yes">src/connection.c</includedby>
+    <includedby refid="connection__state__machine_8c" local="yes">src/connection_state_machine.c</includedby>
+    <includedby refid="domain_8c" local="yes">src/domain.c</includedby>
+    <incdepgraph>
+      <node id="4">
+        <label>stdbool.h</label>
+      </node>
+      <node id="3">
+        <label>ldap.h</label>
+      </node>
+      <node id="5">
+        <label>verto.h</label>
+      </node>
+      <node id="7">
+        <label>talloc.h</label>
+      </node>
+      <node id="6">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>request_queue.h</label>
+        <link refid="request__queue_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/connection_state_machine.h</label>
+        <link refid="connection__state__machine_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>connection.h</label>
+        <link refid="connection_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4">
+        <label>src/domain.c</label>
+        <link refid="domain_8c"/>
+      </node>
+      <node id="3">
+        <label>src/connection_state_machine.c</label>
+        <link refid="connection__state__machine_8c"/>
+      </node>
+      <node id="1">
+        <label>src/connection_state_machine.h</label>
+        <link refid="connection__state__machine_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/connection.c</label>
+        <link refid="connection_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structstate__machine__ctx__t" prot="public">state_machine_ctx_t</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="connection__state__machine_8h_1aaa58f89d042671d6523b67f2a8310b1c" prot="public" static="no" strong="no">
+        <type></type>
+        <name>LdapConnectionState</name>
+        <enumvalue id="connection__state__machine_8h_1aaa58f89d042671d6523b67f2a8310b1cabd2d9b377dfbaeceeffa44d1c2bf001d" prot="public">
+          <name>LDAP_CONNECTION_STATE_INIT</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Initial state of the LDAP connection. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="connection__state__machine_8h_1aaa58f89d042671d6523b67f2a8310b1ca8a9ab046076d6b160bfda4b5889d8d7c" prot="public">
+          <name>LDAP_CONNECTION_STATE_TLS_NEGOTIATION</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>The connection is in the process of negotiating TLS encryption. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="connection__state__machine_8h_1aaa58f89d042671d6523b67f2a8310b1ca677eb1388b12a255b7cc3e1be75bf379" prot="public">
+          <name>LDAP_CONNECTION_STATE_TRANSPORT_READY</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>The underlying transport layer is ready for communication. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="connection__state__machine_8h_1aaa58f89d042671d6523b67f2a8310b1cab970e1d0611ffc209bbcadb7ad34adfa" prot="public">
+          <name>LDAP_CONNECTION_STATE_BIND_IN_PROGRESS</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>The connection is in the process of binding. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="connection__state__machine_8h_1aaa58f89d042671d6523b67f2a8310b1ca38f196df59f3742de7dac19e79baaa9d" prot="public">
+          <name>LDAP_CONNECTION_STATE_BOUND</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+<para>The connection has successfully performed LDAP bound. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="connection__state__machine_8h_1aaa58f89d042671d6523b67f2a8310b1ca5868636cc8400842c8b780959c5f780a" prot="public">
+          <name>LDAP_CONNECTION_STATE_DETECT_DIRECTORY</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+<para>The connection is in the process of detecting type of the LDAP directory service. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="connection__state__machine_8h_1aaa58f89d042671d6523b67f2a8310b1ca21b129512c26c42a78930885fcb30ef1" prot="public">
+          <name>LDAP_CONNECTION_STATE_RUN</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+<para>The LDAP connection is active and ready for operations. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="connection__state__machine_8h_1aaa58f89d042671d6523b67f2a8310b1ca199af26e720854d8ff49745fcf7043f5" prot="public">
+          <name>LDAP_CONNECTION_STATE_ERROR</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+<para>The LDAP connection is in an error state. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="connection__state__machine_8h_1aaa58f89d042671d6523b67f2a8310b1caac6d490849c5ac32b5ae6e504791b76b" prot="public">
+          <name>LDAP_CONNECTION_STATE_REQUEST_SCHEMA</name>
+          <initializer>= 9</initializer>
+          <briefdescription>
+<para>The LDAP connection is in the process of loading schema. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="connection__state__machine_8h_1aaa58f89d042671d6523b67f2a8310b1ca152301dbe3a384a7cee1c16f8deaa9e8" prot="public">
+          <name>LDAP_CONNECTION_STATE_CHECK_SCHEMA</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+<para>The LDAP connection is in the process of checking schema readiness. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection_state_machine.h" line="25" column="1" bodyfile="src/connection_state_machine.h" bodystart="26" bodyend="37"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="connection__state__machine_8h_1a4cbfd08ee0c9ab259f7e3f0d8fcd4569" prot="public" static="no">
+        <type>struct <ref refid="structstate__machine__ctx__t" kindref="compound">state_machine_ctx_t</ref></type>
+        <definition>typedef struct state_machine_ctx_t state_machine_ctx_t</definition>
+        <argsstring></argsstring>
+        <name>state_machine_ctx_t</name>
+        <briefdescription>
+<para><ref refid="structstate__machine__ctx__t" kindref="compound">state_machine_ctx_t</ref> - Struct represents connection state machine. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection_state_machine.h" line="46" column="21"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="connection__state__machine_8h_1a13b43041e4136b7f24c03496698245f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode csm_init</definition>
+        <argsstring>(struct state_machine_ctx_t *ctx, struct ldap_connection_ctx_t *connection)</argsstring>
+        <name>csm_init</name>
+        <param>
+          <type>struct <ref refid="structstate__machine__ctx__t" kindref="compound">state_machine_ctx_t</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <briefdescription>
+<para>csm_init Initializes state machine, sets machine state to LDAP_CONNECTION_STATE_INIT. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>state machine to initialize </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>connection to use </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>RETURN_CODE_SUCCESS. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection_state_machine.h" line="1" column="0" bodyfile="src/connection_state_machine.c" bodystart="71" bodyend="77" declfile="src/connection_state_machine.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="connection__state__machine_8h_1ac4b4e9a455c957219a565f1d4780fb22" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode csm_next_state</definition>
+        <argsstring>(struct state_machine_ctx_t *ctx)</argsstring>
+        <name>csm_next_state</name>
+        <param>
+          <type>struct <ref refid="structstate__machine__ctx__t" kindref="compound">state_machine_ctx_t</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>csm_next_state Advances state based on a current machine state. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>state machine to use </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_OPERATION_IN_PROGRESS is operation is still running.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection_state_machine.h" line="1" column="0" bodyfile="src/connection_state_machine.c" bodystart="87" bodyend="205" declfile="src/connection_state_machine.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="connection__state__machine_8h_1a58502c0e4c771c97c3e748e9b1e8dab5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode csm_set_state</definition>
+        <argsstring>(struct state_machine_ctx_t *ctx, enum LdapConnectionState state)</argsstring>
+        <name>csm_set_state</name>
+        <param>
+          <type>struct <ref refid="structstate__machine__ctx__t" kindref="compound">state_machine_ctx_t</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>enum <ref refid="connection__state__machine_8h_1aaa58f89d042671d6523b67f2a8310b1c" kindref="member">LdapConnectionState</ref></type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+<para>csm_set_state Sets new state, prints transition between states. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>state machine to use </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">state</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>state to set </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>RETURN_CODE_SUCCESS. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection_state_machine.h" line="1" column="0" bodyfile="src/connection_state_machine.c" bodystart="213" bodyend="220" declfile="src/connection_state_machine.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="connection__state__machine_8h_1a8113576bd857e45ca1e638eba39f8758" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool csm_is_in_state</definition>
+        <argsstring>(struct state_machine_ctx_t *ctx, enum LdapConnectionState state)</argsstring>
+        <name>csm_is_in_state</name>
+        <param>
+          <type>struct <ref refid="structstate__machine__ctx__t" kindref="compound">state_machine_ctx_t</ref> *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>enum <ref refid="connection__state__machine_8h_1aaa58f89d042671d6523b67f2a8310b1c" kindref="member">LdapConnectionState</ref></type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+<para>csm_is_in_state Checks if state macheine is in desired state. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>state machine to use </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">state</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>state to set </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>true - if machine current state matches <itemizedlist>
+<listitem><para>{state}</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem><listitem><para>false - if not </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection_state_machine.h" line="51" column="6" bodyfile="src/connection_state_machine.c" bodystart="230" bodyend="233" declfile="src/connection_state_machine.h" declline="51" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/connection_state_machine.h"/>
+  </compounddef>
+</doxygen>

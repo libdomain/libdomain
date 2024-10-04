@@ -1,0 +1,611 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="domain__p_8h" kind="file" language="C++">
+    <compoundname>domain_p.h</compoundname>
+    <includes local="no">stdbool.h</includes>
+    <includes refid="helper__p_8h" local="yes">helper_p.h</includes>
+    <includedby refid="attribute_8c" local="yes">src/attribute.c</includedby>
+    <includedby refid="computer_8c" local="yes">src/computer.c</includedby>
+    <includedby refid="connection__state__machine_8c" local="yes">src/connection_state_machine.c</includedby>
+    <includedby refid="domain_8c" local="yes">src/domain.c</includedby>
+    <includedby refid="entry_8c" local="yes">src/entry.c</includedby>
+    <includedby refid="group_8c" local="yes">src/group.c</includedby>
+    <includedby refid="organizational__unit_8c" local="yes">src/organizational_unit.c</includedby>
+    <includedby refid="user_8c" local="yes">src/user.c</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>stdbool.h</label>
+      </node>
+      <node id="1">
+        <label>src/domain_p.h</label>
+        <link refid="domain__p_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>helper_p.h</label>
+        <link refid="helper__p_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>ldap.h</label>
+      </node>
+      <node id="4">
+        <label>talloc.h</label>
+      </node>
+      <node id="5">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6">
+        <label>src/entry.c</label>
+        <link refid="entry_8c"/>
+      </node>
+      <node id="1">
+        <label>src/domain_p.h</label>
+        <link refid="domain__p_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src/computer.c</label>
+        <link refid="computer_8c"/>
+      </node>
+      <node id="8">
+        <label>src/organizational_unit.c</label>
+        <link refid="organizational__unit_8c"/>
+      </node>
+      <node id="7">
+        <label>src/group.c</label>
+        <link refid="group_8c"/>
+      </node>
+      <node id="2">
+        <label>src/attribute.c</label>
+        <link refid="attribute_8c"/>
+      </node>
+      <node id="5">
+        <label>src/domain.c</label>
+        <link refid="domain_8c"/>
+      </node>
+      <node id="4">
+        <label>src/connection_state_machine.c</label>
+        <link refid="connection__state__machine_8c"/>
+      </node>
+      <node id="9">
+        <label>src/user.c</label>
+        <link refid="user_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structld__config__s" prot="public">ld_config_s</innerclass>
+    <innerclass refid="structldhandle" prot="public">ldhandle</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="domain__p_8h_1a507c1b9f6a4484cdc21b5dc2a5e7d944" prot="public" static="no">
+        <name>check_handle</name>
+        <param><defname>handle</defname></param>
+        <param><defname>function_name</defname></param>
+        <initializer>    if (!handle) \
+    { \
+        <ref refid="common_8h_1a510c422451a8060e367f6d8a5e669b44" kindref="member">ld_error</ref>(&quot;Handle is null - %s \n&quot;, function_name); \
+        return <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121da28f779e3c5700dc480d02d96ea9e8f72" kindref="member">RETURN_CODE_FAILURE</ref>; \
+    }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="57" column="9" bodyfile="src/domain_p.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="domain__p_8h_1adf70372f08fecbad757983d106760afd" prot="public" static="no">
+        <name>check_string</name>
+        <param><defname>input</defname></param>
+        <param><defname>output</defname></param>
+        <param><defname>function_name</defname></param>
+        <initializer>    if (!input || strlen(input) == 0) \
+    { \
+        <ref refid="common_8h_1a510c422451a8060e367f6d8a5e669b44" kindref="member">ld_error</ref>(&quot;Empty string in function - %s \n&quot;, function_name); \
+        return <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121da28f779e3c5700dc480d02d96ea9e8f72" kindref="member">RETURN_CODE_FAILURE</ref>; \
+    } \
+    else \
+    { \
+        output = input; \
+    }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="64" column="9" bodyfile="src/domain_p.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="domain__p_8h_1a1e7bf1934bbd2b9d1e0dcefcc30f860d" prot="public" static="no">
+        <name>check_and_assign_attribute</name>
+        <param><defname>error_handler</defname></param>
+        <param><defname>attrs</defname></param>
+        <param><defname>value</defname></param>
+        <param><defname>index</defname></param>
+        <param><defname>talloc_ctx</defname></param>
+        <initializer>    if (value &amp;&amp; strlen(value) &gt; 0) \
+    { \
+        <ref refid="helper__p_8h_1acae196fe37decab6dfc216ebebb35a10" kindref="member">ld_talloc_array</ref>(attrs[index]-&gt;values, error_handler, talloc_ctx, char *, 2); \
+        <ref refid="helper__p_8h_1a7baeb5f0f94c7cefa5876bfa60b93bf7" kindref="member">ld_talloc_strndup</ref>(attrs[index]-&gt;values[0], error_handler, talloc_ctx, value, strlen(value)); \
+        attrs[index]-&gt;values[1] = NULL; \
+    }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="75" column="9" bodyfile="src/domain_p.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="domain__p_8h_1a39784904a5576d0e7510c0dd7c4511f7" prot="public" static="no">
+        <type>struct <ref refid="structld__config__s" kindref="compound">ld_config_s</ref></type>
+        <definition>typedef struct ld_config_s ld_config_t</definition>
+        <argsstring></argsstring>
+        <name>ld_config_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="46" column="13"/>
+      </memberdef>
+      <memberdef kind="typedef" id="domain__p_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" prot="public" static="no">
+        <type>struct <ref refid="structldhandle" kindref="compound">ldhandle</ref></type>
+        <definition>typedef struct ldhandle LDHandle</definition>
+        <argsstring></argsstring>
+        <name>LDHandle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="55" column="10"/>
+      </memberdef>
+      <memberdef kind="typedef" id="domain__p_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" prot="public" static="no">
+        <type>struct <ref refid="struct_l_d_a_p_attribute__s" kindref="compound">LDAPAttribute_s</ref></type>
+        <definition>typedef struct LDAPAttribute_s LDAPAttribute_t</definition>
+        <argsstring></argsstring>
+        <name>LDAPAttribute_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="1" column="0" bodyfile="src/domain_p.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="domain__p_8h_1ac5880d842d821bd395fe491ef5e0301c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_add_entry</definition>
+        <argsstring>(LDHandle *handle, const char *name, const char *parent, const char *prefix, LDAPAttribute_t **entry_attrs)</argsstring>
+        <name>ld_add_entry</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>prefix</declname>
+        </param>
+        <param>
+          <type><ref refid="domain_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" kindref="member">LDAPAttribute_t</ref> **</type>
+          <declname>entry_attrs</declname>
+        </param>
+        <briefdescription>
+<para>ld_add_entry Creates the entry. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container that holds the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">entry_attrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of the attributes to create entry with. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="1" column="0" bodyfile="src/domain.c" bodystart="603" bodyend="640" declfile="src/domain_p.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="domain__p_8h_1a98503ce1e889b53e3c5e804afc3cabe6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_del_entry</definition>
+        <argsstring>(LDHandle *handle, const char *name, const char *parent, const char *prefix)</argsstring>
+        <name>ld_del_entry</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>prefix</declname>
+        </param>
+        <briefdescription>
+<para>ld_del_entry Deletes entry. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container that holds the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">prefix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Prefix of the entry. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="1" column="0" bodyfile="src/domain.c" bodystart="652" bodyend="684" declfile="src/domain_p.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="domain__p_8h_1a7537183d743e55e8b055d2db8de068bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_mod_entry</definition>
+        <argsstring>(LDHandle *handle, const char *name, const char *parent, const char *prefix, LDAPAttribute_t **entry_attrs)</argsstring>
+        <name>ld_mod_entry</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>prefix</declname>
+        </param>
+        <param>
+          <type><ref refid="domain_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" kindref="member">LDAPAttribute_t</ref> **</type>
+          <declname>entry_attrs</declname>
+        </param>
+        <briefdescription>
+<para>ld_mod_entry Modifies the entry. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container that holds the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">entry_attrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of the attributes to modify. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="1" column="0" bodyfile="src/domain.c" bodystart="696" bodyend="733" declfile="src/domain_p.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="domain__p_8h_1a714b3eca566ef227c0542b47de8d0f80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_rename_entry</definition>
+        <argsstring>(LDHandle *handle, const char *old_name, const char *new_name, const char *parent, const char *prefix)</argsstring>
+        <name>ld_rename_entry</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>old_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>new_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>prefix</declname>
+        </param>
+        <briefdescription>
+<para>ld_rename_entry Renames the entry. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">old_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Old name of the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">new_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New name of the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container that holds the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">prefix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Prefix for entry type. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="1" column="0" bodyfile="src/domain.c" bodystart="746" bodyend="784" declfile="src/domain_p.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="domain__p_8h_1abf1a1199723627800bc0c86151aa0ff3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode ld_mod_entry_attrs</definition>
+        <argsstring>(LDHandle *handle, const char *name, const char *parent, const char *prefix, LDAPAttribute_t **entry_attrs, int opcode)</argsstring>
+        <name>ld_mod_entry_attrs</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>parent</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>prefix</declname>
+        </param>
+        <param>
+          <type><ref refid="domain_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" kindref="member">LDAPAttribute_t</ref> **</type>
+          <declname>entry_attrs</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>opcode</declname>
+        </param>
+        <briefdescription>
+<para>ld_mod_entry_attrs Modifies list of attributes using supplied operation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">parent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Parent container that holds the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">prefix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Prefix of the entry. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">entry_attrs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of the attributes to modify. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">opcode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Code of operation e.g. LDAP_MOD_REPLACE. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="1" column="0" bodyfile="src/domain.c" bodystart="820" bodyend="864" declfile="src/domain_p.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/domain_p.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structldap__sasl__params__t" kind="struct" language="C++" prot="public">
+    <compoundname>ldap_sasl_params_t</compoundname>
+    <includes refid="connection_8h" local="no">connection.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structldap__sasl__params__t_1a82f8550134fad0e4bbdc941e729540cd" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ldap_sasl_params_t::dn</definition>
+        <argsstring></argsstring>
+        <name>dn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="66" column="10" bodyfile="src/connection.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__sasl__params__t_1a9b907ea8f1c5ac1b21f5f987b227a269" prot="public" static="no" mutable="no">
+        <type>struct berval *</type>
+        <definition>struct berval* ldap_sasl_params_t::passwd</definition>
+        <argsstring></argsstring>
+        <name>passwd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="67" column="17" bodyfile="src/connection.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__sasl__params__t_1a30ead2a9114f38da76313613f302bc16" prot="public" static="no" mutable="no">
+        <type>LDAPControl **</type>
+        <definition>LDAPControl** ldap_sasl_params_t::serverctrls</definition>
+        <argsstring></argsstring>
+        <name>serverctrls</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="68" column="17" bodyfile="src/connection.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__sasl__params__t_1acd2616d9fb2ae9d476fbd7071c984c16" prot="public" static="no" mutable="no">
+        <type>LDAPControl **</type>
+        <definition>LDAPControl** ldap_sasl_params_t::clientctrls</definition>
+        <argsstring></argsstring>
+        <name>clientctrls</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.h" line="69" column="17" bodyfile="src/connection.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/connection.h" line="64" column="1" bodyfile="src/connection.h" bodystart="65" bodyend="70"/>
+    <listofallmembers>
+      <member refid="structldap__sasl__params__t_1acd2616d9fb2ae9d476fbd7071c984c16" prot="public" virt="non-virtual"><scope>ldap_sasl_params_t</scope><name>clientctrls</name></member>
+      <member refid="structldap__sasl__params__t_1a82f8550134fad0e4bbdc941e729540cd" prot="public" virt="non-virtual"><scope>ldap_sasl_params_t</scope><name>dn</name></member>
+      <member refid="structldap__sasl__params__t_1a9b907ea8f1c5ac1b21f5f987b227a269" prot="public" virt="non-virtual"><scope>ldap_sasl_params_t</scope><name>passwd</name></member>
+      <member refid="structldap__sasl__params__t_1a30ead2a9114f38da76313613f302bc16" prot="public" virt="non-virtual"><scope>ldap_sasl_params_t</scope><name>serverctrls</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

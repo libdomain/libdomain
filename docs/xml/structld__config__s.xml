@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structld__config__s" kind="struct" language="C++" prot="public">
+    <compoundname>ld_config_s</compoundname>
+    <includes refid="domain__p_8h" local="no">domain_p.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structld__config__s_1aeafc055088a4f46e5a47dcd7caaca0ee" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ld_config_s::host</definition>
+        <argsstring></argsstring>
+        <name>host</name>
+        <briefdescription>
+<para>LDAP server to connect to. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="29" column="10" bodyfile="src/domain_p.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structld__config__s_1abdda9f4f90277c342e00e6d7a2153f23" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ld_config_s::protocol_version</definition>
+        <argsstring></argsstring>
+        <name>protocol_version</name>
+        <briefdescription>
+<para>LDAP protocol version we require from server. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="30" column="9" bodyfile="src/domain_p.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structld__config__s_1a5898c403e3eb313b4c69c2650a6e11de" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ld_config_s::base_dn</definition>
+        <argsstring></argsstring>
+        <name>base_dn</name>
+        <briefdescription>
+<para>Base dn to bind with. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="32" column="10" bodyfile="src/domain_p.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structld__config__s_1ad699ca09527f07ab2499836d96fd0af2" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ld_config_s::username</definition>
+        <argsstring></argsstring>
+        <name>username</name>
+        <briefdescription>
+<para>Name of the user we connect as. Can be NULL. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="33" column="10" bodyfile="src/domain_p.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structld__config__s_1a6b9a25f2c6df50b2fcc553890c094eea" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ld_config_s::password</definition>
+        <argsstring></argsstring>
+        <name>password</name>
+        <briefdescription>
+<para>Password for the said user. Can be NULL. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="34" column="10" bodyfile="src/domain_p.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structld__config__s_1ab54fccd556062547b502b41e1e3676f3" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ld_config_s::simple_bind</definition>
+        <argsstring></argsstring>
+        <name>simple_bind</name>
+        <briefdescription>
+<para>We can use two type of bind simple and interactive. Use true for simple and false otherwise. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="36" column="10" bodyfile="src/domain_p.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structld__config__s_1af96140cac1311b8862e0e5a9a094743f" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ld_config_s::use_tls</definition>
+        <argsstring></argsstring>
+        <name>use_tls</name>
+        <briefdescription>
+<para>If we need to establish a TLS or SSL connection. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="37" column="10" bodyfile="src/domain_p.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structld__config__s_1ac0df8154560aef654e4650e9be44bb38" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ld_config_s::use_sasl</definition>
+        <argsstring></argsstring>
+        <name>use_sasl</name>
+        <briefdescription>
+<para>If we use SASL protocol. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="38" column="10" bodyfile="src/domain_p.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structld__config__s_1ad118fed9a7e1c1c449535be88df399a9" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ld_config_s::use_anon</definition>
+        <argsstring></argsstring>
+        <name>use_anon</name>
+        <briefdescription>
+<para>If we are going to perform &quot;anonymous bind&quot;. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="39" column="10" bodyfile="src/domain_p.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structld__config__s_1a295edc1d744a693217a114dc419270d2" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ld_config_s::timeout</definition>
+        <argsstring></argsstring>
+        <name>timeout</name>
+        <briefdescription>
+<para>Operation timeout. Once we reach specified limit current operation fails. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="41" column="9" bodyfile="src/domain_p.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structld__config__s_1ac8354484dbc9f46fa2c85e2e27cc431f" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ld_config_s::cacertfile</definition>
+        <argsstring></argsstring>
+        <name>cacertfile</name>
+        <briefdescription>
+<para>Defines the complete path to a CA certificate, which is utilized for validating the server&apos;s presented certificate. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="43" column="10" bodyfile="src/domain_p.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structld__config__s_1a55688799c9943bd8d7393b750dba002e" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ld_config_s::certfile</definition>
+        <argsstring></argsstring>
+        <name>certfile</name>
+        <briefdescription>
+<para>Client certificate file path. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="44" column="10" bodyfile="src/domain_p.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structld__config__s_1a30f1b10682c63cdaf382c8ea247f06d5" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ld_config_s::keyfile</definition>
+        <argsstring></argsstring>
+        <name>keyfile</name>
+        <briefdescription>
+<para>Private key file associated with client certificate. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain_p.h" line="45" column="10" bodyfile="src/domain_p.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/domain_p.h" line="27" column="1" bodyfile="src/domain_p.h" bodystart="28" bodyend="46"/>
+    <listofallmembers>
+      <member refid="structld__config__s_1a5898c403e3eb313b4c69c2650a6e11de" prot="public" virt="non-virtual"><scope>ld_config_s</scope><name>base_dn</name></member>
+      <member refid="structld__config__s_1ac8354484dbc9f46fa2c85e2e27cc431f" prot="public" virt="non-virtual"><scope>ld_config_s</scope><name>cacertfile</name></member>
+      <member refid="structld__config__s_1a55688799c9943bd8d7393b750dba002e" prot="public" virt="non-virtual"><scope>ld_config_s</scope><name>certfile</name></member>
+      <member refid="structld__config__s_1aeafc055088a4f46e5a47dcd7caaca0ee" prot="public" virt="non-virtual"><scope>ld_config_s</scope><name>host</name></member>
+      <member refid="structld__config__s_1a30f1b10682c63cdaf382c8ea247f06d5" prot="public" virt="non-virtual"><scope>ld_config_s</scope><name>keyfile</name></member>
+      <member refid="structld__config__s_1a6b9a25f2c6df50b2fcc553890c094eea" prot="public" virt="non-virtual"><scope>ld_config_s</scope><name>password</name></member>
+      <member refid="structld__config__s_1abdda9f4f90277c342e00e6d7a2153f23" prot="public" virt="non-virtual"><scope>ld_config_s</scope><name>protocol_version</name></member>
+      <member refid="structld__config__s_1ab54fccd556062547b502b41e1e3676f3" prot="public" virt="non-virtual"><scope>ld_config_s</scope><name>simple_bind</name></member>
+      <member refid="structld__config__s_1a295edc1d744a693217a114dc419270d2" prot="public" virt="non-virtual"><scope>ld_config_s</scope><name>timeout</name></member>
+      <member refid="structld__config__s_1ad118fed9a7e1c1c449535be88df399a9" prot="public" virt="non-virtual"><scope>ld_config_s</scope><name>use_anon</name></member>
+      <member refid="structld__config__s_1ac0df8154560aef654e4650e9be44bb38" prot="public" virt="non-virtual"><scope>ld_config_s</scope><name>use_sasl</name></member>
+      <member refid="structld__config__s_1af96140cac1311b8862e0e5a9a094743f" prot="public" virt="non-virtual"><scope>ld_config_s</scope><name>use_tls</name></member>
+      <member refid="structld__config__s_1ad699ca09527f07ab2499836d96fd0af2" prot="public" virt="non-virtual"><scope>ld_config_s</scope><name>username</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

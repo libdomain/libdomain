@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="ldap__parsers_8h" kind="file" language="C++">
+    <compoundname>ldap_parsers.h</compoundname>
+    <includes local="no">talloc.h</includes>
+    <includes local="no">ldap_schema.h</includes>
+    <includedby refid="ad__schema_8c" local="yes">src/ad_schema.c</includedby>
+    <includedby refid="ldap__parsers_8c" local="yes">src/ldap_parsers.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>src/ldap_parsers.h</label>
+        <link refid="ldap__parsers_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>talloc.h</label>
+      </node>
+      <node id="3">
+        <label>ldap_schema.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>src/ldap_parsers.c</label>
+        <link refid="ldap__parsers_8c"/>
+      </node>
+      <node id="1">
+        <label>src/ldap_parsers.h</label>
+        <link refid="ldap__parsers_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/ad_schema.c</label>
+        <link refid="ad__schema_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="ldap__parsers_8h_1a65504c314af295293678027ea06041ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LDAPAttributeType *</type>
+        <definition>LDAPAttributeType* parse_attribute_type</definition>
+        <argsstring>(TALLOC_CTX *talloc_ctx, const char *value)</argsstring>
+        <name>parse_attribute_type</name>
+        <param>
+          <type>TALLOC_CTX *</type>
+          <declname>talloc_ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_parsers.h" line="27" column="19" bodyfile="src/ldap_parsers.c" bodystart="31" bodyend="39" declfile="src/ldap_parsers.h" declline="27" declcolumn="19"/>
+      </memberdef>
+      <memberdef kind="function" id="ldap__parsers_8h_1a31e5f0024263cb22fa2df8f872969210" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LDAPObjectClass *</type>
+        <definition>LDAPObjectClass* parse_object_class</definition>
+        <argsstring>(TALLOC_CTX *talloc_ctx, const char *value)</argsstring>
+        <name>parse_object_class</name>
+        <param>
+          <type>TALLOC_CTX *</type>
+          <declname>talloc_ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/ldap_parsers.h" line="29" column="17" bodyfile="src/ldap_parsers.c" bodystart="41" bodyend="49" declfile="src/ldap_parsers.h" declline="29" declcolumn="17"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/ldap_parsers.h"/>
+  </compounddef>
+</doxygen>

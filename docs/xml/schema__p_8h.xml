@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="schema__p_8h" kind="file" language="C++">
+    <compoundname>schema_p.h</compoundname>
+    <includes refid="common_8h" local="yes">common.h</includes>
+    <includes refid="connection_8h" local="yes">connection.h</includes>
+    <includes local="no">stdbool.h</includes>
+    <includes local="no">glib-2.0/glib.h</includes>
+    <includes local="no">ldap.h</includes>
+    <includes local="no">ldap_schema.h</includes>
+    <includedby refid="ad__schema_8c" local="yes">src/ad_schema.c</includedby>
+    <includedby refid="openldap__schema_8c" local="yes">src/openldap_schema.c</includedby>
+    <includedby refid="schema_8c" local="yes">src/schema.c</includedby>
+    <incdepgraph>
+      <node id="6">
+        <label>stdbool.h</label>
+      </node>
+      <node id="3">
+        <label>ldap.h</label>
+      </node>
+      <node id="7">
+        <label>verto.h</label>
+      </node>
+      <node id="4">
+        <label>talloc.h</label>
+      </node>
+      <node id="2">
+        <label>common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>glib-2.0/glib.h</label>
+      </node>
+      <node id="8">
+        <label>request_queue.h</label>
+        <link refid="request__queue_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>connection.h</label>
+        <link refid="connection_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>ldap_schema.h</label>
+      </node>
+      <node id="1">
+        <label>src/schema_p.h</label>
+        <link refid="schema__p_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4">
+        <label>src/schema.c</label>
+        <link refid="schema_8c"/>
+      </node>
+      <node id="3">
+        <label>src/openldap_schema.c</label>
+        <link refid="openldap__schema_8c"/>
+      </node>
+      <node id="2">
+        <label>src/ad_schema.c</label>
+        <link refid="ad__schema_8c"/>
+      </node>
+      <node id="1">
+        <label>src/schema_p.h</label>
+        <link refid="schema__p_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structldap__schema__t" prot="public">ldap_schema_t</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="schema__p_8h_1ac725027fd4d276ba2b3dadc1cf29965b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode schema_load_openldap</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection, struct ldap_schema_t *schema)</argsstring>
+        <name>schema_load_openldap</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref> *</type>
+          <declname>schema</declname>
+        </param>
+        <briefdescription>
+<para>schema_load_openldap Loads the schema of OpenLDAP directory type from the connection. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">schema</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Schema for loading data from connection. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema_p.h" line="1" column="0" bodyfile="src/openldap_schema.c" bodystart="265" bodyend="303" declfile="src/schema_p.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      <memberdef kind="function" id="schema__p_8h_1acc525df39666fb8b70e116bf269fc196" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref></type>
+        <definition>enum OperationReturnCode schema_load_active_directory</definition>
+        <argsstring>(struct ldap_connection_ctx_t *connection, struct ldap_schema_t *schema)</argsstring>
+        <name>schema_load_active_directory</name>
+        <param>
+          <type>struct <ref refid="structldap__connection__ctx__t" kindref="compound">ldap_connection_ctx_t</ref> *</type>
+          <declname>connection</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structldap__schema__t" kindref="compound">ldap_schema_t</ref> *</type>
+          <declname>schema</declname>
+        </param>
+        <briefdescription>
+<para>ldap_schema_load Loads the schema of OpenLDAP directory type from the connection. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Connection to work with. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">schema</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Schema for loading data from connection. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>RETURN_CODE_SUCCESS on success.</para>
+</listitem><listitem><para>RETURN_CODE_FAILURE on failure. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/schema_p.h" line="1" column="0" bodyfile="src/ad_schema.c" bodystart="264" bodyend="324" declfile="src/schema_p.h" declline="1" declcolumn="0"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/schema_p.h"/>
+  </compounddef>
+</doxygen>

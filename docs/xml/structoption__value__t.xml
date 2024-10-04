@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structoption__value__t" kind="struct" language="C++" prot="public">
+    <compoundname>option_value_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structoption__value__t_1a6b5d0d6b3c817ae17893ce06820d2aae" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int option_value_t::option</definition>
+        <argsstring></argsstring>
+        <name>option</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.c" line="42" column="9" bodyfile="src/connection.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structoption__value__t_1a25bdd070efb8508cc89e79f8d1b9b51f" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* option_value_t::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/connection.c" line="43" column="16" bodyfile="src/connection.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/connection.c" line="40" column="1" bodyfile="src/connection.c" bodystart="41" bodyend="44"/>
+    <listofallmembers>
+      <member refid="structoption__value__t_1a6b5d0d6b3c817ae17893ce06820d2aae" prot="public" virt="non-virtual"><scope>option_value_t</scope><name>option</name></member>
+      <member refid="structoption__value__t_1a25bdd070efb8508cc89e79f8d1b9b51f" prot="public" virt="non-virtual"><scope>option_value_t</scope><name>value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

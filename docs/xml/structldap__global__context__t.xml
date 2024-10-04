@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structldap__global__context__t" kind="struct" language="C++" prot="public">
+    <compoundname>ldap_global_context_t</compoundname>
+    <includes refid="common_8h" local="no">common.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structldap__global__context__t_1afbba62ed1b25b3cd6c9fd17bcc6b3b25" prot="public" static="no" mutable="no">
+        <type>LDAP *</type>
+        <definition>LDAP* ldap_global_context_t::global_ldap</definition>
+        <argsstring></argsstring>
+        <name>global_ldap</name>
+        <briefdescription>
+<para>Global ldap context for sharing between connections. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/common.h" line="41" column="10" bodyfile="src/common.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structldap__global__context__t_1a8c30153baedb5e328da476578fe4ca85" prot="public" static="no" mutable="no">
+        <type>TALLOC_CTX *</type>
+        <definition>TALLOC_CTX* ldap_global_context_t::talloc_ctx</definition>
+        <argsstring></argsstring>
+        <name>talloc_ctx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Pointer to valid TALLOC_CTX. We use this internally when we working with ldap entries. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/common.h" line="42" column="16" bodyfile="src/common.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="structldap__global__context__t" kindref="compound">ldap_global_context_t</ref> - One of the contexts associated with LDHandle. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="domain__p_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="src/common.h" line="39" column="1" bodyfile="src/common.h" bodystart="40" bodyend="44"/>
+    <listofallmembers>
+      <member refid="structldap__global__context__t_1afbba62ed1b25b3cd6c9fd17bcc6b3b25" prot="public" virt="non-virtual"><scope>ldap_global_context_t</scope><name>global_ldap</name></member>
+      <member refid="structldap__global__context__t_1a8c30153baedb5e328da476578fe4ca85" prot="public" virt="non-virtual"><scope>ldap_global_context_t</scope><name>talloc_ctx</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

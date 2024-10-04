@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>src/request_queue.c file | libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a>/</span>request_queue.c <span class="m-thin">file</span>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#nested-classes">Classes</a></li>
+                <li><a href="#func-members">Functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="nested-classes">
+          <h2><a href="#nested-classes">Classes</a></h2>
+          <dl class="m-doc">
+            <dt>
+              struct <a href="structrequest__queue.html" class="m-doc">request_queue</a>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="func-members">
+          <h2><a href="#func-members">Functions</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#aa07b494b074310db04cb264580f6149a" class="m-doc">request_queue_new</a>(</span><span class="m-doc-wrap">TALLOC_CTX* ctx,
+              unsigned int capacity) -&gt; <a href="structrequest__queue.html" class="m-doc">request_<wbr />queue</a>*</span>
+            </dt>
+            <dd>request_queue_new Creates new <a href="structrequest__queue.html" class="m-doc">request_<wbr />queue</a>.</dd>
+            <dt id="aa243611f18c2de6004f2c4b0c0390d23">
+              <span class="m-doc-wrap-bumper">auto <a href="#aa243611f18c2de6004f2c4b0c0390d23" class="m-doc-self">request_queue_push</a>(</span><span class="m-doc-wrap"><a href="structrequest__queue.html" class="m-doc">request_<wbr />queue</a>* queue,
+              struct <a href="struct_queue___node__s.html" class="m-doc">Queue_<wbr />Node_<wbr />s</a>* node) -&gt; enum <a href="request__queue_8h.html#a8f7856be04a699541786a20e5fe9f543" class="m-doc">RequestQueueErrorCode</a></span>
+            </dt>
+            <dd><span></span></dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a8173637b21f32ff31bc877708ec613ab" class="m-doc">request_queue_pop</a>(</span><span class="m-doc-wrap"><a href="structrequest__queue.html" class="m-doc">request_<wbr />queue</a>* queue) -&gt; struct <a href="struct_queue___node__s.html" class="m-doc">Queue_<wbr />Node_<wbr />s</a>*</span>
+            </dt>
+            <dd>request_queue_pop Get node from the top of queue and remove it.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a101d7cfa5a027709e0d881c44a057d5f" class="m-doc">request_queue_peek</a>(</span><span class="m-doc-wrap"><a href="structrequest__queue.html" class="m-doc">request_<wbr />queue</a>* queue) -&gt; struct <a href="struct_queue___node__s.html" class="m-doc">Queue_<wbr />Node_<wbr />s</a>*</span>
+            </dt>
+            <dd>request_queue_peek Get pointer to the head of queue.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a8854b68d0417efb7b7d825f6ec9bc6d2" class="m-doc">request_queue_empty</a>(</span><span class="m-doc-wrap"><a href="structrequest__queue.html" class="m-doc">request_<wbr />queue</a>* queue) -&gt; bool</span>
+            </dt>
+            <dd>request_queue_empty Returns true if queue is empty.</dd>
+            <dt id="a456c319e7e4e0655da78050e21f2be6e">
+              <span class="m-doc-wrap-bumper">auto <a href="#a456c319e7e4e0655da78050e21f2be6e" class="m-doc-self">request_queue_move</a>(</span><span class="m-doc-wrap"><a href="structrequest__queue.html" class="m-doc">request_<wbr />queue</a>* from,
+              <a href="structrequest__queue.html" class="m-doc">request_<wbr />queue</a>* to) -&gt; enum <a href="request__queue_8h.html#a8f7856be04a699541786a20e5fe9f543" class="m-doc">RequestQueueErrorCode</a></span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="aa07b494b074310db04cb264580f6149a"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper"><a href="structrequest__queue.html" class="m-doc">request_<wbr />queue</a>* </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aa07b494b074310db04cb264580f6149a" class="m-doc-self">request_queue_new</a>(</span><span class="m-doc-wrap">TALLOC_CTX* ctx,
+              unsigned int capacity)</span></span>
+            </h3>
+            <p>request_queue_new Creates new <a href="structrequest__queue.html" class="m-doc">request_<wbr />queue</a>.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">ctx&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Memory context to operate upon.</td>
+                </tr>
+                <tr>
+                  <td>capacity&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Maximum size of the queue.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>NULL on error.</li><li>Pointer to queue on success.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a8173637b21f32ff31bc877708ec613ab"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">struct <a href="struct_queue___node__s.html" class="m-doc">Queue_<wbr />Node_<wbr />s</a>* </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a8173637b21f32ff31bc877708ec613ab" class="m-doc-self">request_queue_pop</a>(</span><span class="m-doc-wrap"><a href="structrequest__queue.html" class="m-doc">request_<wbr />queue</a>* queue)</span></span>
+            </h3>
+            <p>request_queue_pop Get node from the top of queue and remove it.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">queue&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Current queue to receive element from.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>NULL on underflow.</li><li>Pointer to element on success.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a101d7cfa5a027709e0d881c44a057d5f"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">struct <a href="struct_queue___node__s.html" class="m-doc">Queue_<wbr />Node_<wbr />s</a>* </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a101d7cfa5a027709e0d881c44a057d5f" class="m-doc-self">request_queue_peek</a>(</span><span class="m-doc-wrap"><a href="structrequest__queue.html" class="m-doc">request_<wbr />queue</a>* queue)</span></span>
+            </h3>
+            <p>request_queue_peek Get pointer to the head of queue.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">queue&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Current queue to receive element from.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>NULL on underflow.</li><li>Pointer to element on success.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a8854b68d0417efb7b7d825f6ec9bc6d2"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">bool </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a8854b68d0417efb7b7d825f6ec9bc6d2" class="m-doc-self">request_queue_empty</a>(</span><span class="m-doc-wrap"><a href="structrequest__queue.html" class="m-doc">request_<wbr />queue</a>* queue)</span></span>
+            </h3>
+            <p>request_queue_empty Returns true if queue is empty.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">queue&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Current queue to operate upon.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>true if empty.</li><li>false if there are elements in queue.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

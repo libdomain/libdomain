@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>src/directory.c file | libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a>/</span>directory.c <span class="m-thin">file</span>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#func-members">Functions</a></li>
+                <li><a href="#var-members">Variables</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="func-members">
+          <h2><a href="#func-members">Functions</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a11fe05766960e4369a8f3a7d65bf298c" class="m-doc">directory_get_type</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>directory_get_type Request LDAP type from service.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a132b01abb7e679a61129f81a3e95e690" class="m-doc">directory_process_attribute</a>(</span><span class="m-doc-wrap">const char* attribute_name,
+              struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; bool</span>
+            </dt>
+            <dd>directory_process_attribute</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a68d7d2a751f67bf5f006a887c6f4c4ae" class="m-doc">directory_parse_result</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>directory_parse_result Parses results returned by directory_get_type.</dd>
+          </dl>
+        </section>
+        <section id="var-members">
+          <h2><a href="#var-members">Variables</a></h2>
+          <dl class="m-doc">
+            <dt id="a6200ee813053775b91477abc1f8dbff1">
+              static char* <a href="#a6200ee813053775b91477abc1f8dbff1" class="m-doc-self">LDAP_DIRECTORY_ATTRS</a>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a11fe05766960e4369a8f3a7d65bf298c"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a11fe05766960e4369a8f3a7d65bf298c" class="m-doc-self">directory_get_type</a>(</span><span class="m-doc-wrap">struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>directory_get_type Request LDAP type from service.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>connection to use</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a132b01abb7e679a61129f81a3e95e690"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">bool </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a132b01abb7e679a61129f81a3e95e690" class="m-doc-self">directory_process_attribute</a>(</span><span class="m-doc-wrap">const char* attribute_name,
+              struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>directory_process_attribute</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">attribute_name&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>true if directory type is recognized.</li><li>false if we have not detected directory type yet.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a68d7d2a751f67bf5f006a887c6f4c4ae"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a68d7d2a751f67bf5f006a887c6f4c4ae" class="m-doc-self">directory_parse_result</a>(</span><span class="m-doc-wrap">int rc,
+              LDAPMessage* message,
+              struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>directory_parse_result Parses results returned by directory_get_type.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">rc&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Return code of ldap_result.</td>
+                </tr>
+                <tr>
+                  <td>message&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Message received from ldap.</td>
+                </tr>
+                <tr>
+                  <td>connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>Connection to work with.</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

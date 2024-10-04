@@ -1,0 +1,647 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="domain_8h" kind="file" language="C++">
+    <compoundname>domain.h</compoundname>
+    <includes local="no">talloc.h</includes>
+    <includes local="no">stdbool.h</includes>
+    <includes local="no">verto.h</includes>
+    <includedby refid="ad__schema_8c" local="yes">src/ad_schema.c</includedby>
+    <includedby refid="attribute_8h" local="yes">src/attribute.h</includedby>
+    <includedby refid="computer_8h" local="yes">src/computer.h</includedby>
+    <includedby refid="connection__state__machine_8c" local="yes">src/connection_state_machine.c</includedby>
+    <includedby refid="domain_8c" local="yes">src/domain.c</includedby>
+    <includedby refid="entry_8c" local="yes">src/entry.c</includedby>
+    <includedby refid="group_8h" local="yes">src/group.h</includedby>
+    <includedby refid="openldap__schema_8c" local="yes">src/openldap_schema.c</includedby>
+    <includedby refid="organizational__unit_8h" local="yes">src/organizational_unit.h</includedby>
+    <includedby refid="user_8h" local="yes">src/user.h</includedby>
+    <incdepgraph>
+      <node id="3">
+        <label>stdbool.h</label>
+      </node>
+      <node id="4">
+        <label>verto.h</label>
+      </node>
+      <node id="2">
+        <label>talloc.h</label>
+      </node>
+      <node id="1">
+        <label>src/domain.h</label>
+        <link refid="domain_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="9">
+        <label>src/entry.c</label>
+        <link refid="entry_8c"/>
+      </node>
+      <node id="6">
+        <label>src/computer.c</label>
+        <link refid="computer_8c"/>
+      </node>
+      <node id="5">
+        <label>src/computer.h</label>
+        <link refid="computer_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>src/organizational_unit.c</label>
+        <link refid="organizational__unit_8c"/>
+      </node>
+      <node id="11">
+        <label>src/group.c</label>
+        <link refid="group_8c"/>
+      </node>
+      <node id="14">
+        <label>src/organizational_unit.h</label>
+        <link refid="organizational__unit_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>src/group.h</label>
+        <link refid="group_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>src/openldap_schema.c</label>
+        <link refid="openldap__schema_8c"/>
+      </node>
+      <node id="4">
+        <label>src/attribute.c</label>
+        <link refid="attribute_8c"/>
+      </node>
+      <node id="3">
+        <label>src/attribute.h</label>
+        <link refid="attribute_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>src/domain.c</label>
+        <link refid="domain_8c"/>
+      </node>
+      <node id="1">
+        <label>src/domain.h</label>
+        <link refid="domain_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>src/connection_state_machine.c</label>
+        <link refid="connection__state__machine_8c"/>
+      </node>
+      <node id="2">
+        <label>src/ad_schema.c</label>
+        <link refid="ad__schema_8c"/>
+      </node>
+      <node id="12">
+        <label>src/user.c</label>
+        <link refid="user_8c"/>
+      </node>
+      <node id="16">
+        <label>src/user.h</label>
+        <link refid="user_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_l_d_a_p_attribute__s" prot="public">LDAPAttribute_s</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="domain_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" prot="public" static="no">
+        <type>struct <ref refid="structldhandle" kindref="compound">ldhandle</ref></type>
+        <definition>typedef struct ldhandle LDHandle</definition>
+        <argsstring></argsstring>
+        <name>LDHandle</name>
+        <briefdescription>
+<para>LDHandle Structure that represents an libdomain session handle. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain.h" line="1" column="0" bodyfile="src/domain.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="domain_8h_1a39784904a5576d0e7510c0dd7c4511f7" prot="public" static="no">
+        <type>struct <ref refid="structld__config__s" kindref="compound">ld_config_s</ref></type>
+        <definition>typedef struct ld_config_s ld_config_t</definition>
+        <argsstring></argsstring>
+        <name>ld_config_t</name>
+        <briefdescription>
+<para>config_t Structure that holds configuration that will be used during connection. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain.h" line="1" column="0" bodyfile="src/domain.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="domain_8h_1a133ec15039a9fdf8b0f9f5d7e25d1742" prot="public" static="no">
+        <type>struct <ref refid="struct_l_d_a_p_attribute__s" kindref="compound">LDAPAttribute_s</ref></type>
+        <definition>typedef struct LDAPAttribute_s LDAPAttribute_t</definition>
+        <argsstring></argsstring>
+        <name>LDAPAttribute_t</name>
+        <briefdescription>
+<para>LDAPAttribute_t Structure represents LDAP attribute. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain.h" line="45" column="17"/>
+      </memberdef>
+      <memberdef kind="typedef" id="domain_8h_1a4887834969c328535d8b45775f581afc" prot="public" static="no">
+        <type>enum <ref refid="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" kindref="member">OperationReturnCode</ref>(*</type>
+        <definition>typedef enum OperationReturnCode(* error_callback_fn) (int, void *, void *)</definition>
+        <argsstring>)(int, void *, void *)</argsstring>
+        <name>error_callback_fn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Type defines error callback. This callback will be fired when connection goes to LDAP_CONNECTION_STATE_ERROR state. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain.h" line="1" column="0" bodyfile="src/domain.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="domain_8h_1a5720ff5991514d066ce2ce1f05665dd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="domain_8h_1a39784904a5576d0e7510c0dd7c4511f7" kindref="member">ld_config_t</ref> *</type>
+        <definition>ld_config_t* ld_load_config</definition>
+        <argsstring>(TALLOC_CTX *ctx, const char *filename)</argsstring>
+        <name>ld_load_config</name>
+        <param>
+          <type>TALLOC_CTX *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain.h" line="50" column="13" bodyfile="src/domain.c" bodystart="74" bodyend="221" declfile="src/domain.h" declline="50" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="domain_8h_1a1a457e330bafff81864e16330ee49204" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="domain_8h_1a39784904a5576d0e7510c0dd7c4511f7" kindref="member">ld_config_t</ref> *</type>
+        <definition>ld_config_t* ld_create_config</definition>
+        <argsstring>(TALLOC_CTX *talloc_ctx, char *host, int port, int protocol_version, char *base_dn, char *username, char *password, bool simple_bind, bool use_tls, bool use_sasl, bool use_anon, int timeout, char *cacertfile, char *certfile, char *keyfile)</argsstring>
+        <name>ld_create_config</name>
+        <param>
+          <type>TALLOC_CTX *</type>
+          <declname>talloc_ctx</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>host</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>protocol_version</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>base_dn</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>username</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>password</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>simple_bind</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>use_tls</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>use_sasl</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>use_anon</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>timeout</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>cacertfile</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>certfile</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>keyfile</declname>
+        </param>
+        <briefdescription>
+<para>ld_create_config Fills fields of configuration structure. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">host</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Hostname of LDAP server. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">port</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Port number. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">protocol_version</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>LDAP protocol version. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">base_dn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>DN to use during bind. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">username</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Username to use </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">password</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User password </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">simple_bind</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If we going to perform simple bind instead of interactive bind. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">use_tls</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If we going to use TLS encryption. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">use_sasl</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If we going to enable SASL. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">use_anon</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If we going to enable anonymous logon. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">timeout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Timeout to read and write operations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">cacertfile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">certfile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">keyfile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>NULL on failure.</para>
+</listitem><listitem><para>config_t* on success. </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain.h" line="52" column="13" bodyfile="src/domain.c" bodystart="243" bodyend="338" declfile="src/domain.h" declline="52" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="domain_8h_1a280fdac153f64e5756c3936771e36c5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ld_init</definition>
+        <argsstring>(LDHandle **handle, const ld_config_t *config)</argsstring>
+        <name>ld_init</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> **</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const <ref refid="domain_8h_1a39784904a5576d0e7510c0dd7c4511f7" kindref="member">ld_config_t</ref> *</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>ld_init Initializes the library allowing us to performing various operations. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Configuration of the connections. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain.h" line="68" column="6" bodyfile="src/domain.c" bodystart="345" bodyend="440" declfile="src/domain.h" declline="68" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="domain_8h_1a725154d332b43ba3725a58abc04e532c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ld_install_default_handlers</definition>
+        <argsstring>(LDHandle *handle)</argsstring>
+        <name>ld_install_default_handlers</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>ld_install_default_handlers Installs default handlers to control connection. This method must be called before performing any operations. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain.h" line="69" column="6" bodyfile="src/domain.c" bodystart="463" bodyend="474" declfile="src/domain.h" declline="69" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="domain_8h_1a1e834e231c105aa4d3930776e9eb53d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ld_install_handler</definition>
+        <argsstring>(LDHandle *handle, verto_callback *callback, time_t interval)</argsstring>
+        <name>ld_install_handler</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>verto_callback *</type>
+          <declname>callback</declname>
+        </param>
+        <param>
+          <type>time_t</type>
+          <declname>interval</declname>
+        </param>
+        <briefdescription>
+<para>ld_install_handler If we need to install custom error callback this method allows us to do so. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain.h" line="70" column="6" bodyfile="src/domain.c" bodystart="480" bodyend="490" declfile="src/domain.h" declline="70" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="domain_8h_1a1e73802f485469a4f3aaee8b41b1ee34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ld_install_error_handler</definition>
+        <argsstring>(LDHandle *handle, error_callback_fn callback)</argsstring>
+        <name>ld_install_error_handler</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type><ref refid="domain_8h_1a4887834969c328535d8b45775f581afc" kindref="member">error_callback_fn</ref></type>
+          <declname>callback</declname>
+        </param>
+        <briefdescription>
+<para>ld_install_error_handler Allows us to install custom error handle for our application. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">callback</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callback to call. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain.h" line="71" column="6" bodyfile="src/domain.c" bodystart="791" bodyend="806" declfile="src/domain.h" declline="71" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="domain_8h_1abec4bd908b0862aad78943e378a11a2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ld_exec</definition>
+        <argsstring>(LDHandle *handle)</argsstring>
+        <name>ld_exec</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>ld_exec Start main event cycle. You don&apos;t need to call this function if there is already existing event loop e.g. inside of Qt application. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain.h" line="72" column="6" bodyfile="src/domain.c" bodystart="497" bodyend="506" declfile="src/domain.h" declline="72" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="domain_8h_1a48da1827fe0a601984ca073e73c29676" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ld_exec_once</definition>
+        <argsstring>(LDHandle *handle)</argsstring>
+        <name>ld_exec_once</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>ld_exec_once Cycles through event list once. May block. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain.h" line="73" column="6" bodyfile="src/domain.c" bodystart="512" bodyend="521" declfile="src/domain.h" declline="73" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="domain_8h_1a9b62028587d99192d36cc1bdcb047f36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ld_free</definition>
+        <argsstring>(LDHandle *handle)</argsstring>
+        <name>ld_free</name>
+        <param>
+          <type><ref refid="connection_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> *</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>ld_free Free library handle and resources associated with it. After freeing the handle you can no longer perform any operations. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to libdomain session handle. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/domain.h" line="74" column="6" bodyfile="src/domain.c" bodystart="528" bodyend="539" declfile="src/domain.h" declline="74" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/domain.h"/>
+  </compounddef>
+</doxygen>

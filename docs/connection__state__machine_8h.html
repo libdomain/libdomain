@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>src/connection_state_machine.h file | libdomain</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">libdomain</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a>/</span>connection_state_machine.h <span class="m-thin">file</span>
+        </h1>
+        <p><span></span></p>
+        <nav class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#nested-classes">Classes</a></li>
+                <li><a href="#enum-members">Enums</a></li>
+                <li><a href="#typedef-members">Typedefs</a></li>
+                <li><a href="#func-members">Functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="nested-classes">
+          <h2><a href="#nested-classes">Classes</a></h2>
+          <dl class="m-doc">
+            <dt>
+              struct <a href="structstate__machine__ctx__t.html" class="m-doc">state_machine_ctx_t</a>
+            </dt>
+            <dd><a href="structstate__machine__ctx__t.html" class="m-doc">state_<wbr />machine_<wbr />ctx_<wbr />t</a> - Struct represents connection state machine.</dd>
+          </dl>
+        </section>
+        <section id="enum-members">
+          <h2><a href="#enum-members">Enums</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">enum <a href="#aaa58f89d042671d6523b67f2a8310b1c" class="m-doc">LdapConnectionState</a> { </span><span class="m-doc-wrap"><a href="#aaa58f89d042671d6523b67f2a8310b1cabd2d9b377dfbaeceeffa44d1c2bf001d" class="m-doc">LDAP_CONNECTION_STATE_INIT</a> = 1,
+              <a href="#aaa58f89d042671d6523b67f2a8310b1ca8a9ab046076d6b160bfda4b5889d8d7c" class="m-doc">LDAP_CONNECTION_STATE_TLS_NEGOTIATION</a> = 2,
+              <a href="#aaa58f89d042671d6523b67f2a8310b1ca677eb1388b12a255b7cc3e1be75bf379" class="m-doc">LDAP_CONNECTION_STATE_TRANSPORT_READY</a> = 3,
+              <a href="#aaa58f89d042671d6523b67f2a8310b1cab970e1d0611ffc209bbcadb7ad34adfa" class="m-doc">LDAP_CONNECTION_STATE_BIND_IN_PROGRESS</a> = 4,
+              <a href="#aaa58f89d042671d6523b67f2a8310b1ca38f196df59f3742de7dac19e79baaa9d" class="m-doc">LDAP_CONNECTION_STATE_BOUND</a> = 5,
+              <a href="#aaa58f89d042671d6523b67f2a8310b1ca5868636cc8400842c8b780959c5f780a" class="m-doc">LDAP_CONNECTION_STATE_DETECT_DIRECTORY</a> = 6,
+              <a href="#aaa58f89d042671d6523b67f2a8310b1ca21b129512c26c42a78930885fcb30ef1" class="m-doc">LDAP_CONNECTION_STATE_RUN</a> = 7,
+              <a href="#aaa58f89d042671d6523b67f2a8310b1ca199af26e720854d8ff49745fcf7043f5" class="m-doc">LDAP_CONNECTION_STATE_ERROR</a> = 8,
+              <a href="#aaa58f89d042671d6523b67f2a8310b1caac6d490849c5ac32b5ae6e504791b76b" class="m-doc">LDAP_CONNECTION_STATE_REQUEST_SCHEMA</a> = 9,
+              <a href="#aaa58f89d042671d6523b67f2a8310b1ca152301dbe3a384a7cee1c16f8deaa9e8" class="m-doc">LDAP_CONNECTION_STATE_CHECK_SCHEMA</a> = 10 }</span>
+            </dt>
+            <dd><span></span></dd>
+          </dl>
+        </section>
+        <section id="typedef-members">
+          <h2><a href="#typedef-members">Typedefs</a></h2>
+          <dl class="m-doc">
+            <dt id="a4cbfd08ee0c9ab259f7e3f0d8fcd4569">
+              using <a href="#a4cbfd08ee0c9ab259f7e3f0d8fcd4569" class="m-doc-self">state_machine_ctx_t</a> = struct <a href="structstate__machine__ctx__t.html" class="m-doc">state_<wbr />machine_<wbr />ctx_<wbr />t</a>
+            </dt>
+            <dd><a href="structstate__machine__ctx__t.html" class="m-doc">state_<wbr />machine_<wbr />ctx_<wbr />t</a> - Struct represents connection state machine.</dd>
+          </dl>
+        </section>
+        <section id="func-members">
+          <h2><a href="#func-members">Functions</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a13b43041e4136b7f24c03496698245f0" class="m-doc">csm_init</a>(</span><span class="m-doc-wrap">struct <a href="structstate__machine__ctx__t.html" class="m-doc">state_<wbr />machine_<wbr />ctx_<wbr />t</a>* ctx,
+              struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>csm_init Initializes state machine, sets machine state to LDAP_CONNECTION_STATE_INIT.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#ac4b4e9a455c957219a565f1d4780fb22" class="m-doc">csm_next_state</a>(</span><span class="m-doc-wrap">struct <a href="structstate__machine__ctx__t.html" class="m-doc">state_<wbr />machine_<wbr />ctx_<wbr />t</a>* ctx) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>csm_next_state Advances state based on a current machine state.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a58502c0e4c771c97c3e748e9b1e8dab5" class="m-doc">csm_set_state</a>(</span><span class="m-doc-wrap">struct <a href="structstate__machine__ctx__t.html" class="m-doc">state_<wbr />machine_<wbr />ctx_<wbr />t</a>* ctx,
+              enum <a href="#aaa58f89d042671d6523b67f2a8310b1c" class="m-doc">LdapConnectionState</a> state) -&gt; enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a></span>
+            </dt>
+            <dd>csm_set_state Sets new state, prints transition between states.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a8113576bd857e45ca1e638eba39f8758" class="m-doc">csm_is_in_state</a>(</span><span class="m-doc-wrap">struct <a href="structstate__machine__ctx__t.html" class="m-doc">state_<wbr />machine_<wbr />ctx_<wbr />t</a>* ctx,
+              enum <a href="#aaa58f89d042671d6523b67f2a8310b1c" class="m-doc">LdapConnectionState</a> state) -&gt; bool</span>
+            </dt>
+            <dd>csm_is_in_state Checks if state macheine is in desired state.</dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Enum documentation</h2>
+          <section class="m-doc-details" id="aaa58f89d042671d6523b67f2a8310b1c"><div>
+            <h3>
+              enum <a href="#aaa58f89d042671d6523b67f2a8310b1c" class="m-doc-self">LdapConnectionState</a>
+            </h3>
+            <p><span></span></p>
+            <table class="m-table m-fullwidth m-flat m-doc">
+              <thead><tr><th style="width: 1%">Enumerators</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><a href="#aaa58f89d042671d6523b67f2a8310b1cabd2d9b377dfbaeceeffa44d1c2bf001d" class="m-doc-self" id="aaa58f89d042671d6523b67f2a8310b1cabd2d9b377dfbaeceeffa44d1c2bf001d">LDAP_CONNECTION_STATE_INIT</a></td>
+                  <td>
+                  <p>Initial state of the LDAP connection.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#aaa58f89d042671d6523b67f2a8310b1ca8a9ab046076d6b160bfda4b5889d8d7c" class="m-doc-self" id="aaa58f89d042671d6523b67f2a8310b1ca8a9ab046076d6b160bfda4b5889d8d7c">LDAP_CONNECTION_STATE_TLS_NEGOTIATION</a></td>
+                  <td>
+                  <p>The connection is in the process of negotiating TLS encryption.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#aaa58f89d042671d6523b67f2a8310b1ca677eb1388b12a255b7cc3e1be75bf379" class="m-doc-self" id="aaa58f89d042671d6523b67f2a8310b1ca677eb1388b12a255b7cc3e1be75bf379">LDAP_CONNECTION_STATE_TRANSPORT_READY</a></td>
+                  <td>
+                  <p>The underlying transport layer is ready for communication.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#aaa58f89d042671d6523b67f2a8310b1cab970e1d0611ffc209bbcadb7ad34adfa" class="m-doc-self" id="aaa58f89d042671d6523b67f2a8310b1cab970e1d0611ffc209bbcadb7ad34adfa">LDAP_CONNECTION_STATE_BIND_IN_PROGRESS</a></td>
+                  <td>
+                  <p>The connection is in the process of binding.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#aaa58f89d042671d6523b67f2a8310b1ca38f196df59f3742de7dac19e79baaa9d" class="m-doc-self" id="aaa58f89d042671d6523b67f2a8310b1ca38f196df59f3742de7dac19e79baaa9d">LDAP_CONNECTION_STATE_BOUND</a></td>
+                  <td>
+                  <p>The connection has successfully performed LDAP bound.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#aaa58f89d042671d6523b67f2a8310b1ca5868636cc8400842c8b780959c5f780a" class="m-doc-self" id="aaa58f89d042671d6523b67f2a8310b1ca5868636cc8400842c8b780959c5f780a">LDAP_CONNECTION_STATE_DETECT_DIRECTORY</a></td>
+                  <td>
+                  <p>The connection is in the process of detecting type of the LDAP directory service.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#aaa58f89d042671d6523b67f2a8310b1ca21b129512c26c42a78930885fcb30ef1" class="m-doc-self" id="aaa58f89d042671d6523b67f2a8310b1ca21b129512c26c42a78930885fcb30ef1">LDAP_CONNECTION_STATE_RUN</a></td>
+                  <td>
+                  <p>The LDAP connection is active and ready for operations.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#aaa58f89d042671d6523b67f2a8310b1ca199af26e720854d8ff49745fcf7043f5" class="m-doc-self" id="aaa58f89d042671d6523b67f2a8310b1ca199af26e720854d8ff49745fcf7043f5">LDAP_CONNECTION_STATE_ERROR</a></td>
+                  <td>
+                  <p>The LDAP connection is in an error state.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#aaa58f89d042671d6523b67f2a8310b1caac6d490849c5ac32b5ae6e504791b76b" class="m-doc-self" id="aaa58f89d042671d6523b67f2a8310b1caac6d490849c5ac32b5ae6e504791b76b">LDAP_CONNECTION_STATE_REQUEST_SCHEMA</a></td>
+                  <td>
+                  <p>The LDAP connection is in the process of loading schema.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="#aaa58f89d042671d6523b67f2a8310b1ca152301dbe3a384a7cee1c16f8deaa9e8" class="m-doc-self" id="aaa58f89d042671d6523b67f2a8310b1ca152301dbe3a384a7cee1c16f8deaa9e8">LDAP_CONNECTION_STATE_CHECK_SCHEMA</a></td>
+                  <td>
+                  <p>The LDAP connection is in the process of checking schema readiness.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a13b43041e4136b7f24c03496698245f0"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a13b43041e4136b7f24c03496698245f0" class="m-doc-self">csm_init</a>(</span><span class="m-doc-wrap">struct <a href="structstate__machine__ctx__t.html" class="m-doc">state_<wbr />machine_<wbr />ctx_<wbr />t</a>* ctx,
+              struct <a href="structldap__connection__ctx__t.html" class="m-doc">ldap_<wbr />connection_<wbr />ctx_<wbr />t</a>* connection)</span></span>
+            </h3>
+            <p>csm_init Initializes state machine, sets machine state to LDAP_CONNECTION_STATE_INIT.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">ctx&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>state machine to initialize</td>
+                </tr>
+                <tr>
+                  <td>connection&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>connection to use</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td>RETURN_CODE_SUCCESS.</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ac4b4e9a455c957219a565f1d4780fb22"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ac4b4e9a455c957219a565f1d4780fb22" class="m-doc-self">csm_next_state</a>(</span><span class="m-doc-wrap">struct <a href="structstate__machine__ctx__t.html" class="m-doc">state_<wbr />machine_<wbr />ctx_<wbr />t</a>* ctx)</span></span>
+            </h3>
+            <p>csm_next_state Advances state based on a current machine state.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">ctx&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>state machine to use</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>RETURN_CODE_SUCCESS on success.</li><li>RETURN_CODE_OPERATION_IN_PROGRESS is operation is still running.</li><li>RETURN_CODE_FAILURE on failure.</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a58502c0e4c771c97c3e748e9b1e8dab5"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">enum <a href="common_8h.html#a0eb30976238f6076cad4dfc7ab28121d" class="m-doc">OperationReturnCode</a> </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a58502c0e4c771c97c3e748e9b1e8dab5" class="m-doc-self">csm_set_state</a>(</span><span class="m-doc-wrap">struct <a href="structstate__machine__ctx__t.html" class="m-doc">state_<wbr />machine_<wbr />ctx_<wbr />t</a>* ctx,
+              enum <a href="#aaa58f89d042671d6523b67f2a8310b1c" class="m-doc">LdapConnectionState</a> state)</span></span>
+            </h3>
+            <p>csm_set_state Sets new state, prints transition between states.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">ctx&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>state machine to use</td>
+                </tr>
+                <tr>
+                  <td>state&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>state to set</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td>RETURN_CODE_SUCCESS.</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a8113576bd857e45ca1e638eba39f8758"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">bool </span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a8113576bd857e45ca1e638eba39f8758" class="m-doc-self">csm_is_in_state</a>(</span><span class="m-doc-wrap">struct <a href="structstate__machine__ctx__t.html" class="m-doc">state_<wbr />machine_<wbr />ctx_<wbr />t</a>* ctx,
+              enum <a href="#aaa58f89d042671d6523b67f2a8310b1c" class="m-doc">LdapConnectionState</a> state)</span></span>
+            </h3>
+            <p>csm_is_in_state Checks if state macheine is in desired state.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">ctx&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>state machine to use</td>
+                </tr>
+                <tr>
+                  <td>state&nbsp;<span class="m-label m-flat m-info">in</span></td>
+                  <td>state to set</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Returns</th>
+                  <td><ul><li>true - if machine current state matches<ul><li>{state}</li></ul></li><li>false - if not</li></ul></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>libdomain. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

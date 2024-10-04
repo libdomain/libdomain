@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="struct_queue___node__s" kind="struct" language="C++" prot="public">
+    <compoundname>Queue_Node_s</compoundname>
+    <includes refid="request__queue_8h" local="no">request_queue.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_queue___node__s_1a02743c3116068a27bbdeb68a58303091" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_queue___node__s" kindref="compound">Queue_Node_s</ref> *</type>
+        <definition>struct Queue_Node_s* Queue_Node_s::prev</definition>
+        <argsstring></argsstring>
+        <name>prev</name>
+        <briefdescription>
+<para>Pointer to previous node in queue. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/request_queue.h" line="35" column="24" bodyfile="src/request_queue.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="struct_queue___node__s" kindref="compound">Queue_Node_s</ref> - A queue node. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>Queue_Node_s</label>
+        <link refid="struct_queue___node__s"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>prev</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/request_queue.h" line="33" column="1" bodyfile="src/request_queue.h" bodystart="34" bodyend="36"/>
+    <listofallmembers>
+      <member refid="struct_queue___node__s_1a02743c3116068a27bbdeb68a58303091" prot="public" virt="non-virtual"><scope>Queue_Node_s</scope><name>prev</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

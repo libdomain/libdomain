@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structld__entry__s" kind="struct" language="C++" prot="public">
+    <compoundname>ld_entry_s</compoundname>
+    <includes refid="entry__p_8h" local="no">entry_p.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structld__entry__s_1ab41a2fc3109850eb421819aa3e7cc5f0" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ld_entry_s::dn</definition>
+        <argsstring></argsstring>
+        <name>dn</name>
+        <briefdescription>
+<para>Distinguished name of the LDAP entry. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry_p.h" line="30" column="10" bodyfile="src/entry_p.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structld__entry__s_1ae31dbe921b987ae8574be55d5d272c15" prot="public" static="no" mutable="no">
+        <type>GHashTable *</type>
+        <definition>GHashTable* ld_entry_s::attributes</definition>
+        <argsstring></argsstring>
+        <name>attributes</name>
+        <briefdescription>
+<para>Hash table with entry&apos;s attributes. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/entry_p.h" line="31" column="16" bodyfile="src/entry_p.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>ld_entry_t - Structure holds LDAP entry information. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/entry_p.h" line="28" column="1" bodyfile="src/entry_p.h" bodystart="29" bodyend="32"/>
+    <listofallmembers>
+      <member refid="structld__entry__s_1ae31dbe921b987ae8574be55d5d272c15" prot="public" virt="non-virtual"><scope>ld_entry_s</scope><name>attributes</name></member>
+      <member refid="structld__entry__s_1ab41a2fc3109850eb421819aa3e7cc5f0" prot="public" virt="non-virtual"><scope>ld_entry_s</scope><name>dn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_e4762800869db40518e7b19a7b31c376">src/syntaxes</innerdir>
+    <innerfile refid="ad__schema_8c">ad_schema.c</innerfile>
+    <innerfile refid="attribute_8c">attribute.c</innerfile>
+    <innerfile refid="attribute_8h">attribute.h</innerfile>
+    <innerfile refid="common_8c">common.c</innerfile>
+    <innerfile refid="common_8h">common.h</innerfile>
+    <innerfile refid="computer_8c">computer.c</innerfile>
+    <innerfile refid="computer_8h">computer.h</innerfile>
+    <innerfile refid="connection_8c">connection.c</innerfile>
+    <innerfile refid="connection_8h">connection.h</innerfile>
+    <innerfile refid="connection__state__machine_8c">connection_state_machine.c</innerfile>
+    <innerfile refid="connection__state__machine_8h">connection_state_machine.h</innerfile>
+    <innerfile refid="directory_8c">directory.c</innerfile>
+    <innerfile refid="directory_8h">directory.h</innerfile>
+    <innerfile refid="domain_8c">domain.c</innerfile>
+    <innerfile refid="domain_8h">domain.h</innerfile>
+    <innerfile refid="domain__p_8h">domain_p.h</innerfile>
+    <innerfile refid="entry_8c">entry.c</innerfile>
+    <innerfile refid="entry_8h">entry.h</innerfile>
+    <innerfile refid="entry__p_8h">entry_p.h</innerfile>
+    <innerfile refid="group_8c">group.c</innerfile>
+    <innerfile refid="group_8h">group.h</innerfile>
+    <innerfile refid="helper__p_8h">helper_p.h</innerfile>
+    <innerfile refid="ldap__parsers_8c">ldap_parsers.c</innerfile>
+    <innerfile refid="ldap__parsers_8h">ldap_parsers.h</innerfile>
+    <innerfile refid="ldap__syntaxes_8c">ldap_syntaxes.c</innerfile>
+    <innerfile refid="ldap__syntaxes_8h">ldap_syntaxes.h</innerfile>
+    <innerfile refid="openldap__schema_8c">openldap_schema.c</innerfile>
+    <innerfile refid="organizational__unit_8c">organizational_unit.c</innerfile>
+    <innerfile refid="organizational__unit_8h">organizational_unit.h</innerfile>
+    <innerfile refid="request__queue_8c">request_queue.c</innerfile>
+    <innerfile refid="request__queue_8h">request_queue.h</innerfile>
+    <innerfile refid="schema_8c">schema.c</innerfile>
+    <innerfile refid="schema_8h">schema.h</innerfile>
+    <innerfile refid="schema__p_8h">schema_p.h</innerfile>
+    <innerfile refid="user_8c">user.c</innerfile>
+    <innerfile refid="user_8h">user.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/"/>
+  </compounddef>
+</doxygen>

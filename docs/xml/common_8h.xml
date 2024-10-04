@@ -1,0 +1,490 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="common_8h" kind="file" language="C++">
+    <compoundname>common.h</compoundname>
+    <includes local="no">ldap.h</includes>
+    <includes local="no">talloc.h</includes>
+    <includedby refid="ad__schema_8c" local="yes">src/ad_schema.c</includedby>
+    <includedby refid="attribute_8c" local="yes">src/attribute.c</includedby>
+    <includedby refid="common_8c" local="yes">src/common.c</includedby>
+    <includedby refid="computer_8c" local="yes">src/computer.c</includedby>
+    <includedby refid="computer_8h" local="yes">src/computer.h</includedby>
+    <includedby refid="connection_8h" local="yes">src/connection.h</includedby>
+    <includedby refid="directory_8h" local="yes">src/directory.h</includedby>
+    <includedby refid="domain_8c" local="yes">src/domain.c</includedby>
+    <includedby refid="group_8c" local="yes">src/group.c</includedby>
+    <includedby refid="group_8h" local="yes">src/group.h</includedby>
+    <includedby refid="helper__p_8h" local="yes">src/helper_p.h</includedby>
+    <includedby refid="openldap__schema_8c" local="yes">src/openldap_schema.c</includedby>
+    <includedby refid="organizational__unit_8c" local="yes">src/organizational_unit.c</includedby>
+    <includedby refid="organizational__unit_8h" local="yes">src/organizational_unit.h</includedby>
+    <includedby refid="request__queue_8h" local="yes">src/request_queue.h</includedby>
+    <includedby refid="schema_8c" local="yes">src/schema.c</includedby>
+    <includedby refid="schema_8h" local="yes">src/schema.h</includedby>
+    <includedby refid="schema__p_8h" local="yes">src/schema_p.h</includedby>
+    <includedby refid="user_8c" local="yes">src/user.c</includedby>
+    <includedby refid="user_8h" local="yes">src/user.h</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>ldap.h</label>
+      </node>
+      <node id="3">
+        <label>talloc.h</label>
+      </node>
+      <node id="1">
+        <label>src/common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="17">
+        <label>src/entry.c</label>
+        <link refid="entry_8c"/>
+      </node>
+      <node id="18">
+        <label>src/entry.h</label>
+        <link refid="entry_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>src/domain_p.h</label>
+        <link refid="domain__p_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>src/helper_p.h</label>
+        <link refid="helper__p_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>src/computer.c</label>
+        <link refid="computer_8c"/>
+      </node>
+      <node id="6">
+        <label>src/computer.h</label>
+        <link refid="computer_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>src/schema.c</label>
+        <link refid="schema_8c"/>
+      </node>
+      <node id="21">
+        <label>src/schema.h</label>
+        <link refid="schema_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>src/directory.c</label>
+        <link refid="directory_8c"/>
+      </node>
+      <node id="12">
+        <label>src/directory.h</label>
+        <link refid="directory_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>src/common.c</label>
+        <link refid="common_8c"/>
+      </node>
+      <node id="1">
+        <label>src/common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>src/organizational_unit.c</label>
+        <link refid="organizational__unit_8c"/>
+      </node>
+      <node id="14">
+        <label>src/group.c</label>
+        <link refid="group_8c"/>
+      </node>
+      <node id="27">
+        <label>src/organizational_unit.h</label>
+        <link refid="organizational__unit_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>src/group.h</label>
+        <link refid="group_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>src/request_queue.c</label>
+        <link refid="request__queue_8c"/>
+      </node>
+      <node id="28">
+        <label>src/request_queue.h</label>
+        <link refid="request__queue_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>src/openldap_schema.c</label>
+        <link refid="openldap__schema_8c"/>
+      </node>
+      <node id="3">
+        <label>src/attribute.c</label>
+        <link refid="attribute_8c"/>
+      </node>
+      <node id="11">
+        <label>src/domain.c</label>
+        <link refid="domain_8c"/>
+      </node>
+      <node id="10">
+        <label>src/connection_state_machine.c</label>
+        <link refid="connection__state__machine_8c"/>
+      </node>
+      <node id="9">
+        <label>src/connection_state_machine.h</label>
+        <link refid="connection__state__machine_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/ad_schema.c</label>
+        <link refid="ad__schema_8c"/>
+      </node>
+      <node id="8">
+        <label>src/connection.c</label>
+        <link refid="connection_8c"/>
+      </node>
+      <node id="7">
+        <label>src/connection.h</label>
+        <link refid="connection_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>src/user.c</label>
+        <link refid="user_8c"/>
+      </node>
+      <node id="29">
+        <label>src/user.h</label>
+        <link refid="user_8h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>src/schema_p.h</label>
+        <link refid="schema__p_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structldap__global__context__t" prot="public">ldap_global_context_t</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="common_8h_1a0eb30976238f6076cad4dfc7ab28121d" prot="public" static="no" strong="no">
+        <type></type>
+        <name>OperationReturnCode</name>
+        <enumvalue id="common_8h_1a0eb30976238f6076cad4dfc7ab28121dac6a1acb4400b2e15dfb366d280022408" prot="public">
+          <name>RETURN_CODE_SUCCESS</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Operation was successful. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="common_8h_1a0eb30976238f6076cad4dfc7ab28121da28f779e3c5700dc480d02d96ea9e8f72" prot="public">
+          <name>RETURN_CODE_FAILURE</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Operation ended up in error state. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="common_8h_1a0eb30976238f6076cad4dfc7ab28121da589850475120c3e69ccd68aae8472275" prot="public">
+          <name>RETURN_CODE_MISSING_ATTRIBUTE</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>Required attribute for LDAP entry was not provided. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="common_8h_1a0eb30976238f6076cad4dfc7ab28121da98d0f8383c25d0f708dd1ceff1aa20e4" prot="public">
+          <name>RETURN_CODE_OPERATION_IN_PROGRESS</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>Current operation is in progress. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="common_8h_1a0eb30976238f6076cad4dfc7ab28121da92bdfed89d377126cf4ff09ecd82b202" prot="public">
+          <name>RETURN_CODE_REPEAT_LAST_OPERATION</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+<para>Last function call must be repeated. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/common.h" line="26" column="1" bodyfile="src/common.h" bodystart="27" bodyend="33"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="common_8h_1a47a1880e9ec1cece6abfb33254989b6f" prot="public" static="no">
+        <type>struct <ref refid="structldap__global__context__t" kindref="compound">ldap_global_context_t</ref></type>
+        <definition>typedef struct ldap_global_context_t ldap_global_context_t</definition>
+        <argsstring></argsstring>
+        <name>ldap_global_context_t</name>
+        <briefdescription>
+<para><ref refid="structldap__global__context__t" kindref="compound">ldap_global_context_t</ref> - One of the contexts associated with LDHandle. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="domain__p_8h_1aee5bc18c3dd6ebf54740b4bb4284db84" kindref="member">LDHandle</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/common.h" line="44" column="23"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="common_8h_1a510c422451a8060e367f6d8a5e669b44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ld_error</definition>
+        <argsstring>(const char *format,...)</argsstring>
+        <name>ld_error</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>ld_error Logs error to stderror. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Format that used in printf function. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/common.h" line="46" column="6" bodyfile="src/common.c" bodystart="27" bodyend="34" declfile="src/common.h" declline="46" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8h_1a59189c50d0d5f3705c51771c9fa2e3d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ld_warning</definition>
+        <argsstring>(const char *format,...)</argsstring>
+        <name>ld_warning</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>ld_warning Logs warning to stderror. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Format that used in printf function. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/common.h" line="47" column="6" bodyfile="src/common.c" bodystart="40" bodyend="47" declfile="src/common.h" declline="47" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="common_8h_1a3a93af25b0bc8dbf7b01e825fa683ad4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ld_info</definition>
+        <argsstring>(const char *format,...)</argsstring>
+        <name>ld_info</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>ld_info Logs information to stderror. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Format that used in printf function. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/common.h" line="48" column="6" bodyfile="src/common.c" bodystart="53" bodyend="60" declfile="src/common.h" declline="48" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/common.h"/>
+  </compounddef>
+</doxygen>
