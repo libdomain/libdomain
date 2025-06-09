@@ -57,7 +57,7 @@ enum OperationReturnCode add(struct ldap_connection_ctx_t* connection, const cha
 }
 
 /**
- * @brief add_on_write   This callback called on complition of ldap add operation.
+ * @brief add_on_write   This callback called on completion of ldap add operation.
  * @param[in] rc         Return code of ldap_result.
  * @param[in] message    Message received from ldap.
  * @param[in] connection Connection to work with.
@@ -264,7 +264,7 @@ void connection_remove_search_request(struct ldap_connection_ctx_t *connection, 
 }
 
 /**
- * @brief search_on_read This callback called upon complition of ldap search operation.
+ * @brief search_on_read This callback called upon completion of ldap search operation.
  * @param[in] rc         Return code of ldap_result.
  * @param[in] message    Message received from ldap.
  * @param[in] connection Connection to work with.
@@ -436,7 +436,7 @@ enum OperationReturnCode modify(struct ldap_connection_ctx_t* connection, const 
 }
 
 /**
- * @brief modify_on_read This callback called upon complition of ldap modify operation.
+ * @brief modify_on_read This callback called upon completion of ldap modify operation.
  * @param rc             Return code of ldap_result.
  * @param message        Message received from ldap.
  * @param connection     Connection to work with.
