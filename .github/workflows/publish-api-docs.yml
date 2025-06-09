@@ -8,7 +8,7 @@ jobs:
 
     steps:
     - name: Git Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Create clean documentation branch
       run:  git checkout -b documentation
@@ -26,7 +26,7 @@ jobs:
       run:  sudo pip3 install jinja2 Pygments
 
     - name: Install m.css
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: mosra/m.css
         path: m.css

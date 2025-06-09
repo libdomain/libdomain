@@ -39,7 +39,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - run: docker build . --file Dockerfile --tag build-environment --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) --build-arg DISTR=${{ inputs.os }} --build-arg ARCH=${{ inputs.architecture }}
 
@@ -49,7 +49,7 @@ jobs:
       - if: ${{ inputs.architecture == 'amd64' }}
         run: docker run --privileged=true -i --log-driver=none -a stdin -a stdout -a stderr -v "$(pwd)":/app build-environment
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: libdomain-${{ inputs.os }}-${{ inputs.architecture }}
           path: /home/builder2/RPM/RPMS/x86_64/
