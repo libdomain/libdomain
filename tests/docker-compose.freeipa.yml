@@ -1,0 +1,32 @@
+services:
+  directory:
+    user: "0:0"  # Run as root
+    image: ghcr.io/august-alt/freeipa-container-amd64:54
+    container_name: directory-server
+    hostname: dc0
+    environment:
+      - IPA_SERVER_HOSTNAME=dc0.domain.alt
+    ports:
+      - "3891:389"
+      - "6361:636"
+    restart: "no"
+    volumes:
+      - ipa-volume:/data:Z
+    healthcheck:
+      test: ipa-healthcheck --failures-only
+      interval: 60s
+      timeout: 15s
+      retries: 5
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.2
+  testenv:
+    environment:
+      - LDAP_SERVER=ldap://10.5.0.2:389
+      - LDAPS_SERVER=ldaps://dc0.domain.alt:636
+      - DIRECTORY_TYPE=FreeIPA
+    command: ipa-server-install -U --domain=domain.alt --realm=domain.alt -p=password145Qw! -a=password145Qw! --no-ntp
+
+volumes:
+  ipa-volume:
+    external: true

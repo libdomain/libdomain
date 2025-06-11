@@ -31,7 +31,7 @@ jobs:
       matrix:
         os: [ "alt:p10", "alt:sisyphus" ]
         architecture: [ amd64, i386 ]
-        environment: [ "openldap", "samba" ]
+        environment: [ "openldap", "samba", "freeipa" ]
       fail-fast: false
     uses: ./.github/workflows/test.yml
     with:
